@@ -1,0 +1,25 @@
+@import 'normalize';
+
+$black: #000000;
+
+body {
+  overflow-y: hidden;
+  background-color: $black;
+}
+
+video {
+  position: absolute;
+  display: block;
+  transition: opacity 200ms;
+  opacity: 0;
+
+  .is-visible & {
+    transition: opacity 200ms;
+    opacity: 1;
+  }
+}
+
+#items {
+  position: absolute;
+  height: 100%;
+}
