@@ -3,10 +3,10 @@ import Immutable from 'immutable'
 
 const initialState = Immutable.Map()
 
-export default function usersReducer (state = initialState, action) {
+export default function userReducer (state = initialState, action) {
   switch (action.type) {
     case C.RECEIVE_USERS:
-      return action.data
+      return action.users
     default:
       return state
   }

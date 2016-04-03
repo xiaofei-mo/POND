@@ -5,7 +5,7 @@ import source from 'vinyl-source-stream'
 import sass from 'gulp-sass'
 import rename from 'gulp-rename'
 
-const destDir = 'public'
+const destDir = 'public/static'
 
 gulp.task('watch', gulp.series(
   _buildJs, 

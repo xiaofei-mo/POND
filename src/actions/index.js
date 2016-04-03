@@ -1,4 +1,4 @@
-import itemsActions from './items'
-import usersActions from './users'
+import pageActions from './page'
+import userActions from './user'
 
-export default Object.assign({}, itemsActions, usersActions)
+export default Object.assign({}, pageActions, userActions)
