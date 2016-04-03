@@ -10,9 +10,6 @@ import Immutable from 'immutable'
 class Page extends React.Component {
   constructor() {
     super()
-    this.state = {
-      scrolledToCenter: false
-    }
     this._getStyle = this._getStyle.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
@@ -24,7 +21,7 @@ class Page extends React.Component {
     if (this.props.params.timing === undefined) {
       className += ' homepage'
     }
-    if (this.state.scrolledToCenter) {
+    if (this.props.initiallyScrolledToCenter) {
       className += ' scrolled-to-center'
     }
     return className
@@ -42,14 +39,16 @@ class Page extends React.Component {
     if(this.props.params.timing !== nextProps.params.timing) {
       this.props.listenToItems(nextProps.params.timing)
     }
-    let destination = nextProps.centerItem.get('destination')
-    if (destination !== undefined) {
-      this.bodyNode.scrollLeft = destination
-      this.setState({
-        scrolledToCenter: true
-      })
-    }
   }
+  componentDidUpdate(prevProps) {
+    if(this.props.centerItem !== prevProps.centerItem) {
+      const scrollDestination = this.props.centerItem.get('scrollDestination')
+      if(scrollDestination !== undefined) {
+        this.bodyNode.scrollLeft = scrollDestination
+        this.props.setPageInitiallyScrolledToCenter()
+      }
+    }
+  } 
   render() {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
@@ -57,7 +56,8 @@ class Page extends React.Component {
           return <VideoItem item={item} 
                             id={key} 
                             key={key} 
-                            setVideoReadyToPlay={this.props.setVideoReadyToPlay} />
+                            setVideoReadyToPlay={this.props.setVideoReadyToPlay} 
+                            setVideoPosition={this.props.setVideoPosition} />
         default:
           return null
       }
@@ -70,23 +70,10 @@ class Page extends React.Component {
   }
 }
 
-function _getRightmostEdge (rightmostItem) {
-  if (rightmostItem === undefined) {
-    return 0
-  }
-  let width = rightmostItem.get('width')
-  let x = rightmostItem.get('x')
-  return (width / 2) + x + (window.innerWidth / 2)
-}
-
 function _getCenterItem (state) {
   let centerItem = state.getIn(['page', 'centerItem']).first()
   if (centerItem === undefined) {
     return Immutable.Map()
-  }
-  if (centerItem.get('isReadyToPlay', false)) {
-    let destination = centerItem.get('x') - (window.innerWidth / 2) + (centerItem.get('width') / 2)
-    centerItem = centerItem.set('destination', destination)
   }
   return centerItem
 }
@@ -95,14 +82,17 @@ function mapStateToProps (state) {
   return {
     centerItem: _getCenterItem(state),
     items: state.getIn(['page', 'items']),
-    rightmostEdge: _getRightmostEdge(state.getIn(['page', 'rightmostItem'])),
+    initiallyScrolledToCenter: state.getIn(['page', 'initiallyScrolledToCenter']),
+    rightmostEdge: state.getIn(['page', 'rightmostEdge'])
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
+    listenToItems: bindActionCreators(pageActions.listenToItems, dispatch),
+    setPageInitiallyScrolledToCenter: bindActionCreators(pageActions.setPageInitiallyScrolledToCenter, dispatch),
     setVideoReadyToPlay: bindActionCreators(pageActions.setVideoReadyToPlay, dispatch),
-    listenToItems: bindActionCreators(pageActions.listenToItems, dispatch)
+    setVideoPosition: bindActionCreators(pageActions.setVideoPosition, dispatch)
   }
 }
 

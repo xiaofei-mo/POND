@@ -1,4 +1,15 @@
 import pageActions from './page'
 import userActions from './user'
+import C from 'src/constants'
 
-export default Object.assign({}, pageActions, userActions)
+const additionalActions = {
+  setWindowSize(width, height) {
+    return {
+      type: C.WINDOW_CHANGED_SIZE,
+      width: width,
+      height: height
+    }
+  }
+}
+
+export default Object.assign({}, pageActions, userActions, additionalActions)

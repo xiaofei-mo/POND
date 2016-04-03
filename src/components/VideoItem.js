@@ -1,31 +1,27 @@
 import React from 'react'
 import Video from 'react-html5video'
 import { Link } from 'react-router'
+import Draggable from 'react-draggable'
 
 export default class VideoItem extends React.Component {
   constructor() {
     super()
-    this._getClassName = this._getClassName.bind(this)
     this._handleOnCanPlay = this._handleOnCanPlay.bind(this)
+    this._handleOnStop = this._handleOnStop.bind(this)
     this.render = this.render.bind(this)
-  }
-  _getClassName() {
-    let className = 'video-item'
-    if (this.props.item.get('isReadyToPlay')) {
-      className += ' is-ready-to-play'
-    }
-    return className
   }
   _handleOnCanPlay() {
     if (!this.props.item.get('isReadyToPlay')) {
       this.props.setVideoReadyToPlay(this.props.id);
     }
   }
+  _handleOnStop(event, info) {
+    this.props.setVideoPosition(this.props.id, info.position.left, info.position.top)
+  }
   render() {
     let style = {
       width: this.props.item.get('width') + 'px',
-      height: this.props.item.get('height') + 'px',
-      transform: 'translate(' + this.props.item.get('x') + 'px, ' + this.props.item.get('y') + 'px)'
+      height: this.props.item.get('height') + 'px'
     }
     const video = (
       <Video key={this.props.key} 
@@ -40,17 +36,21 @@ export default class VideoItem extends React.Component {
     )
     if(this.props.item.get('linkedTo')) {
       return (
-        <div className={this._getClassName()} style={style}>
-          <Link to={'/' + this.props.item.get('linkedTo')}>
-            {video}
-          </Link>
-        </div>
+        <Draggable start={{ x: this.props.item.get('x'), y: this.props.item.get('y') }}  onStop={this._handleOnStop}>
+          <div className="video-item" style={style}>
+            <Link to={'/' + this.props.item.get('linkedTo')}>
+              {video}
+            </Link>
+          </div>
+        </Draggable>
       )
     }
     return (
-      <div className={this._getClassName()} style={style}>
-        {video}
-      </div>
+      <Draggable start={{ x: this.props.item.get('x'), y: this.props.item.get('y') }} onStop={this._handleOnStop}>
+        <div className="video-item" style={style}>
+          {video}
+        </div>
+      </Draggable>
     )
   }
 }

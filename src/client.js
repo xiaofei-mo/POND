@@ -26,3 +26,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('mount')
 )
+
+window.addEventListener('resize', () => {
+  store.dispatch(actions.setWindowSize(window.innerWidth, window.innerHeight))
+})
+window.dispatchEvent(new Event('resize'))
