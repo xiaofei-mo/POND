@@ -4,22 +4,31 @@ import Immutable from 'immutable'
 const initialState = Immutable.Map({
   centerItems: Immutable.Map(),
   height: 0,
-  items: Immutable.Map(),
-  rightmostEdge: 0,
   initiallyScrolledToCenter: false,
+  items: Immutable.Map(),
+  paddingLeft: 0,
+  rightmostEdge: 0,
   timing: undefined,
   width: 0
 })
 
 export default function pageReducer (state = initialState, action) {
   let items
+  let paddingLeft
   switch (action.type) {
 
     case C.RECEIVE_ITEMS_AND_TIMING:
-      items = _getProcessedItems(action.items, action.timing, state.get('width'))
+      paddingLeft = _getPaddingLeft(action.items, state.get('width'))
+      items = _getProcessedItems({
+        items: action.items, 
+        timing: action.timing, 
+        paddingLeft: paddingLeft,
+        width: state.get('width')
+      })
       return state.merge({
         centerItems: _getCenterItems(items),
         items: items,
+        paddingLeft: paddingLeft,
         rightmostEdge: _getRightmostEdge(items, state.get('width')),
         timing: action.timing
       })
@@ -27,22 +36,32 @@ export default function pageReducer (state = initialState, action) {
     case C.PAGE_INITIALLY_SCROLLED_TO_CENTER:
       return state.set('initiallyScrolledToCenter', true)
 
-    case C.VIDEO_CHANGED_POSITION:
-      return state
-
     case C.VIDEO_IS_READY_TO_PLAY:
-      items = _getProcessedItems(state.get('items'), state.get('timing'), state.get('width'), action.id)
+      items = _getProcessedItems({
+        items: state.get('items'), 
+        timing: state.get('timing'), 
+        paddingLeft: state.get('paddingLeft'), 
+        readyToPlayId: action.id,
+        width: state.get('width')
+      })
       return state.merge({
         centerItems: _getCenterItems(items),
         items: items
       })
 
     case C.WINDOW_CHANGED_SIZE:
-      items = _getProcessedItems(state.get('items'), state.get('timing'), action.width)
+      paddingLeft = _getPaddingLeft(state.get('items'), action.width)
+      items = _getProcessedItems({
+        items: state.get('items'), 
+        timing: state.get('timing'), 
+        paddingLeft: paddingLeft,
+        width: action.width
+      })
       return state.merge({
         centerItems: _getCenterItems(items),
         height: action.height,
         items: items,
+        paddingLeft: paddingLeft,
         rightmostEdge: _getRightmostEdge(items, action.width),
         width: action.width,
       })
@@ -60,15 +79,22 @@ function _getCenterItems (items) {
   return items.filter(i => i.get('isCenter'))
 }
 
-function _getProcessedItems (items, timing, width, readyToPlayId) {
-  return items.map((item, id) => {
-    item = item.set('scaledX', _getScaledX(item, width))
+function _getProcessedItems (params) {
+  return params.items.map((item, id) => {
     return item.merge({
-      isCenter: _getIsCenter(item, timing),
-      isReadyToPlay: _getIsReadyToPlay(item, id, readyToPlayId),
-      scrollDestination: _getScrollDestination(item, width)
+      isCenter: _getIsCenter(item, params.timing),
+      isReadyToPlay: _getIsReadyToPlay(item, id, params.readyToPlayId),
+      scrollDestination: _getScrollDestination(item, params.paddingLeft, params.width)
     })
   })
+}
+
+function _getPaddingLeft (items, width) {
+  const leftmostItem = items.minBy(item => item.get('x'))
+  if (leftmostItem === undefined) {
+    return 0
+  }
+  return Math.abs(leftmostItem.get('x')) + width
 }
 
 function _getRightmostEdge (items, width) {
@@ -76,9 +102,7 @@ function _getRightmostEdge (items, width) {
   if (rightmostItem === undefined) {
     return 0
   }
-  const rightmostEdge = rightmostItem.get('width') + rightmostItem.get('x') + width
-  const scaledRightmostEdge = rightmostItem.get('width') + rightmostItem.get('scaledX') + width
-  return scaledRightmostEdge
+  return rightmostItem.get('width') + rightmostItem.get('x') + width
 }
 
 //
@@ -102,12 +126,6 @@ function _getIsReadyToPlay (item, id, readyToPlayId) {
   return id === readyToPlayId
 }
 
-function _getScaledX (item, width) {
-  return item.get('x') + width
-}
-
-function _getScrollDestination (item, width) {
-  const destX = item.get('x') - (width / 2) + (item.get('width') / 2)
-  const destScaledX = item.get('scaledX') - (width / 2) + (item.get('width') / 2)
-  return destScaledX
+function _getScrollDestination (item, paddingLeft, width) {
+  return item.get('x') + (width / 2) + (item.get('width') / 2) + (paddingLeft - width)
 }

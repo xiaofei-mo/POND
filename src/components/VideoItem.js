@@ -18,6 +18,7 @@ export default class VideoItem extends React.Component {
     this._handleOnCanPlay = this._handleOnCanPlay.bind(this)
     this._handleOnDrag = this._handleOnDrag.bind(this)
     this._handleOnStop = this._handleOnStop.bind(this)
+    this._setStyle = this._setStyle.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
@@ -41,33 +42,28 @@ export default class VideoItem extends React.Component {
     })
   }
   _handleOnStop(event, ui) {
-    const x = this.state.x - this.props.windowWidth
-    const y = this.state.y
-    this.props.setVideoPosition(this.props.id, x, y)
+    this.props.setVideoPosition(this.props.id, this.state.x, this.state.y)
   }
-  componentWillReceiveProps(nextProps) {
-    if(this.props.item.get('y') !== nextProps.item.get('y') || this.props.item.get('scaledX') !== nextProps.item.get('scaledX')) {
-      this.setState({
-        x: nextProps.item.get('scaledX'),
-        y: nextProps.item.get('y'),
-        style: {
-          width: nextProps.item.get('width') + 'px',
-          height: nextProps.item.get('height') + 'px',
-          transform: 'translate(' + nextProps.item.get('scaledX') + 'px, ' + nextProps.item.get('y') + 'px)'
-        }
-      })
-    }
-  }
-  componentWillMount() {
+  _setStyle(props) {
+    const x = props.item.get('x')
+    const y = props.item.get('y')
     this.setState({
-      x: this.props.item.get('scaledX'),
-      y: this.props.item.get('y'),
+      x: x,
+      y: y,
       style: {
-        width: this.props.item.get('width') + 'px',
-        height: this.props.item.get('height') + 'px',
-        transform: 'translate(' + this.props.item.get('scaledX') + 'px, ' + this.props.item.get('y') + 'px)'
+        width: props.item.get('width') + 'px',
+        height: props.item.get('height') + 'px',
+        transform: 'translate(' + x + 'px, ' + y + 'px)'
       }
     })
+  }
+  componentWillMount() {
+    this._setStyle(this.props)
+  }
+  componentWillReceiveProps(nextProps) {
+    if(this.props.item.get('x') !== nextProps.item.get('x') || this.props.item.get('y') !== nextProps.item.get('y')) {
+      this._setStyle(nextProps)
+    }
   }
   render() {
     const video = (

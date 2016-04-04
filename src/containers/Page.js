@@ -28,6 +28,7 @@ class Page extends React.Component {
   }
   _getStyle() {
     let style = {
+      paddingLeft: this.props.paddingLeft + 'px',
       width: this.props.rightmostEdge + 'px'
     }
     return style
@@ -78,6 +79,7 @@ function mapStateToProps (state) {
     centerItems: state.getIn(['page', 'centerItems']),
     items: state.getIn(['page', 'items']),
     initiallyScrolledToCenter: state.getIn(['page', 'initiallyScrolledToCenter']),
+    paddingLeft: state.getIn(['page', 'paddingLeft']),
     rightmostEdge: state.getIn(['page', 'rightmostEdge']),
     width: state.getIn(['page', 'width'])
   }

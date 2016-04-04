@@ -42,21 +42,6 @@ export default {
   setVideoPosition: (id, x, y) => {
     return (dispatch, getState) => {
       const ref = new Firebase(C.FIREBASE).child('items')
-      let delta = 0
-      // If our X-axis movement on this video went from positive to negative, we have to shift all 
-      // other items to the right by the X-delta
-      if (x < 0) {
-        delta = -x
-        getState().getIn(['page', 'items']).forEach((item, itemId) => {
-          if(itemId !== id) {
-            ref.child(itemId).update({
-              x: item.get('x') + delta,
-              y: item.get('y')
-            })
-          }
-        })
-        x = 0
-      }
       ref.child(id).update({
         x: x,
         y: y
@@ -65,8 +50,7 @@ export default {
           type: C.VIDEO_CHANGED_POSITION,
           id: id,
           x: x,
-          y: y,
-          delta: delta
+          y: y
         })
       })
     }
