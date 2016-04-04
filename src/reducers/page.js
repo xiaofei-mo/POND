@@ -2,69 +2,112 @@ import C from 'src/constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
-  centerItem: Immutable.Map(),
+  centerItems: Immutable.Map(),
   height: 0,
   items: Immutable.Map(),
   rightmostEdge: 0,
   initiallyScrolledToCenter: false,
+  timing: undefined,
   width: 0
 })
 
 export default function pageReducer (state = initialState, action) {
-  let centerItem
-  let centerItemId
   let items
   switch (action.type) {
-    case C.RECEIVE_CENTER_ITEM:
-      centerItem = action.centerItem
-      centerItemId = _getCenterItemId(centerItem)
-      let scrollDestination = _getScrollDestination(centerItem.first(), state.get('width'))
-      centerItem = centerItem.setIn([centerItemId, 'scrollDestination'], scrollDestination)
+
+    case C.RECEIVE_ITEMS_AND_TIMING:
+      items = _getProcessedItems(action.items, action.timing, state.get('width'))
       return state.merge({
-        centerItem: centerItem
-      })
-    case C.RECEIVE_ITEMS:
-      items = action.items
-      return state.merge({
+        centerItems: _getCenterItems(items),
         items: items,
-        rightmostEdge: _getRightmostEdge(action.items, state.get('width'))
+        rightmostEdge: _getRightmostEdge(items, state.get('width')),
+        timing: action.timing
       })
+
     case C.PAGE_INITIALLY_SCROLLED_TO_CENTER:
       return state.set('initiallyScrolledToCenter', true)
+
+    case C.VIDEO_CHANGED_POSITION:
+      return state
+
     case C.VIDEO_IS_READY_TO_PLAY:
-      centerItem = state.get('centerItem')
-      items = state.get('items')
-      centerItemId = _getCenterItemId(centerItem)
-      let isReadyToPlay = centerItemId === action.id
+      items = _getProcessedItems(state.get('items'), state.get('timing'), state.get('width'), action.id)
       return state.merge({
-          centerItem: centerItem.setIn([centerItemId, 'isReadyToPlay'], isReadyToPlay),
-          items: items.setIn([action.id, 'isReadyToPlay'], true)
+        centerItems: _getCenterItems(items),
+        items: items
       })
+
     case C.WINDOW_CHANGED_SIZE:
+      items = _getProcessedItems(state.get('items'), state.get('timing'), action.width)
       return state.merge({
-        width: action.width,
+        centerItems: _getCenterItems(items),
         height: action.height,
-        rightmostEdge: _getRightmostEdge(state.get('items'), action.width)
+        items: items,
+        rightmostEdge: _getRightmostEdge(items, action.width),
+        width: action.width,
       })
+
     default:
       return state
   }
 }
 
-function _getCenterItemId (centerItem) {
-  return centerItem.keySeq().first()
+//
+// Items (plural) functions
+//
+
+function _getCenterItems (items) {
+  return items.filter(i => i.get('isCenter'))
 }
 
-function _getScrollDestination (item, windowWidth) {
-  return item.get('x') - (windowWidth / 2) + (item.get('width') / 2)
+function _getProcessedItems (items, timing, width, readyToPlayId) {
+  return items.map((item, id) => {
+    item = item.set('scaledX', _getScaledX(item, width))
+    return item.merge({
+      isCenter: _getIsCenter(item, timing),
+      isReadyToPlay: _getIsReadyToPlay(item, id, readyToPlayId),
+      scrollDestination: _getScrollDestination(item, width)
+    })
+  })
 }
 
-function _getRightmostEdge (items, windowWidth) {
+function _getRightmostEdge (items, width) {
   const rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
   if (rightmostItem === undefined) {
     return 0
   }
-  let width = rightmostItem.get('width')
-  let x = rightmostItem.get('x')
-  return (width / 2) + x + windowWidth
+  const rightmostEdge = rightmostItem.get('width') + rightmostItem.get('x') + width
+  const scaledRightmostEdge = rightmostItem.get('width') + rightmostItem.get('scaledX') + width
+  return scaledRightmostEdge
+}
+
+//
+// Item (singular) functions
+//
+
+function _getIsCenter (item, timing) {
+  if(timing === undefined) {
+    return item.get('isFeatured')
+  }
+  return item.get('timing') === timing
+}
+
+function _getIsReadyToPlay (item, id, readyToPlayId) {
+  if(item.get('isReadyToPlay')) {
+    return true
+  }
+  if(readyToPlayId === undefined) {
+    return false
+  }
+  return id === readyToPlayId
+}
+
+function _getScaledX (item, width) {
+  return item.get('x') + width
+}
+
+function _getScrollDestination (item, width) {
+  const destX = item.get('x') - (width / 2) + (item.get('width') / 2)
+  const destScaledX = item.get('scaledX') - (width / 2) + (item.get('width') / 2)
+  return destScaledX
 }

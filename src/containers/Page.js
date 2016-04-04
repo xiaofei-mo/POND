@@ -41,8 +41,10 @@ class Page extends React.Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if(this.props.centerItem !== prevProps.centerItem) {
-      const scrollDestination = this.props.centerItem.get('scrollDestination')
+    const centerItemId = this.props.centerItems.keySeq().first()
+    const prevCenterItemId = prevProps.centerItems.keySeq().first()
+    if(centerItemId !== prevCenterItemId) {
+      const scrollDestination = this.props.centerItems.first().get('scrollDestination')
       if(scrollDestination !== undefined) {
         this.bodyNode.scrollLeft = scrollDestination
         this.props.setPageInitiallyScrolledToCenter()
@@ -57,7 +59,8 @@ class Page extends React.Component {
                             id={key} 
                             key={key} 
                             setVideoReadyToPlay={this.props.setVideoReadyToPlay} 
-                            setVideoPosition={this.props.setVideoPosition} />
+                            setVideoPosition={this.props.setVideoPosition} 
+                            windowWidth={this.props.width} />
         default:
           return null
       }
@@ -70,20 +73,13 @@ class Page extends React.Component {
   }
 }
 
-function _getCenterItem (state) {
-  let centerItem = state.getIn(['page', 'centerItem']).first()
-  if (centerItem === undefined) {
-    return Immutable.Map()
-  }
-  return centerItem
-}
-
 function mapStateToProps (state) {
   return {
-    centerItem: _getCenterItem(state),
+    centerItems: state.getIn(['page', 'centerItems']),
     items: state.getIn(['page', 'items']),
     initiallyScrolledToCenter: state.getIn(['page', 'initiallyScrolledToCenter']),
-    rightmostEdge: state.getIn(['page', 'rightmostEdge'])
+    rightmostEdge: state.getIn(['page', 'rightmostEdge']),
+    width: state.getIn(['page', 'width'])
   }
 }
 

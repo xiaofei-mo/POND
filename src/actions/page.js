@@ -5,31 +5,28 @@ import Immutable from 'immutable'
 export default {
   listenToItems: (timing) => {
     return (dispatch, getState) => {
-      const existingCenterItem = _getExistingCenterItem(getState, timing)
-      if (!existingCenterItem.isEmpty()) {
+      if (_alreadyHaveCenterItem(getState, timing)) {
         dispatch({
-          type: C.RECEIVE_CENTER_ITEM,
-          centerItem: existingCenterItem
+          type: C.RECEIVE_ITEMS_AND_TIMING, 
+          items: getState().getIn(['page', 'items']),
+          timing: timing
         })
       }
       else {
-        let ref = new Firebase(C.FIREBASE).child('items')
+        const ref = new Firebase(C.FIREBASE).child('items')
         let centerRef = ref.orderByChild('isFeatured').equalTo(true)
         if (timing !== undefined) {
           centerRef = ref.orderByChild('timing').equalTo(timing)
         }
         centerRef.on('value', (centerSnapshot) => {
           const centerItem = Immutable.fromJS(centerSnapshot.val())
-          dispatch({
-            type: C.RECEIVE_CENTER_ITEM,
-            centerItem: centerItem
-          })
           ref.orderByChild('user').equalTo(centerItem.first().get('user')).on('value', (snapshot) => {
             const items = Immutable.fromJS(snapshot.val())
             if (items !== null) {
               dispatch({
-                type: C.RECEIVE_ITEMS, 
-                items: items
+                type: C.RECEIVE_ITEMS_AND_TIMING, 
+                items: items,
+                timing: timing
               })
             }
           })
@@ -43,16 +40,35 @@ export default {
     }    
   },
   setVideoPosition: (id, x, y) => {
-    let ref = new Firebase(C.FIREBASE).child('items').child(id)
-    ref.update({
-      x: x,
-      y: y
-    })
-    return {
-      type: C.VIDEO_CHANGED_POSITION,
-      id: id,
-      x: x,
-      y: x
+    return (dispatch, getState) => {
+      const ref = new Firebase(C.FIREBASE).child('items')
+      let delta = 0
+      // If our X-axis movement on this video went from positive to negative, we have to shift all 
+      // other items to the right by the X-delta
+      if (x < 0) {
+        delta = -x
+        getState().getIn(['page', 'items']).forEach((item, itemId) => {
+          if(itemId !== id) {
+            ref.child(itemId).update({
+              x: item.get('x') + delta,
+              y: item.get('y')
+            })
+          }
+        })
+        x = 0
+      }
+      ref.child(id).update({
+        x: x,
+        y: y
+      }, () => {
+        dispatch({
+          type: C.VIDEO_CHANGED_POSITION,
+          id: id,
+          x: x,
+          y: y,
+          delta: delta
+        })
+      })
     }
   },
   setVideoReadyToPlay: (id) => {
@@ -63,13 +79,12 @@ export default {
   }
 }
 
-function _getExistingCenterItem(getState, timing) {
-  const entry = getState().getIn(['page', 'items']).findEntry(item => item.get('timing') === timing)
-  if (entry === undefined) {
-    return Immutable.Map()
-  }
-  const id = entry[0]
-  return Immutable.Map({
-    id: entry[1]
+function _alreadyHaveCenterItem(getState, timing) {
+  const centerItems = getState().getIn(['page', 'items']).filter((item) => {
+    if(timing === undefined) {
+      return item.get('isFeatured')
+    }
+    return item.get('timing') === timing
   })
+  return !centerItems.isEmpty()
 }
