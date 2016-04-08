@@ -5,9 +5,10 @@ import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import actions from 'src/actions'
 import reducer from 'src/reducers';
+import App from 'src/containers/App'
 import Page from 'src/containers/Page'
 import url from 'url';
-import { Router, Route, browserHistory } from 'react-router'
+import { browserHistory, IndexRoute, Route, Router } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 let store = applyMiddleware(thunk)(createStore)(reducer)
@@ -21,7 +22,10 @@ const history = syncHistoryWithStore(browserHistory, store, {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/(:timing)' component={Page} />
+      <Route path='/' component={App}>
+        <IndexRoute component={Page} />
+        <Route path=':timing' component={Page} />
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('mount')

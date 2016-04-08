@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux-immutable'
+import appReducer from './app'
 import pageReducer from './page'
-import userReducer from './user'
 import routerReducer from './router'
+import userReducer from './user'
 
 export default combineReducers({
+  app: appReducer,
   page: pageReducer,
-  user: userReducer,
-  routing: routerReducer
+  routing: routerReducer,
+  user: userReducer
 })

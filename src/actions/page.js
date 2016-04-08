@@ -3,6 +3,7 @@ import Firebase from 'firebase'
 import Immutable from 'immutable'
 
 export default {
+
   listenToItems: (timing) => {
     return (dispatch, getState) => {
       if (_alreadyHaveCenterItem(getState, timing)) {
@@ -34,11 +35,13 @@ export default {
       }
     }
   },
+
   setPageInitiallyScrolledToCenter: () => {
     return {
       type: C.PAGE_INITIALLY_SCROLLED_TO_CENTER
     }    
   },
+
   setVideoPosition: (id, x, y) => {
     return (dispatch, getState) => {
       const ref = new Firebase(C.FIREBASE).child('items')
@@ -55,10 +58,19 @@ export default {
       })
     }
   },
+
   setVideoReadyToPlay: (id) => {
     return {
       type: C.VIDEO_IS_READY_TO_PLAY, 
       id: id 
+    }
+  },
+  
+  setWindowSize(width, height) {
+    return {
+      type: C.WINDOW_CHANGED_SIZE,
+      width: width,
+      height: height
     }
   }
 }

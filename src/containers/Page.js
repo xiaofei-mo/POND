@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import VideoItem from 'src/components/VideoItem'
 import C from 'src/constants'
-import pageActions from 'src/actions/page'
+import actions from 'src/actions'
 import ReactDOM from 'react-dom'
 import Immutable from 'immutable'
 
@@ -14,7 +14,6 @@ class Page extends React.Component {
     this.componentDidMount = this.componentDidMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
-    this.bodyNode = document.getElementsByTagName('body')[0]
   }
   _getClassName() {
     let className = 'page'
@@ -35,6 +34,7 @@ class Page extends React.Component {
   }
   componentDidMount() {
     this.props.listenToItems(this.props.params.timing);
+    this.appNode = document.getElementById('app')
   }
   componentWillReceiveProps(nextProps) {
     if(this.props.params.timing !== nextProps.params.timing) {
@@ -47,7 +47,7 @@ class Page extends React.Component {
     if(centerItemId !== prevCenterItemId) {
       const scrollDestination = this.props.centerItems.first().get('scrollDestination')
       if(scrollDestination !== undefined) {
-        this.bodyNode.scrollLeft = scrollDestination
+        this.appNode.scrollLeft = scrollDestination
         this.props.setPageInitiallyScrolledToCenter()
       }
     }
@@ -67,7 +67,7 @@ class Page extends React.Component {
       }
     }).toArray()
     return (
-      <div id="page" className={this._getClassName()} style={this._getStyle()}>
+      <div id='page' className={this._getClassName()} style={this._getStyle()}>
         {items}
       </div>
     )
@@ -77,6 +77,7 @@ class Page extends React.Component {
 function mapStateToProps (state) {
   return {
     centerItems: state.getIn(['page', 'centerItems']),
+    isInAddMode: state.getIn(['app', 'isInAddMode']),
     items: state.getIn(['page', 'items']),
     initiallyScrolledToCenter: state.getIn(['page', 'initiallyScrolledToCenter']),
     paddingLeft: state.getIn(['page', 'paddingLeft']),
@@ -87,10 +88,10 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    listenToItems: bindActionCreators(pageActions.listenToItems, dispatch),
-    setPageInitiallyScrolledToCenter: bindActionCreators(pageActions.setPageInitiallyScrolledToCenter, dispatch),
-    setVideoReadyToPlay: bindActionCreators(pageActions.setVideoReadyToPlay, dispatch),
-    setVideoPosition: bindActionCreators(pageActions.setVideoPosition, dispatch)
+    listenToItems: bindActionCreators(actions.listenToItems, dispatch),
+    setPageInitiallyScrolledToCenter: bindActionCreators(actions.setPageInitiallyScrolledToCenter, dispatch),
+    setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
+    setVideoPosition: bindActionCreators(actions.setVideoPosition, dispatch)
   }
 }
 

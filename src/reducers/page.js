@@ -5,6 +5,7 @@ const initialState = Immutable.Map({
   centerItems: Immutable.Map(),
   height: 0,
   initiallyScrolledToCenter: false,
+  isInAddMode: false,
   items: Immutable.Map(),
   paddingLeft: 0,
   rightmostEdge: 0,
@@ -16,6 +17,12 @@ export default function pageReducer (state = initialState, action) {
   let items
   let paddingLeft
   switch (action.type) {
+
+    case C.ENTERED_ADD_MODE:
+      return state.set('isInAddMode', true)
+
+    case C.EXITED_ADD_MODE:
+      return state.set('isInAddMode', false)
 
     case C.RECEIVE_ITEMS_AND_TIMING:
       paddingLeft = _getPaddingLeft(action.items, state.get('width'))
