@@ -8,7 +8,7 @@ const initialState = Immutable.Map({
   items: Immutable.Map(),
   mostRecentlyTouched: undefined,
   paddingLeft: 0,
-  rightmostEdge: 0,
+  paddingRight: 0,
   scrollAdjustment: 0,
   timing: undefined,
   width: 0
@@ -35,7 +35,7 @@ export default function pageReducer (state = initialState, action) {
         centerItems: _getCenterItems(items),
         items: items,
         paddingLeft: paddingLeft,
-        rightmostEdge: _getRightmostEdge(items, state.get('width')),
+        paddingRight: _getPaddingRight(items, state.get('width')),
         scrollAdjustment: _getScrollAdjustment(state.get('paddingLeft'), paddingLeft),
         timing: action.timing
       })
@@ -80,8 +80,8 @@ export default function pageReducer (state = initialState, action) {
         centerItems: _getCenterItems(items),
         height: action.height,
         items: items,
-        rightmostEdge: _getRightmostEdge(items, action.width),
         paddingLeft: paddingLeft,
+        paddingRight: _getPaddingRight(items, action.width),
         width: action.width,
       })
 
@@ -125,12 +125,17 @@ function _getPaddingLeft (items, width) {
   return Math.abs(leftmostItem.get('x')) + width
 }
 
-function _getRightmostEdge (items, width) {
+function _getPaddingRight (items, width) {
   const rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
   if (rightmostItem === undefined) {
     return 0
   }
-  return rightmostItem.get('width') + rightmostItem.get('x') + width
+  return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
+  // const rightmostEdge = rightmostItem.get('width') + rightmostItem.get('x') + width
+  // console.log('item width = ', rightmostItem.get('width'), ' x = ', rightmostItem.get('x'))
+  // console.log('width = ', width)
+  // console.log('rightmostEdge = ', rightmostEdge)
+  // return rightmostEdge
 }
 
 //
