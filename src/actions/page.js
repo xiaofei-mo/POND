@@ -36,6 +36,13 @@ export default {
     }
   },
 
+  setMostRecentlyTouched: (id) => {
+    return {
+      type: C.VIDEO_WAS_TOUCHED, 
+      id: id 
+    }
+  },
+
   setPageInitiallyScrolledToCenter: () => {
     return {
       type: C.PAGE_INITIALLY_SCROLLED_TO_CENTER

@@ -25,7 +25,8 @@ class App extends React.Component {
         <AddModeToggle isInAddMode={this.props.isInAddMode} 
                        enterAddMode={this.props.enterAddMode} 
                        exitAddMode={this.props.exitAddMode} />
-        <AddMode isInAddMode={this.props.isInAddMode} />
+        <AddMode isInAddMode={this.props.isInAddMode} 
+                 handleDroppedFile={this.props.handleDroppedFile} />
       </div>
     )
   }
@@ -40,7 +41,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     enterAddMode: bindActionCreators(actions.enterAddMode, dispatch),
-    exitAddMode: bindActionCreators(actions.exitAddMode, dispatch)
+    exitAddMode: bindActionCreators(actions.exitAddMode, dispatch),
+    handleDroppedFile: bindActionCreators(actions.handleDroppedFile, dispatch)
   }
 }
 

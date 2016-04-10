@@ -3,6 +3,36 @@ import Video from 'react-html5video'
 import { Link } from 'react-router'
 import { DraggableCore } from 'react-draggable'
 
+class LinkLink extends React.Component {
+  constructor() {
+    super()
+    this._handleClick = this._handleClick.bind(this)
+    this.render = this.render.bind(this)
+  }
+  _handleClick(event) {
+    event.preventDefault()
+    console.log('LinkLink click')
+  }
+  render() {
+    return <a className='link-link' href='#' onClick={this._handleClick}>Link</a>
+  }
+}
+
+class EditLink extends React.Component {
+  constructor() {
+    super()
+    this._handleClick = this._handleClick.bind(this)
+    this.render = this.render.bind(this)
+  }
+  _handleClick(event) {
+    event.preventDefault()
+    console.log('EditLink click')
+  }
+  render() {
+    return <a className='edit-link' href='#' onClick={this._handleClick}>Edit</a>
+  }
+}
+
 export default class VideoItem extends React.Component {
   constructor() {
     super()
@@ -13,22 +43,38 @@ export default class VideoItem extends React.Component {
         width: '0px',
         height: '0px',
         transform: 'translate(0px, 0px)'
-      }
+      },
+      wasDragged: false
     }
-    this._handleOnCanPlay = this._handleOnCanPlay.bind(this)
-    this._handleOnDrag = this._handleOnDrag.bind(this)
-    this._handleOnStop = this._handleOnStop.bind(this)
+    this._getClassName = this._getClassName.bind(this)
+    this._handleClick = this._handleClick.bind(this)
+    this._handleCanPlay = this._handleCanPlay.bind(this)
+    this._handleDrag = this._handleDrag.bind(this)
+    this._handleMouseDown = this._handleMouseDown.bind(this)
+    this._handleStop = this._handleStop.bind(this)
     this._setStyle = this._setStyle.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleOnCanPlay() {
+  _getClassName() {
+    var className = 'video-item'
+    if (this.props.item.get('mostRecentlyTouched')) {
+      className += ' most-recently-touched'
+    }
+    return className
+  }
+  _handleClick(event) {
+    if (this.state.wasDragged) {
+      event.preventDefault()
+    }
+  }
+  _handleCanPlay() {
     if (!this.props.item.get('isReadyToPlay')) {
       this.props.setVideoReadyToPlay(this.props.id);
     }
   }
-  _handleOnDrag(event, ui) {
+  _handleDrag(event, ui) {
     const x = this.state.x + ui.position.deltaX
     const y = this.state.y + ui.position.deltaY
     this.setState({
@@ -38,10 +84,17 @@ export default class VideoItem extends React.Component {
         width: this.state.style.width,
         height: this.state.style.height,
         transform: 'translate(' + x + 'px, ' + y + 'px)'
-      }
+      },
+      wasDragged: true
     })
   }
-  _handleOnStop(event, ui) {
+  _handleMouseDown(event) {
+    this.props.setMostRecentlyTouched(this.props.id)
+    let state = this.state
+    state['wasDragged'] = false
+    this.setState(state)
+  }
+  _handleStop(event, ui) {
     this.props.setVideoPosition(this.props.id, this.state.x, this.state.y)
   }
   _setStyle(props) {
@@ -72,26 +125,34 @@ export default class VideoItem extends React.Component {
              loop 
              muted 
              poster={this.props.item.get('posterUrl')} 
-             onCanPlay={this._handleOnCanPlay}
+             onCanPlay={this._handleCanPlay}
       >
         <source src={this.props.item.get('mediaUrl')} type='video/mp4' />
       </Video>
     )
     if(this.props.item.get('linkedTo')) {
       return (
-        <DraggableCore onDrag={this._handleOnDrag} onStop={this._handleOnStop}>
-          <div rel='videoItem' className='video-item' style={this.state.style}>
-            <Link to={'/' + this.props.item.get('linkedTo')}>
+        <DraggableCore onDrag={this._handleDrag} onStop={this._handleStop} onMouseDown={this._handleMouseDown}>
+          <div className={this._getClassName()} style={this.state.style}>
+            <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
               {video}
             </Link>
+            <div className="controls">
+              <LinkLink />
+              <EditLink />
+            </div>
           </div>
         </DraggableCore>
       )
     }
     return (
-      <DraggableCore onDrag={this._handleOnDrag} onStop={this._handleOnStop}>
-        <div rel='videoItem' className='video-item' style={this.state.style}>
+      <DraggableCore onDrag={this._handleDrag} onStop={this._handleStop} onMouseDown={this._handleMouseDown}>
+        <div className={this._getClassName()} style={this.state.style}>
           {video}
+          <div className="controls">
+            <LinkLink />
+            <EditLink />
+          </div>
         </div>
       </DraggableCore>
     )

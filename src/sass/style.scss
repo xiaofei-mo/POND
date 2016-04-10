@@ -38,6 +38,39 @@ a {
   position: absolute;
   display: block;
   z-index: 3;
+
+  .video {
+    z-index: 3;
+    position: relative;
+  }
+
+  .controls {
+    z-index: 1;
+    display: block;
+    position: absolute;
+    transition: bottom 100ms;
+    right: 0;
+    bottom: 0;
+    height: 18px;
+
+    a {
+      color: $green;
+      text-transform: lowercase;
+      margin-left: 10px;
+    }
+  }
+
+  &:hover {
+
+    .controls {
+      transition: bottom 100ms;
+      bottom: -18px;
+    }
+  }
+
+  &.most-recently-touched {
+    z-index: 4;
+  }
 }
 
 video {
@@ -51,7 +84,7 @@ video {
   right: 25px;
   color: $white;
   font-size: 55px;
-  z-index: 5;
+  z-index: 6;
 
   &:hover,
   &:active {
@@ -67,7 +100,7 @@ video {
   top: 0;
   left: 0;
   background-color: rgba(42, 59, 60, 0.8);
-  z-index: 4;
+  z-index: 5;
 }
 
 .dropzone {

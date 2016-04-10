@@ -7,8 +7,10 @@ const initialState = Immutable.Map({
   initiallyScrolledToCenter: false,
   isInAddMode: false,
   items: Immutable.Map(),
+  mostRecentlyTouched: undefined,
   paddingLeft: 0,
   rightmostEdge: 0,
+  scrollAdjustment: 0,
   timing: undefined,
   width: 0
 })
@@ -24,12 +26,16 @@ export default function pageReducer (state = initialState, action) {
     case C.EXITED_ADD_MODE:
       return state.set('isInAddMode', false)
 
+    case C.PAGE_INITIALLY_SCROLLED_TO_CENTER:
+      return state.set('initiallyScrolledToCenter', true)
+
     case C.RECEIVE_ITEMS_AND_TIMING:
       paddingLeft = _getPaddingLeft(action.items, state.get('width'))
       items = _getProcessedItems({
         items: action.items, 
-        timing: action.timing, 
+        mostRecentlyTouched: state.get('mostRecentlyTouched'),
         paddingLeft: paddingLeft,
+        timing: action.timing, 
         width: state.get('width')
       })
       return state.merge({
@@ -37,18 +43,17 @@ export default function pageReducer (state = initialState, action) {
         items: items,
         paddingLeft: paddingLeft,
         rightmostEdge: _getRightmostEdge(items, state.get('width')),
+        scrollAdjustment: _getScrollAdjustment(state.get('paddingLeft'), paddingLeft),
         timing: action.timing
       })
-
-    case C.PAGE_INITIALLY_SCROLLED_TO_CENTER:
-      return state.set('initiallyScrolledToCenter', true)
 
     case C.VIDEO_IS_READY_TO_PLAY:
       items = _getProcessedItems({
         items: state.get('items'), 
-        timing: state.get('timing'), 
+        mostRecentlyTouched: state.get('mostRecentlyTouched'),
         paddingLeft: state.get('paddingLeft'), 
         readyToPlayId: action.id,
+        timing: state.get('timing'),
         width: state.get('width')
       })
       return state.merge({
@@ -56,26 +61,48 @@ export default function pageReducer (state = initialState, action) {
         items: items
       })
 
+    case C.VIDEO_WAS_TOUCHED:
+      items = _getProcessedItems({
+        items: state.get('items'), 
+        mostRecentlyTouched: action.id,
+        paddingLeft: state.get('paddingLeft'),
+        timing: state.get('timing'), 
+        width: state.get('width')
+      })
+      return state.merge({
+        items: items,
+        mostRecentlyTouched: action.id
+      })
+
     case C.WINDOW_CHANGED_SIZE:
       paddingLeft = _getPaddingLeft(state.get('items'), action.width)
       items = _getProcessedItems({
         items: state.get('items'), 
-        timing: state.get('timing'), 
+        mostRecentlyTouched: state.get('mostRecentlyTouched'),
         paddingLeft: paddingLeft,
+        timing: state.get('timing'), 
         width: action.width
       })
       return state.merge({
         centerItems: _getCenterItems(items),
         height: action.height,
         items: items,
-        paddingLeft: paddingLeft,
         rightmostEdge: _getRightmostEdge(items, action.width),
+        paddingLeft: paddingLeft,
         width: action.width,
       })
 
     default:
       return state
   }
+}
+
+//
+// Non-item-related functions
+// 
+
+function _getScrollAdjustment (oldPaddingLeft, newPaddingLeft) {
+  return oldPaddingLeft - newPaddingLeft
 }
 
 //
@@ -91,6 +118,7 @@ function _getProcessedItems (params) {
     return item.merge({
       isCenter: _getIsCenter(item, params.timing),
       isReadyToPlay: _getIsReadyToPlay(item, id, params.readyToPlayId),
+      mostRecentlyTouched: _getMostRecentlyTouched(id, params.mostRecentlyTouched),
       scrollDestination: _getScrollDestination(item, params.paddingLeft, params.width)
     })
   })
@@ -135,4 +163,8 @@ function _getIsReadyToPlay (item, id, readyToPlayId) {
 
 function _getScrollDestination (item, paddingLeft, width) {
   return item.get('x') + (width / 2) + (item.get('width') / 2) + (paddingLeft - width)
+}
+
+function _getMostRecentlyTouched (id, mostRecentlyTouched) {
+  return id === mostRecentlyTouched
 }

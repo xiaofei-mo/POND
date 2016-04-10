@@ -11,5 +11,12 @@ export default {
     return {
       type: C.EXITED_ADD_MODE
     }
+  },
+
+  handleDroppedFile: (file) => {
+    return {
+      type: C.FILE_WAS_DROPPED,
+      file: file
+    }
   }
 }

@@ -1,1 +1,1 @@
-web: forever -w index.js
+web: forever index.js

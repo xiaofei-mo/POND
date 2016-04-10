@@ -9,7 +9,7 @@ export default class AddMode extends React.Component {
     this.render = this.render.bind(this)
   }
   _handleDrop(files) {
-    console.log('AddMode._handleDrop, files = ', files)
+    this.props.handleDroppedFile(files[0])
   }
   render() {
     if(!this.props.isInAddMode) {

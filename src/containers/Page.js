@@ -10,10 +10,15 @@ import Immutable from 'immutable'
 class Page extends React.Component {
   constructor() {
     super()
+    this._compensateForPadding = this._compensateForPadding.bind(this)
+    this._getClassName = this._getClassName.bind(this)
     this._getStyle = this._getStyle.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
+  }
+  _compensateForPadding(scrollAdjustment) {
+    this.appNode.scrollLeft = this.appNode.scrollLeft - scrollAdjustment
   }
   _getClassName() {
     let className = 'page'
@@ -40,6 +45,9 @@ class Page extends React.Component {
     if(this.props.params.timing !== nextProps.params.timing) {
       this.props.listenToItems(nextProps.params.timing)
     }
+    if(this.props.scrollAdjustment !== nextProps.scrollAdjustment) {
+      this._compensateForPadding(nextProps.scrollAdjustment)
+    }
   }
   componentDidUpdate(prevProps) {
     const centerItemId = this.props.centerItems.keySeq().first()
@@ -59,6 +67,7 @@ class Page extends React.Component {
           return <VideoItem item={item} 
                             id={key} 
                             key={key} 
+                            setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                             setVideoReadyToPlay={this.props.setVideoReadyToPlay} 
                             setVideoPosition={this.props.setVideoPosition} 
                             windowWidth={this.props.width} />
@@ -82,6 +91,7 @@ function mapStateToProps (state) {
     initiallyScrolledToCenter: state.getIn(['page', 'initiallyScrolledToCenter']),
     paddingLeft: state.getIn(['page', 'paddingLeft']),
     rightmostEdge: state.getIn(['page', 'rightmostEdge']),
+    scrollAdjustment: state.getIn(['page', 'scrollAdjustment']),
     width: state.getIn(['page', 'width'])
   }
 }
@@ -91,7 +101,8 @@ function mapDispatchToProps (dispatch) {
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     setPageInitiallyScrolledToCenter: bindActionCreators(actions.setPageInitiallyScrolledToCenter, dispatch),
     setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
-    setVideoPosition: bindActionCreators(actions.setVideoPosition, dispatch)
+    setVideoPosition: bindActionCreators(actions.setVideoPosition, dispatch),
+    setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch)
   }
 }
 
