@@ -1,48 +1,45 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import AddModeToggle from 'src/components/AddModeToggle'
-import AddMode from 'src/components/AddMode'
 import actions from 'src/actions'
+import Dropzone from 'react-dropzone'
 
 class App extends React.Component {
   constructor() {
     super()
-    this._getClassName = this._getClassName.bind(this)
     this.render = this.render.bind(this)
-  }
-  _getClassName() {
-    let className = 'app'
-    if (this.props.isInAddMode) {
-      className += ' is-in-add-mode'
-    }
-    return className
   }
   render() {
     return (
-      <div id='app' className={this._getClassName()}>
-        {this.props.children}
-        <AddModeToggle isInAddMode={this.props.isInAddMode} 
-                       enterAddMode={this.props.enterAddMode} 
-                       exitAddMode={this.props.exitAddMode} />
-        <AddMode isInAddMode={this.props.isInAddMode} 
-                 handleDroppedFile={this.props.handleDroppedFile} />
-      </div>
+      <Dropzone accept='video/*'
+                activeClassName='dropzone-active' 
+                className='dropzone' 
+                disableClick={true} 
+                multiple={false} 
+                onDrop={this.props.handleDroppedFiles}
+      >
+        <div id='app' className='app'>
+          {this.props.children}
+        </div>
+        <div className='dropzone-veil'>
+          <div>
+            Drop Video
+          </div>
+        </div>
+      </Dropzone>
     )
   }
 }
 
 function mapStateToProps (state) {
   return {
-    isInAddMode: state.getIn(['app', 'isInAddMode'])
+    droppedFiles: state.getIn(['app', 'droppedFiles'])
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    enterAddMode: bindActionCreators(actions.enterAddMode, dispatch),
-    exitAddMode: bindActionCreators(actions.exitAddMode, dispatch),
-    handleDroppedFile: bindActionCreators(actions.handleDroppedFile, dispatch)
+    handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch)
   }
 }
 
