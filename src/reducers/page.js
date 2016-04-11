@@ -19,6 +19,19 @@ export default function pageReducer (state = initialState, action) {
   let paddingLeft
   switch (action.type) {
 
+    case C.ITEM_WAS_TOUCHED:
+      items = _getProcessedItems({
+        items: state.get('items'), 
+        mostRecentlyTouched: action.id,
+        paddingLeft: state.get('paddingLeft'),
+        timing: state.get('timing'), 
+        width: state.get('width')
+      })
+      return state.merge({
+        items: items,
+        mostRecentlyTouched: action.id
+      })
+
     case C.PAGE_INITIALLY_SCROLLED_TO_CENTER:
       return state.set('initiallyScrolledToCenter', true)
 
@@ -52,19 +65,6 @@ export default function pageReducer (state = initialState, action) {
       return state.merge({
         centerItems: _getCenterItems(items),
         items: items
-      })
-
-    case C.VIDEO_WAS_TOUCHED:
-      items = _getProcessedItems({
-        items: state.get('items'), 
-        mostRecentlyTouched: action.id,
-        paddingLeft: state.get('paddingLeft'),
-        timing: state.get('timing'), 
-        width: state.get('width')
-      })
-      return state.merge({
-        items: items,
-        mostRecentlyTouched: action.id
       })
 
     case C.WINDOW_CHANGED_SIZE:
@@ -131,11 +131,6 @@ function _getPaddingRight (items, width) {
     return 0
   }
   return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
-  // const rightmostEdge = rightmostItem.get('width') + rightmostItem.get('x') + width
-  // console.log('item width = ', rightmostItem.get('width'), ' x = ', rightmostItem.get('x'))
-  // console.log('width = ', width)
-  // console.log('rightmostEdge = ', rightmostEdge)
-  // return rightmostEdge
 }
 
 //

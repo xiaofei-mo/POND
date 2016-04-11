@@ -101,7 +101,7 @@ function mapDispatchToProps (dispatch) {
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     setPageInitiallyScrolledToCenter: bindActionCreators(actions.setPageInitiallyScrolledToCenter, dispatch),
     setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
-    setVideoPosition: bindActionCreators(actions.setVideoPosition, dispatch),
+    setVideoPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch)
   }
 }

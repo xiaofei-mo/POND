@@ -1,8 +1,11 @@
 @import 'normalize';
 
-$normal-background: #343435;
+$background-gray: #343435;
 $green: #29fe2f;
 $white: #ffffff;
+$blue-gray: #182a2b;
+$blue-gray-50-percent: rgba(24, 42, 43, 0.5);
+$progress-bar-gray: #939c9d;
 
 html {
   box-sizing: border-box;
@@ -16,14 +19,26 @@ html {
   outline: 0;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 14px;
+  line-height: 18px;
+  color: $white;
+}
+
 a {
   text-decoration: none;
+  color: $green;
 }
 
 .dropzone,
 .app {
   overflow-y: hidden;
-  background-color: $normal-background;
+  background-color: $background-gray;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -37,7 +52,7 @@ a {
   position: fixed;
   border: 2px dashed $green;
   z-index: 10;
-  background: rgba(24, 42, 43, 0.5);
+  background: $blue-gray-50-percent;
 
   .dropzone-active & {
     display: block;
@@ -47,7 +62,6 @@ a {
     font-size: 48px;
     height: 54px;
     line-height: 54px;
-    color: $green;
     text-align: center;
     top: 50%;
     left: 0;
@@ -90,7 +104,6 @@ a {
     height: 18px;
 
     a {
-      color: $green;
       text-transform: lowercase;
       margin-left: 10px;
     }
@@ -112,4 +125,81 @@ a {
 video {
   width: 100%; 
   height: 100%; 
+}
+
+.uploads {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: 300px;
+  display: block;
+  @extend clearfix;
+  z-index: 5;
+}
+
+.upload-item {
+  width: 400px;
+  height: 300px;
+  display: block;
+  float: left;
+  background-color: $blue-gray;
+  padding: 5px;
+
+  .fields {
+    height: 236px;
+  }
+
+  .progress-bar {
+    height: 14px;
+    background-color: $progress-bar-gray;
+    position: relative;
+
+    .progress {
+      background-color: $green;
+      position: absolute;
+      height: 14px;
+      top: 0;
+      left: 0;
+      transition: width 100ms;
+    }
+  }
+
+  .name-status,
+  .cancel-save {
+    height: 20px;
+    line-height: 20px;
+    @extend %clearfix;
+  }
+
+  .name-mime {
+    float: left;
+
+    .mime {
+      margin-left: 4px;
+    }
+  }
+
+  .status {
+    float: right;
+  }
+
+  .cancel {
+    float: left;
+    font-size: 18px;
+    margin-top: 1px;
+  }
+
+  .save {
+    float: right;
+    background-color: $green;
+    color: $blue-gray;
+    border: none;
+    outline: none;
+    text-transform: lowercase;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 6px 0 6px;
+    margin-top: 2px;
+  }
 }

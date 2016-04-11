@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import actions from 'src/actions'
 import Dropzone from 'react-dropzone'
+import Uploads from 'src/containers/Uploads'
 
 class App extends React.Component {
   constructor() {
@@ -20,6 +21,7 @@ class App extends React.Component {
       >
         <div id='app' className='app'>
           {this.props.children}
+          <Uploads />
         </div>
         <div className='dropzone-veil'>
           <div>
@@ -33,7 +35,7 @@ class App extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    droppedFiles: state.getIn(['app', 'droppedFiles'])
+    uploads: state.getIn(['upload', 'uploads'])
   }
 }
 

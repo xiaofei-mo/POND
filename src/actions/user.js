@@ -8,7 +8,7 @@ export default {
       let ref = new Firebase(C.FIREBASE).child('users')
       ref.on('value', (snapshot) => {
         dispatch({
-          type: C.RECEIVE_USERS, 
+          type: C.RECEIVED_USERS, 
           users: Immutable.fromJS(snapshot.val())
         })
       })
