@@ -1,38 +1,47 @@
 import C from 'src/constants'
 import Firebase from 'firebase'
 import Immutable from 'immutable'
+import timingConversion from 'src/utils/timingConversion'
+import { push } from 'react-router-redux'
 
 export default {
 
   listenToItems: (timing) => {
+    const timingSeconds = timingConversion.getSecondsFromString(timing)
     return (dispatch, getState) => {
-      if (_alreadyHaveCenterItem(getState, timing)) {
+      if (_alreadyHaveCenterItem(getState, timingSeconds)) {
         dispatch({
           type: C.RECEIVE_ITEMS_AND_TIMING, 
-          items: getState().getIn(['page', 'items']),
-          timing: timing
+          payload: Immutable.Map({
+            items: getState().getIn(['page', 'items']),
+            timing: timingSeconds
+          })
         })
       }
       else {
         const ref = new Firebase(C.FIREBASE).child('items')
         let centerRef = ref.orderByChild('isFeatured').equalTo(true)
-        if (timing !== undefined) {
-          centerRef = ref.orderByChild('timing').equalTo(timing)
+        if (timingSeconds !== undefined) {
+          centerRef = ref.orderByChild('timing').equalTo(timingSeconds)
         }
         centerRef.on('value', (centerSnapshot) => {
-          let items = Immutable.Map()
           const centerItem = Immutable.fromJS(centerSnapshot.val())
-          if(centerItem !== null) {
-            ref.orderByChild('user').equalTo(centerItem.first().get('user')).on('value', (snapshot) => {
-              if(snapshot.val() !== null) {
-                items = Immutable.fromJS(snapshot.val())
-              }
-            })
+          if(centerItem === null) {
+            // Equivalent to 404
+            dispatch(push('/'))
+            return
           }
-          dispatch({
-            type: C.RECEIVED_ITEMS_AND_TIMING, 
-            items: items,
-            timing: timing
+          const userId = centerItem.first().get('userId')
+          const itemsRef = ref.orderByChild('userId').equalTo(userId)
+          itemsRef.on('value', (itemsSnapshot) => {
+            const items = Immutable.fromJS(itemsSnapshot.val())
+            dispatch({
+              type: C.RECEIVED_ITEMS_AND_TIMING, 
+              payload: Immutable.Map({
+                items: items,
+                timing: timingSeconds
+              })
+            })
           })
         })
       }
@@ -42,7 +51,9 @@ export default {
   setMostRecentlyTouched: (id) => {
     return {
       type: C.ITEM_WAS_TOUCHED, 
-      id: id 
+      payload: Immutable.Map({
+        id: id
+      })
     }
   },
 
@@ -58,13 +69,6 @@ export default {
       ref.child(id).update({
         x: x,
         y: y
-      }, () => {
-        dispatch({
-          type: C.ITEM_CHANGED_POSITION,
-          id: id,
-          x: x,
-          y: y
-        })
       })
     }
   },
@@ -72,25 +76,29 @@ export default {
   setVideoReadyToPlay: (id) => {
     return {
       type: C.VIDEO_IS_READY_TO_PLAY, 
-      id: id 
+      payload: Immutable.Map({
+        id: id
+      })
     }
   },
   
   setWindowSize(width, height) {
     return {
       type: C.WINDOW_CHANGED_SIZE,
-      width: width,
-      height: height
+      payload: Immutable.Map({
+        width: width,
+        height: height
+      })
     }
   }
 }
 
-function _alreadyHaveCenterItem(getState, timing) {
+function _alreadyHaveCenterItem(getState, timingSeconds) {
   const centerItems = getState().getIn(['page', 'items']).filter((item) => {
     if(timing === undefined) {
       return item.get('isFeatured')
     }
-    return item.get('timing') === timing
+    return item.get('timing') === timingSeconds
   })
   return !centerItems.isEmpty()
 }

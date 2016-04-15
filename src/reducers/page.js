@@ -22,26 +22,26 @@ export default function pageReducer (state = initialState, action) {
     case C.ITEM_WAS_TOUCHED:
       items = _getProcessedItems({
         items: state.get('items'), 
-        mostRecentlyTouched: action.id,
+        mostRecentlyTouched: action.payload.get('id'),
         paddingLeft: state.get('paddingLeft'),
         timing: state.get('timing'), 
         width: state.get('width')
       })
       return state.merge({
         items: items,
-        mostRecentlyTouched: action.id
+        mostRecentlyTouched: action.payload.get('id')
       })
 
     case C.PAGE_INITIALLY_SCROLLED_TO_CENTER:
       return state.set('initiallyScrolledToCenter', true)
 
-    case C.RECEIVE_ITEMS_AND_TIMING:
-      paddingLeft = _getPaddingLeft(action.items, state.get('width'))
+    case C.RECEIVED_ITEMS_AND_TIMING:
+      paddingLeft = _getPaddingLeft(action.payload.get('items'), state.get('width'))
       items = _getProcessedItems({
-        items: action.items, 
+        items: action.payload.get('items'), 
         mostRecentlyTouched: state.get('mostRecentlyTouched'),
         paddingLeft: paddingLeft,
-        timing: action.timing, 
+        timing: action.payload.get('timing'), 
         width: state.get('width')
       })
       return state.merge({
@@ -50,7 +50,7 @@ export default function pageReducer (state = initialState, action) {
         paddingLeft: paddingLeft,
         paddingRight: _getPaddingRight(items, state.get('width')),
         scrollAdjustment: _getScrollAdjustment(state.get('paddingLeft'), paddingLeft),
-        timing: action.timing
+        timing: action.payload.get('timing')
       })
 
     case C.VIDEO_IS_READY_TO_PLAY:
@@ -58,7 +58,7 @@ export default function pageReducer (state = initialState, action) {
         items: state.get('items'), 
         mostRecentlyTouched: state.get('mostRecentlyTouched'),
         paddingLeft: state.get('paddingLeft'), 
-        readyToPlayId: action.id,
+        readyToPlayId: action.payload.get('id'),
         timing: state.get('timing'),
         width: state.get('width')
       })
@@ -68,21 +68,21 @@ export default function pageReducer (state = initialState, action) {
       })
 
     case C.WINDOW_CHANGED_SIZE:
-      paddingLeft = _getPaddingLeft(state.get('items'), action.width)
+      paddingLeft = _getPaddingLeft(state.get('items'), action.payload.get('width'))
       items = _getProcessedItems({
         items: state.get('items'), 
         mostRecentlyTouched: state.get('mostRecentlyTouched'),
         paddingLeft: paddingLeft,
         timing: state.get('timing'), 
-        width: action.width
+        width: action.payload.get('width')
       })
       return state.merge({
         centerItems: _getCenterItems(items),
-        height: action.height,
+        height: action.payload.get('height'),
         items: items,
         paddingLeft: paddingLeft,
-        paddingRight: _getPaddingRight(items, action.width),
-        width: action.width,
+        paddingRight: _getPaddingRight(items, action.payload.get('width')),
+        width: action.payload.get('width'),
       })
 
     default:
@@ -122,7 +122,14 @@ function _getPaddingLeft (items, width) {
   if (leftmostItem === undefined) {
     return 0
   }
-  return Math.abs(leftmostItem.get('x')) + width
+  const x = leftmostItem.get('x')
+  if (x > 0) {
+    return width - x
+  }
+  else {
+    return Math.abs(x) + width
+  }
+  return 0
 }
 
 function _getPaddingRight (items, width) {

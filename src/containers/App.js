@@ -4,11 +4,16 @@ import { connect } from 'react-redux'
 import actions from 'src/actions'
 import Dropzone from 'react-dropzone'
 import Uploads from 'src/containers/Uploads'
+import Login from 'src/components/Login'
+import LoginUsernameLogout from 'src/components/LoginUsernameLogout'
 
 class App extends React.Component {
   constructor() {
     super()
     this.render = this.render.bind(this)
+  }
+  componentWillMount() {
+    this.props.listenToAuth()
   }
   render() {
     return (
@@ -22,6 +27,13 @@ class App extends React.Component {
         <div id='app' className='app'>
           {this.props.children}
           <Uploads />
+          <LoginUsernameLogout authData={this.props.authData} 
+                               logout={this.props.logout}
+                               openLogin={this.props.openLogin} />
+          <Login attemptLogin={this.props.attemptLogin}
+                 authData={this.props.authData} 
+                 closeLogin={this.props.closeLogin}
+                 login={this.props.login} />
         </div>
         <div className='dropzone-veil'>
           <div>
@@ -35,13 +47,19 @@ class App extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    uploads: state.getIn(['upload', 'uploads'])
+    authData: state.getIn(['app', 'authData']),
+    login: state.getIn(['app', 'login'])
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch)
+    attemptLogin: bindActionCreators(actions.attemptLogin, dispatch),
+    closeLogin: bindActionCreators(actions.closeLogin, dispatch),
+    handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
+    listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
+    logout: bindActionCreators(actions.logout, dispatch),
+    openLogin: bindActionCreators(actions.openLogin, dispatch)
   }
 }
 

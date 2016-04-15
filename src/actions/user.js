@@ -9,7 +9,9 @@ export default {
       ref.on('value', (snapshot) => {
         dispatch({
           type: C.RECEIVED_USERS, 
-          users: Immutable.fromJS(snapshot.val())
+          payload: Immutable.Map({
+            users: Immutable.fromJS(snapshot.val())
+          })
         })
       })
     }

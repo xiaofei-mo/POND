@@ -1,6 +1,8 @@
 import C from 'src/constants'
 import request from 'superagent'
 import Immutable from 'immutable'
+import timingConversion from 'src/utils/timingConversion'
+import { push } from 'react-router-redux'
 
 export default {
   
@@ -62,7 +64,9 @@ export default {
         }
         dispatch({
           type: C.RECEIVED_UPLOADS, 
-          uploads: uploads
+          payload: Immutable.Map({
+            uploads: uploads
+          })
         })
       })
     }
@@ -73,12 +77,50 @@ export default {
       const ref = new Firebase(C.FIREBASE)
       const itemsRef = ref.child('items')
       const uploadRef = ref.child('uploads').child(uploadId)
-      dispatch({
-        type: C.UPLOAD_WAS_SAVED, 
-        uploadId: uploadId
+      uploadRef.once('value', (uploadSnapshot) => {
+        const upload = uploadSnapshot.val()
+        _determineTiming(upload.result.meta.duration, ref).then((timingRef) => {
+          const timing = timingRef.snapshot.val()
+          const itemRef = itemsRef.push({
+            height: _getInitialHeight(upload.result.meta.height),
+            isFeatured: false,
+            original: upload.original,
+            result: upload.result,
+            timing: timing,
+            type: 'video',
+            userId: 'pickle',
+            width: _getInitialWidth(upload.result.meta.width),
+            x: 0,
+            y: 0
+          })
+          itemRef.once('value', (itemSnapshot) => {
+            itemRef.child('id').set(itemSnapshot.key())
+            const timingString = timingConversion.getStringFromSeconds(timing)
+            console.log('/' + timingString)
+            dispatch(push('/' + timingString))
+          })
+          // uploadRef.remove()
+        })
       })
     }
   }
+}
+
+const _determineTiming = (duration, ref) => {
+  return ref.child('lastTiming').transaction((lastTiming) => {
+    if (lastTiming === null) {
+      return 0
+    }
+    return lastTiming + duration
+  })
+}
+
+const _getInitialHeight = (resultHeight) => {
+  return Math.floor(resultHeight / 3)
+}
+
+const _getInitialWidth = (resultWidth) => {
+  return Math.floor(resultWidth / 3)
 }
 
 function _pollTransloadit(uploadRef, uri) {
@@ -92,17 +134,20 @@ function _pollTransloadit(uploadRef, uri) {
       return
     }
     if (res.body.ok === 'ASSEMBLY_COMPLETED') {
-      console.log('ASSEMBLY_COMPLETED, res.body = ', res.body)
-      uploadRef.child('status').set('done')
+      uploadRef.update({
+        result: res.body.results.encodeToIpad[0],
+        status: 'done'
+      })
     }
     else {
       if (res.body.ok === 'ASSEMBLY_UPLOADING') {
-        console.log('ASSEMBLY_UPLOADING, res.body = ', res.body)
         uploadRef.child('status').set('uploading')
       }
       else if (res.body.ok === 'ASSEMBLY_EXECUTING') {
-        console.log('ASSEMBLY_EXECUTING, res.body = ', res.body)
-        uploadRef.child('status').set('processing')
+        uploadRef.update({
+          original: res.body.uploads[0],
+          status: 'processing'
+        })
       }
       setTimeout(() => {
         _pollTransloadit(uploadRef, uri)

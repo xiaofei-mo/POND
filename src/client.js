@@ -9,9 +9,12 @@ import App from 'src/containers/App'
 import Page from 'src/containers/Page'
 import url from 'url';
 import { browserHistory, IndexRoute, Route, Router } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 
-let store = applyMiddleware(thunk)(createStore)(reducer)
+let store = applyMiddleware(
+  thunk, 
+  routerMiddleware(browserHistory)
+)(createStore)(reducer)
 
 const history = syncHistoryWithStore(browserHistory, store, { 
   selectLocationState: function (state) {

@@ -8,7 +8,7 @@ const initialState = Immutable.Map({
 export default function uploadReducer (state = initialState, action) {
   switch (action.type) {
     case C.RECEIVED_UPLOADS:
-      return state.set('uploads', action.uploads)
+      return state.set('uploads', action.payload.get('uploads'))
 
     default:
       return state
