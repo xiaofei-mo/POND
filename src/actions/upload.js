@@ -13,7 +13,7 @@ export default {
     }
   },
 
-  handleDroppedFiles: (files) => {
+  handleDroppedFiles: (files, authData) => {
     return (dispatch, getState) => {
       const file = files[0]
       const ref = new Firebase(C.FIREBASE).child('uploads')
@@ -21,7 +21,8 @@ export default {
         originalName: file.name,
         originalType: file.type,
         status: 'dropped',
-        uploaded: Firebase.ServerValue.TIMESTAMP
+        uploaded: Firebase.ServerValue.TIMESTAMP,
+        userId: authData.get('uid')
       })
       const uploadId = uploadRef.key()
       request.get('/upload-values').end((err, res) => {
@@ -52,11 +53,10 @@ export default {
     }
   },
 
-  //listenToUploads: (userId) => {
-  listenToUploads: () => {
+  listenToUploads: (userId) => {
     return (dispatch, getState) => {
       let ref = new Firebase(C.FIREBASE).child('uploads')
-      // ref = ref.orderByChild('user').equalTo(userId)
+      ref = ref.orderByChild('userId').equalTo(userId)
       ref.on('value', (snapshot) => {
         let uploads = Immutable.Map()
         if (snapshot.val() !== null) {
@@ -88,7 +88,7 @@ export default {
             result: upload.result,
             timing: timing,
             type: 'video',
-            userId: 'pickle',
+            userId: upload.userId,
             width: _getInitialWidth(upload.result.meta.width),
             x: 0,
             y: 0
@@ -96,10 +96,9 @@ export default {
           itemRef.once('value', (itemSnapshot) => {
             itemRef.child('id').set(itemSnapshot.key())
             const timingString = timingConversion.getStringFromSeconds(timing)
-            console.log('/' + timingString)
             dispatch(push('/' + timingString))
           })
-          // uploadRef.remove()
+          uploadRef.remove()
         })
       })
     }
@@ -111,7 +110,7 @@ const _determineTiming = (duration, ref) => {
     if (lastTiming === null) {
       return 0
     }
-    return lastTiming + duration
+    return Math.ceil(lastTiming) + Math.ceil(duration) + 1
   })
 }
 

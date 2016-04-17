@@ -102,7 +102,7 @@ export default class Uploads extends React.Component {
     this.render = this.render.bind(this)
   }
   componentWillMount() {
-    this.props.listenToUploads();
+    this.props.listenToUploads(this.props.authData.get('uid'));
   }
   render() {
     const uploadItems = this.props.uploads.map((upload, uploadId) => {

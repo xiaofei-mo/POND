@@ -2,87 +2,83 @@ import C from 'src/constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
-  centerItems: Immutable.Map(),
-  height: 0,
-  initiallyScrolledToCenter: false,
+  height: undefined,
+  initiallyScrolled: false,
   items: Immutable.Map(),
   mostRecentlyTouched: undefined,
-  paddingLeft: 0,
-  paddingRight: 0,
-  scrollAdjustment: 0,
-  timing: undefined,
-  width: 0
+  paddingLeft: undefined,
+  paddingRight: undefined,
+  scrollAdjustment: undefined,
+  scrollDestination: undefined,
+  timingOrUsername: undefined,
+  width: undefined
 })
 
 export default function pageReducer (state = initialState, action) {
-  let items
   let paddingLeft
   switch (action.type) {
 
     case C.ITEM_WAS_TOUCHED:
-      items = _getProcessedItems({
-        items: state.get('items'), 
-        mostRecentlyTouched: action.payload.get('id'),
-        paddingLeft: state.get('paddingLeft'),
-        timing: state.get('timing'), 
-        width: state.get('width')
-      })
-      return state.merge({
-        items: items,
-        mostRecentlyTouched: action.payload.get('id')
-      })
+      return state.set('mostRecentlyTouched', action.payload.get('id'))
 
-    case C.PAGE_INITIALLY_SCROLLED_TO_CENTER:
-      return state.set('initiallyScrolledToCenter', true)
+    case C.PAGE_INITIALLY_SCROLLED:
+      return state.set('initiallyScrolled', true)
 
-    case C.RECEIVED_ITEMS_AND_TIMING:
+    case C.PAGE_SCROLLED:
+      const halfway = Math.floor(state.get('width') / 2) + action.payload.get('scrollLeft')
+      return state.set('items', state.get('items').map((item, id) => {
+        const zoneLeft = item.get('x') + state.get('paddingLeft')
+        const zoneRight = item.get('x') + item.get('width') + state.get('paddingLeft')
+        if (halfway > zoneLeft && halfway < zoneRight) {
+          return item.set('isMuted', false)
+        }
+        else {
+          return item.set('isMuted', true)
+        }
+      }))
+
+    case C.RECEIVED_ITEMS:
+      if (action.payload.get('items') === null) {
+        return state
+      }
       paddingLeft = _getPaddingLeft(action.payload.get('items'), state.get('width'))
-      items = _getProcessedItems({
-        items: action.payload.get('items'), 
-        mostRecentlyTouched: state.get('mostRecentlyTouched'),
+      const scrollDestination = _getScrollDestination({
+        destinationItem: action.payload.get('destinationItem'),
+        items: action.payload.get('items'),
         paddingLeft: paddingLeft,
-        timing: action.payload.get('timing'), 
         width: state.get('width')
       })
+      let initiallyScrolled = state.get('initiallyScrolled')
+      if(state.get('timingOrUsername') !== action.payload.get('timingOrUsername')) {
+        initiallyScrolled = false
+      }
       return state.merge({
-        centerItems: _getCenterItems(items),
-        items: items,
+        initiallyScrolled: initiallyScrolled,
+        items: action.payload.get('items'),
         paddingLeft: paddingLeft,
-        paddingRight: _getPaddingRight(items, state.get('width')),
+        paddingRight: _getPaddingRight(action.payload.get('items'), state.get('width')),
         scrollAdjustment: _getScrollAdjustment(state.get('paddingLeft'), paddingLeft),
-        timing: action.payload.get('timing')
+        scrollDestination: scrollDestination,
+        timingOrUsername: action.payload.get('timingOrUsername')
       })
 
     case C.VIDEO_IS_READY_TO_PLAY:
-      items = _getProcessedItems({
-        items: state.get('items'), 
-        mostRecentlyTouched: state.get('mostRecentlyTouched'),
-        paddingLeft: state.get('paddingLeft'), 
-        readyToPlayId: action.payload.get('id'),
-        timing: state.get('timing'),
-        width: state.get('width')
-      })
-      return state.merge({
-        centerItems: _getCenterItems(items),
-        items: items
-      })
+      return state.set('items', state.get('items').map((item, id) => {
+        let isReadyToPlay = false
+        if (item.get('isReadyToPlay') || 
+            id === action.payload.get('readyToPlayId')) {
+          isReadyToPlay = true
+        }
+        return item.set('isReadyToPlay', isReadyToPlay)
+      }))
 
     case C.WINDOW_CHANGED_SIZE:
       paddingLeft = _getPaddingLeft(state.get('items'), action.payload.get('width'))
-      items = _getProcessedItems({
-        items: state.get('items'), 
-        mostRecentlyTouched: state.get('mostRecentlyTouched'),
-        paddingLeft: paddingLeft,
-        timing: state.get('timing'), 
-        width: action.payload.get('width')
-      })
       return state.merge({
-        centerItems: _getCenterItems(items),
         height: action.payload.get('height'),
-        items: items,
         paddingLeft: paddingLeft,
-        paddingRight: _getPaddingRight(items, action.payload.get('width')),
-        width: action.payload.get('width'),
+        paddingRight: _getPaddingRight(state.get('items'), action.payload.get('width')),
+        width: action.payload.get('width')
       })
 
     default:
@@ -94,7 +90,7 @@ export default function pageReducer (state = initialState, action) {
 // Non-item-related functions
 // 
 
-function _getScrollAdjustment (oldPaddingLeft, newPaddingLeft) {
+const _getScrollAdjustment = (oldPaddingLeft, newPaddingLeft) => {
   return oldPaddingLeft - newPaddingLeft
 }
 
@@ -102,22 +98,21 @@ function _getScrollAdjustment (oldPaddingLeft, newPaddingLeft) {
 // Items (plural) functions
 //
 
-function _getCenterItems (items) {
-  return items.filter(i => i.get('isCenter'))
+const _getScrollDestination = (params) => {
+  // First, figure out which item is our destination. Use the leftmost item as a
+  // default.
+  let item = params.items.minBy(item => item.get('x'))
+  // But if a destinationItem was found in actions/page, use that instead.
+  if (params.destinationItem !== undefined) {
+    item = params.destinationItem
+  }
+  return item.get('x') + 
+         (params.width / 2) + 
+         (item.get('width') / 2) + 
+         (params.paddingLeft - params.width)
 }
 
-function _getProcessedItems (params) {
-  return params.items.map((item, id) => {
-    return item.merge({
-      isCenter: _getIsCenter(item, params.timing),
-      isReadyToPlay: _getIsReadyToPlay(item, id, params.readyToPlayId),
-      mostRecentlyTouched: _getMostRecentlyTouched(id, params.mostRecentlyTouched),
-      scrollDestination: _getScrollDestination(item, params.paddingLeft, params.width)
-    })
-  })
-}
-
-function _getPaddingLeft (items, width) {
+const _getPaddingLeft = (items, width) => {
   const leftmostItem = items.minBy(item => item.get('x'))
   if (leftmostItem === undefined) {
     return 0
@@ -132,39 +127,10 @@ function _getPaddingLeft (items, width) {
   return 0
 }
 
-function _getPaddingRight (items, width) {
+const _getPaddingRight = (items, width) => {
   const rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
   if (rightmostItem === undefined) {
     return 0
   }
   return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
-}
-
-//
-// Item (singular) functions
-//
-
-function _getIsCenter (item, timing) {
-  if(timing === undefined) {
-    return item.get('isFeatured')
-  }
-  return item.get('timing') === timing
-}
-
-function _getIsReadyToPlay (item, id, readyToPlayId) {
-  if(item.get('isReadyToPlay')) {
-    return true
-  }
-  if(readyToPlayId === undefined) {
-    return false
-  }
-  return id === readyToPlayId
-}
-
-function _getScrollDestination (item, paddingLeft, width) {
-  return item.get('x') + (width / 2) + (item.get('width') / 2) + (paddingLeft - width)
-}
-
-function _getMostRecentlyTouched (id, mostRecentlyTouched) {
-  return id === mostRecentlyTouched
 }

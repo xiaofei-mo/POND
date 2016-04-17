@@ -18,15 +18,15 @@ class Page extends React.Component {
     this.render = this.render.bind(this)
   }
   _compensateForPadding(scrollAdjustment) {
-    this.appNode.scrollLeft = this.appNode.scrollLeft - scrollAdjustment
+    this.scrollerNode.scrollLeft -= scrollAdjustment
   }
   _getClassName() {
     let className = 'page'
-    if (this.props.params.timing === undefined) {
+    if (this.props.params.timingOrUsername === undefined) {
       className += ' homepage'
     }
-    if (this.props.initiallyScrolledToCenter) {
-      className += ' scrolled-to-center'
+    if (this.props.initiallyScrolled) {
+      className += ' initially-scrolled'
     }
     return className
   }
@@ -38,26 +38,22 @@ class Page extends React.Component {
     return style
   }
   componentDidMount() {
-    this.props.listenToItems(this.props.params.timing);
-    this.appNode = document.getElementById('app')
+    this.props.listenToItems(this.props.params.timingOrUsername);
+    this.scrollerNode = document.getElementById('scroller')
   }
   componentWillReceiveProps(nextProps) {
-    if(this.props.params.timing !== nextProps.params.timing) {
-      this.props.listenToItems(nextProps.params.timing)
+    if(this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
+      this.props.listenToItems(nextProps.params.timingOrUsername)
     }
     if(this.props.scrollAdjustment !== nextProps.scrollAdjustment) {
       this._compensateForPadding(nextProps.scrollAdjustment)
     }
   }
   componentDidUpdate(prevProps) {
-    const centerItemId = this.props.centerItems.keySeq().first()
-    const prevCenterItemId = prevProps.centerItems.keySeq().first()
-    if(centerItemId !== prevCenterItemId) {
-      const scrollDestination = this.props.centerItems.first().get('scrollDestination')
-      if(scrollDestination !== undefined) {
-        this.appNode.scrollLeft = scrollDestination
-        this.props.setPageInitiallyScrolledToCenter()
-      }
+    if (this.props.scrollDestination !== undefined && 
+        !this.props.initiallyScrolled) {
+      this.scrollerNode.scrollLeft = this.props.scrollDestination
+      this.props.setPageInitiallyScrolled()
     }
   } 
   render() {
@@ -69,8 +65,7 @@ class Page extends React.Component {
                             key={key} 
                             setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                             setVideoReadyToPlay={this.props.setVideoReadyToPlay} 
-                            setVideoPosition={this.props.setVideoPosition} 
-                            windowWidth={this.props.width} />
+                            setVideoPosition={this.props.setVideoPosition} />
         default:
           return null
       }
@@ -85,13 +80,13 @@ class Page extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    centerItems: state.getIn(['page', 'centerItems']),
     isInAddMode: state.getIn(['app', 'isInAddMode']),
     items: state.getIn(['page', 'items']),
-    initiallyScrolledToCenter: state.getIn(['page', 'initiallyScrolledToCenter']),
+    initiallyScrolled: state.getIn(['page', 'initiallyScrolled']),
     paddingLeft: state.getIn(['page', 'paddingLeft']),
     paddingRight: state.getIn(['page', 'paddingRight']),
     scrollAdjustment: state.getIn(['page', 'scrollAdjustment']),
+    scrollDestination: state.getIn(['page', 'scrollDestination']),
     width: state.getIn(['page', 'width'])
   }
 }
@@ -99,7 +94,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
-    setPageInitiallyScrolledToCenter: bindActionCreators(actions.setPageInitiallyScrolledToCenter, dispatch),
+    setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
     setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
     setVideoPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch)

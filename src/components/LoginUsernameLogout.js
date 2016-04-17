@@ -1,30 +1,37 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export default class LoginUsernameLogout extends React.Component {
   constructor() {
     super()
-    this._handleClick = this._handleClick.bind(this)
+    this._handleLoginClick = this._handleLoginClick.bind(this)
+    this._handleLogoutClick = this._handleLogoutClick.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleClick(event) {
+  _handleLoginClick(event) {
     event.preventDefault()
-    if (!this.props.authData.isEmpty()) {
-      this.props.logout()
-    }
-    else {
-      this.props.openLogin()
-    }
+    this.props.openLogin()
+  }
+  _handleLogoutClick(event) {
+    event.preventDefault()
+    this.props.logout()
   }
   render() {
     if (this.props.authData === null) {
       return null
     }
-    let label = <span>Login</span>
     if (!this.props.authData.isEmpty()) {
+      // A user is logged in. Are they on their personal page?
+      const username = this.props.authData.get('username')
+      const timingOrUsername = this.props.params.timingOrUsername
+      if (username === timingOrUsername) {
+        return <a className='login-username-logout' href='#' onClick={this._handleLogoutClick}>Logout</a>
+      }
+      else {
+        return <Link className='login-username-logout' to={'/' + username}>{username}</Link>
+      }
       label = <span>{this.props.authData.get('username')}</span>
     }
-    return <a className='login-username-logout' 
-              href='#' 
-              onClick={this._handleClick}>{label}</a>
+    return <a className='login-username-logout' href='#' onClick={this._handleLoginClick}>Login</a>
   }
 }

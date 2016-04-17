@@ -123,7 +123,7 @@ export default class VideoItem extends React.Component {
       <Video key={this.props.key} 
              autoPlay 
              loop 
-             muted 
+             muted={this.props.item.get('isMuted', false)}
              poster={this.props.item.get('posterUrl')} 
              onCanPlay={this._handleCanPlay}
       >

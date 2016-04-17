@@ -27,7 +27,7 @@ ReactDOM.render(
     <Router history={history}>
       <Route path='/' component={App}>
         <IndexRoute component={Page} />
-        <Route path=':timing' component={Page} />
+        <Route path=':timingOrUsername' component={Page} />
       </Route>
     </Router>
   </Provider>,

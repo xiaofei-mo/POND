@@ -30,7 +30,7 @@ export default function appReducer (state = initialState, action) {
         authData: action.payload.get('authData'),
         login: state.set('login', Immutable.Map({
           isOpen: false,
-          failed:false
+          failed: false
         }))
       })
 
