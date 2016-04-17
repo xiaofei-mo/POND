@@ -1,7 +1,6 @@
 import express from 'express'
 import Firebase from 'firebase'
 import C from './src/constants'
-import multer from 'multer'
 import fs from 'fs'
 import request from 'request'
 import uuid from 'node-uuid'
