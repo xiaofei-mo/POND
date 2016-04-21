@@ -82,6 +82,7 @@ export default {
         _determineTiming(upload.results.encode, ref).then((timingRef) => {
           const timing = timingRef.snapshot.val()
           const initialDimensions = _getInitialDimensions(upload.results.encode)
+          const initialLocation = _getInitialLocation(getState())
           const itemRef = itemsRef.push({
             height: initialDimensions.height,
             isFeatured: false,
@@ -91,8 +92,8 @@ export default {
             type: 'video',
             userId: upload.userId,
             width: initialDimensions.width,
-            x: 0,
-            y: 0
+            x: initialLocation.x,
+            y: initialLocation.y
           })
           itemRef.once('value', (itemSnapshot) => {
             itemRef.child('id').set(itemSnapshot.key())
@@ -128,16 +129,16 @@ const _getInitialDimensions = (encode) => {
   }
 }
 
-const _getInitialHeight = (encode) => {
-  return Math.floor(encode.meta.height)
+const _getInitialLocation = (state) => {
+  const items = state.getIn(['page', 'items'])
+  const rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
+  return {
+    x: rightmostItem.get('width') + rightmostItem.get('x') + 100,
+    y: 0
+  }
 }
 
-const _getInitialWidth = (encode) => {
-  if (initialWidth > 1000)
-  return 
-}
-
-function _pollTransloadit(uploadRef, uri) {
+const _pollTransloadit = (uploadRef, uri) => {
   request.get(uri).end((err, res) => {
     if (err || res.body.error !== undefined) {
       if (res.status === 404) {
