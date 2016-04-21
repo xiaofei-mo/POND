@@ -127,7 +127,7 @@ export default class VideoItem extends React.Component {
              poster={this.props.item.get('posterUrl')} 
              onCanPlay={this._handleCanPlay}
       >
-        <source src={this.props.item.getIn(['result', 'ssl_url'])} type='video/mp4' />
+        <source src={this.props.item.getIn(['results', 'encode', 'ssl_url'])} type='video/mp4' />
       </Video>
     )
     if(this.props.item.get('linkedTo')) {

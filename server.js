@@ -12,17 +12,11 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/upload-values', (req, res, next) => {
   const paramsObj = {
-    steps: {
-      encodeToIpad: {
-        use: ':original',
-        robot: '/video/encode',
-        preset: 'ipad'
-      }
-    },
     auth: {
       key: process.env.TRANSLOADIT_AUTH_KEY,
       expires: _getExpiresDate()
-    }
+    },
+    template_id: process.env.TRANSLOADIT_TEMPLATE_ID
   }
   const params = JSON.stringify(paramsObj)
   const signature = _calculateSignature(params)

@@ -79,17 +79,18 @@ export default {
       const uploadRef = ref.child('uploads').child(uploadId)
       uploadRef.once('value', (uploadSnapshot) => {
         const upload = uploadSnapshot.val()
-        _determineTiming(upload.result.meta.duration, ref).then((timingRef) => {
+        _determineTiming(upload.results.encode, ref).then((timingRef) => {
           const timing = timingRef.snapshot.val()
+          const initialDimensions = _getInitialDimensions(upload.results.encode)
           const itemRef = itemsRef.push({
-            height: _getInitialHeight(upload.result.meta.height),
+            height: initialDimensions.height,
             isFeatured: false,
-            original: upload.original,
-            result: upload.result,
+            upload: upload.upload,
+            results: upload.results,
             timing: timing,
             type: 'video',
             userId: upload.userId,
-            width: _getInitialWidth(upload.result.meta.width),
+            width: initialDimensions.width,
             x: 0,
             y: 0
           })
@@ -105,21 +106,35 @@ export default {
   }
 }
 
-const _determineTiming = (duration, ref) => {
+const _determineTiming = (encode, ref) => {
   return ref.child('lastTiming').transaction((lastTiming) => {
     if (lastTiming === null) {
       return 0
     }
-    return Math.ceil(lastTiming) + Math.ceil(duration) + 1
+    return Math.ceil(lastTiming) + Math.ceil(encode.meta.duration) + 1
   })
 }
 
-const _getInitialHeight = (resultHeight) => {
-  return Math.floor(resultHeight / 3)
+const _getInitialDimensions = (encode) => {
+  let height = Math.floor(encode.meta.height)
+  let width = Math.floor(encode.meta.height * encode.meta.aspect_ratio)
+  if (width > 853) {
+    height = Math.floor(height / 2)
+    width = Math.floor(width / 2)
+  }
+  return {
+    height: height,
+    width: width
+  }
 }
 
-const _getInitialWidth = (resultWidth) => {
-  return Math.floor(resultWidth / 3)
+const _getInitialHeight = (encode) => {
+  return Math.floor(encode.meta.height)
+}
+
+const _getInitialWidth = (encode) => {
+  if (initialWidth > 1000)
+  return 
 }
 
 function _pollTransloadit(uploadRef, uri) {
@@ -134,7 +149,10 @@ function _pollTransloadit(uploadRef, uri) {
     }
     if (res.body.ok === 'ASSEMBLY_COMPLETED') {
       uploadRef.update({
-        result: res.body.results.encodeToIpad[0],
+        results: {
+          original: res.body.results[':original'][0],
+          encode: res.body.results.encode[0]
+        },
         status: 'done'
       })
     }
@@ -144,7 +162,7 @@ function _pollTransloadit(uploadRef, uri) {
       }
       else if (res.body.ok === 'ASSEMBLY_EXECUTING') {
         uploadRef.update({
-          original: res.body.uploads[0],
+          upload: res.body.uploads[0],
           status: 'processing'
         })
       }
