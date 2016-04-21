@@ -3,6 +3,7 @@ import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
   authData: null,
+  isShowingInfo: false,
   login: Immutable.Map({
     failed: false,
     isOpen: false
@@ -15,6 +16,11 @@ export default function appReducer (state = initialState, action) {
 
     case C.CLOSE_LOGIN:
       return state.setIn(['login', 'isOpen'], false)
+
+    case C.HIDE_INFO:
+      return state.merge({
+        isShowingInfo: false
+      })
 
     case C.LOGIN_FAILED:
       return state.setIn(['login', 'failed'], true)
@@ -32,6 +38,11 @@ export default function appReducer (state = initialState, action) {
           isOpen: false,
           failed: false
         }))
+      })
+
+    case C.SHOW_INFO:
+      return state.merge({
+        isShowingInfo: true
       })
 
     default:

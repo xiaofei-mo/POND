@@ -26,6 +26,12 @@ export default {
     }
   },
 
+  hideInfo: () => {
+    return {
+      type: C.HIDE_INFO
+    }
+  },
+  
   listenToAuth: () => {
     return (dispatch, getState) => {
       const ref = new Firebase(C.FIREBASE)
@@ -66,5 +72,11 @@ export default {
     return {
       type: C.OPEN_LOGIN
     }
+  },
+
+  showInfo: () => {
+    return {
+      type: C.SHOW_INFO
+    }    
   }
 }

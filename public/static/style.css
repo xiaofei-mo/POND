@@ -360,7 +360,7 @@ textarea {
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none; }
 
-.upload-item .name-status:after,
+.video-item .info-item:after, .upload-item .name-status:after,
 .upload-item .cancel-save:after, .login .email-element > div:after,
 .login .password-element > div:after {
   content: "";
@@ -461,6 +461,28 @@ a {
     bottom: -18px; }
   .video-item.most-recently-touched {
     z-index: 4; }
+  .video-item .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: #615e5e;
+    padding: 10px; }
+  .video-item .info-item label {
+    float: left;
+    display: block;
+    color: #29fe2f;
+    width: 40px;
+    margin-top: 3px; }
+  .video-item .info-item .value {
+    color: #ffffff;
+    float: left; }
+  .video-item .info-item input {
+    display: block;
+    float: left;
+    width: 190px; }
 
 video {
   width: 100%;
@@ -600,3 +622,10 @@ video {
 .login-veil {
   z-index: 6;
   display: block; }
+
+.info-more-info {
+  position: fixed;
+  bottom: 10px;
+  z-index: 5;
+  left: 50%;
+  margin-left: -12px; }

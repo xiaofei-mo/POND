@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone'
 import Uploads from 'src/containers/Uploads'
 import Login from 'src/components/Login'
 import LoginUsernameLogout from 'src/components/LoginUsernameLogout'
+import InfoMoreInfo from 'src/components/InfoMoreInfo'
 
 class App extends React.Component {
   constructor() {
@@ -20,16 +21,7 @@ class App extends React.Component {
   }
   _handleScroll(event) {
     this.props.handleScroll(event.target.scrollLeft)
-    // console.log('App._handleScroll, event.target.scrollLeft = ', event.target.scrollLeft)
   }
-  // componentDidMount() {
-  //   console.log('componentDidMount, this.refs.scroller = ', this.refs.scroller)
-  //   // const scroller = document.getElementById('scroller')
-  //   // console.log('scroller = ', scroller)
-  //   // scroller.addEventListener('scroll', (event) => {
-  //   //   console.log('scroll, event.target = ', event.target)
-  //   // })
-  // }
   componentWillMount() {
     this.props.listenToAuth()
   }
@@ -66,6 +58,8 @@ class App extends React.Component {
                                logout={this.props.logout}
                                openLogin={this.props.openLogin} 
                                params={this.props.params} />
+          <InfoMoreInfo isShowingInfo={this.props.isShowingInfo} 
+                        showInfo={this.props.showInfo} />
           <div className='dropzone-veil veil'>
             <div>
               Drop Video
@@ -80,6 +74,7 @@ class App extends React.Component {
 function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
+    isShowingInfo: state.getIn(['app', 'isShowingInfo']),
     login: state.getIn(['app', 'login'])
   }
 }
@@ -92,7 +87,8 @@ function mapDispatchToProps (dispatch) {
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
-    openLogin: bindActionCreators(actions.openLogin, dispatch)
+    openLogin: bindActionCreators(actions.openLogin, dispatch),
+    showInfo: bindActionCreators(actions.showInfo, dispatch)
   }
 }
 

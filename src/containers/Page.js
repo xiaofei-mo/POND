@@ -13,6 +13,7 @@ class Page extends React.Component {
     this._compensateForPadding = this._compensateForPadding.bind(this)
     this._getClassName = this._getClassName.bind(this)
     this._getStyle = this._getStyle.bind(this)
+    this._handleClick = this._handleClick.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
@@ -37,6 +38,11 @@ class Page extends React.Component {
     }
     return style
   }
+  _handleClick(event) {
+    if (event.target === this.refs.page && this.props.isShowingInfo) {
+      this.props.hideInfo()
+    }
+  }
   componentDidMount() {
     this.props.listenToItems(this.props.params.timingOrUsername);
     this.scrollerNode = document.getElementById('scroller')
@@ -60,18 +66,24 @@ class Page extends React.Component {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
         case 'video':
-          return <VideoItem item={item} 
-                            id={key} 
-                            key={key} 
+          return <VideoItem id={key}
+                            isShowingInfo={this.props.isShowingInfo}
+                            item={item}
+                            key={key}
                             setMostRecentlyTouched={this.props.setMostRecentlyTouched}
-                            setVideoReadyToPlay={this.props.setVideoReadyToPlay} 
-                            setVideoPosition={this.props.setVideoPosition} />
+                            setVideoPosition={this.props.setVideoPosition}
+                            setVideoReadyToPlay={this.props.setVideoReadyToPlay} />
         default:
           return null
       }
     }).toArray()
     return (
-      <div id='page' className={this._getClassName()} style={this._getStyle()}>
+      <div className={this._getClassName()} 
+           id='page' 
+           onClick={this._handleClick} 
+           ref='page'
+           style={this._getStyle()}
+      >
         {items}
       </div>
     )
@@ -81,6 +93,7 @@ class Page extends React.Component {
 function mapStateToProps (state) {
   return {
     isInAddMode: state.getIn(['app', 'isInAddMode']),
+    isShowingInfo: state.getIn(['app', 'isShowingInfo']),
     items: state.getIn(['page', 'items']),
     initiallyScrolled: state.getIn(['page', 'initiallyScrolled']),
     paddingLeft: state.getIn(['page', 'paddingLeft']),
@@ -93,6 +106,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    hideInfo: bindActionCreators(actions.hideInfo, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
     setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),

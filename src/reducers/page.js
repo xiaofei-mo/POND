@@ -1,5 +1,7 @@
 import C from 'src/constants'
 import Immutable from 'immutable'
+import timingConversion from 'src/utils/timingConversion'
+import url from 'url'
 
 const initialState = Immutable.Map({
   height: undefined,
@@ -15,6 +17,7 @@ const initialState = Immutable.Map({
 })
 
 export default function pageReducer (state = initialState, action) {
+  let items
   let paddingLeft
   switch (action.type) {
 
@@ -41,10 +44,11 @@ export default function pageReducer (state = initialState, action) {
       if (action.payload.get('items') === null) {
         return state
       }
-      paddingLeft = _getPaddingLeft(action.payload.get('items'), state.get('width'))
+      items = _hydrateItems(action.payload.get('items'))
+      paddingLeft = _getPaddingLeft(items, state.get('width'))
       const scrollDestination = _getScrollDestination({
         destinationItem: action.payload.get('destinationItem'),
-        items: action.payload.get('items'),
+        items: items,
         paddingLeft: paddingLeft,
         width: state.get('width')
       })
@@ -54,7 +58,7 @@ export default function pageReducer (state = initialState, action) {
       }
       return state.merge({
         initiallyScrolled: initiallyScrolled,
-        items: action.payload.get('items'),
+        items: items,
         paddingLeft: paddingLeft,
         paddingRight: _getPaddingRight(action.payload.get('items'), state.get('width')),
         scrollAdjustment: _getScrollAdjustment(state.get('paddingLeft'), paddingLeft),
@@ -133,4 +137,13 @@ const _getPaddingRight = (items, width) => {
     return 0
   }
   return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
+}
+
+const _hydrateItems = (items) => {
+  const parsedUrl = url.parse(window.location.href)
+  const base = parsedUrl.protocol + '//' + parsedUrl.host + '/'
+  return items.map((item) => {
+    const string = timingConversion.getStringFromSeconds(item.get('timing'))
+    return item.set('url', base + string)
+  })
 }

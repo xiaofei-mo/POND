@@ -2,6 +2,7 @@ import React from 'react'
 import Video from 'react-html5video'
 import { Link } from 'react-router'
 import { DraggableCore } from 'react-draggable'
+import Info from 'src/components/Info'
 
 class LinkLink extends React.Component {
   constructor() {
@@ -119,11 +120,15 @@ export default class VideoItem extends React.Component {
     }
   }
   render() {
+    let muted = this.props.item.get('isMuted', false)
+    if (this.props.isShowingInfo) {
+      muted = true
+    }
     const video = (
       <Video key={this.props.key} 
              autoPlay 
              loop 
-             muted={this.props.item.get('isMuted', false)}
+             muted={muted}
              poster={this.props.item.get('posterUrl')} 
              onCanPlay={this._handleCanPlay}
       >
@@ -137,6 +142,8 @@ export default class VideoItem extends React.Component {
             <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
               {video}
             </Link>
+            <Info isShowingInfo={this.props.isShowingInfo} 
+                  item={this.props.item} />
             <div className="controls">
               <LinkLink />
               <EditLink />
@@ -149,6 +156,8 @@ export default class VideoItem extends React.Component {
       <DraggableCore onDrag={this._handleDrag} onStop={this._handleStop} onMouseDown={this._handleMouseDown}>
         <div className={this._getClassName()} style={this.state.style}>
           {video}
+          <Info isShowingInfo={this.props.isShowingInfo} 
+                item={this.props.item} />
           <div className="controls">
             <LinkLink />
             <EditLink />
