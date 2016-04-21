@@ -2,7 +2,7 @@ import React from 'react'
 import Video from 'react-html5video'
 import { Link } from 'react-router'
 import { DraggableCore } from 'react-draggable'
-import Info from 'src/components/Info'
+import InfoEdit from 'src/components/InfoEdit'
 
 class LinkLink extends React.Component {
   constructor() {
@@ -27,7 +27,7 @@ class EditLink extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    console.log('EditLink click')
+    this.props.editItem(this.props.id);
   }
   render() {
     return <a className='edit-link' href='#' onClick={this._handleClick}>Edit</a>
@@ -124,7 +124,7 @@ export default class VideoItem extends React.Component {
     if (this.props.isShowingInfo) {
       muted = true
     }
-    const video = (
+    let video = (
       <Video key={this.props.key} 
              autoPlay 
              loop 
@@ -136,31 +136,21 @@ export default class VideoItem extends React.Component {
       </Video>
     )
     if(this.props.item.get('linkedTo')) {
-      return (
-        <DraggableCore onDrag={this._handleDrag} onStop={this._handleStop} onMouseDown={this._handleMouseDown}>
-          <div className={this._getClassName()} style={this.state.style}>
-            <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
-              {video}
-            </Link>
-            <Info isShowingInfo={this.props.isShowingInfo} 
-                  item={this.props.item} />
-            <div className="controls">
-              <LinkLink />
-              <EditLink />
-            </div>
-          </div>
-        </DraggableCore>
+      video = (
+        <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
+          {video}
+        </Link>
       )
     }
     return (
       <DraggableCore onDrag={this._handleDrag} onStop={this._handleStop} onMouseDown={this._handleMouseDown}>
         <div className={this._getClassName()} style={this.state.style}>
           {video}
-          <Info isShowingInfo={this.props.isShowingInfo} 
-                item={this.props.item} />
+          <InfoEdit isShowingInfo={this.props.isShowingInfo} 
+                    item={this.props.item} />
           <div className="controls">
             <LinkLink />
-            <EditLink />
+            <EditLink id={this.props.id} editItem={this.props.editItem} />
           </div>
         </div>
       </DraggableCore>

@@ -45,6 +45,10 @@ ul {
   padding: 0;
 }
 
+li {
+  list-style-type: none;
+}
+
 body {
   @include font-14;
   color: $white;
@@ -155,7 +159,7 @@ a {
     z-index: 4;
   }
 
-  .info {
+  .info-edit {
     position: absolute;
     top: 0;
     left: 0;
@@ -164,28 +168,28 @@ a {
     height: 100%;
     background-color: $info-background-gray;
     padding: 10px;
-  }
 
-  .info-item {
-    @extend %clearfix;
+    li {
+      @extend %clearfix;
 
-    label {
-      float: left;
-      display: block;
-      color: $green;
-      width: 40px;
-      margin-top: 3px;
-    }
+      label {
+        float: left;
+        display: block;
+        color: $green;
+        width: 83px;
+        margin-top: 3px;
+      }
 
-    .value {
-      color: $white;
-      float: left;
-    }
+      .value {
+        color: $white;
+        float: left;
+      }
 
-    input {
-      display: block;
-      float: left;
-      width: 190px;
+      input {
+        display: block;
+        float: left;
+        width: 190px;
+      }
     }
   }
 }

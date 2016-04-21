@@ -66,7 +66,8 @@ class Page extends React.Component {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
         case 'video':
-          return <VideoItem id={key}
+          return <VideoItem editItem={this.props.editItem}
+                            id={key}
                             isShowingInfo={this.props.isShowingInfo}
                             item={item}
                             key={key}
@@ -106,6 +107,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    editItem: bindActionCreators(actions.editItem, dispatch),
     hideInfo: bindActionCreators(actions.hideInfo, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),

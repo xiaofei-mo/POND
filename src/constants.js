@@ -1,5 +1,6 @@
 export default {
   CLOSE_LOGIN: 'CLOSE_LOGIN',
+  EDIT_ITEM: 'EDIT_ITEM',
   FIREBASE: 'https://blazing-heat-1438.firebaseio.com/',
   HIDE_INFO: 'HIDE_INFO',
   ITEM_WAS_TOUCHED: 'ITEM_WAS_TOUCHED',

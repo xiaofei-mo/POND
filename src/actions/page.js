@@ -95,6 +95,15 @@ const _listenToFeatured = (dispatch, timingOrUsername, itemsRef) => {
 
 export default {
 
+  editItem: (id) => {
+    return {
+      type: C.EDIT_ITEM,
+      payload: Immutable.Map({
+        id: id
+      })
+    }
+  },
+  
   handleScroll: (scrollLeft) => {
     return {
       type: C.PAGE_SCROLLED,

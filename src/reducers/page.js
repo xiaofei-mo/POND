@@ -21,6 +21,10 @@ export default function pageReducer (state = initialState, action) {
   let paddingLeft
   switch (action.type) {
 
+    case C.EDIT_ITEM:
+      console.log('edit item, action.payload.get(id) = ', action.payload.get('id'))
+      return state
+
     case C.ITEM_WAS_TOUCHED:
       return state.set('mostRecentlyTouched', action.payload.get('id'))
 
