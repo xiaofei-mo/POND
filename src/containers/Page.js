@@ -66,7 +66,8 @@ class Page extends React.Component {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
         case 'video':
-          return <VideoItem editItem={this.props.editItem}
+          return <VideoItem authData={this.props.authData}
+                            editItem={this.props.editItem}
                             id={key}
                             isShowingInfo={this.props.isShowingInfo}
                             item={item}
@@ -93,6 +94,7 @@ class Page extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    authData: state.getIn(['app', 'authData']),
     isInAddMode: state.getIn(['app', 'isInAddMode']),
     isShowingInfo: state.getIn(['app', 'isShowingInfo']),
     items: state.getIn(['page', 'items']),

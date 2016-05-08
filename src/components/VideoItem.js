@@ -142,18 +142,33 @@ export default class VideoItem extends React.Component {
         </Link>
       )
     }
+    if (this.props.authData !== null && !this.props.authData.isEmpty()) {
+      if (this.props.item.get('userId') === this.props.authData.get('uid')) {
+        // This particular video belongs to the logged-in user.
+        return (
+          <DraggableCore onDrag={this._handleDrag} 
+                         onStop={this._handleStop} 
+                         onMouseDown={this._handleMouseDown}>
+            <div className={this._getClassName()} style={this.state.style}>
+              {video}
+              <InfoEdit isShowingInfo={this.props.isShowingInfo} 
+                        item={this.props.item} />
+              <div className="controls">
+                <LinkLink />
+                <EditLink id={this.props.id} editItem={this.props.editItem} />
+              </div>
+            </div>
+          </DraggableCore>
+        )
+      }
+    }
+    // Not logged in, or current user does not own video.
     return (
-      <DraggableCore onDrag={this._handleDrag} onStop={this._handleStop} onMouseDown={this._handleMouseDown}>
-        <div className={this._getClassName()} style={this.state.style}>
-          {video}
-          <InfoEdit isShowingInfo={this.props.isShowingInfo} 
-                    item={this.props.item} />
-          <div className="controls">
-            <LinkLink />
-            <EditLink id={this.props.id} editItem={this.props.editItem} />
-          </div>
-        </div>
-      </DraggableCore>
+      <div className={this._getClassName()} style={this.state.style}>
+        {video}
+        <InfoEdit isShowingInfo={this.props.isShowingInfo} 
+                  item={this.props.item} />
+      </div>
     )
   }
 }
