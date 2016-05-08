@@ -33,6 +33,8 @@ class App extends React.Component {
           <LoginUsernameLogout authData={this.props.authData} 
                                logout={this.props.logout}
                                openLogin={this.props.openLogin} />
+          <InfoMoreInfo isShowingInfo={this.props.isShowingInfo} 
+                        showInfo={this.props.showInfo} />
           <Login attemptLogin={this.props.attemptLogin}
                  authData={this.props.authData} 
                  closeLogin={this.props.closeLogin}
