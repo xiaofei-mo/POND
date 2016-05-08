@@ -13,6 +13,7 @@ class App extends React.Component {
     super()
     this._handleDroppedFiles = this._handleDroppedFiles.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
+    // this.componentDidMount = this.componentDidMount.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
   }
@@ -22,6 +23,9 @@ class App extends React.Component {
   _handleScroll(event) {
     this.props.handleScroll(event.target.scrollLeft)
   }
+  // componentDidMount() {
+  //   this.props.handleScroll(this.refs.scroller.scrollLeft)
+  // }
   componentWillMount() {
     this.props.listenToAuth()
   }

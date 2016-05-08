@@ -74,6 +74,15 @@ export default {
     }
   },
 
+  setBaseUrl: (href) => {
+    return {
+      type: C.SET_BASE_URL,
+      payload: Immutable.Map({
+        href: href
+      })
+    }
+  },
+
   showInfo: () => {
     return {
       type: C.SHOW_INFO
