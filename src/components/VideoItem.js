@@ -3,6 +3,8 @@ import Video from 'react-html5video'
 import { Link } from 'react-router'
 import { DraggableCore } from 'react-draggable'
 import InfoEdit from 'src/components/InfoEdit'
+import fadeIn from 'src/utils/fadeIn'
+import fadeOut from 'src/utils/fadeOut'
 
 class LinkLink extends React.Component {
   constructor() {
@@ -38,14 +40,14 @@ export default class VideoItem extends React.Component {
   constructor() {
     super()
     this.state = {
-      x: 0,
-      y: 0,
       style: {
         width: '0px',
         height: '0px',
         transform: 'translate(0px, 0px)'
       },
-      wasDragged: false
+      wasDragged: false,
+      x: 0,
+      y: 0
     }
     this._getClassName = this._getClassName.bind(this)
     this._handleClick = this._handleClick.bind(this)
@@ -115,22 +117,43 @@ export default class VideoItem extends React.Component {
     this._setStyle(this.props)
   }
   componentWillReceiveProps(nextProps) {
-    if(this.props.item.get('x') !== nextProps.item.get('x') || this.props.item.get('y') !== nextProps.item.get('y')) {
+    if (this.props.item.get('x') !== nextProps.item.get('x') || this.props.item.get('y') !== nextProps.item.get('y')) {
       this._setStyle(nextProps)
+    }
+    if (this.props.isShowingInfo !== nextProps.isShowingInfo) {
+      if (nextProps.isShowingInfo) {
+        this.refs.video.setVolume(0)
+      }
+      else {
+        if (nextProps.item.get('isMuted')) {
+          this.refs.video.setVolume(0)
+        }
+        else {
+          this.refs.video.setVolume(1)
+        }
+      }
+    }
+    else if (this.props.item.get('isMuted') !== nextProps.item.get('isMuted')) {
+      if (nextProps.item.get('isMuted')) {
+        fadeOut((v) => {
+          this.refs.video.setVolume(v)
+        })
+      }
+      else if (!nextProps.item.get('isMuted')) {
+        fadeIn((v) => {
+          this.refs.video.setVolume(v)
+        })
+      }
     }
   }
   render() {
-    let muted = this.props.item.get('isMuted', false)
-    if (this.props.isShowingInfo) {
-      muted = true
-    }
     let video = (
       <Video key={this.props.key} 
              autoPlay 
              loop 
-             muted={muted}
              poster={this.props.item.get('posterUrl')} 
              onCanPlay={this._handleCanPlay}
+             ref='video'
       >
         <source src={this.props.item.getIn(['results', 'encode', 'ssl_url'])} type='video/mp4' />
       </Video>
