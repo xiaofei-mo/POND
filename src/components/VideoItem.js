@@ -137,11 +137,15 @@ export default class VideoItem extends React.Component {
       if (nextProps.item.get('isMuted')) {
         fadeOut((v) => {
           this.refs.video.setVolume(v)
+        }, () => {
+          this.refs.video.unmute()
         })
       }
       else if (!nextProps.item.get('isMuted')) {
         fadeIn((v) => {
           this.refs.video.setVolume(v)
+        }, () => {
+          this.refs.video.unmute()
         })
       }
     }
@@ -151,6 +155,7 @@ export default class VideoItem extends React.Component {
       <Video key={this.props.key} 
              autoPlay 
              loop 
+             muted
              poster={this.props.item.get('posterUrl')} 
              onCanPlay={this._handleCanPlay}
              ref='video'
