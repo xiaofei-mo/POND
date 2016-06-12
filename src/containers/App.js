@@ -24,7 +24,10 @@ class App extends React.Component {
     this.props.handleScroll(event.target.scrollLeft)
   }
   _handleWheel(event) {
-    this.refs.scroller.scrollLeft = this.refs.scroller.scrollLeft + event.deltaY
+    // We need to use `getElementById` here because the Dropzone component makes
+    // it difficult to access its underlying <div> directly.
+    let scroller = document.getElementById('scroller')
+    scroller.scrollLeft = scroller.scrollLeft + event.deltaY
   }
   componentWillMount() {
     this.props.listenToAuth()
