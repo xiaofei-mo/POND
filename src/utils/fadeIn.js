@@ -1,4 +1,4 @@
-export default function fadeIn (func, cb) {
+export default function fadeIn (func, duration, cb) {
   let incrementer
   let v = 0.00
   const increment = () => {
@@ -13,5 +13,6 @@ export default function fadeIn (func, cb) {
       }
     }
   }
-  incrementer = setInterval(increment, 50)
+  const d = duration * 0.1
+  incrementer = setInterval(increment, d)
 }

@@ -137,14 +137,14 @@ export default class VideoItem extends React.Component {
       if (nextProps.item.get('isMuted')) {
         fadeOut((v) => {
           this.refs.video.setVolume(v)
-        }, () => {
+        }, 3000, () => {
           this.refs.video.unmute()
         })
       }
       else if (!nextProps.item.get('isMuted')) {
         fadeIn((v) => {
           this.refs.video.setVolume(v)
-        }, () => {
+        }, 3000, () => {
           this.refs.video.unmute()
         })
       }

@@ -1,4 +1,4 @@
-export default function fadeOut (func, cb) {
+export default function fadeOut (func, duration, cb) {
   let decrementer
   let v = 1.00
   const decrement = () => {
@@ -13,5 +13,6 @@ export default function fadeOut (func, cb) {
       }
     }
   }
-  decrementer = setInterval(decrement, 50)
+  const d = duration * 0.1
+  decrementer = setInterval(decrement, d)
 }
