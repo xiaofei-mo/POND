@@ -13,6 +13,7 @@ class App extends React.Component {
     super()
     this._handleDroppedFiles = this._handleDroppedFiles.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
+    this._handleWheel = this._handleWheel.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
   }
@@ -22,13 +23,20 @@ class App extends React.Component {
   _handleScroll(event) {
     this.props.handleScroll(event.target.scrollLeft)
   }
+  _handleWheel(event) {
+    this.refs.scroller.scrollLeft = this.refs.scroller.scrollLeft + event.deltaY
+  }
   componentWillMount() {
     this.props.listenToAuth()
   }
   render() {
     if (this.props.authData === null || this.props.authData.isEmpty()) {
       return (
-        <div ref='scroller' id='scroller' className='app' onScroll={this._handleScroll}>
+        <div className='app'
+             id='scroller'
+             ref='scroller'
+             onScroll={this._handleScroll}
+             onWheel={this._handleWheel}>
           {this.props.children}
           <LoginUsernameLogout authData={this.props.authData} 
                                logout={this.props.logout}
@@ -44,16 +52,16 @@ class App extends React.Component {
     }
     return (
       <div className='app'>
-        <Dropzone ref='scroller'
-                  id='scroller'
-                  accept='video/*'
-                  activeClassName='dropzone-active' 
+        <Dropzone accept='video/*'
+                  activeClassName='dropzone-active'
                   className='dropzone' 
                   disableClick={true} 
+                  id='scroller'
                   multiple={false} 
                   onDrop={this._handleDroppedFiles}
                   onScroll={this._handleScroll}
-        >
+                  onWheel={this._handleWheel}
+                  ref='scroller'>
           {this.props.children}
           <Uploads authData={this.props.authData} />
           <LoginUsernameLogout authData={this.props.authData} 

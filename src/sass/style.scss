@@ -30,6 +30,8 @@ $info-background-gray: #615e5e;
 
 html {
   box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
 }
 
 *, *:before, *:after {
@@ -52,6 +54,8 @@ li {
 body {
   @include font-14;
   color: $white;
+  height: 100%;
+  overflow: hidden;
 }
 
 a {

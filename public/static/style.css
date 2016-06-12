@@ -368,7 +368,9 @@ textarea {
   clear: both; }
 
 html {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden; }
 
 *, *:before, *:after {
   box-sizing: inherit; }
@@ -386,7 +388,9 @@ li {
 body {
   font-size: 14px;
   line-height: 18px;
-  color: #ffffff; }
+  color: #ffffff;
+  height: 100%;
+  overflow: hidden; }
 
 a {
   text-decoration: none;
