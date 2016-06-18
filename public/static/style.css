@@ -360,8 +360,8 @@ textarea {
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none; }
 
-.upload-item:after, .login .email-element > div:after,
-.login .password-element > div:after {
+.login .email-element > div:after,
+.login .password-element > div:after, .upload-item:after {
   content: "";
   display: table;
   clear: both; }
@@ -450,124 +450,6 @@ a {
     transition: opacity 200ms;
     opacity: 1; }
 
-.app-control {
-  font-size: 28px;
-  position: fixed;
-  color: #009669;
-  z-index: 5; }
-
-.login-username-logout {
-  top: 28px;
-  left: 40px;
-  color: #333c53; }
-  .login-username-logout:hover {
-    color: #333c53; }
-
-.info-more-info {
-  bottom: 28px;
-  left: 200px; }
-
-.sort {
-  top: 33%;
-  right: 0;
-  transform: rotate(-90deg); }
-
-.edit {
-  bottom: 33%;
-  right: 0;
-  color: #1e3db3;
-  transform: rotate(-90deg); }
-  .edit:hover {
-    color: #1e3db3; }
-
-.video-item {
-  position: absolute;
-  display: block;
-  z-index: 3; }
-  .video-item .video {
-    z-index: 3;
-    position: relative; }
-  .video-item.most-recently-touched {
-    z-index: 4; }
-  .video-item .info-edit {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #3e2337;
-    background-color: #000000;
-    padding: 10px; }
-    .video-item .info-edit .url {
-      display: block;
-      color: #009669;
-      font-size: 28px;
-      line-height: 36px;
-      background-color: #000000;
-      border: none;
-      width: 100%;
-      height: 3em;
-      resize: none; }
-
-video {
-  width: 100%;
-  height: 100%; }
-
-.uploads {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 250px;
-  height: auto;
-  display: block;
-  z-index: 5; }
-
-.upload-item {
-  font-size: 12px;
-  line-height: 16px;
-  width: 250px;
-  display: block;
-  background-color: #1e3db3;
-  border-top: 2px solid #879e98;
-  padding: 10px 20px 10px 32px;
-  position: relative; }
-  .upload-item:first-child {
-    border-top: 2px solid #1e3db3; }
-  .upload-item .cancel {
-    font-size: 16px;
-    position: absolute;
-    top: 6px;
-    left: 12px;
-    display: block; }
-  .upload-item .progress-bar {
-    height: 3px;
-    background-color: #333c53;
-    position: relative;
-    margin-bottom: 4px; }
-    .upload-item .progress-bar .progress {
-      background-color: #b98d28;
-      position: absolute;
-      height: 3px;
-      top: 0;
-      left: 0;
-      transition: width 100ms; }
-  .upload-item .name {
-    float: left;
-    max-width: 129px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .upload-item .size {
-    float: left; }
-  .upload-item .status,
-  .upload-item .save {
-    clear: both;
-    text-transform: lowercase; }
-  .upload-item .save {
-    display: block;
-    color: #009669; }
-
 .login {
   position: fixed;
   background-color: #ffffff;
@@ -641,3 +523,162 @@ video {
 .login-veil {
   z-index: 6;
   display: block; }
+
+.app-control {
+  font-size: 28px;
+  position: fixed;
+  color: #009669;
+  z-index: 7; }
+
+.login-username-logout-control {
+  top: 28px;
+  left: 40px;
+  color: #333c53; }
+  .login-username-logout-control:hover {
+    color: #333c53; }
+
+.info-more-info-control {
+  bottom: 28px;
+  left: 200px; }
+
+.sort-control {
+  top: 33%;
+  right: 0;
+  transform: rotate(-90deg); }
+  .sort-control.is-open {
+    color: #ffffff; }
+
+.edit-control {
+  bottom: 33%;
+  right: 0;
+  color: #1e3db3;
+  transform: rotate(-90deg); }
+  .edit-control:hover {
+    color: #1e3db3; }
+
+.sort {
+  display: block;
+  background-color: #009669;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 6;
+  padding: 20px 40px 20px 20px; }
+
+.vocabulary {
+  display: block; }
+  .vocabulary a {
+    display: block;
+    font-size: 30px;
+    line-height: 36px; }
+    .vocabulary a:hover {
+      color: #ffffff; }
+
+.terms {
+  margin: 0 0 18px 20px; }
+
+.term {
+  font-size: 12px;
+  line-height: 16px;
+  display: inline;
+  color: #7f9c9e; }
+  .term:after {
+    content: ", "; }
+  .term:last-child:after {
+    content: ""; }
+  .term a,
+  .term a:hover {
+    font-size: 12px;
+    line-height: 16px;
+    display: inline;
+    color: #7f9c9e; }
+
+.uploads {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: auto;
+  display: block;
+  z-index: 5; }
+
+.upload-item {
+  font-size: 12px;
+  line-height: 16px;
+  width: 250px;
+  display: block;
+  background-color: #1e3db3;
+  border-top: 2px solid #879e98;
+  padding: 10px 20px 10px 32px;
+  position: relative; }
+  .upload-item:first-child {
+    border-top: 2px solid #1e3db3; }
+  .upload-item .cancel {
+    font-size: 16px;
+    position: absolute;
+    top: 6px;
+    left: 12px;
+    display: block; }
+  .upload-item .progress-bar {
+    height: 3px;
+    background-color: #333c53;
+    position: relative;
+    margin-bottom: 4px; }
+    .upload-item .progress-bar .progress {
+      background-color: #b98d28;
+      position: absolute;
+      height: 3px;
+      top: 0;
+      left: 0;
+      transition: width 100ms; }
+  .upload-item .name {
+    float: left;
+    max-width: 129px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .upload-item .size {
+    float: left; }
+  .upload-item .status,
+  .upload-item .save {
+    clear: both;
+    text-transform: lowercase; }
+  .upload-item .save {
+    display: block;
+    color: #009669; }
+
+.video-item {
+  position: absolute;
+  display: block;
+  z-index: 3; }
+  .video-item .video {
+    z-index: 3;
+    position: relative; }
+  .video-item.most-recently-touched {
+    z-index: 4; }
+  .video-item .info-edit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #3e2337;
+    background-color: #000000;
+    padding: 10px; }
+    .video-item .info-edit .url {
+      display: block;
+      color: #009669;
+      font-size: 28px;
+      line-height: 36px;
+      background-color: #000000;
+      border: none;
+      width: 100%;
+      height: 3em;
+      resize: none; }
+
+video {
+  width: 100%;
+  height: 100%; }

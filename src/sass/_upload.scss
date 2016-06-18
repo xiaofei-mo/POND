@@ -1,0 +1,71 @@
+.uploads {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: $sidebar-width;
+  height: auto;
+  display: block;
+  z-index: 5;
+}
+
+.upload-item {
+  @extend %clearfix;
+  @include font-12;
+  width: $sidebar-width;
+  display: block;
+  background-color: $light-blue;
+  border-top: 2px solid $sidebar-separator;
+  padding: 10px 20px 10px 32px;
+  position: relative;
+
+  &:first-child {
+    border-top: 2px solid $light-blue;
+  }
+
+  .cancel {
+    font-size: 16px;
+    position: absolute;
+    top: 6px;
+    left: 12px;
+    display: block;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background-color: $progress-bar-background;
+    position: relative;
+    margin-bottom: 4px;
+
+    .progress {
+      background-color: $progress-bar-indicator;
+      position: absolute;
+      height: 3px;
+      top: 0;
+      left: 0;
+      transition: width 100ms;
+    }
+  }
+
+  .name {
+    float: left;
+    max-width: 129px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .size {
+    float: left;
+  }
+
+  .status,
+  .save {
+    clear: both;
+    text-transform: lowercase;
+  }
+
+  .save {
+    display: block;
+    color: $teal;
+  }
+}

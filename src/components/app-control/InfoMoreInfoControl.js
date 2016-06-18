@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class InfoMoreInfo extends React.Component {
+export default class InfoMoreInfoControl extends React.Component {
   constructor() {
     super()
     this._handleInfoClick = this._handleInfoClick.bind(this)
@@ -17,8 +17,12 @@ export default class InfoMoreInfo extends React.Component {
   }
   render() {
     if (this.props.isShowingInfo) {
-      return <a className='info-more-info app-control' href='#' onClick={this._handleMoreInfoClick}>More Info</a>
+      return <a className='info-more-info-control app-control' 
+                href='#' 
+                onClick={this._handleMoreInfoClick}>More Info</a>
     }
-    return <a className='info-more-info app-control' href='#' onClick={this._handleInfoClick}>Info</a>
+    return <a className='info-more-info-control app-control' 
+              href='#' 
+              onClick={this._handleInfoClick}>Info</a>
   }
 }

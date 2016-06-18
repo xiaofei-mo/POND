@@ -11,6 +11,8 @@ $light-blue: #1e3db3;
 $sidebar-separator: #879e98;
 $teal: #009669;
 $chalk-purple: #333c53;
+$sidebar-width: 250px;
+$gray: #7f9c9e;
 
 %clearfix {
   &:after {
@@ -141,184 +143,6 @@ a {
   }
 }
 
-.app-control {
-  font-size: 28px;
-  position: fixed;
-  color: $teal;
-  z-index: 5;
-}
-
-.login-username-logout {
-  top: 28px;
-  left: 40px;
-  color: $chalk-purple;
-
-  &:hover {
-    color: $chalk-purple;
-  }
-}
-
-.info-more-info {
-  bottom: 28px;
-  left: 200px;
-}
-
-.sort {
-  top: 33%;
-  right: 0;
-  transform: rotate(-90deg);
-}
-
-.edit {
-  bottom: 33%;
-  right: 0;
-  color: $light-blue;
-  transform: rotate(-90deg);
-
-  &:hover {
-    color: $light-blue;
-  }
-}
-
-.video-item {
-  position: absolute;
-  display: block;
-  z-index: 3;
-
-  .video {
-    z-index: 3;
-    position: relative;
-  }
-
-  // .controls {
-  //   z-index: 1;
-  //   display: block;
-  //   position: absolute;
-  //   transition: bottom 100ms;
-  //   right: 0;
-  //   bottom: 0;
-  //   height: 18px;
-
-  //   a {
-  //     text-transform: lowercase;
-  //     margin-left: 10px;
-  //   }
-  // }
-
-  // &:hover {
-
-  //   .controls {
-  //     transition: bottom 100ms;
-  //     bottom: -18px;
-  //   }
-  // }
-
-  &.most-recently-touched {
-    z-index: 4;
-  }
-
-  .info-edit {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    border: 4px solid $purple;
-    background-color: $black;
-    padding: 10px;
-
-    .url {
-      display: block;
-      color: $teal;
-      font-size: 28px;
-      line-height: 36px;
-      background-color: $black;
-      border: none;
-      width: 100%;
-      height: 3em;
-      resize: none;
-    }
-  }
-}
-
-video {
-  width: 100%; 
-  height: 100%; 
-}
-
-.uploads {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 250px;
-  height: auto;
-  display: block;
-  z-index: 5;
-}
-
-.upload-item {
-  @extend %clearfix;
-  @include font-12;
-  width: 250px;
-  display: block;
-  background-color: $light-blue;
-  border-top: 2px solid $sidebar-separator;
-  padding: 10px 20px 10px 32px;
-  position: relative;
-
-  &:first-child {
-    border-top: 2px solid $light-blue;
-  }
-
-  .cancel {
-    font-size: 16px;
-    position: absolute;
-    top: 6px;
-    left: 12px;
-    display: block;
-  }
-
-  .progress-bar {
-    height: 3px;
-    background-color: $progress-bar-background;
-    position: relative;
-    margin-bottom: 4px;
-
-    .progress {
-      background-color: $progress-bar-indicator;
-      position: absolute;
-      height: 3px;
-      top: 0;
-      left: 0;
-      transition: width 100ms;
-    }
-  }
-
-  .name {
-    float: left;
-    max-width: 129px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  .size {
-    float: left;
-  }
-
-  .status,
-  .save {
-    clear: both;
-    text-transform: lowercase;
-  }
-
-  .save {
-    display: block;
-    color: $teal;
-  }
-}
-
 .login {
   position: fixed;
   background-color: $white;
@@ -417,3 +241,7 @@ video {
   display: block;
 }
 
+@import 'app-control';
+@import 'sort';
+@import 'upload';
+@import 'video';

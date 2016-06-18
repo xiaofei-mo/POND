@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-export default class LoginUsernameLogout extends React.Component {
+export default class LoginUsernameLogoutControl extends React.Component {
   constructor() {
     super()
     this._handleLoginClick = this._handleLoginClick.bind(this)
@@ -25,13 +25,18 @@ export default class LoginUsernameLogout extends React.Component {
       const username = this.props.authData.get('username')
       const timingOrUsername = this.props.params.timingOrUsername
       if (username === timingOrUsername) {
-        return <a className='login-username-logout app-control' href='#' onClick={this._handleLogoutClick}>Logout</a>
+        return <a className='login-username-logout-control app-control' 
+                  href='#' 
+                  onClick={this._handleLogoutClick}>Logout</a>
       }
       else {
-        return <Link className='login-username-logout app-control' to={'/' + username}>{username}</Link>
+        return <Link className='login-username-logout-control app-control' 
+                     to={'/' + username}>{username}</Link>
       }
       label = <span>{this.props.authData.get('username')}</span>
     }
-    return <a className='login-username-logout app-control' href='#' onClick={this._handleLoginClick}>Login</a>
+    return <a className='login-username-logout-control app-control' 
+              href='#' 
+              onClick={this._handleLoginClick}>Login</a>
   }
 }

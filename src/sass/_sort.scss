@@ -1,0 +1,50 @@
+.sort {
+  display: block;
+  background-color: $teal;
+  width: $sidebar-width;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 6;
+  padding: 20px 40px 20px 20px;
+}
+
+.vocabulary {
+  display: block;
+
+  a {
+    display: block;
+    font-size: 30px;
+    line-height: 36px;
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+.terms {
+  margin: 0 0 18px 20px;
+}
+
+.term {
+  @include font-12;
+  display: inline;
+  color: $gray;
+
+  &:after {
+    content: ", ";
+  }
+
+  &:last-child:after {
+    content: "";
+  }
+
+  a,
+  a:hover {
+    @include font-12;
+    display: inline;
+    color: $gray;
+  }
+}

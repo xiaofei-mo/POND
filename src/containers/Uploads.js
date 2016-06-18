@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import actions from 'src/actions'
-import Item from 'src/components/upload/Item'
+import UploadItem from 'src/components/upload/UploadItem'
 
 export default class Uploads extends React.Component {
   constructor() {
@@ -15,11 +15,11 @@ export default class Uploads extends React.Component {
   }
   render() {
     const items = this.props.uploads.map((upload, uploadId) => {
-      return <Item key={uploadId} 
-                   upload={upload}
-                   uploadId={uploadId} 
-                   cancelUpload={this.props.cancelUpload} 
-                   saveUpload={this.props.saveUpload} />
+      return <UploadItem cancelUpload={this.props.cancelUpload} 
+                         key={uploadId} 
+                         saveUpload={this.props.saveUpload}
+                         upload={upload}
+                         uploadId={uploadId} />
     }).toArray()
     return (
       <div className='uploads'>

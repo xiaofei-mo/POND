@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import VideoItem from 'src/components/video/Item'
+import VideoItem from 'src/components/video/VideoItem'
 import C from 'src/constants'
 import actions from 'src/actions'
 import ReactDOM from 'react-dom'

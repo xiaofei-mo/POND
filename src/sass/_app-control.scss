@@ -1,0 +1,42 @@
+.app-control {
+  font-size: 28px;
+  position: fixed;
+  color: $teal;
+  z-index: 7;
+}
+
+.login-username-logout-control {
+  top: 28px;
+  left: 40px;
+  color: $chalk-purple;
+
+  &:hover {
+    color: $chalk-purple;
+  }
+}
+
+.info-more-info-control {
+  bottom: 28px;
+  left: 200px;
+}
+
+.sort-control {
+  top: 33%;
+  right: 0;
+  transform: rotate(-90deg);
+
+  &.is-open {
+    color: $white;
+  }
+}
+
+.edit-control {
+  bottom: 33%;
+  right: 0;
+  color: $light-blue;
+  transform: rotate(-90deg);
+
+  &:hover {
+    color: $light-blue;
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Sort extends React.Component {
+export default class EditControl extends React.Component {
   constructor() {
     super()
     this._handleClick = this._handleClick.bind(this)
@@ -8,9 +8,11 @@ export default class Sort extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    console.log('sort click')
+    console.log('edit click')
   }
   render() {
-    return <a className='sort app-control' href='#' onClick={this._handleClick}>Sort</a>
+    return <a className='edit-control app-control' 
+              href='#' 
+              onClick={this._handleClick}>Edit</a>
   }
 }

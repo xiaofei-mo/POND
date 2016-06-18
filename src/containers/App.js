@@ -5,10 +5,11 @@ import actions from 'src/actions'
 import Dropzone from 'react-dropzone'
 import Uploads from 'src/containers/Uploads'
 import Login from 'src/components/Login'
-import LoginUsernameLogout from 'src/components/app-control/LoginUsernameLogout'
-import InfoMoreInfo from 'src/components/app-control/InfoMoreInfo'
-import Edit from 'src/components/app-control/Edit'
-import Sort from 'src/components/app-control/Sort'
+import LoginUsernameLogoutControl from 'src/components/app-control/LoginUsernameLogoutControl'
+import InfoMoreInfoControl from 'src/components/app-control/InfoMoreInfoControl'
+import EditControl from 'src/components/app-control/EditControl'
+import SortControl from 'src/components/app-control/SortControl'
+import Sort from 'src/containers/Sort'
 
 class App extends React.Component {
   constructor() {
@@ -43,16 +44,17 @@ class App extends React.Component {
              onScroll={this._handleScroll}
              onWheel={this._handleWheel}>
           {this.props.children}
-          <LoginUsernameLogout authData={this.props.authData} 
-                               logout={this.props.logout}
-                               openLogin={this.props.openLogin} />
-          <InfoMoreInfo isShowingInfo={this.props.isShowingInfo} 
-                        showInfo={this.props.showInfo} />
-          <Sort />
+          <LoginUsernameLogoutControl authData={this.props.authData} 
+                                      logout={this.props.logout}
+                                      openLogin={this.props.openLogin} />
+          <InfoMoreInfoControl isShowingInfo={this.props.isShowingInfo} 
+                               showInfo={this.props.showInfo} />
+          <SortControl />
           <Login attemptLogin={this.props.attemptLogin}
                  authData={this.props.authData} 
                  closeLogin={this.props.closeLogin}
                  login={this.props.login} />
+          <Sort />
         </div>
       )
     }
@@ -70,19 +72,21 @@ class App extends React.Component {
                   ref='scroller'>
           {this.props.children}
           <Uploads authData={this.props.authData} />
-          <LoginUsernameLogout authData={this.props.authData} 
-                               logout={this.props.logout}
-                               openLogin={this.props.openLogin} 
-                               params={this.props.params} />
-          <InfoMoreInfo isShowingInfo={this.props.isShowingInfo} 
-                        showInfo={this.props.showInfo} />
-          <Sort />
-          <Edit />
+          <LoginUsernameLogoutControl authData={this.props.authData} 
+                                      logout={this.props.logout}
+                                      openLogin={this.props.openLogin} 
+                                      params={this.props.params} />
+          <InfoMoreInfoControl isShowingInfo={this.props.isShowingInfo} 
+                               showInfo={this.props.showInfo} />
+          <SortControl openSort={this.props.openSort} 
+                       sortIsOpen={this.props.sortIsOpen} />
+          <EditControl />
           <div className='dropzone-veil veil'>
             <div>
               <div>Drop Video</div>
             </div>
           </div>
+          <Sort />
         </Dropzone>
       </div>
     )
@@ -93,7 +97,8 @@ function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
     isShowingInfo: state.getIn(['app', 'isShowingInfo']),
-    login: state.getIn(['app', 'login'])
+    login: state.getIn(['app', 'login']),
+    sortIsOpen: state.getIn(['sort', 'isOpen'])
   }
 }
 
@@ -106,6 +111,7 @@ function mapDispatchToProps (dispatch) {
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
     openLogin: bindActionCreators(actions.openLogin, dispatch),
+    openSort: bindActionCreators(actions.openSort, dispatch),
     showInfo: bindActionCreators(actions.showInfo, dispatch)
   }
 }
