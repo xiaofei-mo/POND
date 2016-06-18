@@ -17,8 +17,8 @@ export default class InfoMoreInfo extends React.Component {
   }
   render() {
     if (this.props.isShowingInfo) {
-      return <a className='info-more-info' href='#' onClick={this._handleMoreInfoClick}>More Info</a>
+      return <a className='info-more-info app-control' href='#' onClick={this._handleMoreInfoClick}>More Info</a>
     }
-    return <a className='info-more-info' href='#' onClick={this._handleInfoClick}>Info</a>
+    return <a className='info-more-info app-control' href='#' onClick={this._handleInfoClick}>Info</a>
   }
 }

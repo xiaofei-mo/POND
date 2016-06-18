@@ -42,6 +42,7 @@ export default function pageReducer (state = initialState, action) {
       )
     case C.WINDOW_CHANGED_SIZE:
       return _handleWindowChangedSize(
+        action.payload.get('height'),
         action.payload.get('width'), 
         state
       )
@@ -114,13 +115,14 @@ const _handleVideoIsReadyToPlay = (readyToPlayId, state) => {
   }))
 }
 
-const _handleWindowChangedSize = (width, state) => {
+const _handleWindowChangedSize = (height, width, state) => {
   const halfway = _getHalfway(width, state.get('scrollLeft'))
   const paddingLeft = _getPaddingLeft(state.get('items'), width)
   const paddingRight = _getPaddingRight(state.get('items'), width)
   const scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft)
   const items = _setIsMuted(state.get('items'), halfway, paddingLeft)
   return state.merge({
+    height: height,
     items: items,
     paddingLeft: paddingLeft,
     paddingRight: paddingRight,

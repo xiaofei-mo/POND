@@ -2,39 +2,39 @@ import React from 'react'
 import Video from 'react-html5video'
 import { Link } from 'react-router'
 import { DraggableCore } from 'react-draggable'
-import InfoEdit from 'src/components/InfoEdit'
+import InfoEdit from './InfoEdit'
 import fadeIn from 'src/utils/fadeIn'
 import fadeOut from 'src/utils/fadeOut'
 
-class LinkLink extends React.Component {
-  constructor() {
-    super()
-    this._handleClick = this._handleClick.bind(this)
-    this.render = this.render.bind(this)
-  }
-  _handleClick(event) {
-    event.preventDefault()
-    console.log('LinkLink click')
-  }
-  render() {
-    return <a className='link-link' href='#' onClick={this._handleClick}>Link</a>
-  }
-}
+// class LinkLink extends React.Component {
+//   constructor() {
+//     super()
+//     this._handleClick = this._handleClick.bind(this)
+//     this.render = this.render.bind(this)
+//   }
+//   _handleClick(event) {
+//     event.preventDefault()
+//     console.log('LinkLink click')
+//   }
+//   render() {
+//     return <a className='link-link' href='#' onClick={this._handleClick}>Link</a>
+//   }
+// }
 
-class EditLink extends React.Component {
-  constructor() {
-    super()
-    this._handleClick = this._handleClick.bind(this)
-    this.render = this.render.bind(this)
-  }
-  _handleClick(event) {
-    event.preventDefault()
-    this.props.editItem(this.props.id);
-  }
-  render() {
-    return <a className='edit-link' href='#' onClick={this._handleClick}>Edit</a>
-  }
-}
+// class EditLink extends React.Component {
+//   constructor() {
+//     super()
+//     this._handleClick = this._handleClick.bind(this)
+//     this.render = this.render.bind(this)
+//   }
+//   _handleClick(event) {
+//     event.preventDefault()
+//     this.props.editItem(this.props.id);
+//   }
+//   render() {
+//     return <a className='edit-link' href='#' onClick={this._handleClick}>Edit</a>
+//   }
+// }
 
 export default class VideoItem extends React.Component {
   constructor() {
@@ -78,8 +78,15 @@ export default class VideoItem extends React.Component {
     }
   }
   _handleDrag(event, ui) {
+    if (this.props.isShowingInfo) {
+      return false
+    }
     const x = this.state.x + ui.position.deltaX
-    const y = this.state.y + ui.position.deltaY
+    let y = this.state.y + ui.position.deltaY
+    const bottom = y + this.props.item.get('height')
+    if (bottom > this.props.height) {
+      y = this.props.height - this.props.item.get('height')
+    }
     this.setState({
       x: x,
       y: y,
@@ -92,6 +99,9 @@ export default class VideoItem extends React.Component {
     })
   }
   _handleMouseDown(event) {
+    if (this.props.isShowingInfo) {
+      return false
+    }
     this.props.setMostRecentlyTouched(this.props.id)
     let state = this.state
     state['wasDragged'] = false
@@ -181,10 +191,6 @@ export default class VideoItem extends React.Component {
               {video}
               <InfoEdit isShowingInfo={this.props.isShowingInfo} 
                         item={this.props.item} />
-              <div className="controls">
-                <LinkLink />
-                <EditLink id={this.props.id} editItem={this.props.editItem} />
-              </div>
             </div>
           </DraggableCore>
         )

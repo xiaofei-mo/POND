@@ -5,8 +5,10 @@ import actions from 'src/actions'
 import Dropzone from 'react-dropzone'
 import Uploads from 'src/containers/Uploads'
 import Login from 'src/components/Login'
-import LoginUsernameLogout from 'src/components/LoginUsernameLogout'
-import InfoMoreInfo from 'src/components/InfoMoreInfo'
+import LoginUsernameLogout from 'src/components/app-control/LoginUsernameLogout'
+import InfoMoreInfo from 'src/components/app-control/InfoMoreInfo'
+import Edit from 'src/components/app-control/Edit'
+import Sort from 'src/components/app-control/Sort'
 
 class App extends React.Component {
   constructor() {
@@ -46,6 +48,7 @@ class App extends React.Component {
                                openLogin={this.props.openLogin} />
           <InfoMoreInfo isShowingInfo={this.props.isShowingInfo} 
                         showInfo={this.props.showInfo} />
+          <Sort />
           <Login attemptLogin={this.props.attemptLogin}
                  authData={this.props.authData} 
                  closeLogin={this.props.closeLogin}
@@ -73,9 +76,11 @@ class App extends React.Component {
                                params={this.props.params} />
           <InfoMoreInfo isShowingInfo={this.props.isShowingInfo} 
                         showInfo={this.props.showInfo} />
+          <Sort />
+          <Edit />
           <div className='dropzone-veil veil'>
             <div>
-              Drop Video
+              <div>Drop Video</div>
             </div>
           </div>
         </Dropzone>

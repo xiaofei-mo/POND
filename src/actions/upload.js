@@ -16,11 +16,13 @@ export default {
   handleDroppedFiles: (files, authData) => {
     return (dispatch, getState) => {
       const file = files[0]
+      console.log('file = ', file)
       const ref = new Firebase(C.FIREBASE).child('uploads')
       const uploadRef = ref.push({
         originalName: file.name,
         originalType: file.type,
-        status: 'dropped',
+        size: file.size,
+        status: 'Dropped',
         uploaded: Firebase.ServerValue.TIMESTAMP,
         userId: authData.get('uid')
       })
@@ -32,7 +34,7 @@ export default {
         uploadRef.update({
           assemblyId: assemblyId,
           percent: 0,
-          status: 'uploading'
+          status: 'Uploading'
         })
         let formData = new FormData()
         formData.append('file', file)
@@ -154,7 +156,7 @@ const _pollTransloadit = (uploadRef, uri) => {
           original: res.body.results[':original'][0],
           encode: res.body.results.encode[0]
         },
-        status: 'done'
+        status: 'Done'
       })
     }
     else {
@@ -164,7 +166,7 @@ const _pollTransloadit = (uploadRef, uri) => {
       else if (res.body.ok === 'ASSEMBLY_EXECUTING') {
         uploadRef.update({
           upload: res.body.uploads[0],
-          status: 'processing'
+          status: 'Processing'
         })
       }
       setTimeout(() => {

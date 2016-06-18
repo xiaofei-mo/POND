@@ -25,13 +25,13 @@ export default class LoginUsernameLogout extends React.Component {
       const username = this.props.authData.get('username')
       const timingOrUsername = this.props.params.timingOrUsername
       if (username === timingOrUsername) {
-        return <a className='login-username-logout' href='#' onClick={this._handleLogoutClick}>Logout</a>
+        return <a className='login-username-logout app-control' href='#' onClick={this._handleLogoutClick}>Logout</a>
       }
       else {
-        return <Link className='login-username-logout' to={'/' + username}>{username}</Link>
+        return <Link className='login-username-logout app-control' to={'/' + username}>{username}</Link>
       }
       label = <span>{this.props.authData.get('username')}</span>
     }
-    return <a className='login-username-logout' href='#' onClick={this._handleLoginClick}>Login</a>
+    return <a className='login-username-logout app-control' href='#' onClick={this._handleLoginClick}>Login</a>
   }
 }

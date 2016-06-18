@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import VideoItem from 'src/components/VideoItem'
+import VideoItem from 'src/components/video/Item'
 import C from 'src/constants'
 import actions from 'src/actions'
 import ReactDOM from 'react-dom'
@@ -68,6 +68,7 @@ class Page extends React.Component {
         case 'video':
           return <VideoItem authData={this.props.authData}
                             editItem={this.props.editItem}
+                            height={this.props.height}
                             id={key}
                             isShowingInfo={this.props.isShowingInfo}
                             item={item}
@@ -95,6 +96,7 @@ class Page extends React.Component {
 function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
+    height: state.getIn(['page', 'height']),
     isInAddMode: state.getIn(['app', 'isInAddMode']),
     isShowingInfo: state.getIn(['app', 'isShowingInfo']),
     items: state.getIn(['page', 'items']),
