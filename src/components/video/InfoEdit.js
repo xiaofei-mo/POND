@@ -16,12 +16,11 @@ export default class InfoEdit extends React.Component {
     }
     return (
       <div className='info-edit'>
-        <input className='url'
-               onClick={this._handleClick} 
-               readOnly
-               ref='url'
-               type="text"
-               value={this.props.item.get('url')} />
+        <textarea className='url' 
+                  defaultValue={this.props.item.get('url')}
+                  onClick={this._handleClick} 
+                  readOnly
+                  ref='url' />
       </div>
     )
   }
