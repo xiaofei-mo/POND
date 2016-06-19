@@ -1,4 +1,5 @@
 import React from 'react'
+import Term from './Term'
 
 export default class Terms extends React.Component {
   constructor() {

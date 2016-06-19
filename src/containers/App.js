@@ -49,7 +49,8 @@ class App extends React.Component {
                                       openLogin={this.props.openLogin} />
           <InfoMoreInfoControl isShowingMetadata={this.props.isShowingMetadata} 
                                showMetadata={this.props.showMetadata} />
-          <SortControl />
+          <SortControl openSort={this.props.openSort} 
+                       sortIsOpen={this.props.sortIsOpen} />
           <Login attemptLogin={this.props.attemptLogin}
                  authData={this.props.authData} 
                  closeLogin={this.props.closeLogin}

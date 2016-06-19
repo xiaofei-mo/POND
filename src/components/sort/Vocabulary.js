@@ -1,4 +1,5 @@
 import React from 'react'
+import Terms from './Terms'
 
 export default class Vocabulary extends React.Component {
   constructor() {
