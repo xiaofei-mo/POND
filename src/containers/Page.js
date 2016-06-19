@@ -44,7 +44,9 @@ class Page extends React.Component {
       if (this.props.isShowingMetadata) {
         this.props.hideMetadata()
       }
-      else if (event.metaKey) {
+      else if (event.metaKey && 
+               this.props.authData !== null && 
+               !this.props.authData.isEmpty()) {
         const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
         this.props.createTextItem(x, event.clientY, this.props.authData)
       }
