@@ -1,36 +1,13 @@
-.video-item {
+.text-item {
+  @include font-12;
   position: absolute;
   display: block;
   z-index: 3;
-
-  .video {
-    z-index: 3;
-    position: relative;
-  }
-
-  // .controls {
-  //   z-index: 1;
-  //   display: block;
-  //   position: absolute;
-  //   transition: bottom 100ms;
-  //   right: 0;
-  //   bottom: 0;
-  //   height: 18px;
-
-  //   a {
-  //     text-transform: lowercase;
-  //     margin-left: 10px;
-  //   }
-  // }
-
-  // &:hover {
-
-  //   .controls {
-  //     transition: bottom 100ms;
-  //     bottom: -18px;
-  //   }
-  // }
-
+  border-right: 3px solid $purple;
+  border-bottom: 10px solid $purple;
+  padding: 0 10px 20px 0;
+  overflow: hidden;
+  
   &.most-recently-touched {
     z-index: 4;
   }
@@ -58,9 +35,4 @@
       resize: none;
     }
   }
-}
-
-video {
-  width: 100%; 
-  height: 100%; 
 }

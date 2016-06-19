@@ -6,7 +6,6 @@ $progress-bar-background: #333c53;
 $progress-bar-indicator: #b98d28;
 $red: #ff0000;
 $white: #ffffff;
-$info-background-gray: #615e5e;
 $light-blue: #1e3db3;
 $sidebar-separator: #879e98;
 $teal: #009669;
@@ -243,5 +242,6 @@ a {
 
 @import 'app-control';
 @import 'sort';
+@import 'text';
 @import 'upload';
 @import 'video';

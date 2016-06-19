@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class InfoEdit extends React.Component {
+export default class Metadata extends React.Component {
   constructor() {
     super()
     this._handleClick = this._handleClick.bind(this)
@@ -11,11 +11,11 @@ export default class InfoEdit extends React.Component {
     this.refs.url.select()
   }
   render() {
-    if (!this.props.isShowingInfo) {
+    if (!this.props.isShowingMetadata) {
       return null
     }
     return (
-      <div className='info-edit'>
+      <div className='metadata'>
         <textarea className='url' 
                   defaultValue={this.props.item.get('url')}
                   onClick={this._handleClick} 

@@ -9,20 +9,24 @@ const initialState = Immutable.Map({
 
 export default function pageReducer (state = initialState, action) {
   switch (action.type) {
-    case C.ITEM_WAS_TOUCHED:
+
+    case C.ITEM_TOUCHED:
       return _handleItemWasTouched(
         action.payload.get('id'), 
         state
       )
+      
     case C.PAGE_INITIALLY_SCROLLED:
       return _handlePageInitiallyScrolled(
         state
       )
+
     case C.PAGE_SCROLLED:
       return _handlePageScrolled(
         action.payload.get('scrollLeft'), 
         state
       )
+
     case C.RECEIVED_ITEMS:
       return _handleReceivedItems(
         action.payload.get('items'), 
@@ -30,22 +34,26 @@ export default function pageReducer (state = initialState, action) {
         action.payload.get('timingOrUsername'),
         state
       )
+
     case C.SET_BASE_URL:
       return _handleSetBaseUrl(
         action.payload.get('href'), 
         state
       )
+
     case C.VIDEO_IS_READY_TO_PLAY:
       return _handleVideoIsReadyToPlay(
         action.payload.get('readyToPlayId'), 
         state
       )
+
     case C.WINDOW_CHANGED_SIZE:
       return _handleWindowChangedSize(
         action.payload.get('height'),
         action.payload.get('width'), 
         state
       )
+
     default:
       return state
   }

@@ -1,42 +1,9 @@
 import React from 'react'
-import Video from 'react-html5video'
 import { Link } from 'react-router'
 import { DraggableCore } from 'react-draggable'
 import Metadata from 'src/components/shared/Metadata'
-import fadeIn from 'src/utils/fadeIn'
-import fadeOut from 'src/utils/fadeOut'
 
-// class LinkLink extends React.Component {
-//   constructor() {
-//     super()
-//     this._handleClick = this._handleClick.bind(this)
-//     this.render = this.render.bind(this)
-//   }
-//   _handleClick(event) {
-//     event.preventDefault()
-//     console.log('LinkLink click')
-//   }
-//   render() {
-//     return <a className='link-link' href='#' onClick={this._handleClick}>Link</a>
-//   }
-// }
-
-// class EditLink extends React.Component {
-//   constructor() {
-//     super()
-//     this._handleClick = this._handleClick.bind(this)
-//     this.render = this.render.bind(this)
-//   }
-//   _handleClick(event) {
-//     event.preventDefault()
-//     this.props.editItem(this.props.id);
-//   }
-//   render() {
-//     return <a className='edit-link' href='#' onClick={this._handleClick}>Edit</a>
-//   }
-// }
-
-export default class VideoItem extends React.Component {
+export default class TextItem extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -51,17 +18,19 @@ export default class VideoItem extends React.Component {
     }
     this._getClassName = this._getClassName.bind(this)
     this._handleClick = this._handleClick.bind(this)
-    this._handleCanPlay = this._handleCanPlay.bind(this)
     this._handleDrag = this._handleDrag.bind(this)
     this._handleMouseDown = this._handleMouseDown.bind(this)
     this._handleStop = this._handleStop.bind(this)
     this._setStyle = this._setStyle.bind(this)
+    this._truncateText = this._truncateText.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
   }
   _getClassName() {
-    var className = 'video-item'
+    var className = 'text-item'
     if (this.props.item.get('mostRecentlyTouched')) {
       className += ' most-recently-touched'
     }
@@ -72,13 +41,8 @@ export default class VideoItem extends React.Component {
       event.preventDefault()
     }
   }
-  _handleCanPlay() {
-    if (!this.props.item.get('isReadyToPlay')) {
-      this.props.setVideoReadyToPlay(this.props.id);
-    }
-  }
   _handleDrag(event, ui) {
-    if (this.props.isShowingMetadata) {
+    if (this.props.isShowingInfo) {
       return false
     }
     const x = this.state.x + ui.position.deltaX
@@ -99,7 +63,7 @@ export default class VideoItem extends React.Component {
     })
   }
   _handleMouseDown(event) {
-    if (this.props.isShowingMetadata) {
+    if (this.props.isShowingInfo) {
       return false
     }
     this.props.setMostRecentlyTouched(this.props.id)
@@ -123,6 +87,26 @@ export default class VideoItem extends React.Component {
       }
     })
   }
+  _truncateText() {
+    let el = this.refs.textItemContent
+    let setTitleOnce = function () {
+      el.title = el.textContent;
+      setTitleOnce = function () {};
+    };
+    while (el.scrollHeight - (el.clientHeight || el.offsetHeight) >= 1) {
+      if (el.textContent === '...') {
+        break;
+      }
+      setTitleOnce();
+      el.textContent = el.textContent.replace(/(.|\s)(\.\.\.)?$/, '...');
+    }
+  }
+  componentDidMount() {
+    this._truncateText()
+  }
+  componentDidUpdate() {
+    this._truncateText()
+  }
   componentWillMount() {
     this._setStyle(this.props)
   }
@@ -130,53 +114,24 @@ export default class VideoItem extends React.Component {
     if (this.props.item.get('x') !== nextProps.item.get('x') || this.props.item.get('y') !== nextProps.item.get('y')) {
       this._setStyle(nextProps)
     }
-    if (this.props.isShowingMetadata !== nextProps.isShowingMetadata) {
-      if (nextProps.isShowingMetadata) {
-        this.refs.video.setVolume(0)
-      }
-      else {
-        if (nextProps.item.get('isMuted')) {
-          this.refs.video.setVolume(0)
-        }
-        else {
-          this.refs.video.setVolume(1)
-        }
-      }
-    }
-    else if (this.props.item.get('isMuted') !== nextProps.item.get('isMuted')) {
-      if (nextProps.item.get('isMuted')) {
-        fadeOut((v) => {
-          this.refs.video.setVolume(v)
-        }, 3000, () => {
-          this.refs.video.unmute()
-        })
-      }
-      else if (!nextProps.item.get('isMuted')) {
-        fadeIn((v) => {
-          this.refs.video.setVolume(v)
-        }, 3000, () => {
-          this.refs.video.unmute()
-        })
-      }
-    }
   }
   render() {
-    let video = (
-      <Video key={this.props.key} 
-             autoPlay 
-             loop 
-             muted
-             poster={this.props.item.get('posterUrl')} 
-             onCanPlay={this._handleCanPlay}
-             ref='video'
-      >
-        <source src={this.props.item.getIn(['results', 'encode', 'ssl_url'])} type='video/mp4' />
-      </Video>
+    let textItem = (
+      <div className={this._getClassName()} 
+           ref='textItem'
+           style={this.state.style}>
+        <div className='text-item-content' ref='textItemContent'>
+          {this.props.item.get('content')}
+        </div>
+        <Metadata isShowingMetadata={this.props.isShowingMetadata} 
+                  item={this.props.item} />
+      </div>
     )
     if(this.props.item.get('linkedTo')) {
-      video = (
-        <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
-          {video}
+      textItem = (
+        <Link to={'/' + this.props.item.get('linkedTo')} 
+              onClick={this._handleClick}>
+          {textItem}
         </Link>
       )
     }
@@ -187,22 +142,12 @@ export default class VideoItem extends React.Component {
           <DraggableCore onDrag={this._handleDrag} 
                          onStop={this._handleStop} 
                          onMouseDown={this._handleMouseDown}>
-            <div className={this._getClassName()} style={this.state.style}>
-              {video}
-              <Metadata isShowingMetadata={this.props.isShowingMetadata} 
-                        item={this.props.item} />
-            </div>
+            {textItem}
           </DraggableCore>
         )
       }
     }
     // Not logged in, or current user does not own video.
-    return (
-      <div className={this._getClassName()} style={this.state.style}>
-        {video}
-        <Metadata isShowingMetadata={this.props.isShowingMetadata} 
-                  item={this.props.item} />
-      </div>
-    )
+    return textItem
   }
 }

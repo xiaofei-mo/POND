@@ -47,8 +47,8 @@ class App extends React.Component {
           <LoginUsernameLogoutControl authData={this.props.authData} 
                                       logout={this.props.logout}
                                       openLogin={this.props.openLogin} />
-          <InfoMoreInfoControl isShowingInfo={this.props.isShowingInfo} 
-                               showInfo={this.props.showInfo} />
+          <InfoMoreInfoControl isShowingMetadata={this.props.isShowingMetadata} 
+                               showMetadata={this.props.showMetadata} />
           <SortControl />
           <Login attemptLogin={this.props.attemptLogin}
                  authData={this.props.authData} 
@@ -76,8 +76,8 @@ class App extends React.Component {
                                       logout={this.props.logout}
                                       openLogin={this.props.openLogin} 
                                       params={this.props.params} />
-          <InfoMoreInfoControl isShowingInfo={this.props.isShowingInfo} 
-                               showInfo={this.props.showInfo} />
+          <InfoMoreInfoControl isShowingMetadata={this.props.isShowingMetadata} 
+                               showMetadata={this.props.showMetadata} />
           <SortControl openSort={this.props.openSort} 
                        sortIsOpen={this.props.sortIsOpen} />
           <EditControl />
@@ -96,7 +96,7 @@ class App extends React.Component {
 function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
-    isShowingInfo: state.getIn(['app', 'isShowingInfo']),
+    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     login: state.getIn(['app', 'login']),
     sortIsOpen: state.getIn(['sort', 'isOpen'])
   }
@@ -112,7 +112,7 @@ function mapDispatchToProps (dispatch) {
     logout: bindActionCreators(actions.logout, dispatch),
     openLogin: bindActionCreators(actions.openLogin, dispatch),
     openSort: bindActionCreators(actions.openSort, dispatch),
-    showInfo: bindActionCreators(actions.showInfo, dispatch)
+    showMetadata: bindActionCreators(actions.showMetadata, dispatch)
   }
 }
 

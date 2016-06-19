@@ -4,6 +4,144 @@ import Immutable from 'immutable'
 import timingConversion from 'src/utils/timingConversion'
 import { push } from 'react-router-redux'
 
+export default {
+
+  createTextItem: (x, y, authData) => {
+    return (dispatch, getState) => {
+      const ref = new Firebase(C.FIREBASE)
+      ref.child('lastTiming').transaction((lastTiming) => {
+        if (lastTiming === null) {
+          return 0
+        }
+        return Math.ceil(lastTiming) + + 1
+      }).then((timingRef) => {
+        const timing = timingRef.snapshot.val()
+        const itemsRef = ref.child('items')
+        const itemRef = itemsRef.push({
+          content: '',
+          height: 160,
+          isFeatured: false,
+          timing: timing,
+          type: 'text',
+          userId: authData.get('uid'),
+          width: 150,
+          x: x,
+          y: y
+        })
+        itemRef.once('value', (itemSnapshot) => {
+          itemRef.child('id').set(itemSnapshot.key())
+          const timingString = timingConversion.getStringFromSeconds(timing)
+          dispatch(push('/' + timingString))
+        })        
+      })
+    }
+  },
+
+  editItem: (id) => {
+    return {
+      type: C.EDIT_ITEM,
+      payload: Immutable.Map({
+        id: id
+      })
+    }
+  },
+  
+  handleScroll: (scrollLeft) => {
+    return {
+      type: C.PAGE_SCROLLED,
+      payload: Immutable.Map({
+        scrollLeft: scrollLeft
+      })
+    }
+  },
+
+  listenToItems: (timingOrUsername) => {
+    return (dispatch, getState) => {
+      const timingSeconds = timingConversion.getSecondsFromString(timingOrUsername)
+      let itemsRef
+      if (timingSeconds !== undefined) {
+        _listenToTimingSeconds(timingSeconds, dispatch, timingOrUsername, itemsRef)
+        return
+      }
+      if (timingOrUsername !== undefined) {
+        _listenToUsername(timingOrUsername, dispatch, timingOrUsername, itemsRef)
+        return
+      }
+      _listenToFeatured(dispatch, timingOrUsername, itemsRef)
+    }
+  },
+
+  setMostRecentlyTouched: (id) => {
+    return {
+      type: C.ITEM_TOUCHED, 
+      payload: Immutable.Map({
+        id: id
+      })
+    }
+  },
+
+  setPageInitiallyScrolled: () => {
+    return {
+      type: C.PAGE_INITIALLY_SCROLLED
+    }
+  },
+
+  setItemPosition: (id, x, y) => {
+    return (dispatch, getState) => {
+      const ref = new Firebase(C.FIREBASE).child('items')
+      ref.child(id).update({
+        x: x,
+        y: y
+      })
+    }
+  },
+
+  setVideoReadyToPlay: (id) => {
+    return {
+      type: C.VIDEO_IS_READY_TO_PLAY, 
+      payload: Immutable.Map({
+        id: id
+      })
+    }
+  },
+  
+  setWindowSize(width, height) {
+    return {
+      type: C.WINDOW_CHANGED_SIZE,
+      payload: Immutable.Map({
+        width: width,
+        height: height
+      })
+    }
+  }
+}
+
+const _listenToFeatured = (dispatch, timingOrUsername, itemsRef) => {
+  const ref = new Firebase(C.FIREBASE).child('items')
+  const destinationItemRef = ref.orderByChild('isFeatured').equalTo(true)
+  destinationItemRef.once('value', (destinationItemSnapshot) => {
+    if (destinationItemSnapshot.numChildren() !== 1) {
+      // We did not receive any items, so don't do anything. Perhaps we could
+      // display a 404 here.
+      return
+    }
+    const destinationItem = destinationItemSnapshot.val()
+    const itemId = Object.keys(destinationItem)[0]
+    const userId = destinationItem[itemId]['userId']
+    itemsRef = ref.orderByChild('userId').equalTo(userId)
+    itemsRef.on('value', (itemsSnapshot) => {
+      dispatch({
+        type: C.RECEIVED_ITEMS, 
+        payload: Immutable.Map({
+          destinationItem: Immutable.fromJS(destinationItem[itemId]),
+          items: Immutable.fromJS(itemsSnapshot.val()),
+          timingOrUsername: timingOrUsername
+        })
+      })
+    })
+  })
+}
+
 const _listenToTimingSeconds = (timingSeconds, dispatch, timingOrUsername, itemsRef) => {
   const ref = new Firebase(C.FIREBASE).child('items')
   const destinationItemRef = ref.orderByChild('timing').equalTo(timingSeconds)
@@ -52,136 +190,4 @@ const _listenToUsername = (username, dispatch, timingOrUsername, itemsRef) => {
       })
     })
   })
-}
-
-const _listenToFeatured = (dispatch, timingOrUsername, itemsRef) => {
-  const ref = new Firebase(C.FIREBASE).child('items')
-  const destinationItemRef = ref.orderByChild('isFeatured').equalTo(true)
-  destinationItemRef.once('value', (destinationItemSnapshot) => {
-    if (destinationItemSnapshot.numChildren() !== 1) {
-      // We did not receive any items, so don't do anything. Perhaps we could
-      // display a 404 here.
-      return
-    }
-    const destinationItem = destinationItemSnapshot.val()
-    const itemId = Object.keys(destinationItem)[0]
-    const userId = destinationItem[itemId]['userId']
-    itemsRef = ref.orderByChild('userId').equalTo(userId)
-    itemsRef.on('value', (itemsSnapshot) => {
-      dispatch({
-        type: C.RECEIVED_ITEMS, 
-        payload: Immutable.Map({
-          destinationItem: Immutable.fromJS(destinationItem[itemId]),
-          items: Immutable.fromJS(itemsSnapshot.val()),
-          timingOrUsername: timingOrUsername
-        })
-      })
-    })
-  })
-}
-
-// const _getDestinationItem = (getState, timingSeconds) => {
-//   const destinationItem = getState().getIn(['page', 'items']).filter((item) => {
-//     if(timingSeconds === undefined) {
-//       return item.get('isFeatured')
-//     }
-//     return item.get('timing') === timingSeconds
-//   })
-//   if (!destinationItem.isEmpty()) {
-//     return destinationItem.first()
-//   }
-//   return destinationItem
-// }
-
-export default {
-
-  editItem: (id) => {
-    return {
-      type: C.EDIT_ITEM,
-      payload: Immutable.Map({
-        id: id
-      })
-    }
-  },
-  
-  handleScroll: (scrollLeft) => {
-    return {
-      type: C.PAGE_SCROLLED,
-      payload: Immutable.Map({
-        scrollLeft: scrollLeft
-      })
-    }
-  },
-
-  listenToItems: (timingOrUsername) => {
-    return (dispatch, getState) => {
-      const timingSeconds = timingConversion.getSecondsFromString(timingOrUsername)
-      // const destinationItem = _getDestinationItem(getState, timingSeconds)
-      // if (!destinationItem.isEmpty()) {
-      //   dispatch({
-      //     type: C.RECEIVED_ITEMS, 
-      //     payload: Immutable.Map({
-      //       destinationItem: destinationItem,
-      //       items: getState().getIn(['page', 'items']),
-      //       timingOrUsername: timingOrUsername
-      //     })
-      //   })
-      //   return
-      // }
-      let itemsRef
-      if (timingSeconds !== undefined) {
-        _listenToTimingSeconds(timingSeconds, dispatch, timingOrUsername, itemsRef)
-        return
-      }
-      if (timingOrUsername !== undefined) {
-        _listenToUsername(timingOrUsername, dispatch, timingOrUsername, itemsRef)
-        return
-      }
-      _listenToFeatured(dispatch, timingOrUsername, itemsRef)
-    }
-  },
-
-  setMostRecentlyTouched: (id) => {
-    return {
-      type: C.ITEM_WAS_TOUCHED, 
-      payload: Immutable.Map({
-        id: id
-      })
-    }
-  },
-
-  setPageInitiallyScrolled: () => {
-    return {
-      type: C.PAGE_INITIALLY_SCROLLED
-    }
-  },
-
-  setItemPosition: (id, x, y) => {
-    return (dispatch, getState) => {
-      const ref = new Firebase(C.FIREBASE).child('items')
-      ref.child(id).update({
-        x: x,
-        y: y
-      })
-    }
-  },
-
-  setVideoReadyToPlay: (id) => {
-    return {
-      type: C.VIDEO_IS_READY_TO_PLAY, 
-      payload: Immutable.Map({
-        id: id
-      })
-    }
-  },
-  
-  setWindowSize(width, height) {
-    return {
-      type: C.WINDOW_CHANGED_SIZE,
-      payload: Immutable.Map({
-        width: width,
-        height: height
-      })
-    }
-  }
 }

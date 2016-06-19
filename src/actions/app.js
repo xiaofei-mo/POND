@@ -26,9 +26,9 @@ export default {
     }
   },
 
-  hideInfo: () => {
+  hideMetadata: () => {
     return {
-      type: C.HIDE_INFO
+      type: C.HIDE_METADATA
     }
   },
   
@@ -83,9 +83,9 @@ export default {
     }
   },
 
-  showInfo: () => {
+  showMetadata: () => {
     return {
-      type: C.SHOW_INFO
-    }    
+      type: C.SHOW_METADATA
+    }
   }
 }

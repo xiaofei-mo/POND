@@ -9,7 +9,7 @@ export default class InfoMoreInfoControl extends React.Component {
   }
   _handleInfoClick(event) {
     event.preventDefault()
-    this.props.showInfo()
+    this.props.showMetadata()
   }
   _handleMoreInfoClick(event) {
     event.preventDefault()

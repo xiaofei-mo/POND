@@ -6,6 +6,7 @@ import C from 'src/constants'
 import actions from 'src/actions'
 import ReactDOM from 'react-dom'
 import Immutable from 'immutable'
+import TextItem from 'src/components/text/TextItem'
 
 class Page extends React.Component {
   constructor() {
@@ -39,8 +40,14 @@ class Page extends React.Component {
     return style
   }
   _handleClick(event) {
-    if (event.target === this.refs.page && this.props.isShowingInfo) {
-      this.props.hideInfo()
+    if (event.target === this.refs.page) {
+      if (this.props.isShowingMetadata) {
+        this.props.hideMetadata()
+      }
+      else if (event.metaKey) {
+        const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
+        this.props.createTextItem(x, event.clientY, this.props.authData)
+      }
     }
   }
   componentDidMount() {
@@ -65,16 +72,24 @@ class Page extends React.Component {
   render() {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
+        case 'text':
+          return <TextItem authData={this.props.authData}
+                           id={key} 
+                           isShowingMetadata={this.props.isShowingMetadata}
+                           item={item} 
+                           key={key} 
+                           setMostRecentlyTouched={this.props.setMostRecentlyTouched}
+                           setItemPosition={this.props.setItemPosition} />
         case 'video':
           return <VideoItem authData={this.props.authData}
                             editItem={this.props.editItem}
                             height={this.props.height}
                             id={key}
-                            isShowingInfo={this.props.isShowingInfo}
+                            isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
                             key={key}
                             setMostRecentlyTouched={this.props.setMostRecentlyTouched}
-                            setVideoPosition={this.props.setVideoPosition}
+                            setItemPosition={this.props.setItemPosition}
                             setVideoReadyToPlay={this.props.setVideoReadyToPlay} />
         default:
           return null
@@ -98,25 +113,27 @@ function mapStateToProps (state) {
     authData: state.getIn(['app', 'authData']),
     height: state.getIn(['page', 'height']),
     isInAddMode: state.getIn(['app', 'isInAddMode']),
-    isShowingInfo: state.getIn(['app', 'isShowingInfo']),
+    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     initiallyScrolled: state.getIn(['page', 'initiallyScrolled']),
     paddingLeft: state.getIn(['page', 'paddingLeft']),
     paddingRight: state.getIn(['page', 'paddingRight']),
     scrollAdjustment: state.getIn(['page', 'scrollAdjustment']),
     scrollDestination: state.getIn(['page', 'scrollDestination']),
+    scrollLeft: state.getIn(['page', 'scrollLeft']),
     width: state.getIn(['page', 'width'])
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
+    createTextItem: bindActionCreators(actions.createTextItem, dispatch),
     editItem: bindActionCreators(actions.editItem, dispatch),
-    hideInfo: bindActionCreators(actions.hideInfo, dispatch),
+    hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
     setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
-    setVideoPosition: bindActionCreators(actions.setItemPosition, dispatch),
+    setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch)
   }
 }

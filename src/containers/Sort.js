@@ -2,69 +2,9 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import actions from 'src/actions'
-
-class Term extends React.Component {
-  constructor() {
-    super()
-    this._handleClick = this._handleClick.bind(this)
-    this.render = this.render.bind(this)
-  }
-  _handleClick(event) {
-    event.preventDefault()
-    console.log('term ' + this.props.name + ' click')
-  }
-  render() {
-    return (
-      <li className='term'>
-        <a href='#' onClick={this._handleClick}>{this.props.name}</a>
-      </li>
-    )
-  }
-}
-
-class Terms extends React.Component {
-  constructor() {
-    super()
-    this.render = this.render.bind(this)
-  }
-  render() {
-    if (!this.props.isOpen) {
-      return null
-    }
-    const terms = this.props.terms.map((t) => {
-      return <Term key={t.get('name')} name={t.get('name')} />
-    }).toArray()
-    return (
-      <ul className='terms'>
-        {terms}
-      </ul>
-    )
-  }
-}
-
-class Vocabulary extends React.Component {
-  constructor() {
-    super()
-    this._handleClick = this._handleClick.bind(this)
-    this.render = this.render.bind(this)
-  }
-  _handleClick(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    this.props.toggleVocabulary(this.props.vocabulary.get('name'))
-  }
-  render() {
-    return (
-      <li className='vocabulary'>
-        <a href='#' onClick={this._handleClick}>
-          {this.props.vocabulary.get('name')}
-        </a>
-        <Terms isOpen={this.props.vocabulary.get('isOpen')} 
-               terms={this.props.vocabulary.get('terms')} />
-      </li>
-    )
-  }
-}
+import Vocabulary from 'src/components/sort/Vocabulary'
+import Term from 'src/components/sort/Term'
+import Terms from 'src/components/sort/Terms'
 
 export default class Sort extends React.Component {
   constructor() {
