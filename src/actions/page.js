@@ -20,7 +20,8 @@
 import C from 'src/constants'
 import Firebase from 'firebase'
 import Immutable from 'immutable'
-import timingConversion from 'src/utils/timingConversion'
+import getSecondsFromString from 'src/utils/getSecondsFromString'
+import getStringFromSeconds from 'src/utils/getStringFromSeconds'
 import { push } from 'react-router-redux'
 
 export default {
@@ -49,7 +50,7 @@ export default {
         })
         itemRef.once('value', (itemSnapshot) => {
           itemRef.child('id').set(itemSnapshot.key())
-          const timingString = timingConversion.getStringFromSeconds(timing)
+          const timingString = getStringFromSeconds(timing)
           dispatch(push('/' + timingString))
         })        
       })
@@ -76,7 +77,7 @@ export default {
 
   listenToItems: (timingOrUsername) => {
     return (dispatch, getState) => {
-      const timingSeconds = timingConversion.getSecondsFromString(timingOrUsername)
+      const timingSeconds = getSecondsFromString(timingOrUsername)
       let itemsRef
       if (timingSeconds !== undefined) {
         _listenToTimingSeconds(timingSeconds, dispatch, timingOrUsername, itemsRef)

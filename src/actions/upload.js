@@ -20,7 +20,7 @@
 import C from 'src/constants'
 import request from 'superagent'
 import Immutable from 'immutable'
-import timingConversion from 'src/utils/timingConversion'
+import getStringFromSeconds from 'src/utils/getStringFromSeconds'
 import { push } from 'react-router-redux'
 
 export default {
@@ -118,7 +118,7 @@ export default {
           })
           itemRef.once('value', (itemSnapshot) => {
             itemRef.child('id').set(itemSnapshot.key())
-            const timingString = timingConversion.getStringFromSeconds(timing)
+            const timingString = getStringFromSeconds(timing)
             dispatch(push('/' + timingString))
           })
           uploadRef.remove()

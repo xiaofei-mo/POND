@@ -24,10 +24,10 @@ const initialState = Immutable.Map({
   locationBeforeTransitions: null
 })
 
-export default function routerReducer(state = initialState, { type, payload }) {
-  if (type === C.LOCATION_CHANGED) {
+export default function routerReducer(state = initialState, action) {
+  if (action.type === C.LOCATION_CHANGED) {
     return state.merge({
-      locationBeforeTransitions: Immutable.fromJS(payload)
+      locationBeforeTransitions: Immutable.fromJS(action.payload)
     })
   }
   return state

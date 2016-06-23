@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of video-site.
+ *
+ * video-site is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * video-site is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /*! normalize.css v4.0.0 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Change the default font family in all browsers (opinionated).
@@ -524,6 +542,24 @@ a {
   z-index: 6;
   display: block; }
 
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of video-site.
+ *
+ * video-site is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * video-site is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ */
 .app-control {
   font-size: 28px;
   position: fixed;
@@ -556,6 +592,24 @@ a {
   .edit-control:hover {
     color: #1e3db3; }
 
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of video-site.
+ *
+ * video-site is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * video-site is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ */
 .sort {
   display: block;
   background-color: #009669;
@@ -595,6 +649,24 @@ a {
     display: inline;
     color: #7f9c9e; }
 
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of video-site.
+ *
+ * video-site is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * video-site is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ */
 .text-item {
   font-size: 12px;
   line-height: 16px;
@@ -628,6 +700,24 @@ a {
       height: 3em;
       resize: none; }
 
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of video-site.
+ *
+ * video-site is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * video-site is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ */
 .uploads {
   position: fixed;
   top: 0;
@@ -682,6 +772,24 @@ a {
     display: block;
     color: #009669; }
 
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of video-site.
+ *
+ * video-site is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * video-site is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ */
 .video-item {
   position: absolute;
   display: block;

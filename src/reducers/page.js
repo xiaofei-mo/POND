@@ -19,7 +19,7 @@
 
 import C from 'src/constants'
 import Immutable from 'immutable'
-import timingConversion from 'src/utils/timingConversion'
+import getStringFromSeconds from 'src/utils/getStringFromSeconds'
 import url from 'url'
 
 const initialState = Immutable.Map({
@@ -237,7 +237,7 @@ const _setIsMuted = (items, halfway, paddingLeft) => {
 
 const _setUrls = (items, baseUrl) => {
   return items.map((item) => {
-    const string = timingConversion.getStringFromSeconds(item.get('timing'))
+    const string = getStringFromSeconds(item.get('timing'))
     return item.set('url', baseUrl + string)
   })
 }

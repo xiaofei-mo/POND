@@ -39,7 +39,7 @@ gulp.task('build', gulp.series(
 
 function _buildJs() {
   // Browserify and babelify options are in package.json
-  return browserify('src/client.js', { debug: true, paths: ['./'] })
+  return browserify('src/client.js', { debug: true })
     .transform('babelify')
     .bundle()
     .pipe(source('bundle.js'))
