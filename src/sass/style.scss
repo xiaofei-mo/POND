@@ -259,6 +259,19 @@ a {
   display: block;
 }
 
+.react-resizable-handle {
+  display: block;
+  background-color: $white;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  z-index: 5;
+
+  .is-showing-metadata & {
+    display: none;
+  }
+}
+
 @import 'app-control';
 @import 'sort';
 @import 'text';

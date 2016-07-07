@@ -542,6 +542,16 @@ a {
   z-index: 6;
   display: block; }
 
+.react-resizable-handle {
+  display: block;
+  background-color: #ffffff;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  z-index: 5; }
+  .is-showing-metadata .react-resizable-handle {
+    display: none; }
+
 /*
  * Copyright (C) 2016 Mark P. Lindsay
  * 
@@ -675,10 +685,12 @@ a {
   z-index: 3;
   border-right: 3px solid #3e2337;
   border-bottom: 10px solid #3e2337;
-  padding: 0 10px 20px 0;
-  overflow: hidden; }
+  padding: 0 10px 20px 0; }
   .text-item.most-recently-touched {
     z-index: 4; }
+  .text-item .react-resizable-handle {
+    bottom: -10px;
+    right: -3px; }
   .text-item .metadata {
     position: absolute;
     top: 0;
@@ -799,6 +811,9 @@ a {
     position: relative; }
   .video-item.most-recently-touched {
     z-index: 4; }
+  .video-item .react-resizable-handle {
+    bottom: 0;
+    right: 0; }
   .video-item .metadata {
     position: absolute;
     top: 0;

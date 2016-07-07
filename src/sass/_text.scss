@@ -25,10 +25,14 @@
   border-right: 3px solid $purple;
   border-bottom: 10px solid $purple;
   padding: 0 10px 20px 0;
-  overflow: hidden;
   
   &.most-recently-touched {
     z-index: 4;
+  }
+
+  .react-resizable-handle {
+    bottom: -10px;
+    right: -3px;
   }
 
   .metadata {

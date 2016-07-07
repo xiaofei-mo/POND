@@ -27,31 +27,13 @@
     position: relative;
   }
 
-  // .controls {
-  //   z-index: 1;
-  //   display: block;
-  //   position: absolute;
-  //   transition: bottom 100ms;
-  //   right: 0;
-  //   bottom: 0;
-  //   height: 18px;
-
-  //   a {
-  //     text-transform: lowercase;
-  //     margin-left: 10px;
-  //   }
-  // }
-
-  // &:hover {
-
-  //   .controls {
-  //     transition: bottom 100ms;
-  //     bottom: -18px;
-  //   }
-  // }
-
   &.most-recently-touched {
     z-index: 4;
+  }
+
+  .react-resizable-handle {
+    bottom: 0;
+    right: 0;
   }
 
   .metadata {

@@ -100,7 +100,8 @@ class Page extends React.Component {
                            item={item} 
                            key={key} 
                            setMostRecentlyTouched={this.props.setMostRecentlyTouched}
-                           setItemPosition={this.props.setItemPosition} />
+                           setItemPosition={this.props.setItemPosition} 
+                           setItemSize={this.props.setItemSize} />
         case 'video':
           return <VideoItem authData={this.props.authData}
                             editItem={this.props.editItem}
@@ -111,6 +112,7 @@ class Page extends React.Component {
                             key={key}
                             setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                             setItemPosition={this.props.setItemPosition}
+                            setItemSize={this.props.setItemSize}
                             setVideoReadyToPlay={this.props.setVideoReadyToPlay} />
         default:
           return null
@@ -155,6 +157,7 @@ function mapDispatchToProps (dispatch) {
     setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
     setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
+    setItemSize: bindActionCreators(actions.setItemSize, dispatch),
     setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch)
   }
 }

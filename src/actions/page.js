@@ -116,6 +116,16 @@ export default {
     }
   },
 
+  setItemSize: (id, height, width) => {
+    return (dispatch, getState) => {
+      const ref = new Firebase(C.FIREBASE).child('items')
+      ref.child(id).update({
+        height: height,
+        width: width
+      })
+    }
+  },
+
   setVideoReadyToPlay: (id) => {
     return {
       type: C.VIDEO_IS_READY_TO_PLAY, 

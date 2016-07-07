@@ -17,29 +17,34 @@
  * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react'
-import { Link } from 'react-router'
 import { DraggableCore } from 'react-draggable'
+import { Link } from 'react-router'
 import Metadata from 'src/components/shared/Metadata'
+import React from 'react'
+import { Resizable } from 'react-resizable'
 
 export default class TextItem extends React.Component {
   constructor() {
     super()
     this.state = {
+      height: 0,
       style: {
         width: '0px',
         height: '0px',
         transform: 'translate(0px, 0px)'
       },
       wasDragged: false,
+      width: 0,
       x: 0,
       y: 0
     }
     this._getClassName = this._getClassName.bind(this)
     this._handleClick = this._handleClick.bind(this)
     this._handleDrag = this._handleDrag.bind(this)
+    this._handleDragStop = this._handleDragStop.bind(this)
     this._handleMouseDown = this._handleMouseDown.bind(this)
-    this._handleStop = this._handleStop.bind(this)
+    this._handleResize = this._handleResize.bind(this)
+    this._handleResizeStop = this._handleResizeStop.bind(this)
     this._setStyle = this._setStyle.bind(this)
     this._truncateText = this._truncateText.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -53,6 +58,9 @@ export default class TextItem extends React.Component {
     if (this.props.item.get('mostRecentlyTouched')) {
       className += ' most-recently-touched'
     }
+    if (this.props.isShowingMetadata) {
+      className += ' is-showing-metadata'
+    }
     return className
   }
   _handleClick(event) {
@@ -61,28 +69,30 @@ export default class TextItem extends React.Component {
     }
   }
   _handleDrag(event, ui) {
-    if (this.props.isShowingInfo) {
+    if (this.props.isShowingMetadata) {
       return false
     }
-    const x = this.state.x + ui.position.deltaX
-    let y = this.state.y + ui.position.deltaY
+    const x = this.state.x + ui.deltaX
+    let y = this.state.y + ui.deltaY
     const bottom = y + this.props.item.get('height')
     if (bottom > this.props.height) {
       y = this.props.height - this.props.item.get('height')
     }
     this.setState({
-      x: x,
-      y: y,
+      height: this.state.height,
       style: {
-        width: this.state.style.width,
         height: this.state.style.height,
+        width: this.state.style.width,
         transform: 'translate(' + x + 'px, ' + y + 'px)'
       },
-      wasDragged: true
+      wasDragged: true,
+      width: this.state.width,
+      x: x,
+      y: y,
     })
   }
   _handleMouseDown(event) {
-    if (this.props.isShowingInfo) {
+    if (this.props.isShowingMetadata) {
       return false
     }
     this.props.setMostRecentlyTouched(this.props.id)
@@ -90,20 +100,40 @@ export default class TextItem extends React.Component {
     state['wasDragged'] = false
     this.setState(state)
   }
-  _handleStop(event, ui) {
+  _handleResize(event, ui) {
+    this.setState({
+      height: ui.size.height,
+      style: {
+        height: ui.size.height + 'px',
+        width: ui.size.width + 'px',
+        transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
+      },
+      wasDragged: this.state.wasDragged,
+      width: ui.size.width,
+      x: this.state.x,
+      y: this.state.y
+    })
+  }
+  _handleResizeStop(event, ui) {
+    this.props.setItemSize(this.props.id, this.state.height, this.state.width)
+  }
+  _handleDragStop(event, ui) {
     this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
   }
   _setStyle(props) {
     const x = props.item.get('x')
     const y = props.item.get('y')
     this.setState({
-      x: x,
-      y: y,
+      height: props.item.get('height'),
       style: {
-        width: props.item.get('width') + 'px',
         height: props.item.get('height') + 'px',
+        width: props.item.get('width') + 'px',
         transform: 'translate(' + x + 'px, ' + y + 'px)'
-      }
+      },
+      wasDragged: this.state.wasDragged,
+      width: props.item.get('width'),
+      x: x,
+      y: y
     })
   }
   _truncateText() {
@@ -130,7 +160,10 @@ export default class TextItem extends React.Component {
     this._setStyle(this.props)
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.item.get('x') !== nextProps.item.get('x') || this.props.item.get('y') !== nextProps.item.get('y')) {
+    if (this.props.item.get('height') !== nextProps.item.get('height') ||
+        this.props.item.get('width') !== nextProps.item.get('width') ||
+        this.props.item.get('x') !== nextProps.item.get('x') || 
+        this.props.item.get('y') !== nextProps.item.get('y')) {
       this._setStyle(nextProps)
     }
   }
@@ -158,10 +191,16 @@ export default class TextItem extends React.Component {
       if (this.props.item.get('userId') === this.props.authData.get('uid')) {
         // This particular video belongs to the logged-in user.
         return (
-          <DraggableCore onDrag={this._handleDrag} 
-                         onStop={this._handleStop} 
+          <DraggableCore cancel='.react-resizable-handle'
+                         onDrag={this._handleDrag} 
+                         onStop={this._handleDragStop} 
                          onMouseDown={this._handleMouseDown}>
-            {textItem}
+            <Resizable height={this.state.height} 
+                       onResize={this._handleResize}
+                       onResizeStop={this._handleResizeStop}
+                       width={this.state.width}>
+              {textItem}
+            </Resizable>
           </DraggableCore>
         )
       }
