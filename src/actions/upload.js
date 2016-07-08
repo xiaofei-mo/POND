@@ -23,6 +23,8 @@ import Immutable from 'immutable'
 import getStringFromSeconds from 'src/utils/getStringFromSeconds'
 import { push } from 'react-router-redux'
 
+Firebase.enableLogging(true)
+
 export default {
   
   cancelUpload: (uploadId) => {

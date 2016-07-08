@@ -18,7 +18,6 @@
  */
 
 import C from 'src/constants'
-import Firebase from 'firebase'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
 

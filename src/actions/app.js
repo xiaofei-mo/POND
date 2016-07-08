@@ -21,6 +21,8 @@ import C from 'src/constants'
 import Firebase from 'firebase'
 import Immutable from 'immutable'
 
+Firebase.enableLogging(true)
+
 export default {
 
   attemptLogin: (email, password) => {

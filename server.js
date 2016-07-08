@@ -18,7 +18,6 @@
  */
 
 import express from 'express'
-import Firebase from 'firebase'
 import C from './src/constants'
 import fs from 'fs'
 import request from 'request'

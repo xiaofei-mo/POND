@@ -24,6 +24,8 @@ import getSecondsFromString from 'src/utils/getSecondsFromString'
 import getStringFromSeconds from 'src/utils/getStringFromSeconds'
 import { push } from 'react-router-redux'
 
+Firebase.enableLogging(true)
+
 export default {
 
   createTextItem: (x, y, authData) => {
