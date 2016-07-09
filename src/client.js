@@ -28,7 +28,6 @@ import ReactDOM from 'react-dom'
 import reducer from './reducers';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import thunk from 'redux-thunk'
-import url from 'url';
 
 if (config.NODE_ENV !== 'production') {
   Firebase.enableLogging(true)

@@ -82,34 +82,28 @@
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _url = __webpack_require__(304);
-	
-	var _url2 = _interopRequireDefault(_url);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	 * Copyright (C) 2016 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
 	
 	if (config.NODE_ENV !== 'production') {
 	  Firebase.enableLogging(true);
-	}
+	} /*
+	   * Copyright (C) 2016 Mark P. Lindsay
+	   * 
+	   * This file is part of mysteriousobjectsatnoon.
+	   *
+	   * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	   * it under the terms of the GNU General Public License as published by
+	   * the Free Software Foundation, either version 3 of the License, or
+	   * (at your option) any later version.
+	   *
+	   * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	   * GNU General Public License for more details.
+	   * 
+	   * You should have received a copy of the GNU General Public License
+	   * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	   */
 	
 	var store = (0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reactRouterRedux.routerMiddleware)(_reactRouter.browserHistory))(_redux.createStore)(_reducers2.default);
 	
