@@ -1,27 +1,27 @@
 /*
  * Copyright (C) 2016 Mark P. Lindsay
  * 
- * This file is part of video-site.
+ * This file is part of mysteriousobjectsatnoon.
  *
- * video-site is free software: you can redistribute it and/or modify
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * video-site is distributed in the hope that it will be useful,
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import React from 'react'
-import ProgressBar from 'src/components/upload/ProgressBar'
-import Cancel from 'src/components/upload/Cancel'
-import Save from 'src/components/upload/Save'
-import Status from 'src/components/upload/Status'
+import ProgressBar from './ProgressBar'
+import Cancel from './Cancel'
+import Save from './Save'
+import Status from './Status'
 import filesize from 'filesize'
 
 export default class UploadItem extends React.Component {

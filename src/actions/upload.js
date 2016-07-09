@@ -1,35 +1,34 @@
 /*
  * Copyright (C) 2016 Mark P. Lindsay
  * 
- * This file is part of video-site.
+ * This file is part of mysteriousobjectsatnoon.
  *
- * video-site is free software: you can redistribute it and/or modify
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * video-site is distributed in the hope that it will be useful,
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from 'src/constants'
+import C from '../constants'
+import Firebase from 'firebase'
 import request from 'superagent'
 import Immutable from 'immutable'
-import getStringFromSeconds from 'src/utils/getStringFromSeconds'
+import getStringFromSeconds from '../utils/getStringFromSeconds'
 import { push } from 'react-router-redux'
-
-Firebase.enableLogging(true)
 
 export default {
   
   cancelUpload: (uploadId) => {
     return (dispatch, getState) => {
-      const ref = new Firebase(C.FIREBASE).child('uploads').child(uploadId)
+      const ref = new Firebase(config.FIREBASE_URL).child('uploads').child(uploadId)
       ref.remove()
     }
   },
@@ -38,7 +37,7 @@ export default {
     return (dispatch, getState) => {
       const file = files[0]
       console.log('file = ', file)
-      const ref = new Firebase(C.FIREBASE).child('uploads')
+      const ref = new Firebase(config.FIREBASE_URL).child('uploads')
       const uploadRef = ref.push({
         originalName: file.name,
         originalType: file.type,
@@ -78,7 +77,7 @@ export default {
 
   listenToUploads: (userId) => {
     return (dispatch, getState) => {
-      let ref = new Firebase(C.FIREBASE).child('uploads')
+      let ref = new Firebase(config.FIREBASE_URL).child('uploads')
       ref = ref.orderByChild('userId').equalTo(userId)
       ref.on('value', (snapshot) => {
         let uploads = Immutable.Map()
@@ -97,7 +96,7 @@ export default {
 
   saveUpload: (uploadId) => {
     return (dispatch, getState) => {
-      const ref = new Firebase(C.FIREBASE)
+      const ref = new Firebase(config.FIREBASE_URL)
       const itemsRef = ref.child('items')
       const uploadRef = ref.child('uploads').child(uploadId)
       uploadRef.once('value', (uploadSnapshot) => {

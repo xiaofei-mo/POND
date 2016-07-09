@@ -1,29 +1,29 @@
 /*
  * Copyright (C) 2016 Mark P. Lindsay
  * 
- * This file is part of video-site.
+ * This file is part of mysteriousobjectsatnoon.
  *
- * video-site is free software: you can redistribute it and/or modify
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * video-site is distributed in the hope that it will be useful,
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import actions from 'src/actions'
-import Vocabulary from 'src/components/sort/Vocabulary'
-import Term from 'src/components/sort/Term'
-import Terms from 'src/components/sort/Terms'
+import actions from '../actions'
+import Vocabulary from '../components/sort/Vocabulary'
+import Term from '../components/sort/Term'
+import Terms from '../components/sort/Terms'
 
 export default class Sort extends React.Component {
   constructor() {

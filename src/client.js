@@ -1,34 +1,38 @@
 /*
  * Copyright (C) 2016 Mark P. Lindsay
  * 
- * This file is part of video-site.
+ * This file is part of mysteriousobjectsatnoon.
  *
- * video-site is free software: you can redistribute it and/or modify
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * video-site is distributed in the hope that it will be useful,
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import actions from './actions'
+import App from './containers/App'
+import { applyMiddleware, createStore } from 'redux'
+import { browserHistory, IndexRoute, Route, Router } from 'react-router'
+import Page from './containers/Page'
+import { Provider } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { applyMiddleware, createStore } from 'redux'
-import thunk from 'redux-thunk'
-import actions from 'src/actions'
-import reducer from 'src/reducers';
-import App from 'src/containers/App'
-import Page from 'src/containers/Page'
-import url from 'url';
-import { browserHistory, IndexRoute, Route, Router } from 'react-router'
+import reducer from './reducers';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
+import thunk from 'redux-thunk'
+import url from 'url';
+
+if (config.NODE_ENV !== 'production') {
+  Firebase.enableLogging(true)
+}
 
 let store = applyMiddleware(
   thunk, 

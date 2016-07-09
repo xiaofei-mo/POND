@@ -1,32 +1,39 @@
 /*
  * Copyright (C) 2016 Mark P. Lindsay
  * 
- * This file is part of video-site.
+ * This file is part of mysteriousobjectsatnoon.
  *
- * video-site is free software: you can redistribute it and/or modify
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * video-site is distributed in the hope that it will be useful,
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import crypto from 'crypto'
 import express from 'express'
-import C from './src/constants'
 import fs from 'fs'
 import request from 'request'
+import tsml from 'tsml'
 import uuid from 'node-uuid'
-import crypto from 'crypto'
 
 const app = express()
 
-app.use(express.static(__dirname + '/public'))
+app.get([
+  '/bundle.js', 
+  '/bundle.js.map', 
+  '/style.css', 
+  '/style.css.map'
+], (req, res, next) => {
+  res.sendFile(__dirname + '/public' + req.url)
+})
 
 app.get('/upload-values', (req, res, next) => {
   const paramsObj = {
@@ -48,8 +55,28 @@ app.get('/upload-values', (req, res, next) => {
   })
 })
 
-app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+const config = {
+  FIREBASE_URL: process.env.FIREBASE_URL,
+  NODE_ENV: process.env.NODE_ENV
+}
+
+app.get('*', (req, res, next) => {
+  res.send(tsml`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script>
+          var config=${JSON.stringify(config)}
+        </script>
+        <title>mysteriousobjectsatnoon</title>
+      </head>
+      <body>
+        <div id="mount"></div>
+      </body>
+      <script src="bundle.js"></script>
+    </html>
+  `)
 })
 
 app.listen(5000, function (err) {

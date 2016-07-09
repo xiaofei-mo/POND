@@ -1,34 +1,34 @@
 /*
  * Copyright (C) 2016 Mark P. Lindsay
  * 
- * This file is part of video-site.
+ * This file is part of mysteriousobjectsatnoon.
  *
- * video-site is free software: you can redistribute it and/or modify
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * video-site is distributed in the hope that it will be useful,
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with video-site.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import actions from 'src/actions'
+import actions from '../actions'
 import Dropzone from 'react-dropzone'
-import Uploads from 'src/containers/Uploads'
-import Login from 'src/components/Login'
-import LoginUsernameLogoutControl from 'src/components/app-control/LoginUsernameLogoutControl'
-import InfoMoreInfoControl from 'src/components/app-control/InfoMoreInfoControl'
-import EditControl from 'src/components/app-control/EditControl'
-import SortControl from 'src/components/app-control/SortControl'
-import Sort from 'src/containers/Sort'
+import Uploads from './Uploads'
+import Login from '../components/Login'
+import LoginUsernameLogoutControl from '../components/app-control/LoginUsernameLogoutControl'
+import InfoMoreInfoControl from '../components/app-control/InfoMoreInfoControl'
+import EditControl from '../components/app-control/EditControl'
+import SortControl from '../components/app-control/SortControl'
+import Sort from './Sort'
 
 class App extends React.Component {
   constructor() {
