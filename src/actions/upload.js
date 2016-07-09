@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Firebase from 'firebase'
 import request from 'superagent'
 import Immutable from 'immutable'
@@ -85,7 +85,7 @@ export default {
           uploads = Immutable.fromJS(snapshot.val())
         }
         dispatch({
-          type: C.RECEIVED_UPLOADS, 
+          type: A.RECEIVED_UPLOADS, 
           payload: Immutable.Map({
             uploads: uploads
           })

@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
@@ -28,25 +28,25 @@ const initialState = Immutable.Map({
 export default function sortReducer (state = initialState, action) {
   switch (action.type) {
 
-    case C.CLOSE_ALL_VOCABULARIES:
+    case A.CLOSE_ALL_VOCABULARIES:
       return state.set(
         'vocabularies', 
         state.get('vocabularies').map(v => v.set('isOpen', false))
       )
 
-    case C.CLOSE_SORT:
+    case A.CLOSE_SORT:
       return state.merge({
         isOpen: false,
         vocabularies: state.get('vocabularies').map(v => v.set('isOpen', false))
       })
 
-    case C.OPEN_SORT:
+    case A.OPEN_SORT:
       return state.set('isOpen', true)
 
-    case C.RECEIVED_VOCABULARIES:
+    case A.RECEIVED_VOCABULARIES:
       return state.set('vocabularies', action.payload.get('vocabularies'))
     
-    case C.TOGGLE_VOCABULARY:
+    case A.TOGGLE_VOCABULARY:
       return state.set('vocabularies', 
         state.get('vocabularies').map((v) => {
           if (v.get('name') === action.payload.get('name')) {

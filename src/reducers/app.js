@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
@@ -33,24 +33,24 @@ export default function appReducer (state = initialState, action) {
   let newState
   switch (action.type) {
 
-    case C.CLOSE_LOGIN:
+    case A.CLOSE_LOGIN:
       return state.setIn(['login', 'isOpen'], false)
 
-    case C.HIDE_METADATA:
+    case A.HIDE_METADATA:
       return state.merge({
         isShowingMetadata: false
       })
 
-    case C.LOGIN_FAILED:
+    case A.LOGIN_FAILED:
       return state.setIn(['login', 'failed'], true)
 
-    case C.OPEN_LOGIN:
+    case A.OPEN_LOGIN:
       return state.set('login', Immutable.Map({
         isOpen: true,
         failed: false
       }))
 
-    case C.RECEIVED_AUTH_DATA:
+    case A.RECEIVED_AUTH_DATA:
       return state.merge({
         authData: action.payload.get('authData'),
         login: state.set('login', Immutable.Map({
@@ -59,7 +59,7 @@ export default function appReducer (state = initialState, action) {
         }))
       })
 
-    case C.SHOW_METADATA:
+    case A.SHOW_METADATA:
       return state.merge({
         isShowingMetadata: true
       })

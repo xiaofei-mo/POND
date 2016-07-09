@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Firebase from 'firebase'
 import Immutable from 'immutable'
 import getSecondsFromString from '../utils/getSecondsFromString'
@@ -59,7 +59,7 @@ export default {
 
   editItem: (id) => {
     return {
-      type: C.EDIT_ITEM,
+      type: A.EDIT_ITEM,
       payload: Immutable.Map({
         id: id
       })
@@ -68,7 +68,7 @@ export default {
   
   handleScroll: (scrollLeft) => {
     return {
-      type: C.PAGE_SCROLLED,
+      type: A.PAGE_SCROLLED,
       payload: Immutable.Map({
         scrollLeft: scrollLeft
       })
@@ -93,7 +93,7 @@ export default {
 
   setMostRecentlyTouched: (id) => {
     return {
-      type: C.ITEM_TOUCHED, 
+      type: A.ITEM_TOUCHED, 
       payload: Immutable.Map({
         id: id
       })
@@ -102,7 +102,7 @@ export default {
 
   setPageInitiallyScrolled: () => {
     return {
-      type: C.PAGE_INITIALLY_SCROLLED
+      type: A.PAGE_INITIALLY_SCROLLED
     }
   },
 
@@ -128,7 +128,7 @@ export default {
 
   setVideoReadyToPlay: (id) => {
     return {
-      type: C.VIDEO_IS_READY_TO_PLAY, 
+      type: A.VIDEO_IS_READY_TO_PLAY, 
       payload: Immutable.Map({
         id: id
       })
@@ -137,7 +137,7 @@ export default {
   
   setWindowSize(width, height) {
     return {
-      type: C.WINDOW_CHANGED_SIZE,
+      type: A.WINDOW_CHANGED_SIZE,
       payload: Immutable.Map({
         width: width,
         height: height
@@ -161,7 +161,7 @@ const _listenToFeatured = (dispatch, timingOrUsername, itemsRef) => {
     itemsRef = ref.orderByChild('userId').equalTo(userId)
     itemsRef.on('value', (itemsSnapshot) => {
       dispatch({
-        type: C.RECEIVED_ITEMS, 
+        type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem[itemId]),
           items: Immutable.fromJS(itemsSnapshot.val()),
@@ -186,7 +186,7 @@ const _listenToTimingSeconds = (timingSeconds, dispatch, timingOrUsername, items
     itemsRef = ref.orderByChild('userId').equalTo(userId)
     itemsRef.on('value', (itemsSnapshot) => {
       dispatch({
-        type: C.RECEIVED_ITEMS, 
+        type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem[itemId]),
           items: Immutable.fromJS(itemsSnapshot.val()),
@@ -211,7 +211,7 @@ const _listenToUsername = (username, dispatch, timingOrUsername, itemsRef) => {
     itemsRef = ref.child('items').orderByChild('userId').equalTo(userId)
     itemsRef.on('value', (itemsSnapshot) => {
       dispatch({
-        type: C.RECEIVED_ITEMS, 
+        type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: undefined,
           items: Immutable.fromJS(itemsSnapshot.val()),

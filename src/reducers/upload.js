@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
@@ -26,7 +26,7 @@ const initialState = Immutable.Map({
 
 export default function uploadReducer (state = initialState, action) {
   switch (action.type) {
-    case C.RECEIVED_UPLOADS:
+    case A.RECEIVED_UPLOADS:
       return state.set('uploads', action.payload.get('uploads'))
 
     default:

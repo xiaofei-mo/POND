@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export default {
+export const A = {
   CLOSE_ALL_VOCABULARIES: 'CLOSE_ALL_VOCABULARIES',
   CLOSE_LOGIN: 'CLOSE_LOGIN',
   CLOSE_SORT: 'CLOSE_SORT',

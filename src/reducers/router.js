@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
@@ -25,7 +25,7 @@ const initialState = Immutable.Map({
 })
 
 export default function routerReducer(state = initialState, action) {
-  if (action.type === C.LOCATION_CHANGED) {
+  if (action.type === A.LOCATION_CHANGED) {
     return state.merge({
       locationBeforeTransitions: Immutable.fromJS(action.payload)
     })

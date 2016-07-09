@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Immutable from 'immutable'
 import getStringFromSeconds from '../utils/getStringFromSeconds'
 import url from 'url'
@@ -29,24 +29,24 @@ const initialState = Immutable.Map({
 export default function pageReducer (state = initialState, action) {
   switch (action.type) {
 
-    case C.ITEM_TOUCHED:
+    case A.ITEM_TOUCHED:
       return _handleItemWasTouched(
         action.payload.get('id'), 
         state
       )
       
-    case C.PAGE_INITIALLY_SCROLLED:
+    case A.PAGE_INITIALLY_SCROLLED:
       return _handlePageInitiallyScrolled(
         state
       )
 
-    case C.PAGE_SCROLLED:
+    case A.PAGE_SCROLLED:
       return _handlePageScrolled(
         action.payload.get('scrollLeft'), 
         state
       )
 
-    case C.RECEIVED_ITEMS:
+    case A.RECEIVED_ITEMS:
       return _handleReceivedItems(
         action.payload.get('items'), 
         action.payload.get('destinationItem'),
@@ -54,19 +54,19 @@ export default function pageReducer (state = initialState, action) {
         state
       )
 
-    case C.SET_BASE_URL:
+    case A.SET_BASE_URL:
       return _handleSetBaseUrl(
         action.payload.get('href'), 
         state
       )
 
-    case C.VIDEO_IS_READY_TO_PLAY:
+    case A.VIDEO_IS_READY_TO_PLAY:
       return _handleVideoIsReadyToPlay(
         action.payload.get('readyToPlayId'), 
         state
       )
 
-    case C.WINDOW_CHANGED_SIZE:
+    case A.WINDOW_CHANGED_SIZE:
       return _handleWindowChangedSize(
         action.payload.get('height'),
         action.payload.get('width'), 

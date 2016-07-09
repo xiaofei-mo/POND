@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
 
@@ -25,20 +25,20 @@ export default {
 
   closeAllVocabularies: () => {
     return {
-      type: C.CLOSE_ALL_VOCABULARIES
+      type: A.CLOSE_ALL_VOCABULARIES
     }
   },
 
   closeSort: () => {
     return {
-      type: C.CLOSE_SORT
+      type: A.CLOSE_SORT
     }
   },
 
   listenToVocabularies: () => {
     return (dispatch, getState) => {
       dispatch({
-        type: C.RECEIVED_VOCABULARIES,
+        type: A.RECEIVED_VOCABULARIES,
         payload: Immutable.Map({
           vocabularies: Immutable.List([
             Immutable.Map({ 
@@ -109,13 +109,13 @@ export default {
 
   openSort: () => {
     return {
-      type: C.OPEN_SORT
+      type: A.OPEN_SORT
     }
   },
 
   toggleVocabulary: (name) => {
     return {
-      type: C.TOGGLE_VOCABULARY,
+      type: A.TOGGLE_VOCABULARY,
       payload: Immutable.Map({
         name: name
       })
@@ -123,7 +123,7 @@ export default {
   }
   // editItem: (id) => {
   //   return {
-  //     type: C.EDIT_ITEM,
+  //     type: A.EDIT_ITEM,
   //     payload: Immutable.Map({
   //       id: id
   //     })
@@ -132,7 +132,7 @@ export default {
   
   // handleScroll: (scrollLeft) => {
   //   return {
-  //     type: C.PAGE_SCROLLED,
+  //     type: A.PAGE_SCROLLED,
   //     payload: Immutable.Map({
   //       scrollLeft: scrollLeft
   //     })
@@ -145,7 +145,7 @@ export default {
   //     // const destinationItem = _getDestinationItem(getState, timingSeconds)
   //     // if (!destinationItem.isEmpty()) {
   //     //   dispatch({
-  //     //     type: C.RECEIVED_ITEMS, 
+  //     //     type: A.RECEIVED_ITEMS, 
   //     //     payload: Immutable.Map({
   //     //       destinationItem: destinationItem,
   //     //       items: getState().getIn(['page', 'items']),

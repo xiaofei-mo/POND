@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../constants'
+import { A } from '../constants'
 import Firebase from 'firebase'
 import Immutable from 'immutable'
 
@@ -32,7 +32,7 @@ export default {
       }, (err, authData) => {
         if (err) {
           dispatch({
-            type: C.LOGIN_FAILED
+            type: A.LOGIN_FAILED
           })
         }
       })
@@ -41,13 +41,13 @@ export default {
 
   closeLogin: () => {
     return {
-      type: C.CLOSE_LOGIN
+      type: A.CLOSE_LOGIN
     }
   },
 
   hideMetadata: () => {
     return {
-      type: C.HIDE_METADATA
+      type: A.HIDE_METADATA
     }
   },
   
@@ -57,7 +57,7 @@ export default {
       ref.onAuth((authData) => {
         if (authData === null) {
           dispatch({
-            type: C.RECEIVED_AUTH_DATA,
+            type: A.RECEIVED_AUTH_DATA,
             payload: Immutable.Map({
               authData: Immutable.Map()
             })
@@ -69,7 +69,7 @@ export default {
             const user = userSnapshot.val()
             authData.username = user.username
             dispatch({
-              type: C.RECEIVED_AUTH_DATA,
+              type: A.RECEIVED_AUTH_DATA,
               payload: Immutable.Map({
                 authData: Immutable.fromJS(authData)
               })
@@ -89,13 +89,13 @@ export default {
 
   openLogin: () => {
     return {
-      type: C.OPEN_LOGIN
+      type: A.OPEN_LOGIN
     }
   },
 
   setBaseUrl: (href) => {
     return {
-      type: C.SET_BASE_URL,
+      type: A.SET_BASE_URL,
       payload: Immutable.Map({
         href: href
       })
@@ -104,7 +104,7 @@ export default {
 
   showMetadata: () => {
     return {
-      type: C.SHOW_METADATA
+      type: A.SHOW_METADATA
     }
   }
 }
