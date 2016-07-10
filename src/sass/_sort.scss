@@ -18,52 +18,66 @@
  */
 
 .sort {
-  display: block;
-  background-color: $teal;
-  width: $sidebar-width;
-  height: 100%;
+  background-color: $white;
+  width: 288px;
+  height: 108px;
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
+  transform: translate(40px, -208px);
   z-index: 6;
-  padding: 20px 40px 20px 20px;
+  color: $black;
+  @include font-14;
+  display: none;
+
+  a {
+    color: $black;
+  }
+
+  &.react-draggable {
+    display: block;
+  }
+}
+
+.vocabularies {
+  @extend %clearfix;
+  column-count: 2;
+  column-rule: 1px solid $black;
+  column-gap: 0px;
 }
 
 .vocabulary {
+  position: relative;
+  width: 144px;
+  height: 18px;
   display: block;
-
+  border-bottom: 1px solid $black;
+  
   a {
     display: block;
-    font-size: 30px;
-    line-height: 36px;
+    width: 144px;
+    height: 18px;
+    padding-left: 5px;
+  }
 
-    &:hover {
-      color: $white;
-    }
+  &:nth-child(6) {
+    border-bottom: none;
   }
 }
 
 .terms {
-  margin: 0 0 18px 20px;
+  display: block;
+  position: fixed;
+  width: 144px;
+  height: auto;
+  column-count: 1;
+  z-index: 7;
+  background-color: $white;
 }
 
 .term {
   @include font-12;
-  display: inline;
-  color: $gray;
-
-  &:after {
-    content: ", ";
-  }
-
-  &:last-child:after {
-    content: "";
-  }
-
-  a,
-  a:hover {
-    @include font-12;
-    display: inline;
-    color: $gray;
-  }
+  display: block;
+  width: 144px;
+  height: 16px;
 }

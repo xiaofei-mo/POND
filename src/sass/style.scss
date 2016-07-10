@@ -20,17 +20,8 @@
 @import 'normalize';
 
 $black: #000000;
-$purple: #3e2337;
-$progress-bar-background: #333c53;
-$progress-bar-indicator: #b98d28;
-$red: #ff0000;
 $white: #ffffff;
-$light-blue: #1e3db3;
-$sidebar-separator: #879e98;
-$teal: #009669;
-$chalk-purple: #333c53;
-$sidebar-width: 250px;
-$gray: #7f9c9e;
+$purple: #5540e2;
 
 %clearfix {
   &:after {
@@ -55,10 +46,16 @@ $gray: #7f9c9e;
   line-height: 20px;
 }
 
+@mixin font-20 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
 html {
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;
+  background-color: $black;
 }
 
 *, *:before, *:after {
@@ -67,6 +64,10 @@ html {
 
 *:focus {
   outline: 0;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 ul {
@@ -88,21 +89,16 @@ body {
 a {
   text-decoration: none;
   color: $white;
-
-  &:hover,
-  &:active {
-    color: $teal;
-  }
 }
 
 .error {
-  color: $red;
+  // color: $red;
 }
 
 .dropzone,
 .app {
   overflow-y: hidden;
-  background-color: $black;
+  // background-color: $black;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -131,11 +127,11 @@ a {
     left: 10%;
     width: 80%;
     position: absolute;
-    border: 4px dashed $purple;
+    border: 4px dashed $white;
     background-color: rgba(0, 0, 0, 0.2);
 
     > div {
-      color: $purple;
+      color: $white;
       text-align: center;
       position: absolute;
       top: 50%;
@@ -242,7 +238,7 @@ a {
 
       &:hover,
       &:focus {
-        background-color: $teal;
+        background-color: $white;
         color: $black;
       }
     }
@@ -257,6 +253,40 @@ a {
 .login-veil {
   z-index: 6;
   display: block;
+}
+
+.metadata {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+
+  .controls {
+    @include font-20;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 34px;
+    text-align: right;
+    text-transform: lowercase;
+    padding: 0 20px 10px 0;
+
+    a {
+      display: inline-block;
+      color: $purple;
+      margin-left: 20px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 .react-resizable-handle {

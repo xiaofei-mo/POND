@@ -26,14 +26,7 @@ import uuid from 'node-uuid'
 
 const app = express()
 
-app.get([
-  '/bundle.js', 
-  '/bundle.js.map', 
-  '/style.css', 
-  '/style.css.map'
-], (req, res, next) => {
-  res.sendFile(__dirname + '/public' + req.url)
-})
+app.use(express.static(__dirname + '/public'))
 
 app.get('/upload-values', (req, res, next) => {
   const paramsObj = {
@@ -65,7 +58,7 @@ app.get('*', (req, res, next) => {
     <!DOCTYPE html>
     <html>
       <head>
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="static/style.css" />
         <script>
           var config=${JSON.stringify(config)}
         </script>
@@ -73,8 +66,9 @@ app.get('*', (req, res, next) => {
       </head>
       <body>
         <div id="mount"></div>
+        <img alt="" class="hidden" src="static/haumea_uploading.gif" />
       </body>
-      <script src="bundle.js"></script>
+      <script src="static/bundle.js"></script>
     </html>
   `)
 })

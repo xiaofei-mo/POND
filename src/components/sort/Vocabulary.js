@@ -24,6 +24,7 @@ export default class Vocabulary extends React.Component {
   constructor() {
     super()
     this._handleClick = this._handleClick.bind(this)
+    this._handleDragStart = this._handleDragStart.bind(this)
     this.render = this.render.bind(this)
   }
   _handleClick(event) {
@@ -31,10 +32,15 @@ export default class Vocabulary extends React.Component {
     event.stopPropagation()
     this.props.toggleVocabulary(this.props.vocabulary.get('name'))
   }
+  _handleDragStart(event) {
+    event.preventDefault()
+  }
   render() {
     return (
       <li className='vocabulary'>
-        <a href='#' onClick={this._handleClick}>
+        <a href='#' 
+           onClick={this._handleClick} 
+           onDragStart={this._handleDragStart}>
           {this.props.vocabulary.get('name')}
         </a>
         <Terms isOpen={this.props.vocabulary.get('isOpen')} 

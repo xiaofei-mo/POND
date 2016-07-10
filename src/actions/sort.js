@@ -29,12 +29,6 @@ export default {
     }
   },
 
-  closeSort: () => {
-    return {
-      type: A.CLOSE_SORT
-    }
-  },
-
   listenToVocabularies: () => {
     return (dispatch, getState) => {
       dispatch({
@@ -104,12 +98,6 @@ export default {
           ])
         })
       })
-    }
-  },
-
-  openSort: () => {
-    return {
-      type: A.OPEN_SORT
     }
   },
 

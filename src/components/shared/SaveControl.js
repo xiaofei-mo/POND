@@ -19,27 +19,26 @@
 
 import React from 'react'
 
-export default class SortControl extends React.Component {
+export default class SaveControl extends React.Component {
   constructor() {
     super()
-    this._getClassName = this._getClassName.bind(this)
-    this._handleMouseOver = this._handleMouseOver.bind(this)
+    this._handleClick = this._handleClick.bind(this)
     this.render = this.render.bind(this)
   }
-  _getClassName() {
-    let className = 'sort-control app-control'
-    if (this.props.sortIsOpen) {
-      className += ' is-open'
-    }
-    return className
-  }
-  _handleMouseOver(event) {
+  _handleClick(event) {
     event.preventDefault()
-    this.props.openSort()
+    console.log('this.props.item.get(id) = ', this.props.item.get('id'))
   }
   render() {
-    return <a className={this._getClassName()} 
-              href='#' 
-              onMouseOver={this._handleMouseOver}>Sort</a>
+    if (this.props.authData === null || 
+        this.props.authData.isEmpty() ||
+        this.props.authData.get('uid') !== this.props.item.get('userId')) {
+      return null
+    }
+    return (
+      <a className='save-control' href='#' onClick={this._handleClick}>
+        Save
+      </a>
+    )
   }
 }

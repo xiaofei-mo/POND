@@ -23,16 +23,22 @@ export default class Term extends React.Component {
   constructor() {
     super()
     this._handleClick = this._handleClick.bind(this)
+    this._handleDragStart = this._handleDragStart.bind(this)
     this.render = this.render.bind(this)
   }
   _handleClick(event) {
     event.preventDefault()
     console.log('term ' + this.props.name + ' click')
   }
+  _handleDragStart(event) {
+    event.preventDefault()
+  }
   render() {
     return (
       <li className='term'>
-        <a href='#' onClick={this._handleClick}>{this.props.name}</a>
+        <a href='#' 
+           onClick={this._handleClick} 
+           onDragStart={this._handleDragStart}>{this.props.name}</a>
       </li>
     )
   }

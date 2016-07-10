@@ -39,12 +39,12 @@ export default {
         const itemsRef = ref.child('items')
         const itemRef = itemsRef.push({
           content: '',
-          height: 160,
+          height: 300,
           isFeatured: false,
           timing: timing,
           type: 'text',
           userId: authData.get('uid'),
-          width: 150,
+          width: 400,
           x: x,
           y: y
         })
@@ -57,12 +57,10 @@ export default {
     }
   },
 
-  editItem: (id) => {
-    return {
-      type: A.EDIT_ITEM,
-      payload: Immutable.Map({
-        id: id
-      })
+  deleteItem: (id) => {
+    return (dispatch, getState) => {
+      const ref = new Firebase(config.FIREBASE_URL).child('items')
+      ref.child(id).remove()
     }
   },
   
@@ -91,6 +89,10 @@ export default {
     }
   },
 
+  saveItem: (item) => {
+
+  },
+  
   setMostRecentlyTouched: (id) => {
     return {
       type: A.ITEM_TOUCHED, 

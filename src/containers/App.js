@@ -25,9 +25,7 @@ import Dropzone from 'react-dropzone'
 import Uploads from './Uploads'
 import Login from '../components/Login'
 import LoginUsernameLogoutControl from '../components/app-control/LoginUsernameLogoutControl'
-import InfoMoreInfoControl from '../components/app-control/InfoMoreInfoControl'
-import EditControl from '../components/app-control/EditControl'
-import SortControl from '../components/app-control/SortControl'
+import InfoAndEditControl from '../components/app-control/InfoAndEditControl'
 import Sort from './Sort'
 
 class App extends React.Component {
@@ -66,10 +64,10 @@ class App extends React.Component {
           <LoginUsernameLogoutControl authData={this.props.authData} 
                                       logout={this.props.logout}
                                       openLogin={this.props.openLogin} />
-          <InfoMoreInfoControl isShowingMetadata={this.props.isShowingMetadata} 
-                               showMetadata={this.props.showMetadata} />
-          <SortControl openSort={this.props.openSort} 
-                       sortIsOpen={this.props.sortIsOpen} />
+          <InfoAndEditControl isUploading={this.props.isUploading}
+                              showMetadata={this.props.showMetadata} 
+                              windowHeight={this.props.windowHeight}
+                              windowWidth={this.props.windowWidth} />
           <Login attemptLogin={this.props.attemptLogin}
                  authData={this.props.authData} 
                  closeLogin={this.props.closeLogin}
@@ -96,11 +94,10 @@ class App extends React.Component {
                                       logout={this.props.logout}
                                       openLogin={this.props.openLogin} 
                                       params={this.props.params} />
-          <InfoMoreInfoControl isShowingMetadata={this.props.isShowingMetadata} 
-                               showMetadata={this.props.showMetadata} />
-          <SortControl openSort={this.props.openSort} 
-                       sortIsOpen={this.props.sortIsOpen} />
-          <EditControl />
+          <InfoAndEditControl isUploading={this.props.isUploading}
+                              showMetadata={this.props.showMetadata} 
+                              windowHeight={this.props.windowHeight}
+                              windowWidth={this.props.windowWidth} />
           <div className='dropzone-veil veil'>
             <div>
               <div>Drop Video</div>
@@ -116,9 +113,10 @@ class App extends React.Component {
 function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
-    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
+    isUploading: state.getIn(['upload', 'isUploading']),
     login: state.getIn(['app', 'login']),
-    sortIsOpen: state.getIn(['sort', 'isOpen'])
+    windowHeight: state.getIn(['page', 'height']),
+    windowWidth: state.getIn(['page', 'width'])
   }
 }
 
@@ -131,7 +129,6 @@ function mapDispatchToProps (dispatch) {
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
     openLogin: bindActionCreators(actions.openLogin, dispatch),
-    openSort: bindActionCreators(actions.openSort, dispatch),
     showMetadata: bindActionCreators(actions.showMetadata, dispatch)
   }
 }

@@ -17,6 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { C } from '../../constants'
 import { DraggableCore } from 'react-draggable'
 import { Link } from 'react-router'
 import Metadata from '../shared/Metadata'
@@ -101,15 +102,19 @@ export default class TextItem extends React.Component {
     this.setState(state)
   }
   _handleResize(event, ui) {
+    let width = ui.size.width
+    if (width < C.MINIMUM_ITEM_WIDTH) {
+      width = C.MINIMUM_ITEM_WIDTH
+    }
     this.setState({
       height: ui.size.height,
       style: {
         height: ui.size.height + 'px',
-        width: ui.size.width + 'px',
+        width: width + 'px',
         transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
       },
       wasDragged: this.state.wasDragged,
-      width: ui.size.width,
+      width: width,
       x: this.state.x,
       y: this.state.y
     })
@@ -175,7 +180,9 @@ export default class TextItem extends React.Component {
         <div className='text-item-content' ref='textItemContent'>
           {this.props.item.get('content')}
         </div>
-        <Metadata isShowingMetadata={this.props.isShowingMetadata} 
+        <Metadata authData={this.props.authData}
+                  deleteItem={this.props.deleteItem}
+                  isShowingMetadata={this.props.isShowingMetadata} 
                   item={this.props.item} />
       </div>
     )
@@ -189,7 +196,6 @@ export default class TextItem extends React.Component {
     }
     if (this.props.authData !== null && !this.props.authData.isEmpty()) {
       if (this.props.item.get('userId') === this.props.authData.get('uid')) {
-        // This particular video belongs to the logged-in user.
         return (
           <DraggableCore cancel='.react-resizable-handle'
                          onDrag={this._handleDrag} 

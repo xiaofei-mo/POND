@@ -94,21 +94,24 @@ class Page extends React.Component {
       switch (item.get('type')) {
         case 'text':
           return <TextItem authData={this.props.authData}
+                           deleteItem={this.props.deleteItem}
                            id={key} 
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
                            key={key} 
+                           saveItem={this.props.saveItem}
                            setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                            setItemPosition={this.props.setItemPosition} 
                            setItemSize={this.props.setItemSize} />
         case 'video':
           return <VideoItem authData={this.props.authData}
-                            editItem={this.props.editItem}
+                            deleteItem={this.props.deleteItem}
                             height={this.props.height}
                             id={key}
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
                             key={key}
+                            saveItem={this.props.saveItem}
                             setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                             setItemPosition={this.props.setItemPosition}
                             setItemSize={this.props.setItemSize}
@@ -150,9 +153,10 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     createTextItem: bindActionCreators(actions.createTextItem, dispatch),
-    editItem: bindActionCreators(actions.editItem, dispatch),
+    deleteItem: bindActionCreators(actions.deleteItem, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
+    saveItem: bindActionCreators(actions.saveItem, dispatch),
     setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
     setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),

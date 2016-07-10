@@ -17,26 +17,28 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import actions from '../actions'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Term from '../components/sort/Term'
-import Terms from '../components/sort/Terms'
-import Vocabulary from '../components/sort/Vocabulary'
 
-export default class Sort extends React.Component {
+export default class InfoAndEditControl extends React.Component {
   constructor() {
     super()
     this.state = {
       height: 0,
       width: 0
     }
+    this._handleClick = this._handleClick.bind(this)
+    this._handleDragStart = this._handleDragStart.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
-    this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
+  }
+  _handleClick(event) {
+    event.preventDefault()
+    this.props.showMetadata()
+  }
+  _handleDragStart(event) {
+    event.preventDefault()
   }
   componentDidMount() {
     let el = ReactDOM.findDOMNode(this)
@@ -45,9 +47,6 @@ export default class Sort extends React.Component {
       width: el.offsetWidth
     })
   }
-  componentWillMount() {
-    this.props.listenToVocabularies()
-  }
   render() {
     const bounds = {
       top: 0,
@@ -55,38 +54,29 @@ export default class Sort extends React.Component {
       bottom: this.props.windowHeight - this.state.height,
       left: 0
     }
-    const vocabularies = this.props.vocabularies.map((v) => {
-      return <Vocabulary key={v.get('name')}
-                         toggleVocabulary={this.props.toggleVocabulary} 
-                         vocabulary={v} />
-    }).toArray()
-    const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.75) }
+    const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.10) }
+    let control = (
+      <a className='info-and-edit-control app-control' 
+         href='#' 
+         onClick={this._handleClick}
+         onDragStart={this._handleDragStart}>
+        <img src='static/haumea.png' alt='Info &amp Edit' />
+      </a>
+    )
+    if (this.props.isUploading) {
+      control= (
+        <a className='info-and-edit-control app-control is-uploading' 
+           href='#' 
+           onClick={this._handleClick}
+           onDragStart={this._handleDragStart}>
+          <img src='static/haumea_uploading.gif' alt='Uploading...' />
+        </a>
+      )
+    }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
-        <div className='sort'>
-          <ul className='vocabularies'>
-            {vocabularies}
-          </ul>
-        </div>
+        {control}
       </Draggable>
     )
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    vocabularies: state.getIn(['sort', 'vocabularies']),
-    windowHeight: state.getIn(['page', 'height']),
-    windowWidth: state.getIn(['page', 'width'])
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    listenToVocabularies: bindActionCreators(actions.listenToVocabularies, 
-                                             dispatch),
-    toggleVocabulary: bindActionCreators(actions.toggleVocabulary, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sort)

@@ -5,7 +5,7 @@ var shouldMinimize = process.argv.indexOf('--minimize') !== -1
 var sassLoader = {
   outputStyle: 'nested'
 }
-var plugins = [ new ExtractTextPlugin('./public/style.css') ]
+var plugins = [ new ExtractTextPlugin('./public/static/style.css') ]
 if (shouldMinimize) {
   plugins.push(
     new webpack.DefinePlugin({
@@ -45,7 +45,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: './public/bundle.js',
+    filename: './public/static/bundle.js',
   },
   plugins: plugins,
   sassLoader: sassLoader

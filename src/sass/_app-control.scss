@@ -20,42 +20,27 @@
 .app-control {
   font-size: 28px;
   position: fixed;
-  color: $teal;
+  color: $white;
   z-index: 7;
 }
 
 .login-username-logout-control {
   top: 28px;
   left: 40px;
-  color: $chalk-purple;
-
-  &:hover {
-    color: $chalk-purple;
-  }
 }
 
-.info-more-info-control {
-  bottom: 28px;
-  left: 200px;
-}
+.info-and-edit-control {
+  width: 112px;
+  height: 75px;
+  top: 0;
+  left: 0;
+  transform: translate(40px, -75px);
+  overflow: hidden;
 
-.sort-control {
-  top: 33%;
-  right: 0;
-  transform: rotate(-90deg);
-
-  &.is-open {
-    color: $white;
-  }
-}
-
-.edit-control {
-  bottom: 33%;
-  right: 0;
-  color: $light-blue;
-  transform: rotate(-90deg);
-
-  &:hover {
-    color: $light-blue;
+  img {
+    margin: -13px 0 0 -19px;
+    width: 150px;
+    height: 100px;
+    display: block;
   }
 }

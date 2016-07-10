@@ -17,30 +17,40 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import DeleteControl from './DeleteControl'
 import React from 'react'
+import SaveControl from './SaveControl'
 
 export default class Metadata extends React.Component {
   constructor() {
     super()
-    this._handleClick = this._handleClick.bind(this)
+    // this._handleClick = this._handleClick.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleClick(event) {
-    event.preventDefault()
-    this.refs.url.select()
-  }
+  // _handleClick(event) {
+  //   event.preventDefault()
+  //   this.refs.url.select()
+  // }
   render() {
     if (!this.props.isShowingMetadata) {
       return null
     }
     return (
       <div className='metadata'>
-        <textarea className='url' 
-                  defaultValue={this.props.item.get('url')}
-                  onClick={this._handleClick} 
-                  readOnly
-                  ref='url' />
+        <div className='controls'>
+          <SaveControl authData={this.props.authData} 
+                       item={this.props.item} />
+          <DeleteControl authData={this.props.authData} 
+                         deleteItem={this.props.deleteItem} 
+                         item={this.props.item} />
+        </div>
       </div>
     )
   }
 }
+
+        // <textarea className='url' 
+        //           defaultValue={this.props.item.get('url')}
+        //           onClick={this._handleClick} 
+        //           readOnly
+        //           ref='url' />

@@ -19,7 +19,7 @@
 
 import React from 'react'
 
-export default class EditControl extends React.Component {
+export default class DeleteControl extends React.Component {
   constructor() {
     super()
     this._handleClick = this._handleClick.bind(this)
@@ -27,11 +27,18 @@ export default class EditControl extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    console.log('edit click')
+    this.props.deleteItem(this.props.item.get('id'))
   }
   render() {
-    return <a className='edit-control app-control' 
-              href='#' 
-              onClick={this._handleClick}>Edit</a>
+    if (this.props.authData === null || 
+        this.props.authData.isEmpty() ||
+        this.props.authData.get('uid') !== this.props.item.get('userId')) {
+      return null
+    }
+    return (
+      <a className='delete-control' href='#' onClick={this._handleClick}>
+        Delete
+      </a>
+    )
   }
 }

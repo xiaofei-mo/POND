@@ -17,6 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { C } from '../../constants'
 import { DraggableCore } from 'react-draggable'
 import fadeIn from '../../utils/fadeIn'
 import fadeOut from '../../utils/fadeOut'
@@ -110,6 +111,9 @@ export default class VideoItem extends React.Component {
     this.setState(state)
   }
   _handleResize(event, ui) {
+    if (ui.size.width < C.MINIMUM_ITEM_WIDTH) {
+      return false
+    }
     this.setState({
       height: ui.size.height,
       style: {
@@ -217,7 +221,9 @@ export default class VideoItem extends React.Component {
                        width={this.state.width}>
                 <div className={this._getClassName()} style={this.state.style}>
                   {video}
-                  <Metadata isShowingMetadata={this.props.isShowingMetadata} 
+                  <Metadata authData={this.props.authData}
+                            deleteItem={this.props.deleteItem}
+                            isShowingMetadata={this.props.isShowingMetadata} 
                             item={this.props.item} />
                 </div>
             </Resizable>
@@ -229,7 +235,9 @@ export default class VideoItem extends React.Component {
     return (
       <div className={this._getClassName()} style={this.state.style}>
         {video}
-        <Metadata isShowingMetadata={this.props.isShowingMetadata} 
+        <Metadata authData={this.props.authData}
+                  deleteItem={this.props.deleteItem}
+                  isShowingMetadata={this.props.isShowingMetadata} 
                   item={this.props.item} />
       </div>
     )

@@ -379,7 +379,7 @@ textarea {
   -webkit-appearance: none; }
 
 .login .email-element > div:after,
-.login .password-element > div:after, .upload-item:after {
+.login .password-element > div:after, .vocabularies:after, .upload-item:after {
   content: "";
   display: table;
   clear: both; }
@@ -387,13 +387,17 @@ textarea {
 html {
   box-sizing: border-box;
   height: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+  background-color: #000000; }
 
 *, *:before, *:after {
   box-sizing: inherit; }
 
 *:focus {
   outline: 0; }
+
+.hidden {
+  visibility: hidden; }
 
 ul {
   margin: 0;
@@ -412,16 +416,10 @@ body {
 a {
   text-decoration: none;
   color: #ffffff; }
-  a:hover, a:active {
-    color: #009669; }
-
-.error {
-  color: #ff0000; }
 
 .dropzone,
 .app {
   overflow-y: hidden;
-  background-color: #000000;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -445,10 +443,10 @@ a {
     left: 10%;
     width: 80%;
     position: absolute;
-    border: 4px dashed #3e2337;
+    border: 4px dashed #ffffff;
     background-color: rgba(0, 0, 0, 0.2); }
     .dropzone-veil > div > div {
-      color: #3e2337;
+      color: #ffffff;
       text-align: center;
       position: absolute;
       top: 50%;
@@ -531,7 +529,7 @@ a {
       text-transform: lowercase;
       color: #000000; }
       .login .submit-element input:hover, .login .submit-element input:focus {
-        background-color: #009669;
+        background-color: #ffffff;
         color: #000000; }
     .login .submit-element .error {
       font-size: 14px;
@@ -541,6 +539,34 @@ a {
 .login-veil {
   z-index: 6;
   display: block; }
+
+.metadata {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 10px; }
+  .metadata .controls {
+    font-size: 20px;
+    line-height: 24px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 34px;
+    text-align: right;
+    text-transform: lowercase;
+    padding: 0 20px 10px 0; }
+    .metadata .controls a {
+      display: inline-block;
+      color: #5540e2;
+      margin-left: 20px; }
+      .metadata .controls a:first-child {
+        margin-left: 0; }
 
 .react-resizable-handle {
   display: block;
@@ -573,34 +599,25 @@ a {
 .app-control {
   font-size: 28px;
   position: fixed;
-  color: #009669;
+  color: #ffffff;
   z-index: 7; }
 
 .login-username-logout-control {
   top: 28px;
-  left: 40px;
-  color: #333c53; }
-  .login-username-logout-control:hover {
-    color: #333c53; }
+  left: 40px; }
 
-.info-more-info-control {
-  bottom: 28px;
-  left: 200px; }
-
-.sort-control {
-  top: 33%;
-  right: 0;
-  transform: rotate(-90deg); }
-  .sort-control.is-open {
-    color: #ffffff; }
-
-.edit-control {
-  bottom: 33%;
-  right: 0;
-  color: #1e3db3;
-  transform: rotate(-90deg); }
-  .edit-control:hover {
-    color: #1e3db3; }
+.info-and-edit-control {
+  width: 112px;
+  height: 75px;
+  top: 0;
+  left: 0;
+  transform: translate(40px, -75px);
+  overflow: hidden; }
+  .info-and-edit-control img {
+    margin: -13px 0 0 -19px;
+    width: 150px;
+    height: 100px;
+    display: block; }
 
 /*
  * Copyright (C) 2016 Mark P. Lindsay
@@ -621,43 +638,57 @@ a {
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 .sort {
-  display: block;
-  background-color: #009669;
-  width: 250px;
-  height: 100%;
+  background-color: #ffffff;
+  width: 288px;
+  height: 108px;
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
+  transform: translate(40px, -208px);
   z-index: 6;
-  padding: 20px 40px 20px 20px; }
+  color: #000000;
+  font-size: 14px;
+  line-height: 18px;
+  display: none; }
+  .sort a {
+    color: #000000; }
+  .sort.react-draggable {
+    display: block; }
+
+.vocabularies {
+  column-count: 2;
+  column-rule: 1px solid #000000;
+  column-gap: 0px; }
 
 .vocabulary {
-  display: block; }
+  position: relative;
+  width: 144px;
+  height: 18px;
+  display: block;
+  border-bottom: 1px solid #000000; }
   .vocabulary a {
     display: block;
-    font-size: 30px;
-    line-height: 36px; }
-    .vocabulary a:hover {
-      color: #ffffff; }
+    width: 144px;
+    height: 18px;
+    padding-left: 5px; }
+  .vocabulary:nth-child(6) {
+    border-bottom: none; }
 
 .terms {
-  margin: 0 0 18px 20px; }
+  display: block;
+  position: fixed;
+  width: 144px;
+  height: auto;
+  column-count: 1;
+  z-index: 7;
+  background-color: #ffffff; }
 
 .term {
   font-size: 12px;
   line-height: 16px;
-  display: inline;
-  color: #7f9c9e; }
-  .term:after {
-    content: ", "; }
-  .term:last-child:after {
-    content: ""; }
-  .term a,
-  .term a:hover {
-    font-size: 12px;
-    line-height: 16px;
-    display: inline;
-    color: #7f9c9e; }
+  display: block;
+  width: 144px;
+  height: 16px; }
 
 /*
  * Copyright (C) 2016 Mark P. Lindsay
@@ -683,34 +714,13 @@ a {
   position: absolute;
   display: block;
   z-index: 3;
-  border-right: 3px solid #3e2337;
-  border-bottom: 10px solid #3e2337;
-  padding: 0 10px 20px 0; }
+  padding: 10px;
+  border: 1px dotted #ffffff; }
   .text-item.most-recently-touched {
     z-index: 4; }
   .text-item .react-resizable-handle {
     bottom: -10px;
     right: -3px; }
-  .text-item .metadata {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #3e2337;
-    background-color: #000000;
-    padding: 10px; }
-    .text-item .metadata .url {
-      display: block;
-      color: #009669;
-      font-size: 28px;
-      line-height: 36px;
-      background-color: #000000;
-      border: none;
-      width: 100%;
-      height: 3em;
-      resize: none; }
 
 /*
  * Copyright (C) 2016 Mark P. Lindsay
@@ -734,7 +744,6 @@ a {
   position: fixed;
   top: 0;
   right: 0;
-  width: 250px;
   height: auto;
   display: block;
   z-index: 5; }
@@ -742,14 +751,9 @@ a {
 .upload-item {
   font-size: 12px;
   line-height: 16px;
-  width: 250px;
   display: block;
-  background-color: #1e3db3;
-  border-top: 2px solid #879e98;
   padding: 10px 20px 10px 32px;
   position: relative; }
-  .upload-item:first-child {
-    border-top: 2px solid #1e3db3; }
   .upload-item .cancel {
     font-size: 16px;
     position: absolute;
@@ -758,11 +762,9 @@ a {
     display: block; }
   .upload-item .progress-bar {
     height: 3px;
-    background-color: #333c53;
     position: relative;
     margin-bottom: 4px; }
     .upload-item .progress-bar .progress {
-      background-color: #b98d28;
       position: absolute;
       height: 3px;
       top: 0;
@@ -781,8 +783,7 @@ a {
     clear: both;
     text-transform: lowercase; }
   .upload-item .save {
-    display: block;
-    color: #009669; }
+    display: block; }
 
 /*
  * Copyright (C) 2016 Mark P. Lindsay
@@ -814,26 +815,6 @@ a {
   .video-item .react-resizable-handle {
     bottom: 0;
     right: 0; }
-  .video-item .metadata {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #3e2337;
-    background-color: #000000;
-    padding: 10px; }
-    .video-item .metadata .url {
-      display: block;
-      color: #009669;
-      font-size: 28px;
-      line-height: 36px;
-      background-color: #000000;
-      border: none;
-      width: 100%;
-      height: 3em;
-      resize: none; }
 
 video {
   width: 100%;

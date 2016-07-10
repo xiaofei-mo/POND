@@ -21,7 +21,6 @@ import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
-  isOpen: false,
   vocabularies: Immutable.List()
 })
 
@@ -33,15 +32,6 @@ export default function sortReducer (state = initialState, action) {
         'vocabularies', 
         state.get('vocabularies').map(v => v.set('isOpen', false))
       )
-
-    case A.CLOSE_SORT:
-      return state.merge({
-        isOpen: false,
-        vocabularies: state.get('vocabularies').map(v => v.set('isOpen', false))
-      })
-
-    case A.OPEN_SORT:
-      return state.set('isOpen', true)
 
     case A.RECEIVED_VOCABULARIES:
       return state.set('vocabularies', action.payload.get('vocabularies'))
