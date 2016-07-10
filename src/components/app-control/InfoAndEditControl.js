@@ -30,7 +30,7 @@ export default class InfoAndEditControl extends React.Component {
     }
     this._handleClick = this._handleClick.bind(this)
     this._handleDragStart = this._handleDragStart.bind(this)
-    this.componentDidMount = this.componentDidMount.bind(this)
+    this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.render = this.render.bind(this)
   }
   _handleClick(event) {
@@ -40,14 +40,20 @@ export default class InfoAndEditControl extends React.Component {
   _handleDragStart(event) {
     event.preventDefault()
   }
-  componentDidMount() {
+  componentDidUpdate() {
     let el = ReactDOM.findDOMNode(this)
-    this.setState({
-      height: el.offsetHeight,
-      width: el.offsetWidth
-    })
+    if (el !== null && this.state.height === 0 && this.state.width === 0) {
+      this.setState({
+        height: el.offsetHeight,
+        width: el.offsetWidth
+      })
+    }
   }
   render() {
+    if (this.props.windowHeight === undefined || 
+        this.props.windowWidth === undefined) {
+      return null
+    }
     const bounds = {
       top: 0,
       right: this.props.windowWidth - this.state.width,
