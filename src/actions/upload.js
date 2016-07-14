@@ -33,45 +33,45 @@ export default {
     }
   },
 
-  handleDroppedFiles: (files, authData) => {
+  handleDroppedFiles: (files, x, y, authData) => {
     return (dispatch, getState) => {
       const file = files[0]
-      console.log('file = ', file)
-      const ref = new Firebase(config.FIREBASE_URL).child('uploads')
-      const uploadRef = ref.push({
-        originalName: file.name,
-        originalType: file.type,
-        size: file.size,
-        status: 'Dropped',
-        uploaded: Firebase.ServerValue.TIMESTAMP,
-        userId: authData.get('uid')
-      })
-      const uploadId = uploadRef.key()
-      request.get('/upload-values').end((err, res) => {
-        // One of these values is the assemblyId. Add it to our upload item in 
-        // Firebase.
-        const assemblyId = res.body.assemblyId
-        uploadRef.update({
-          assemblyId: assemblyId,
-          percent: 0,
-          status: 'Uploading'
-        })
-        let formData = new FormData()
-        formData.append('file', file)
-        formData.append('params', res.body.params)
-        formData.append('signature', res.body.signature)
-        formData.append('uploadId', uploadId)
-        request.post(res.body.uri)
-        .send(formData)
-        .on('progress', (event) => {
-          if (event.percent !== undefined) {
-            uploadRef.child('percent').set(event.percent)
-          }
-        }).end()
-        setTimeout(() => {
-          _pollTransloadit(uploadRef, res.body.uri)
-        }, 1000)
-      })
+      console.log('file = ', file, ', x = ', x, ', y = ', y, ', authData = ', authData.toJS())
+      // const ref = new Firebase(config.FIREBASE_URL).child('uploads')
+      // const uploadRef = ref.push({
+      //   originalName: file.name,
+      //   originalType: file.type,
+      //   size: file.size,
+      //   status: 'Dropped',
+      //   uploaded: Firebase.ServerValue.TIMESTAMP,
+      //   userId: authData.get('uid')
+      // })
+      // const uploadId = uploadRef.key()
+      // request.get('/upload-values').end((err, res) => {
+      //   // One of these values is the assemblyId. Add it to our upload item in 
+      //   // Firebase.
+      //   const assemblyId = res.body.assemblyId
+      //   uploadRef.update({
+      //     assemblyId: assemblyId,
+      //     percent: 0,
+      //     status: 'Uploading'
+      //   })
+      //   let formData = new FormData()
+      //   formData.append('file', file)
+      //   formData.append('params', res.body.params)
+      //   formData.append('signature', res.body.signature)
+      //   formData.append('uploadId', uploadId)
+      //   request.post(res.body.uri)
+      //   .send(formData)
+      //   .on('progress', (event) => {
+      //     if (event.percent !== undefined) {
+      //       uploadRef.child('percent').set(event.percent)
+      //     }
+      //   }).end()
+      //   setTimeout(() => {
+      //     _pollTransloadit(uploadRef, res.body.uri)
+      //   }, 1000)
+      // })
     }
   },
 

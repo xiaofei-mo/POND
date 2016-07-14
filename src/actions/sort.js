@@ -109,49 +109,5 @@ export default {
       })
     }
   }
-  // editItem: (id) => {
-  //   return {
-  //     type: A.EDIT_ITEM,
-  //     payload: Immutable.Map({
-  //       id: id
-  //     })
-  //   }
-  // },
-  
-  // handleScroll: (scrollLeft) => {
-  //   return {
-  //     type: A.PAGE_SCROLLED,
-  //     payload: Immutable.Map({
-  //       scrollLeft: scrollLeft
-  //     })
-  //   }
-  // },
 
-  // listenToItems: (timingOrUsername) => {
-  //   return (dispatch, getState) => {
-  //     const timingSeconds = timingConversion.getSecondsFromString(timingOrUsername)
-  //     // const destinationItem = _getDestinationItem(getState, timingSeconds)
-  //     // if (!destinationItem.isEmpty()) {
-  //     //   dispatch({
-  //     //     type: A.RECEIVED_ITEMS, 
-  //     //     payload: Immutable.Map({
-  //     //       destinationItem: destinationItem,
-  //     //       items: getState().getIn(['page', 'items']),
-  //     //       timingOrUsername: timingOrUsername
-  //     //     })
-  //     //   })
-  //     //   return
-  //     // }
-  //     let itemsRef
-  //     if (timingSeconds !== undefined) {
-  //       _listenToTimingSeconds(timingSeconds, dispatch, timingOrUsername, itemsRef)
-  //       return
-  //     }
-  //     if (timingOrUsername !== undefined) {
-  //       _listenToUsername(timingOrUsername, dispatch, timingOrUsername, itemsRef)
-  //       return
-  //     }
-  //     _listenToFeatured(dispatch, timingOrUsername, itemsRef)
-  //   }
-  // },
 }

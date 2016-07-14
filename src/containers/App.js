@@ -37,8 +37,9 @@ class App extends React.Component {
     this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleDroppedFiles(files) {
-    this.props.handleDroppedFiles(files, this.props.authData)
+  _handleDroppedFiles(files, event) {
+    const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
+    this.props.handleDroppedFiles(files, x, event.clientY, this.props.authData)
   }
   _handleScroll(event) {
     this.props.handleScroll(event.target.scrollLeft)
@@ -115,6 +116,8 @@ function mapStateToProps (state) {
     authData: state.getIn(['app', 'authData']),
     isUploading: state.getIn(['upload', 'isUploading']),
     login: state.getIn(['app', 'login']),
+    paddingLeft: state.getIn(['page', 'paddingLeft']),
+    scrollLeft: state.getIn(['page', 'scrollLeft']),
     windowHeight: state.getIn(['page', 'height']),
     windowWidth: state.getIn(['page', 'width'])
   }

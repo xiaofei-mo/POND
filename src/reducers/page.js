@@ -50,7 +50,7 @@ export default function pageReducer (state = initialState, action) {
       return _handleReceivedItems(
         action.payload.get('items'), 
         action.payload.get('destinationItem'),
-        action.payload.get('timingOrUsername'),
+        action.payload.get('pageId'),
         state
       )
 
@@ -96,7 +96,7 @@ const _handlePageScrolled = (scrollLeft, state) => {
   })
 }
 
-const _handleReceivedItems = (items, destinationItem, timingOrUsername, state) => {
+const _handleReceivedItems = (items, destinationItem, pageId, state) => {
   if (items === null) {
     return state
   }
@@ -112,8 +112,8 @@ const _handleReceivedItems = (items, destinationItem, timingOrUsername, state) =
     state.get('width')
   )
   const initiallyScrolled = _getInitiallyScrolled(
-    state.get('timingOrUsername'), 
-    timingOrUsername, 
+    state.get('pageId'), 
+    pageId, 
     state.get('initiallyScrolled')
   )
   return state.merge({
@@ -121,9 +121,9 @@ const _handleReceivedItems = (items, destinationItem, timingOrUsername, state) =
     items: items,
     paddingLeft: paddingLeft,
     paddingRight: paddingRight,
+    pageId: pageId,
     scrollAdjustment: scrollAdjustment,
-    scrollDestination: scrollDestination,
-    timingOrUsername: timingOrUsername
+    scrollDestination: scrollDestination
   })
 }
 

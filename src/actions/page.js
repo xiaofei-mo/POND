@@ -26,7 +26,7 @@ import { push } from 'react-router-redux'
 
 export default {
 
-  createTextItem: (x, y, authData) => {
+  createTextItem: (x, y, authData, pageId) => {
     return (dispatch, getState) => {
       const ref = new Firebase(config.FIREBASE_URL)
       ref.child('lastTiming').transaction((lastTiming) => {
@@ -38,9 +38,10 @@ export default {
         const timing = timingRef.snapshot.val()
         const itemsRef = ref.child('items')
         const itemRef = itemsRef.push({
-          content: '',
+          contentState: '',
           height: 300,
           isFeatured: false,
+          pageId: pageId,
           timing: timing,
           type: 'text',
           userId: authData.get('uid'),
@@ -78,19 +79,15 @@ export default {
       const timingSeconds = getSecondsFromString(timingOrUsername)
       let itemsRef
       if (timingSeconds !== undefined) {
-        _listenToTimingSeconds(timingSeconds, dispatch, timingOrUsername, itemsRef)
+        _listenToTimingSeconds(timingSeconds, dispatch, itemsRef)
         return
       }
       if (timingOrUsername !== undefined) {
-        _listenToUsername(timingOrUsername, dispatch, timingOrUsername, itemsRef)
+        _listenToUsername(timingOrUsername, dispatch, itemsRef)
         return
       }
-      _listenToFeatured(dispatch, timingOrUsername, itemsRef)
+      _listenToFeatured(dispatch, itemsRef)
     }
-  },
-
-  saveItem: (item) => {
-
   },
   
   setMostRecentlyTouched: (id) => {
@@ -128,6 +125,15 @@ export default {
     }
   },
 
+  setTextItemRawState: (id, rawState) => {
+    return (dispatch, getState) => {
+      const ref = new Firebase(config.FIREBASE_URL).child('items')
+      ref.child(id).update({
+        rawState: rawState
+      })
+    }
+  },
+
   setVideoReadyToPlay: (id) => {
     return {
       type: A.VIDEO_IS_READY_TO_PLAY, 
@@ -148,7 +154,7 @@ export default {
   }
 }
 
-const _listenToFeatured = (dispatch, timingOrUsername, itemsRef) => {
+const _listenToFeatured = (dispatch, itemsRef) => {
   const ref = new Firebase(config.FIREBASE_URL).child('items')
   const destinationItemRef = ref.orderByChild('isFeatured').equalTo(true)
   destinationItemRef.once('value', (destinationItemSnapshot) => {
@@ -159,22 +165,22 @@ const _listenToFeatured = (dispatch, timingOrUsername, itemsRef) => {
     }
     const destinationItem = destinationItemSnapshot.val()
     const itemId = Object.keys(destinationItem)[0]
-    const userId = destinationItem[itemId]['userId']
-    itemsRef = ref.orderByChild('userId').equalTo(userId)
+    const pageId = destinationItem[itemId]['pageId']
+    itemsRef = ref.orderByChild('pageId').equalTo(pageId)
     itemsRef.on('value', (itemsSnapshot) => {
       dispatch({
         type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem[itemId]),
           items: Immutable.fromJS(itemsSnapshot.val()),
-          timingOrUsername: timingOrUsername
+          pageId: pageId
         })
       })
     })
   })
 }
 
-const _listenToTimingSeconds = (timingSeconds, dispatch, timingOrUsername, itemsRef) => {
+const _listenToTimingSeconds = (timingSeconds, dispatch, itemsRef) => {
   const ref = new Firebase(config.FIREBASE_URL).child('items')
   const destinationItemRef = ref.orderByChild('timing').equalTo(timingSeconds)
   destinationItemRef.once('value', (destinationItemSnapshot) => {
@@ -184,22 +190,22 @@ const _listenToTimingSeconds = (timingSeconds, dispatch, timingOrUsername, items
     }
     const destinationItem = destinationItemSnapshot.val()
     const itemId = Object.keys(destinationItem)[0]
-    const userId = destinationItem[itemId]['userId']
-    itemsRef = ref.orderByChild('userId').equalTo(userId)
+    const pageId = destinationItem[itemId]['pageId']
+    itemsRef = ref.orderByChild('pageId').equalTo(pageId)
     itemsRef.on('value', (itemsSnapshot) => {
       dispatch({
         type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem[itemId]),
           items: Immutable.fromJS(itemsSnapshot.val()),
-          timingOrUsername: timingOrUsername
+          pageId: pageId
         })
       })
     })
   })
 }
 
-const _listenToUsername = (username, dispatch, timingOrUsername, itemsRef) => {
+const _listenToUsername = (username, dispatch, itemsRef) => {
   const ref = new Firebase(config.FIREBASE_URL)
   // Get username's user ID.
   const usersRef = ref.child('users')
@@ -209,15 +215,15 @@ const _listenToUsername = (username, dispatch, timingOrUsername, itemsRef) => {
       dispatch(push('/'))
       return
     }
-    const userId = Object.keys(userSnapshot.val())[0]
-    itemsRef = ref.child('items').orderByChild('userId').equalTo(userId)
+    const pageId = Object.keys(userSnapshot.val())[0]
+    itemsRef = ref.child('items').orderByChild('pageId').equalTo(pageId)
     itemsRef.on('value', (itemsSnapshot) => {
       dispatch({
         type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: undefined,
           items: Immutable.fromJS(itemsSnapshot.val()),
-          timingOrUsername: timingOrUsername
+          pageId: pageId
         })
       })
     })

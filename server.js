@@ -58,6 +58,7 @@ app.get('*', (req, res, next) => {
     <!DOCTYPE html>
     <html>
       <head>
+        <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="static/style.css" />
         <script>
           var config=${JSON.stringify(config)}

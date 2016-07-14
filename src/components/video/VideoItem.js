@@ -188,8 +188,7 @@ export default class VideoItem extends React.Component {
   }
   render() {
     let video = (
-      <Video key={this.props.key} 
-             autoPlay 
+      <Video autoPlay 
              loop 
              muted
              poster={this.props.item.get('posterUrl')} 

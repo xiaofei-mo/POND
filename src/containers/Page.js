@@ -66,7 +66,12 @@ class Page extends React.Component {
                this.props.authData !== null && 
                !this.props.authData.isEmpty()) {
         const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
-        this.props.createTextItem(x, event.clientY, this.props.authData)
+        this.props.createTextItem(
+          x, 
+          event.clientY, 
+          this.props.authData, 
+          this.props.pageId
+        )
       }
     }
   }
@@ -99,10 +104,10 @@ class Page extends React.Component {
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
                            key={key} 
-                           saveItem={this.props.saveItem}
                            setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                            setItemPosition={this.props.setItemPosition} 
-                           setItemSize={this.props.setItemSize} />
+                           setItemSize={this.props.setItemSize}
+                           setTextItemRawState={this.props.setTextItemRawState} />
         case 'video':
           return <VideoItem authData={this.props.authData}
                             deleteItem={this.props.deleteItem}
@@ -111,7 +116,6 @@ class Page extends React.Component {
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
                             key={key}
-                            saveItem={this.props.saveItem}
                             setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                             setItemPosition={this.props.setItemPosition}
                             setItemSize={this.props.setItemSize}
@@ -137,12 +141,12 @@ function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
     height: state.getIn(['page', 'height']),
-    isInAddMode: state.getIn(['app', 'isInAddMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     initiallyScrolled: state.getIn(['page', 'initiallyScrolled']),
     paddingLeft: state.getIn(['page', 'paddingLeft']),
     paddingRight: state.getIn(['page', 'paddingRight']),
+    pageId: state.getIn(['page', 'pageId']),
     scrollAdjustment: state.getIn(['page', 'scrollAdjustment']),
     scrollDestination: state.getIn(['page', 'scrollDestination']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
@@ -156,12 +160,12 @@ function mapDispatchToProps (dispatch) {
     deleteItem: bindActionCreators(actions.deleteItem, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
-    saveItem: bindActionCreators(actions.saveItem, dispatch),
-    setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
-    setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
-    setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch)
+    setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch),
+    setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
+    setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch),
+    setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch)
   }
 }
 
