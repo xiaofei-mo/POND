@@ -39847,10 +39847,10 @@
 	    value: function componentDidUpdate(prevProps, prevState) {
 	      var scrollAdjustment = prevProps.paddingLeft - this.props.paddingLeft;
 	      if (prevProps.scrollDestination !== this.props.scrollDestination) {
-	        console.log('setting this.scrollerNode.scrollLeft = ', this.props.scrollDestination);
+	        // console.log('setting this.scrollerNode.scrollLeft = ', this.props.scrollDestination)
 	        this.scrollerNode.scrollLeft = this.props.scrollDestination;
 	      } else if (scrollAdjustment !== 0) {
-	        console.log('adjusting this.scrollerNode.scrollLeft by ', scrollAdjustment);
+	        // console.log('adjusting this.scrollerNode.scrollLeft by ', scrollAdjustment)
 	        this.scrollerNode.scrollLeft -= scrollAdjustment;
 	      }
 	    }

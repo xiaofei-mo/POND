@@ -27,7 +27,12 @@ import { getPaddingRight, setIsMuted, setUrls } from '../../src/reducers/page'
 chai.use(chaiImmutable)
 
 const STATE_1 = Immutable.Map({
-  items: Immutable.Map()
+  destinationItem: Immutable.Map(),
+  height: 0,
+  href: '',
+  items: Immutable.Map(),
+  pageId: null,
+  width: 0
 })
 
 const STATE_2 = Immutable.fromJS(require('../_resources/pageState.json'))
@@ -50,111 +55,4 @@ describe('src/reducers/page', () => {
     chai.assert.equal(actual, expected)
   })
 
-  it(A.ITEM_TOUCHED, () => {
-    const state = STATE_1
-    const action = {
-      payload: Immutable.Map({
-        id: '-KI--DTekJgjb4LXHooy'
-      }),
-      type: A.ITEM_TOUCHED
-    }
-    const actual = pageReducer(state, action)
-    const expected = STATE_1.set('mostRecentlyTouched', '-KI--DTekJgjb4LXHooy')
-    chai.assert.equal(actual, expected)
-  })
-
-  it(A.PAGE_INITIALLY_SCROLLED, () => {
-    const state = STATE_1
-    const action = {
-      type: A.PAGE_INITIALLY_SCROLLED
-    }
-    const actual = pageReducer(state, action)
-    const expected = STATE_1.set('initiallyScrolled', true)
-    chai.assert.equal(actual, expected)
-  })
-
-})
-
-describe('src/reducers/page setIsMuted', () => {
-
-  it('determines isMuted for each item, no padding', () => {
-    const items = Immutable.List([
-      Immutable.Map({
-        width: 300,
-        x: 100
-      }),
-      Immutable.Map({
-        width: 300,
-        x: 700
-      })
-    ])
-    const actual = setIsMuted(items, 200, 0)
-    const expected = Immutable.List([
-      Immutable.Map({
-        isMuted: false,
-        width: 300,
-        x: 100
-      }),
-      Immutable.Map({
-        isMuted: true,
-        width: 300,
-        x: 700
-      })
-    ])
-    chai.assert.equal(actual, expected)
-  })
-
-  it('determines isMuted for each item, with padding', () => {
-    const items = Immutable.List([
-      Immutable.Map({
-        width: 300,
-        x: 100
-      }),
-      Immutable.Map({
-        width: 300,
-        x: 700
-      })
-    ])
-    const actual = setIsMuted(items, 1500, 600)
-    const expected = Immutable.List([
-      Immutable.Map({
-        isMuted: true,
-        width: 300,
-        x: 100
-      }),
-      Immutable.Map({
-        isMuted: false,
-        width: 300,
-        x: 700
-      })
-    ])
-    chai.assert.equal(actual, expected)
-  })
-
-})
-
-describe('src/reducers/page setUrls', () => {
-
-  it('calculates url for each item', () => {
-    const items = Immutable.List([
-      Immutable.Map({
-        timing: 61
-      }),
-      Immutable.Map({
-        timing: 3599
-      })
-    ])
-    const actual = setUrls(items, 'https://mysteriousobjectsatnoon.info/')
-    const expected = Immutable.List([
-      Immutable.Map({
-        timing: 61,
-        url: 'https://mysteriousobjectsatnoon.info/0:00:01:01'
-      }),
-      Immutable.Map({
-        timing: 3599,
-        url: 'https://mysteriousobjectsatnoon.info/0:00:59:59'
-      })
-    ])
-    chai.assert.equal(actual, expected)
-  })
 })
