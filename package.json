@@ -39,6 +39,7 @@
     "redux": "^3.3.1",
     "redux-immutable": "^3.0.6",
     "redux-thunk": "^2.0.1",
+    "reselect": "^2.5.3",
     "superagent": "^1.8.3",
     "transloadit": "^1.5.3",
     "tsml": "^1.0.1"

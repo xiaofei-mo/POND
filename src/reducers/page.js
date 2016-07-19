@@ -19,10 +19,9 @@
 
 import { A } from '../constants'
 import Immutable from 'immutable'
-import getStringFromSeconds from '../utils/getStringFromSeconds'
-import url from 'url'
 
 const initialState = Immutable.Map({
+  href: '',
   items: Immutable.Map()
 })
 
@@ -30,15 +29,10 @@ export default function pageReducer (state = initialState, action) {
   switch (action.type) {
 
     case A.ITEM_TOUCHED:
-      return _handleItemWasTouched(
-        action.payload.get('id'), 
-        state
-      )
+      return state.set('mostRecentlyTouched', action.payload.get('id'))
       
     case A.PAGE_INITIALLY_SCROLLED:
-      return _handlePageInitiallyScrolled(
-        state
-      )
+      return state.set('initiallyScrolled', true)
 
     case A.PAGE_SCROLLED:
       return _handlePageScrolled(
@@ -55,10 +49,7 @@ export default function pageReducer (state = initialState, action) {
       )
 
     case A.SET_BASE_URL:
-      return _handleSetBaseUrl(
-        action.payload.get('href'), 
-        state
-      )
+      return state.set('href', action.payload.get('href'))
 
     case A.VIDEO_IS_READY_TO_PLAY:
       return _handleVideoIsReadyToPlay(
@@ -78,14 +69,6 @@ export default function pageReducer (state = initialState, action) {
   }
 }
 
-const _handleItemWasTouched = (id, state) => {
-  return state.set('mostRecentlyTouched', id)
-}
-
-const _handlePageInitiallyScrolled = (state) => {
-  return state.set('initiallyScrolled', true)
-}
-
 const _handlePageScrolled = (scrollLeft, state) => {
   const halfway = _getHalfway(state.get('width'), scrollLeft)
   const items = setIsMuted(state.get('items'), halfway, state.get('paddingLeft'))
@@ -101,9 +84,7 @@ const _handleReceivedItems = (items, destinationItem, pageId, state) => {
     return state
   }
   const paddingLeft = _getPaddingLeft(items, state.get('width'))
-  const paddingRight = getPaddingRight(items, state.get('width'))
   const scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft)
-  items = setUrls(items, state.get('baseUrl'))
   items = setIsMuted(items, state.get('halfway'), paddingLeft)
   const scrollDestination = _getScrollDestination(
     destinationItem,
@@ -120,16 +101,10 @@ const _handleReceivedItems = (items, destinationItem, pageId, state) => {
     initiallyScrolled: initiallyScrolled,
     items: items,
     paddingLeft: paddingLeft,
-    paddingRight: paddingRight,
     pageId: pageId,
     scrollAdjustment: scrollAdjustment,
     scrollDestination: scrollDestination
   })
-}
-
-const _handleSetBaseUrl = (href, state) => {
-  const parsedUrl = url.parse(href)
-  return state.set('baseUrl', parsedUrl.protocol + '//' + parsedUrl.host + '/')
 }
 
 const _handleVideoIsReadyToPlay = (readyToPlayId, state) => {
@@ -145,14 +120,12 @@ const _handleVideoIsReadyToPlay = (readyToPlayId, state) => {
 const _handleWindowChangedSize = (height, width, state) => {
   const halfway = _getHalfway(width, state.get('scrollLeft'))
   const paddingLeft = _getPaddingLeft(state.get('items'), width)
-  const paddingRight = getPaddingRight(state.get('items'), width)
   const scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft)
   const items = setIsMuted(state.get('items'), halfway, paddingLeft)
   return state.merge({
     height: height,
     items: items,
     paddingLeft: paddingLeft,
-    paddingRight: paddingRight,
     scrollAdjustment: scrollAdjustment,
     width: width
   })
@@ -211,14 +184,6 @@ const _getPaddingLeft = (items, width) => {
   return 0
 }
 
-export const getPaddingRight = (items, width) => {
-  const rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
-  if (rightmostItem === undefined) {
-    return 0
-  }
-  return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
-}
-
 export const setIsMuted = (items, halfway, paddingLeft) => {
   if (halfway === undefined || paddingLeft === undefined) {
     return items
@@ -232,12 +197,5 @@ export const setIsMuted = (items, halfway, paddingLeft) => {
     else {
       return item.set('isMuted', true)
     }
-  })
-}
-
-export const setUrls = (items, baseUrl) => {
-  return items.map((item) => {
-    const string = getStringFromSeconds(item.get('timing'))
-    return item.set('url', baseUrl + string)
   })
 }

@@ -17,14 +17,15 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react'
+import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import VideoItem from '../components/video/VideoItem'
-import actions from '../actions'
-import ReactDOM from 'react-dom'
+import { getItems, getPaddingLeft, getPaddingRight } from '../selectors'
 import Immutable from 'immutable'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import TextItem from '../components/text/TextItem'
+import VideoItem from '../components/video/VideoItem'
 
 class Page extends React.Component {
   constructor() {
@@ -142,10 +143,10 @@ function mapStateToProps (state) {
     authData: state.getIn(['app', 'authData']),
     height: state.getIn(['page', 'height']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
-    items: state.getIn(['page', 'items']),
+    items: getItems(state),
     initiallyScrolled: state.getIn(['page', 'initiallyScrolled']),
-    paddingLeft: state.getIn(['page', 'paddingLeft']),
-    paddingRight: state.getIn(['page', 'paddingRight']),
+    paddingLeft: getPaddingLeft(state),
+    paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),
     scrollAdjustment: state.getIn(['page', 'scrollAdjustment']),
     scrollDestination: state.getIn(['page', 'scrollDestination']),
