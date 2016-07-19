@@ -17,10 +17,10 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react'
+import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import actions from '../actions'
+import React from 'react'
 import UploadItem from '../components/upload/UploadItem'
 
 export default class Uploads extends React.Component {

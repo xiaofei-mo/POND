@@ -8228,7 +8228,9 @@
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 	
-	var _selectors = __webpack_require__(463);
+	var _getPaddingLeft = __webpack_require__(465);
+	
+	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
 	
 	var _InfoAndEditControl = __webpack_require__(150);
 	
@@ -8397,7 +8399,7 @@
 	    authData: state.getIn(['app', 'authData']),
 	    isUploading: state.getIn(['upload', 'isUploading']),
 	    login: state.getIn(['app', 'login']),
-	    paddingLeft: (0, _selectors.getPaddingLeft)(state),
+	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    scrollLeft: state.getIn(['page', 'scrollLeft']),
 	    windowHeight: state.getIn(['page', 'height']),
 	    windowWidth: state.getIn(['page', 'width'])
@@ -14298,17 +14300,17 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(26);
+	var _actions = __webpack_require__(4);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var _actions2 = _interopRequireDefault(_actions);
 	
 	var _redux = __webpack_require__(58);
 	
 	var _reactRedux = __webpack_require__(71);
 	
-	var _actions = __webpack_require__(4);
+	var _react = __webpack_require__(26);
 	
-	var _actions2 = _interopRequireDefault(_actions);
+	var _react2 = _interopRequireDefault(_react);
 	
 	var _UploadItem = __webpack_require__(82);
 	
@@ -39749,7 +39751,21 @@
 	
 	var _reactRedux = __webpack_require__(71);
 	
-	var _selectors = __webpack_require__(463);
+	var _getHalfway = __webpack_require__(466);
+	
+	var _getHalfway2 = _interopRequireDefault(_getHalfway);
+	
+	var _getPaddingLeft = __webpack_require__(465);
+	
+	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
+	
+	var _getPaddingRight = __webpack_require__(468);
+	
+	var _getPaddingRight2 = _interopRequireDefault(_getPaddingRight);
+	
+	var _getScrollDestination = __webpack_require__(469);
+	
+	var _getScrollDestination2 = _interopRequireDefault(_getScrollDestination);
 	
 	var _immutable = __webpack_require__(8);
 	
@@ -39804,7 +39820,6 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Page).call(this));
 	
-	    _this._getClassName = _this._getClassName.bind(_this);
 	    _this._getStyle = _this._getStyle.bind(_this);
 	    _this._handleClick = _this._handleClick.bind(_this);
 	    _this.componentDidMount = _this.componentDidMount.bind(_this);
@@ -39815,15 +39830,6 @@
 	  }
 	
 	  _createClass(Page, [{
-	    key: '_getClassName',
-	    value: function _getClassName() {
-	      var className = 'page';
-	      if (this.props.params.timingOrUsername === undefined) {
-	        className += ' homepage';
-	      }
-	      return className;
-	    }
-	  }, {
 	    key: '_getStyle',
 	    value: function _getStyle() {
 	      var style = {
@@ -39904,7 +39910,7 @@
 	      }).toArray();
 	      return _react2.default.createElement(
 	        'div',
-	        { className: this._getClassName(),
+	        { className: 'page',
 	          id: 'page',
 	          onClick: this._handleClick,
 	          ref: 'page',
@@ -39921,14 +39927,14 @@
 	function mapStateToProps(state) {
 	  return {
 	    authData: state.getIn(['app', 'authData']),
-	    halfway: (0, _selectors.getHalfway)(state),
+	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
-	    items: (0, _selectors.getItems)(state),
-	    paddingLeft: (0, _selectors.getPaddingLeft)(state),
-	    paddingRight: (0, _selectors.getPaddingRight)(state),
+	    items: state.getIn(['page', 'items']),
+	    paddingLeft: (0, _getPaddingLeft2.default)(state),
+	    paddingRight: (0, _getPaddingRight2.default)(state),
 	    pageId: state.getIn(['page', 'pageId']),
-	    scrollDestination: (0, _selectors.getScrollDestination)(state),
+	    scrollDestination: (0, _getScrollDestination2.default)(state),
 	    scrollLeft: state.getIn(['page', 'scrollLeft']),
 	    width: state.getIn(['page', 'width'])
 	  };
@@ -59260,95 +59266,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 463 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getScrollDestination = exports.getPaddingRight = exports.getPaddingLeft = exports.getItems = exports.getHalfway = undefined;
-	
-	var _reselect = __webpack_require__(464);
-	
-	var _getStringFromSeconds = __webpack_require__(11);
-	
-	var _getStringFromSeconds2 = _interopRequireDefault(_getStringFromSeconds);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var getHalfway = exports.getHalfway = (0, _reselect.createSelector)(function (state) {
-	  return state.getIn(['page', 'width']);
-	}, function (state) {
-	  return state.getIn(['page', 'scrollLeft']);
-	}, function (width, scrollLeft) {
-	  return Math.floor(width / 2) + scrollLeft;
-	});
-	
-	var getItems = exports.getItems = (0, _reselect.createSelector)(function (state) {
-	  return state.getIn(['page', 'items']);
-	}, function (state) {
-	  return state.getIn(['page', 'baseUrl']);
-	}, function (items, baseUrl) {
-	  return items.map(function (item) {
-	    var string = (0, _getStringFromSeconds2.default)(item.get('timing'));
-	    item = item.set('url', baseUrl + string);
-	    return item;
-	  });
-	});
-	
-	var getPaddingLeft = exports.getPaddingLeft = (0, _reselect.createSelector)(getItems, function (state) {
-	  return state.getIn(['page', 'width']);
-	}, function (items, width) {
-	  var leftmostItem = items.minBy(function (item) {
-	    return item.get('x');
-	  });
-	  if (leftmostItem === undefined) {
-	    return 0;
-	  }
-	  var x = leftmostItem.get('x');
-	  if (x > 0) {
-	    return width - x;
-	  } else {
-	    return Math.abs(x) + width;
-	  }
-	  return 0;
-	});
-	
-	var getPaddingRight = exports.getPaddingRight = (0, _reselect.createSelector)(getItems, function (state) {
-	  return state.getIn(['page', 'width']);
-	}, function (items, width) {
-	  var rightmostItem = items.maxBy(function (item) {
-	    return item.get('width') + item.get('x');
-	  });
-	  if (rightmostItem === undefined) {
-	    return 0;
-	  }
-	  return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width);
-	});
-	
-	var getScrollDestination = exports.getScrollDestination = (0, _reselect.createSelector)(getItems, function (state) {
-	  return state.getIn(['page', 'destinationItem']);
-	}, function (state) {
-	  return state.getIn(['page', 'width']);
-	}, getPaddingLeft, function (items, destinationItem, width, paddingLeft) {
-	  if (items.isEmpty() || width === 0) {
-	    return null;
-	  }
-	  // First, figure out which item is our destination. Use the leftmost item as a
-	  // default.
-	  var item = items.minBy(function (item) {
-	    return item.get('x');
-	  });
-	  // But if a destinationItem was found in actions/page, use that instead.
-	  if (!destinationItem.isEmpty()) {
-	    item = destinationItem;
-	  }
-	  return item.get('x') + width / 2 + item.get('width') / 2 + (paddingLeft - width);
-	});
-
-/***/ },
+/* 463 */,
 /* 464 */
 /***/ function(module, exports) {
 
@@ -59468,6 +59386,124 @@
 	  });
 	}
 
+/***/ },
+/* 465 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(464);
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'items']);
+	}, function (state) {
+	  return state.getIn(['page', 'width']);
+	}, function (items, width) {
+	  var leftmostItem = items.minBy(function (item) {
+	    return item.get('x');
+	  });
+	  if (leftmostItem === undefined) {
+	    return 0;
+	  }
+	  var x = leftmostItem.get('x');
+	  if (x > 0) {
+	    return width - x;
+	  }
+	  return Math.abs(x) + width;
+	});
+
+/***/ },
+/* 466 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(464);
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'width']);
+	}, function (state) {
+	  return state.getIn(['page', 'scrollLeft']);
+	}, function (width, scrollLeft) {
+	  return Math.floor(width / 2) + scrollLeft;
+	});
+
+/***/ },
+/* 467 */,
+/* 468 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(464);
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'items']);
+	}, function (state) {
+	  return state.getIn(['page', 'width']);
+	}, function (items, width) {
+	  var rightmostItem = items.maxBy(function (item) {
+	    return item.get('width') + item.get('x');
+	  });
+	  if (rightmostItem === undefined) {
+	    return 0;
+	  }
+	  return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width);
+	});
+
+/***/ },
+/* 469 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(464);
+	
+	var _getPaddingLeft = __webpack_require__(465);
+	
+	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'items']);
+	}, function (state) {
+	  return state.getIn(['page', 'destinationItem']);
+	}, function (state) {
+	  return state.getIn(['page', 'width']);
+	}, _getPaddingLeft2.default, function (items, destinationItem, width, paddingLeft) {
+	  if (items.isEmpty() || width === 0) {
+	    return null;
+	  }
+	  // First, figure out which item is our destination. Use the leftmost item as a
+	  // default.
+	  var item = items.minBy(function (item) {
+	    return item.get('x');
+	  });
+	  // But if a destinationItem was found in actions/page, use that instead.
+	  if (!destinationItem.isEmpty()) {
+	    item = destinationItem;
+	  }
+	  return item.get('x') + width / 2 + item.get('width') / 2 + (paddingLeft - width);
+	});
+
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

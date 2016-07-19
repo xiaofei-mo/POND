@@ -20,7 +20,10 @@
 import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getHalfway, getItems, getPaddingLeft, getPaddingRight, getScrollDestination } from '../selectors'
+import getHalfway from '../selectors/getHalfway'
+import getPaddingLeft from '../selectors/getPaddingLeft'
+import getPaddingRight from '../selectors/getPaddingRight'
+import getScrollDestination from '../selectors/getScrollDestination'
 import Immutable from 'immutable'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -30,20 +33,12 @@ import VideoItem from '../components/video/VideoItem'
 class Page extends React.Component {
   constructor() {
     super()
-    this._getClassName = this._getClassName.bind(this)
     this._getStyle = this._getStyle.bind(this)
     this._handleClick = this._handleClick.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
-  }
-  _getClassName() {
-    let className = 'page'
-    if (this.props.params.timingOrUsername === undefined) {
-      className += ' homepage'
-    }
-    return className
   }
   _getStyle() {
     let style = {
@@ -120,7 +115,7 @@ class Page extends React.Component {
       }
     }).toArray()
     return (
-      <div className={this._getClassName()} 
+      <div className='page' 
            id='page' 
            onClick={this._handleClick} 
            ref='page'
@@ -138,7 +133,7 @@ function mapStateToProps (state) {
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
-    items: getItems(state),
+    items: state.getIn(['page', 'items']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),
