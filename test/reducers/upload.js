@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../../src/constants'
+import { A } from '../../src/constants'
 import chai from 'chai'
 import chaiImmutable from 'chai-immutable'
 import Immutable from 'immutable'
@@ -54,10 +54,10 @@ describe('src/reducers/upload', () => {
     chai.assert.equal(actual, expected)
   })
 
-  it(C.RECEIVED_UPLOADS, () => {
+  it(A.RECEIVED_UPLOADS, () => {
     const state = undefined
     const action = {
-      type: C.RECEIVED_UPLOADS,
+      type: A.RECEIVED_UPLOADS,
       payload: Immutable.Map({
         uploads: Immutable.Map({
           '-KHzAnIINJ3s2ExLfFaA': Immutable.Map({

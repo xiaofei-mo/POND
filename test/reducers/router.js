@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../../src/constants'
+import { A } from '../../src/constants'
 import chai from 'chai'
 import chaiImmutable from 'chai-immutable'
 import Immutable from 'immutable'
@@ -61,10 +61,10 @@ describe('src/reducers/router', () => {
     chai.assert.equal(actual, expected)
   })
 
-  it(C.LOCATION_CHANGED, () => {
+  it(A.LOCATION_CHANGED, () => {
     const state = undefined
     const action = {
-      type: C.LOCATION_CHANGED,
+      type: A.LOCATION_CHANGED,
       payload: {
         '$searchBase': {
           search: '',

@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../../src/constants'
+import { A } from '../../src/constants'
 import chai from 'chai'
 import chaiImmutable from 'chai-immutable'
 import Immutable from 'immutable'
@@ -26,7 +26,6 @@ import sortReducer from '../../src/reducers/sort'
 chai.use(chaiImmutable)
 
 const STATE_1 = Immutable.Map({
-  isOpen: true,
   vocabularies: Immutable.List([
     Immutable.Map({
       isOpen: true,
@@ -46,7 +45,6 @@ describe('src/reducers/sort', () => {
     const action = {}
     const actual = sortReducer(state, action)
     const expected = Immutable.Map({
-      isOpen: false,
       vocabularies: Immutable.List()
     })
     chai.assert.equal(actual, expected)
@@ -60,14 +58,13 @@ describe('src/reducers/sort', () => {
     chai.assert.equal(actual, expected)
   })
 
-  it(C.CLOSE_ALL_VOCABULARIES, () => {
+  it(A.CLOSE_ALL_VOCABULARIES, () => {
     const state = STATE_1
     const action = {
-      type: C.CLOSE_ALL_VOCABULARIES
+      type: A.CLOSE_ALL_VOCABULARIES
     }
     const actual = sortReducer(state, action)
     const expected = Immutable.Map({
-      isOpen: true,
       vocabularies: Immutable.List([
         Immutable.Map({
           isOpen: false,
@@ -82,45 +79,10 @@ describe('src/reducers/sort', () => {
     chai.assert.equal(actual, expected)
   })
 
-  it(C.CLOSE_SORT, () => {
-    const state = STATE_1
-    const action = {
-      type: C.CLOSE_SORT
-    }
-    const actual = sortReducer(state, action)
-    const expected = Immutable.Map({
-      isOpen: false,
-      vocabularies: Immutable.List([
-        Immutable.Map({
-          isOpen: false,
-          name: 'A'
-        }),
-        Immutable.Map({
-          isOpen: false,
-          name: 'B'
-        })
-      ])
-    })
-    chai.assert.equal(actual, expected)
-  })
-
-  it(C.OPEN_SORT, () => {
+  it(A.RECEIVED_VOCABULARIES, () => {
     const state = undefined
     const action = {
-      type: C.OPEN_SORT
-    }
-    const actual = sortReducer(state, action)
-    const expected = Immutable.Map({
-      isOpen: true,
-      vocabularies: Immutable.List()
-    })
-    chai.assert.equal(actual, expected)
-  })
-
-  it(C.RECEIVED_VOCABULARIES, () => {
-    const state = undefined
-    const action = {
-      type: C.RECEIVED_VOCABULARIES,
+      type: A.RECEIVED_VOCABULARIES,
       payload: Immutable.Map({
         vocabularies: Immutable.List([
           Immutable.Map({
@@ -136,7 +98,6 @@ describe('src/reducers/sort', () => {
     }
     const actual = sortReducer(state, action)
     const expected = Immutable.Map({
-      isOpen: false,
       vocabularies: Immutable.List([
         Immutable.Map({
           isOpen: false,
@@ -151,17 +112,16 @@ describe('src/reducers/sort', () => {
     chai.assert.equal(actual, expected)
   })
 
-  it(C.TOGGLE_VOCABULARY, () => {
+  it(A.TOGGLE_VOCABULARY, () => {
     const state = STATE_1
     const action = {
-      type: C.TOGGLE_VOCABULARY,
+      type: A.TOGGLE_VOCABULARY,
       payload: Immutable.Map({
         name: 'B'
       })
     }
     const actual = sortReducer(state, action)
     const expected = Immutable.Map({
-      isOpen: true,
       vocabularies: Immutable.List([
         Immutable.Map({
           isOpen: false,

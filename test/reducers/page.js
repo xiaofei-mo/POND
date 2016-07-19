@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import C from '../../src/constants'
+import { A } from '../../src/constants'
 import chai from 'chai'
 import chaiImmutable from 'chai-immutable'
 import Immutable from 'immutable'
@@ -26,9 +26,7 @@ import pageReducer from '../../src/reducers/page'
 chai.use(chaiImmutable)
 
 const STATE_1 = Immutable.Map({
-  initiallyScrolled: false,
-  items: Immutable.Map(),
-  mostRecentlyTouched: '-KH2eUDpY9DG5RxeBnjb'
+  items: Immutable.Map()
 })
 
 const STATE_2 = Immutable.fromJS(require('../_resources/pageState.json'))
@@ -51,23 +49,23 @@ describe('src/reducers/page', () => {
     chai.assert.equal(actual, expected)
   })
 
-  it(C.ITEM_TOUCHED, () => {
+  it(A.ITEM_TOUCHED, () => {
     const state = STATE_1
     const action = {
       payload: Immutable.Map({
         id: '-KI--DTekJgjb4LXHooy'
       }),
-      type: C.ITEM_TOUCHED
+      type: A.ITEM_TOUCHED
     }
     const actual = pageReducer(state, action)
     const expected = STATE_1.set('mostRecentlyTouched', '-KI--DTekJgjb4LXHooy')
     chai.assert.equal(actual, expected)
   })
 
-  it(C.PAGE_INITIALLY_SCROLLED () => {
+  it(A.PAGE_INITIALLY_SCROLLED, () => {
     const state = STATE_1
     const action = {
-      type: C.PAGE_INITIALLY_SCROLLED
+      type: A.PAGE_INITIALLY_SCROLLED
     }
     const actual = pageReducer(state, action)
     const expected = STATE_1.set('initiallyScrolled', true)
