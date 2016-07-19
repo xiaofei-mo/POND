@@ -90,21 +90,6 @@ export default {
     }
   },
   
-  setMostRecentlyTouched: (id) => {
-    return {
-      type: A.ITEM_TOUCHED, 
-      payload: Immutable.Map({
-        id: id
-      })
-    }
-  },
-
-  setPageInitiallyScrolled: () => {
-    return {
-      type: A.PAGE_INITIALLY_SCROLLED
-    }
-  },
-
   setItemPosition: (id, x, y) => {
     return (dispatch, getState) => {
       const ref = new Firebase(config.FIREBASE_URL).child('items')
@@ -130,15 +115,6 @@ export default {
       const ref = new Firebase(config.FIREBASE_URL).child('items')
       ref.child(id).update({
         rawState: rawState
-      })
-    }
-  },
-
-  setVideoReadyToPlay: (id) => {
-    return {
-      type: A.VIDEO_IS_READY_TO_PLAY, 
-      payload: Immutable.Map({
-        id: id
       })
     }
   },
@@ -221,7 +197,7 @@ const _listenToUsername = (username, dispatch, itemsRef) => {
       dispatch({
         type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
-          destinationItem: undefined,
+          destinationItem: Immutable.Map(),
           items: Immutable.fromJS(itemsSnapshot.val()),
           pageId: pageId
         })

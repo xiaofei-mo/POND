@@ -51,8 +51,7 @@ export default class Sort extends React.Component {
     this.props.listenToVocabularies()
   }
   render() {
-    if (this.props.windowHeight === undefined || 
-        this.props.windowWidth === undefined) {
+    if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
       return null
     }
     const bounds = {

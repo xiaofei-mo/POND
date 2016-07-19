@@ -146,15 +146,8 @@ a {
 
 .page {
   position: relative;
-  transition: opacity 200ms;
-  opacity: 0;
   z-index: 2;
   height: 100%;
-
-  &.initially-scrolled {
-    transition: opacity 200ms;
-    opacity: 1;
-  }
 }
 
 .login {

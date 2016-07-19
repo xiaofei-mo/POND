@@ -17,16 +17,17 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react'
+import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import actions from '../actions'
 import Dropzone from 'react-dropzone'
-import Uploads from './Uploads'
+import { getPaddingLeft } from '../selectors'
+import InfoAndEditControl from '../components/app-control/InfoAndEditControl'
 import Login from '../components/Login'
 import LoginUsernameLogoutControl from '../components/app-control/LoginUsernameLogoutControl'
-import InfoAndEditControl from '../components/app-control/InfoAndEditControl'
+import React from 'react'
 import Sort from './Sort'
+import Uploads from './Uploads'
 
 class App extends React.Component {
   constructor() {
@@ -116,7 +117,7 @@ function mapStateToProps (state) {
     authData: state.getIn(['app', 'authData']),
     isUploading: state.getIn(['upload', 'isUploading']),
     login: state.getIn(['app', 'login']),
-    paddingLeft: state.getIn(['page', 'paddingLeft']),
+    paddingLeft: getPaddingLeft(state),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
     windowHeight: state.getIn(['page', 'height']),
     windowWidth: state.getIn(['page', 'width'])

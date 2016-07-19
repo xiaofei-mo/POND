@@ -44,22 +44,19 @@ export default class VideoItem extends React.Component {
     }
     this._getClassName = this._getClassName.bind(this)
     this._handleClick = this._handleClick.bind(this)
-    this._handleCanPlay = this._handleCanPlay.bind(this)
     this._handleDrag = this._handleDrag.bind(this)
     this._handleDragStop = this._handleDragStop.bind(this)
     this._handleMouseDown = this._handleMouseDown.bind(this)
     this._handleResize = this._handleResize.bind(this)
     this._handleResizeStop = this._handleResizeStop.bind(this)
     this._setStyle = this._setStyle.bind(this)
+    this._shouldBeMuted = this._shouldBeMuted.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
   }
   _getClassName() {
     var className = 'video-item'
-    if (this.props.item.get('mostRecentlyTouched')) {
-      className += ' most-recently-touched'
-    }
     if (this.props.isShowingMetadata) {
       className += ' is-showing-metadata'
     }
@@ -68,11 +65,6 @@ export default class VideoItem extends React.Component {
   _handleClick(event) {
     if (this.state.wasDragged) {
       event.preventDefault()
-    }
-  }
-  _handleCanPlay() {
-    if (!this.props.item.get('isReadyToPlay')) {
-      this.props.setVideoReadyToPlay(this.props.id);
     }
   }
   _handleDrag(event, ui) {
@@ -105,7 +97,6 @@ export default class VideoItem extends React.Component {
     if (this.props.isShowingMetadata) {
       return false
     }
-    this.props.setMostRecentlyTouched(this.props.id)
     let state = this.state
     state['wasDragged'] = false
     this.setState(state)
@@ -146,6 +137,14 @@ export default class VideoItem extends React.Component {
       y: y
     })
   }
+  _shouldBeMuted(props) {
+    const zoneLeft = props.item.get('x') + props.paddingLeft
+    const zoneRight = props.item.get('x') + props.item.get('width') + props.paddingLeft
+    if (props.halfway > zoneLeft && props.halfway < zoneRight) {
+      return false
+    }
+    return true
+  }
   componentWillMount() {
     this._setStyle(this.props)
   }
@@ -161,7 +160,7 @@ export default class VideoItem extends React.Component {
         this.refs.video.setVolume(0)
       }
       else {
-        if (nextProps.item.get('isMuted')) {
+        if (this._shouldBeMuted(nextProps)) {
           this.refs.video.setVolume(0)
         }
         else {
@@ -169,15 +168,15 @@ export default class VideoItem extends React.Component {
         }
       }
     }
-    else if (this.props.item.get('isMuted') !== nextProps.item.get('isMuted')) {
-      if (nextProps.item.get('isMuted')) {
+    else if (this._shouldBeMuted(this.props) !== this._shouldBeMuted(nextProps)) {
+      if (this._shouldBeMuted(nextProps)) {
         fadeOut((v) => {
           this.refs.video.setVolume(v)
         }, 3000, () => {
           this.refs.video.unmute()
         })
       }
-      else if (!nextProps.item.get('isMuted')) {
+      else if (!this._shouldBeMuted(nextProps)) {
         fadeIn((v) => {
           this.refs.video.setVolume(v)
         }, 3000, () => {
@@ -192,7 +191,6 @@ export default class VideoItem extends React.Component {
              loop 
              muted
              poster={this.props.item.get('posterUrl')} 
-             onCanPlay={this._handleCanPlay}
              ref='video'
       >
         <source src={this.props.item.getIn(['results', 'encode', 'ssl_url'])} type='video/mp4' />

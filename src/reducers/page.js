@@ -21,181 +21,37 @@ import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
+  destinationItem: Immutable.Map(),
+  height: 0,
   href: '',
-  items: Immutable.Map()
+  items: Immutable.Map(),
+  pageId: null,
+  width: 0
 })
 
 export default function pageReducer (state = initialState, action) {
   switch (action.type) {
-
-    case A.ITEM_TOUCHED:
-      return state.set('mostRecentlyTouched', action.payload.get('id'))
       
-    case A.PAGE_INITIALLY_SCROLLED:
-      return state.set('initiallyScrolled', true)
-
     case A.PAGE_SCROLLED:
-      return _handlePageScrolled(
-        action.payload.get('scrollLeft'), 
-        state
-      )
+      return state.set('scrollLeft', action.payload.get('scrollLeft'))
 
     case A.RECEIVED_ITEMS:
-      return _handleReceivedItems(
-        action.payload.get('items'), 
-        action.payload.get('destinationItem'),
-        action.payload.get('pageId'),
-        state
-      )
+      return state.merge({
+        destinationItem: action.payload.get('destinationItem'),
+        items: action.payload.get('items'),
+        pageId: action.payload.get('pageId')
+      })
 
     case A.SET_BASE_URL:
       return state.set('href', action.payload.get('href'))
 
-    case A.VIDEO_IS_READY_TO_PLAY:
-      return _handleVideoIsReadyToPlay(
-        action.payload.get('readyToPlayId'), 
-        state
-      )
-
     case A.WINDOW_CHANGED_SIZE:
-      return _handleWindowChangedSize(
-        action.payload.get('height'),
-        action.payload.get('width'), 
-        state
-      )
+      return state.merge({
+        height: action.payload.get('height'),
+        width: action.payload.get('width')
+      })
 
     default:
       return state
   }
-}
-
-const _handlePageScrolled = (scrollLeft, state) => {
-  const halfway = _getHalfway(state.get('width'), scrollLeft)
-  const items = setIsMuted(state.get('items'), halfway, state.get('paddingLeft'))
-  return state.merge({
-    halfway: halfway,
-    items: items,
-    scrollLeft: scrollLeft
-  })
-}
-
-const _handleReceivedItems = (items, destinationItem, pageId, state) => {
-  if (items === null) {
-    return state
-  }
-  const paddingLeft = _getPaddingLeft(items, state.get('width'))
-  const scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft)
-  items = setIsMuted(items, state.get('halfway'), paddingLeft)
-  const scrollDestination = _getScrollDestination(
-    destinationItem,
-    items,
-    paddingLeft,
-    state.get('width')
-  )
-  const initiallyScrolled = _getInitiallyScrolled(
-    state.get('pageId'), 
-    pageId, 
-    state.get('initiallyScrolled')
-  )
-  return state.merge({
-    initiallyScrolled: initiallyScrolled,
-    items: items,
-    paddingLeft: paddingLeft,
-    pageId: pageId,
-    scrollAdjustment: scrollAdjustment,
-    scrollDestination: scrollDestination
-  })
-}
-
-const _handleVideoIsReadyToPlay = (readyToPlayId, state) => {
-  return state.set('items', state.get('items').map((item, id) => {
-    let isReadyToPlay = false
-    if (item.get('isReadyToPlay') || id === readyToPlayId) {
-      isReadyToPlay = true
-    }
-    return item.set('isReadyToPlay', isReadyToPlay)
-  }))
-}
-
-const _handleWindowChangedSize = (height, width, state) => {
-  const halfway = _getHalfway(width, state.get('scrollLeft'))
-  const paddingLeft = _getPaddingLeft(state.get('items'), width)
-  const scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft)
-  const items = setIsMuted(state.get('items'), halfway, paddingLeft)
-  return state.merge({
-    height: height,
-    items: items,
-    paddingLeft: paddingLeft,
-    scrollAdjustment: scrollAdjustment,
-    width: width
-  })
-
-}
-
-//
-// Non-item-related functions
-// 
-
-const _getHalfway = (width, scrollLeft) => {
-  return Math.floor(width / 2) + scrollLeft
-}
-
-const _getInitiallyScrolled = (oldTimingOrUsername, newTimingOrUsername, initiallyScrolled) => {
-  if(oldTimingOrUsername !== newTimingOrUsername) {
-    initiallyScrolled = false
-  }
-  return initiallyScrolled
-}
-
-const _getScrollAdjustment = (oldPaddingLeft, newPaddingLeft) => {
-  return oldPaddingLeft - newPaddingLeft
-}
-
-//
-// Items (plural) functions
-//
-
-const _getScrollDestination = (destinationItem, items, paddingLeft, width) => {
-  // First, figure out which item is our destination. Use the leftmost item as a
-  // default.
-  let item = items.minBy(item => item.get('x'))
-  // But if a destinationItem was found in actions/page, use that instead.
-  if (destinationItem !== undefined) {
-    item = destinationItem
-  }
-  return item.get('x') + 
-         (width / 2) + 
-         (item.get('width') / 2) + 
-         (paddingLeft - width)
-}
-
-const _getPaddingLeft = (items, width) => {
-  const leftmostItem = items.minBy(item => item.get('x'))
-  if (leftmostItem === undefined) {
-    return 0
-  }
-  const x = leftmostItem.get('x')
-  if (x > 0) {
-    return width - x
-  }
-  else {
-    return Math.abs(x) + width
-  }
-  return 0
-}
-
-export const setIsMuted = (items, halfway, paddingLeft) => {
-  if (halfway === undefined || paddingLeft === undefined) {
-    return items
-  }
-  return items.map((item, id) => {
-    const zoneLeft = item.get('x') + paddingLeft
-    const zoneRight = item.get('x') + item.get('width') + paddingLeft
-    if (halfway > zoneLeft && halfway < zoneRight) {
-      return item.set('isMuted', false)
-    }
-    else {
-      return item.set('isMuted', true)
-    }
-  })
 }

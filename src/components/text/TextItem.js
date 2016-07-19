@@ -61,9 +61,6 @@ export default class TextItem extends React.Component {
   }
   _getClassName() {
     var className = 'text-item'
-    if (this.props.item.get('mostRecentlyTouched')) {
-      className += ' most-recently-touched'
-    }
     if (this.props.isShowingMetadata) {
       className += ' is-showing-metadata'
     }
@@ -169,7 +166,6 @@ export default class TextItem extends React.Component {
     if (this.props.isShowingMetadata) {
       return false
     }
-    this.props.setMostRecentlyTouched(this.props.id)
     let state = this.state
     state['wasDragged'] = false
     this.setState(state)

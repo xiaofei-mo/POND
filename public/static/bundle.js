@@ -349,7 +349,6 @@
 	  LOCATION_CHANGED: '@@router/LOCATION_CHANGE',
 	  LOGIN_FAILED: 'LOGIN_FAILED',
 	  OPEN_LOGIN: 'OPEN_LOGIN',
-	  PAGE_INITIALLY_SCROLLED: 'PAGE_INITIALLY_SCROLLED',
 	  PAGE_SCROLLED: 'PAGE_SCROLLED',
 	  RECEIVED_AUTH_DATA: 'RECEIVED_AUTH_DATA',
 	  RECEIVED_ITEMS: 'RECEIVED_ITEMS',
@@ -359,7 +358,6 @@
 	  SET_BASE_URL: 'SET_BASE_URL',
 	  SHOW_METADATA: 'SHOW_METADATA',
 	  TOGGLE_VOCABULARY: 'TOGGLE_VOCABULARY',
-	  VIDEO_IS_READY_TO_PLAY: 'VIDEO_IS_READY_TO_PLAY',
 	  WINDOW_CHANGED_SIZE: 'WINDOW_CHANGED_SIZE'
 	};
 	
@@ -5754,21 +5752,6 @@
 	    };
 	  },
 	
-	  setMostRecentlyTouched: function setMostRecentlyTouched(id) {
-	    return {
-	      type: _constants.A.ITEM_TOUCHED,
-	      payload: _immutable2.default.Map({
-	        id: id
-	      })
-	    };
-	  },
-	
-	  setPageInitiallyScrolled: function setPageInitiallyScrolled() {
-	    return {
-	      type: _constants.A.PAGE_INITIALLY_SCROLLED
-	    };
-	  },
-	
 	  setItemPosition: function setItemPosition(id, x, y) {
 	    return function (dispatch, getState) {
 	      var ref = new _firebase2.default(config.FIREBASE_URL).child('items');
@@ -5795,15 +5778,6 @@
 	      ref.child(id).update({
 	        rawState: rawState
 	      });
-	    };
-	  },
-	
-	  setVideoReadyToPlay: function setVideoReadyToPlay(id) {
-	    return {
-	      type: _constants.A.VIDEO_IS_READY_TO_PLAY,
-	      payload: _immutable2.default.Map({
-	        id: id
-	      })
 	    };
 	  },
 	
@@ -5886,7 +5860,7 @@
 	      dispatch({
 	        type: _constants.A.RECEIVED_ITEMS,
 	        payload: _immutable2.default.Map({
-	          destinationItem: undefined,
+	          destinationItem: _immutable2.default.Map(),
 	          items: _immutable2.default.fromJS(itemsSnapshot.val()),
 	          pageId: pageId
 	        })
@@ -8234,25 +8208,23 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(26);
+	var _actions = __webpack_require__(4);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var _actions2 = _interopRequireDefault(_actions);
 	
 	var _redux = __webpack_require__(58);
 	
 	var _reactRedux = __webpack_require__(71);
 	
-	var _actions = __webpack_require__(4);
-	
-	var _actions2 = _interopRequireDefault(_actions);
-	
 	var _reactDropzone = __webpack_require__(80);
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 	
-	var _Uploads = __webpack_require__(81);
+	var _selectors = __webpack_require__(463);
 	
-	var _Uploads2 = _interopRequireDefault(_Uploads);
+	var _InfoAndEditControl = __webpack_require__(150);
+	
+	var _InfoAndEditControl2 = _interopRequireDefault(_InfoAndEditControl);
 	
 	var _Login = __webpack_require__(88);
 	
@@ -8262,13 +8234,17 @@
 	
 	var _LoginUsernameLogoutControl2 = _interopRequireDefault(_LoginUsernameLogoutControl);
 	
-	var _InfoAndEditControl = __webpack_require__(150);
+	var _react = __webpack_require__(26);
 	
-	var _InfoAndEditControl2 = _interopRequireDefault(_InfoAndEditControl);
+	var _react2 = _interopRequireDefault(_react);
 	
 	var _Sort = __webpack_require__(291);
 	
 	var _Sort2 = _interopRequireDefault(_Sort);
+	
+	var _Uploads = __webpack_require__(81);
+	
+	var _Uploads2 = _interopRequireDefault(_Uploads);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8413,7 +8389,7 @@
 	    authData: state.getIn(['app', 'authData']),
 	    isUploading: state.getIn(['upload', 'isUploading']),
 	    login: state.getIn(['app', 'login']),
-	    paddingLeft: state.getIn(['page', 'paddingLeft']),
+	    paddingLeft: (0, _selectors.getPaddingLeft)(state),
 	    scrollLeft: state.getIn(['page', 'scrollLeft']),
 	    windowHeight: state.getIn(['page', 'height']),
 	    windowWidth: state.getIn(['page', 'width'])
@@ -20784,7 +20760,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.props.windowHeight === undefined || this.props.windowWidth === undefined) {
+	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
 	        return null;
 	      }
 	      var bounds = {
@@ -39429,7 +39405,7 @@
 	    value: function render() {
 	      var _this2 = this;
 	
-	      if (this.props.windowHeight === undefined || this.props.windowWidth === undefined) {
+	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
 	        return null;
 	      }
 	      var bounds = {
@@ -39820,30 +39796,22 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Page).call(this));
 	
-	    _this._compensateForPadding = _this._compensateForPadding.bind(_this);
 	    _this._getClassName = _this._getClassName.bind(_this);
 	    _this._getStyle = _this._getStyle.bind(_this);
 	    _this._handleClick = _this._handleClick.bind(_this);
 	    _this.componentDidMount = _this.componentDidMount.bind(_this);
+	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
 	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Page, [{
-	    key: '_compensateForPadding',
-	    value: function _compensateForPadding(scrollAdjustment) {
-	      this.scrollerNode.scrollLeft -= scrollAdjustment;
-	    }
-	  }, {
 	    key: '_getClassName',
 	    value: function _getClassName() {
 	      var className = 'page';
 	      if (this.props.params.timingOrUsername === undefined) {
 	        className += ' homepage';
-	      }
-	      if (this.props.initiallyScrolled) {
-	        className += ' initially-scrolled';
 	      }
 	      return className;
 	    }
@@ -39875,21 +39843,22 @@
 	      this.scrollerNode = document.getElementById('scroller');
 	    }
 	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      var scrollAdjustment = prevProps.paddingLeft - this.props.paddingLeft;
+	      if (prevProps.scrollDestination !== this.props.scrollDestination) {
+	        console.log('setting this.scrollerNode.scrollLeft = ', this.props.scrollDestination);
+	        this.scrollerNode.scrollLeft = this.props.scrollDestination;
+	      } else if (scrollAdjustment !== 0) {
+	        console.log('adjusting this.scrollerNode.scrollLeft by ', scrollAdjustment);
+	        this.scrollerNode.scrollLeft -= scrollAdjustment;
+	      }
+	    }
+	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      if (this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
 	        this.props.listenToItems(nextProps.params.timingOrUsername);
-	      }
-	      if (this.props.scrollAdjustment !== nextProps.scrollAdjustment) {
-	        this._compensateForPadding(nextProps.scrollAdjustment);
-	      }
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate(prevProps) {
-	      if (this.props.scrollDestination !== undefined && !this.props.initiallyScrolled) {
-	        this.scrollerNode.scrollLeft = this.props.scrollDestination;
-	        this.props.setPageInitiallyScrolled();
 	      }
 	    }
 	  }, {
@@ -39906,22 +39875,21 @@
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: item,
 	              key: key,
-	              setMostRecentlyTouched: _this2.props.setMostRecentlyTouched,
 	              setItemPosition: _this2.props.setItemPosition,
 	              setItemSize: _this2.props.setItemSize,
 	              setTextItemRawState: _this2.props.setTextItemRawState });
 	          case 'video':
 	            return _react2.default.createElement(_VideoItem2.default, { authData: _this2.props.authData,
 	              deleteItem: _this2.props.deleteItem,
+	              halfway: _this2.props.halfway,
 	              height: _this2.props.height,
 	              id: key,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: item,
 	              key: key,
-	              setMostRecentlyTouched: _this2.props.setMostRecentlyTouched,
+	              paddingLeft: _this2.props.paddingLeft,
 	              setItemPosition: _this2.props.setItemPosition,
-	              setItemSize: _this2.props.setItemSize,
-	              setVideoReadyToPlay: _this2.props.setVideoReadyToPlay });
+	              setItemSize: _this2.props.setItemSize });
 	          default:
 	            return null;
 	        }
@@ -39945,15 +39913,14 @@
 	function mapStateToProps(state) {
 	  return {
 	    authData: state.getIn(['app', 'authData']),
+	    halfway: (0, _selectors.getHalfway)(state),
 	    height: state.getIn(['page', 'height']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    items: (0, _selectors.getItems)(state),
-	    initiallyScrolled: state.getIn(['page', 'initiallyScrolled']),
 	    paddingLeft: (0, _selectors.getPaddingLeft)(state),
 	    paddingRight: (0, _selectors.getPaddingRight)(state),
 	    pageId: state.getIn(['page', 'pageId']),
-	    scrollAdjustment: state.getIn(['page', 'scrollAdjustment']),
-	    scrollDestination: state.getIn(['page', 'scrollDestination']),
+	    scrollDestination: (0, _selectors.getScrollDestination)(state),
 	    scrollLeft: state.getIn(['page', 'scrollLeft']),
 	    width: state.getIn(['page', 'width'])
 	  };
@@ -39967,10 +39934,7 @@
 	    listenToItems: (0, _redux.bindActionCreators)(_actions2.default.listenToItems, dispatch),
 	    setItemPosition: (0, _redux.bindActionCreators)(_actions2.default.setItemPosition, dispatch),
 	    setItemSize: (0, _redux.bindActionCreators)(_actions2.default.setItemSize, dispatch),
-	    setMostRecentlyTouched: (0, _redux.bindActionCreators)(_actions2.default.setMostRecentlyTouched, dispatch),
-	    setPageInitiallyScrolled: (0, _redux.bindActionCreators)(_actions2.default.setPageInitiallyScrolled, dispatch),
-	    setTextItemRawState: (0, _redux.bindActionCreators)(_actions2.default.setTextItemRawState, dispatch),
-	    setVideoReadyToPlay: (0, _redux.bindActionCreators)(_actions2.default.setVideoReadyToPlay, dispatch)
+	    setTextItemRawState: (0, _redux.bindActionCreators)(_actions2.default.setTextItemRawState, dispatch)
 	  };
 	}
 	
@@ -40063,13 +40027,13 @@
 	    };
 	    _this._getClassName = _this._getClassName.bind(_this);
 	    _this._handleClick = _this._handleClick.bind(_this);
-	    _this._handleCanPlay = _this._handleCanPlay.bind(_this);
 	    _this._handleDrag = _this._handleDrag.bind(_this);
 	    _this._handleDragStop = _this._handleDragStop.bind(_this);
 	    _this._handleMouseDown = _this._handleMouseDown.bind(_this);
 	    _this._handleResize = _this._handleResize.bind(_this);
 	    _this._handleResizeStop = _this._handleResizeStop.bind(_this);
 	    _this._setStyle = _this._setStyle.bind(_this);
+	    _this._shouldBeMuted = _this._shouldBeMuted.bind(_this);
 	    _this.componentWillMount = _this.componentWillMount.bind(_this);
 	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
 	    _this.render = _this.render.bind(_this);
@@ -40080,9 +40044,6 @@
 	    key: '_getClassName',
 	    value: function _getClassName() {
 	      var className = 'video-item';
-	      if (this.props.item.get('mostRecentlyTouched')) {
-	        className += ' most-recently-touched';
-	      }
 	      if (this.props.isShowingMetadata) {
 	        className += ' is-showing-metadata';
 	      }
@@ -40093,13 +40054,6 @@
 	    value: function _handleClick(event) {
 	      if (this.state.wasDragged) {
 	        event.preventDefault();
-	      }
-	    }
-	  }, {
-	    key: '_handleCanPlay',
-	    value: function _handleCanPlay() {
-	      if (!this.props.item.get('isReadyToPlay')) {
-	        this.props.setVideoReadyToPlay(this.props.id);
 	      }
 	    }
 	  }, {
@@ -40138,7 +40092,6 @@
 	      if (this.props.isShowingMetadata) {
 	        return false;
 	      }
-	      this.props.setMostRecentlyTouched(this.props.id);
 	      var state = this.state;
 	      state['wasDragged'] = false;
 	      this.setState(state);
@@ -40186,6 +40139,16 @@
 	      });
 	    }
 	  }, {
+	    key: '_shouldBeMuted',
+	    value: function _shouldBeMuted(props) {
+	      var zoneLeft = props.item.get('x') + props.paddingLeft;
+	      var zoneRight = props.item.get('x') + props.item.get('width') + props.paddingLeft;
+	      if (props.halfway > zoneLeft && props.halfway < zoneRight) {
+	        return false;
+	      }
+	      return true;
+	    }
+	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this._setStyle(this.props);
@@ -40202,20 +40165,20 @@
 	        if (nextProps.isShowingMetadata) {
 	          this.refs.video.setVolume(0);
 	        } else {
-	          if (nextProps.item.get('isMuted')) {
+	          if (this._shouldBeMuted(nextProps)) {
 	            this.refs.video.setVolume(0);
 	          } else {
 	            this.refs.video.setVolume(1);
 	          }
 	        }
-	      } else if (this.props.item.get('isMuted') !== nextProps.item.get('isMuted')) {
-	        if (nextProps.item.get('isMuted')) {
+	      } else if (this._shouldBeMuted(this.props) !== this._shouldBeMuted(nextProps)) {
+	        if (this._shouldBeMuted(nextProps)) {
 	          (0, _fadeOut2.default)(function (v) {
 	            _this2.refs.video.setVolume(v);
 	          }, 3000, function () {
 	            _this2.refs.video.unmute();
 	          });
-	        } else if (!nextProps.item.get('isMuted')) {
+	        } else if (!this._shouldBeMuted(nextProps)) {
 	          (0, _fadeIn2.default)(function (v) {
 	            _this2.refs.video.setVolume(v);
 	          }, 3000, function () {
@@ -40233,7 +40196,6 @@
 	          loop: true,
 	          muted: true,
 	          poster: this.props.item.get('posterUrl'),
-	          onCanPlay: this._handleCanPlay,
 	          ref: 'video'
 	        },
 	        _react2.default.createElement('source', { src: this.props.item.getIn(['results', 'encode', 'ssl_url']), type: 'video/mp4' })
@@ -43491,9 +43453,6 @@
 	    key: '_getClassName',
 	    value: function _getClassName() {
 	      var className = 'text-item';
-	      if (this.props.item.get('mostRecentlyTouched')) {
-	        className += ' most-recently-touched';
-	      }
 	      if (this.props.isShowingMetadata) {
 	        className += ' is-showing-metadata';
 	      }
@@ -43609,7 +43568,6 @@
 	      if (this.props.isShowingMetadata) {
 	        return false;
 	      }
-	      this.props.setMostRecentlyTouched(this.props.id);
 	      var state = this.state;
 	      state['wasDragged'] = false;
 	      this.setState(state);
@@ -57588,7 +57546,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.setIsMuted = undefined;
 	exports.default = pageReducer;
 	
 	var _constants = __webpack_require__(6);
@@ -57619,8 +57576,12 @@
 	 */
 	
 	var initialState = _immutable2.default.Map({
+	  destinationItem: _immutable2.default.Map(),
+	  height: 0,
 	  href: '',
-	  items: _immutable2.default.Map()
+	  items: _immutable2.default.Map(),
+	  pageId: null,
+	  width: 0
 	});
 	
 	function pageReducer() {
@@ -57629,151 +57590,29 @@
 	
 	  switch (action.type) {
 	
-	    case _constants.A.ITEM_TOUCHED:
-	      return state.set('mostRecentlyTouched', action.payload.get('id'));
-	
-	    case _constants.A.PAGE_INITIALLY_SCROLLED:
-	      return state.set('initiallyScrolled', true);
-	
 	    case _constants.A.PAGE_SCROLLED:
-	      return _handlePageScrolled(action.payload.get('scrollLeft'), state);
+	      return state.set('scrollLeft', action.payload.get('scrollLeft'));
 	
 	    case _constants.A.RECEIVED_ITEMS:
-	      return _handleReceivedItems(action.payload.get('items'), action.payload.get('destinationItem'), action.payload.get('pageId'), state);
+	      return state.merge({
+	        destinationItem: action.payload.get('destinationItem'),
+	        items: action.payload.get('items'),
+	        pageId: action.payload.get('pageId')
+	      });
 	
 	    case _constants.A.SET_BASE_URL:
 	      return state.set('href', action.payload.get('href'));
 	
-	    case _constants.A.VIDEO_IS_READY_TO_PLAY:
-	      return _handleVideoIsReadyToPlay(action.payload.get('readyToPlayId'), state);
-	
 	    case _constants.A.WINDOW_CHANGED_SIZE:
-	      return _handleWindowChangedSize(action.payload.get('height'), action.payload.get('width'), state);
+	      return state.merge({
+	        height: action.payload.get('height'),
+	        width: action.payload.get('width')
+	      });
 	
 	    default:
 	      return state;
 	  }
 	}
-	
-	var _handlePageScrolled = function _handlePageScrolled(scrollLeft, state) {
-	  var halfway = _getHalfway(state.get('width'), scrollLeft);
-	  var items = setIsMuted(state.get('items'), halfway, state.get('paddingLeft'));
-	  return state.merge({
-	    halfway: halfway,
-	    items: items,
-	    scrollLeft: scrollLeft
-	  });
-	};
-	
-	var _handleReceivedItems = function _handleReceivedItems(items, destinationItem, pageId, state) {
-	  if (items === null) {
-	    return state;
-	  }
-	  var paddingLeft = _getPaddingLeft(items, state.get('width'));
-	  var scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft);
-	  items = setIsMuted(items, state.get('halfway'), paddingLeft);
-	  var scrollDestination = _getScrollDestination(destinationItem, items, paddingLeft, state.get('width'));
-	  var initiallyScrolled = _getInitiallyScrolled(state.get('pageId'), pageId, state.get('initiallyScrolled'));
-	  return state.merge({
-	    initiallyScrolled: initiallyScrolled,
-	    items: items,
-	    paddingLeft: paddingLeft,
-	    pageId: pageId,
-	    scrollAdjustment: scrollAdjustment,
-	    scrollDestination: scrollDestination
-	  });
-	};
-	
-	var _handleVideoIsReadyToPlay = function _handleVideoIsReadyToPlay(readyToPlayId, state) {
-	  return state.set('items', state.get('items').map(function (item, id) {
-	    var isReadyToPlay = false;
-	    if (item.get('isReadyToPlay') || id === readyToPlayId) {
-	      isReadyToPlay = true;
-	    }
-	    return item.set('isReadyToPlay', isReadyToPlay);
-	  }));
-	};
-	
-	var _handleWindowChangedSize = function _handleWindowChangedSize(height, width, state) {
-	  var halfway = _getHalfway(width, state.get('scrollLeft'));
-	  var paddingLeft = _getPaddingLeft(state.get('items'), width);
-	  var scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft);
-	  var items = setIsMuted(state.get('items'), halfway, paddingLeft);
-	  return state.merge({
-	    height: height,
-	    items: items,
-	    paddingLeft: paddingLeft,
-	    scrollAdjustment: scrollAdjustment,
-	    width: width
-	  });
-	};
-	
-	//
-	// Non-item-related functions
-	//
-	
-	var _getHalfway = function _getHalfway(width, scrollLeft) {
-	  return Math.floor(width / 2) + scrollLeft;
-	};
-	
-	var _getInitiallyScrolled = function _getInitiallyScrolled(oldTimingOrUsername, newTimingOrUsername, initiallyScrolled) {
-	  if (oldTimingOrUsername !== newTimingOrUsername) {
-	    initiallyScrolled = false;
-	  }
-	  return initiallyScrolled;
-	};
-	
-	var _getScrollAdjustment = function _getScrollAdjustment(oldPaddingLeft, newPaddingLeft) {
-	  return oldPaddingLeft - newPaddingLeft;
-	};
-	
-	//
-	// Items (plural) functions
-	//
-	
-	var _getScrollDestination = function _getScrollDestination(destinationItem, items, paddingLeft, width) {
-	  // First, figure out which item is our destination. Use the leftmost item as a
-	  // default.
-	  var item = items.minBy(function (item) {
-	    return item.get('x');
-	  });
-	  // But if a destinationItem was found in actions/page, use that instead.
-	  if (destinationItem !== undefined) {
-	    item = destinationItem;
-	  }
-	  return item.get('x') + width / 2 + item.get('width') / 2 + (paddingLeft - width);
-	};
-	
-	var _getPaddingLeft = function _getPaddingLeft(items, width) {
-	  var leftmostItem = items.minBy(function (item) {
-	    return item.get('x');
-	  });
-	  if (leftmostItem === undefined) {
-	    return 0;
-	  }
-	  var x = leftmostItem.get('x');
-	  if (x > 0) {
-	    return width - x;
-	  } else {
-	    return Math.abs(x) + width;
-	  }
-	  return 0;
-	};
-	
-	var setIsMuted = exports.setIsMuted = function setIsMuted(items, halfway, paddingLeft) {
-	  if (halfway === undefined || paddingLeft === undefined) {
-	    return items;
-	  }
-	  return items.map(function (item, id) {
-	    var zoneLeft = item.get('x') + paddingLeft;
-	    var zoneRight = item.get('x') + item.get('width') + paddingLeft;
-	    if (halfway > zoneLeft && halfway < zoneRight) {
-	      return item.set('isMuted', false);
-	    } else {
-	      return item.set('isMuted', true);
-	    }
-	  });
-	};
 
 /***/ },
 /* 453 */
@@ -59427,7 +59266,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getPaddingRight = exports.getPaddingLeft = exports.getItems = undefined;
+	exports.getScrollDestination = exports.getPaddingRight = exports.getPaddingLeft = exports.getItems = exports.getHalfway = undefined;
 	
 	var _reselect = __webpack_require__(464);
 	
@@ -59444,9 +59283,16 @@
 	var _getBaseUrl = (0, _reselect.createSelector)(function (state) {
 	  return state.getIn(['page', 'href']);
 	}, function (href) {
-	  console.log('href = ', href);
 	  var parsedUrl = _url2.default.parse(href);
 	  return parsedUrl.protocol + '//' + parsedUrl.host + '/';
+	});
+	
+	var getHalfway = exports.getHalfway = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'width']);
+	}, function (state) {
+	  return state.getIn(['page', 'scrollLeft']);
+	}, function (width, scrollLeft) {
+	  return Math.floor(width / 2) + scrollLeft;
 	});
 	
 	var getItems = exports.getItems = (0, _reselect.createSelector)(function (state) {
@@ -59487,6 +59333,26 @@
 	    return 0;
 	  }
 	  return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width);
+	});
+	
+	var getScrollDestination = exports.getScrollDestination = (0, _reselect.createSelector)(getItems, function (state) {
+	  return state.getIn(['page', 'destinationItem']);
+	}, function (state) {
+	  return state.getIn(['page', 'width']);
+	}, getPaddingLeft, function (items, destinationItem, width, paddingLeft) {
+	  if (items.isEmpty() || width === 0) {
+	    return null;
+	  }
+	  // First, figure out which item is our destination. Use the leftmost item as a
+	  // default.
+	  var item = items.minBy(function (item) {
+	    return item.get('x');
+	  });
+	  // But if a destinationItem was found in actions/page, use that instead.
+	  if (!destinationItem.isEmpty()) {
+	    item = destinationItem;
+	  }
+	  return item.get('x') + width / 2 + item.get('width') / 2 + (paddingLeft - width);
 	});
 
 /***/ },

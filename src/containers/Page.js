@@ -20,7 +20,7 @@
 import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getItems, getPaddingLeft, getPaddingRight } from '../selectors'
+import { getHalfway, getItems, getPaddingLeft, getPaddingRight, getScrollDestination } from '../selectors'
 import Immutable from 'immutable'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -30,24 +30,18 @@ import VideoItem from '../components/video/VideoItem'
 class Page extends React.Component {
   constructor() {
     super()
-    this._compensateForPadding = this._compensateForPadding.bind(this)
     this._getClassName = this._getClassName.bind(this)
     this._getStyle = this._getStyle.bind(this)
     this._handleClick = this._handleClick.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
-  }
-  _compensateForPadding(scrollAdjustment) {
-    this.scrollerNode.scrollLeft -= scrollAdjustment
   }
   _getClassName() {
     let className = 'page'
     if (this.props.params.timingOrUsername === undefined) {
       className += ' homepage'
-    }
-    if (this.props.initiallyScrolled) {
-      className += ' initially-scrolled'
     }
     return className
   }
@@ -80,21 +74,22 @@ class Page extends React.Component {
     this.props.listenToItems(this.props.params.timingOrUsername);
     this.scrollerNode = document.getElementById('scroller')
   }
+  componentDidUpdate(prevProps, prevState) {
+    const scrollAdjustment = prevProps.paddingLeft - this.props.paddingLeft
+    if (prevProps.scrollDestination !== this.props.scrollDestination) {
+      console.log('setting this.scrollerNode.scrollLeft = ', this.props.scrollDestination)
+      this.scrollerNode.scrollLeft = this.props.scrollDestination
+    }
+    else if (scrollAdjustment !== 0) {
+      console.log('adjusting this.scrollerNode.scrollLeft by ', scrollAdjustment)
+      this.scrollerNode.scrollLeft -= scrollAdjustment
+    }
+  } 
   componentWillReceiveProps(nextProps) {
     if(this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
       this.props.listenToItems(nextProps.params.timingOrUsername)
     }
-    if(this.props.scrollAdjustment !== nextProps.scrollAdjustment) {
-      this._compensateForPadding(nextProps.scrollAdjustment)
-    }
   }
-  componentDidUpdate(prevProps) {
-    if (this.props.scrollDestination !== undefined && 
-        !this.props.initiallyScrolled) {
-      this.scrollerNode.scrollLeft = this.props.scrollDestination
-      this.props.setPageInitiallyScrolled()
-    }
-  } 
   render() {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
@@ -105,22 +100,21 @@ class Page extends React.Component {
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
                            key={key} 
-                           setMostRecentlyTouched={this.props.setMostRecentlyTouched}
                            setItemPosition={this.props.setItemPosition} 
                            setItemSize={this.props.setItemSize}
                            setTextItemRawState={this.props.setTextItemRawState} />
         case 'video':
           return <VideoItem authData={this.props.authData}
                             deleteItem={this.props.deleteItem}
+                            halfway={this.props.halfway}
                             height={this.props.height}
                             id={key}
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
                             key={key}
-                            setMostRecentlyTouched={this.props.setMostRecentlyTouched}
+                            paddingLeft={this.props.paddingLeft}
                             setItemPosition={this.props.setItemPosition}
-                            setItemSize={this.props.setItemSize}
-                            setVideoReadyToPlay={this.props.setVideoReadyToPlay} />
+                            setItemSize={this.props.setItemSize} />
         default:
           return null
       }
@@ -141,15 +135,14 @@ class Page extends React.Component {
 function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
+    halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: getItems(state),
-    initiallyScrolled: state.getIn(['page', 'initiallyScrolled']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),
-    scrollAdjustment: state.getIn(['page', 'scrollAdjustment']),
-    scrollDestination: state.getIn(['page', 'scrollDestination']),
+    scrollDestination: getScrollDestination(state),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
     width: state.getIn(['page', 'width'])
   }
@@ -163,10 +156,7 @@ function mapDispatchToProps (dispatch) {
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
-    setMostRecentlyTouched: bindActionCreators(actions.setMostRecentlyTouched, dispatch),
-    setPageInitiallyScrolled: bindActionCreators(actions.setPageInitiallyScrolled, dispatch),
-    setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch),
-    setVideoReadyToPlay: bindActionCreators(actions.setVideoReadyToPlay, dispatch)
+    setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch)
   }
 }
 
