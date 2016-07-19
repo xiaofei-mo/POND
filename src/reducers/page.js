@@ -88,7 +88,7 @@ const _handlePageInitiallyScrolled = (state) => {
 
 const _handlePageScrolled = (scrollLeft, state) => {
   const halfway = _getHalfway(state.get('width'), scrollLeft)
-  const items = _setIsMuted(state.get('items'), halfway, state.get('paddingLeft'))
+  const items = setIsMuted(state.get('items'), halfway, state.get('paddingLeft'))
   return state.merge({
     halfway: halfway,
     items: items,
@@ -101,10 +101,10 @@ const _handleReceivedItems = (items, destinationItem, pageId, state) => {
     return state
   }
   const paddingLeft = _getPaddingLeft(items, state.get('width'))
-  const paddingRight = _getPaddingRight(items, state.get('width'))
+  const paddingRight = getPaddingRight(items, state.get('width'))
   const scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft)
-  items = _setUrls(items, state.get('baseUrl'))
-  items = _setIsMuted(items, state.get('halfway'), paddingLeft)
+  items = setUrls(items, state.get('baseUrl'))
+  items = setIsMuted(items, state.get('halfway'), paddingLeft)
   const scrollDestination = _getScrollDestination(
     destinationItem,
     items,
@@ -145,9 +145,9 @@ const _handleVideoIsReadyToPlay = (readyToPlayId, state) => {
 const _handleWindowChangedSize = (height, width, state) => {
   const halfway = _getHalfway(width, state.get('scrollLeft'))
   const paddingLeft = _getPaddingLeft(state.get('items'), width)
-  const paddingRight = _getPaddingRight(state.get('items'), width)
+  const paddingRight = getPaddingRight(state.get('items'), width)
   const scrollAdjustment = _getScrollAdjustment(state.get('paddingLeft'), paddingLeft)
-  const items = _setIsMuted(state.get('items'), halfway, paddingLeft)
+  const items = setIsMuted(state.get('items'), halfway, paddingLeft)
   return state.merge({
     height: height,
     items: items,
@@ -211,7 +211,7 @@ const _getPaddingLeft = (items, width) => {
   return 0
 }
 
-const _getPaddingRight = (items, width) => {
+export const getPaddingRight = (items, width) => {
   const rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
   if (rightmostItem === undefined) {
     return 0
@@ -219,7 +219,7 @@ const _getPaddingRight = (items, width) => {
   return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
 }
 
-const _setIsMuted = (items, halfway, paddingLeft) => {
+export const setIsMuted = (items, halfway, paddingLeft) => {
   if (halfway === undefined || paddingLeft === undefined) {
     return items
   }
@@ -235,7 +235,7 @@ const _setIsMuted = (items, halfway, paddingLeft) => {
   })
 }
 
-const _setUrls = (items, baseUrl) => {
+export const setUrls = (items, baseUrl) => {
   return items.map((item) => {
     const string = getStringFromSeconds(item.get('timing'))
     return item.set('url', baseUrl + string)

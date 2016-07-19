@@ -22,6 +22,7 @@ import chai from 'chai'
 import chaiImmutable from 'chai-immutable'
 import Immutable from 'immutable'
 import pageReducer from '../../src/reducers/page'
+import { getPaddingRight, setIsMuted, setUrls } from '../../src/reducers/page'
 
 chai.use(chaiImmutable)
 
@@ -72,4 +73,88 @@ describe('src/reducers/page', () => {
     chai.assert.equal(actual, expected)
   })
 
+})
+
+describe('src/reducers/page setIsMuted', () => {
+
+  it('determines isMuted for each item, no padding', () => {
+    const items = Immutable.List([
+      Immutable.Map({
+        width: 300,
+        x: 100
+      }),
+      Immutable.Map({
+        width: 300,
+        x: 700
+      })
+    ])
+    const actual = setIsMuted(items, 200, 0)
+    const expected = Immutable.List([
+      Immutable.Map({
+        isMuted: false,
+        width: 300,
+        x: 100
+      }),
+      Immutable.Map({
+        isMuted: true,
+        width: 300,
+        x: 700
+      })
+    ])
+    chai.assert.equal(actual, expected)
+  })
+
+  it('determines isMuted for each item, with padding', () => {
+    const items = Immutable.List([
+      Immutable.Map({
+        width: 300,
+        x: 100
+      }),
+      Immutable.Map({
+        width: 300,
+        x: 700
+      })
+    ])
+    const actual = setIsMuted(items, 1500, 600)
+    const expected = Immutable.List([
+      Immutable.Map({
+        isMuted: true,
+        width: 300,
+        x: 100
+      }),
+      Immutable.Map({
+        isMuted: false,
+        width: 300,
+        x: 700
+      })
+    ])
+    chai.assert.equal(actual, expected)
+  })
+
+})
+
+describe('src/reducers/page setUrls', () => {
+
+  it('calculates url for each item', () => {
+    const items = Immutable.List([
+      Immutable.Map({
+        timing: 61
+      }),
+      Immutable.Map({
+        timing: 3599
+      })
+    ])
+    const actual = setUrls(items, 'https://mysteriousobjectsatnoon.info/')
+    const expected = Immutable.List([
+      Immutable.Map({
+        timing: 61,
+        url: 'https://mysteriousobjectsatnoon.info/0:00:01:01'
+      }),
+      Immutable.Map({
+        timing: 3599,
+        url: 'https://mysteriousobjectsatnoon.info/0:00:59:59'
+      })
+    ])
+    chai.assert.equal(actual, expected)
+  })
 })

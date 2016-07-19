@@ -12,6 +12,7 @@
     "chai-immutable": "^1.6.0",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "istanbul": "^1.1.0-alpha.1",
     "node-sass": "^3.8.0",
     "sass-loader": "^4.0.0",
     "sinon": "^1.17.4",
@@ -45,8 +46,7 @@
   "scripts": {
     "build": "webpack --minimize",
     "start": "nf run nodemon -- --ignore src/ --ignore public/ mysteriousobjectsatnoon.js",
-    "test": "mocha --compilers js:babel-core/register --recursive test",
-    "test:watch": "npm test -- --watch",
+    "test": "istanbul cover --report text _mocha -- --compilers js:babel-core/register --recursive test",
     "watch": "webpack --watch"
   }
 }
