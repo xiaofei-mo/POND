@@ -45,6 +45,9 @@ describe('src/utils/getStringFromSeconds', () => {
   it('converts string 90061', () => {
     assert.strictEqual('1:01:01:01', getStringFromSeconds('90061'))
   })
+  it('converts string 90091', () => {
+    assert.strictEqual('1:01:01:31', getStringFromSeconds('90091'))
+  })
   it('handles -61', () => {
     assert.strictEqual(undefined, getStringFromSeconds(-61))
   })

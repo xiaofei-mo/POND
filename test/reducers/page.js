@@ -27,9 +27,9 @@ import { getPaddingRight, setIsMuted, setUrls } from '../../src/reducers/page'
 chai.use(chaiImmutable)
 
 const STATE_1 = Immutable.Map({
+  baseUrl: '',
   destinationItem: Immutable.Map(),
   height: 0,
-  href: '',
   items: Immutable.Map(),
   pageId: null,
   width: 0
@@ -52,6 +52,82 @@ describe('src/reducers/page', () => {
     const action = {}
     const actual = pageReducer(state, action)
     const expected = state
+    chai.assert.equal(actual, expected)
+  })
+
+  it(A.PAGE_SCROLLED, () => {
+    const state = STATE_2
+    const action = {
+      type: A.PAGE_SCROLLED,
+      payload: Immutable.Map({
+        scrollLeft: 1000
+      })
+    }
+    const actual = pageReducer(state, action)
+    const expected = STATE_2.set('scrollLeft', 1000)
+    chai.assert.equal(actual, expected)
+  })
+
+  it(A.RECEIVED_BASE_URL, () => {
+    const state = STATE_1
+    const action = {
+      type: A.RECEIVED_BASE_URL,
+      payload: Immutable.Map({
+        baseUrl: 'https://mysteriousobjectsatnoon.info/'
+      })
+    }
+    const actual = pageReducer(state, action)
+    const expected = Immutable.Map({
+      baseUrl: 'https://mysteriousobjectsatnoon.info/',
+      destinationItem: Immutable.Map(),
+      height: 0,
+      items: Immutable.Map(),
+      pageId: null,
+      width: 0
+    })
+    chai.assert.equal(actual, expected)
+  })
+
+  it(A.RECEIVED_ITEMS, () => {
+    const state = STATE_1
+    const action = {
+      type: A.RECEIVED_ITEMS,
+      payload: Immutable.Map({
+        destinationItem: Immutable.Map(),
+        items: STATE_2.get('items'),
+        pageId: 'f7ifK2z7VPTV6fy90VW3dpF2R392'
+      })
+    }
+    const actual = pageReducer(state, action)
+    const expected = Immutable.Map({
+      baseUrl: '',
+      destinationItem: Immutable.Map(),
+      height: 0,
+      items: STATE_2.get('items'),
+      pageId: 'f7ifK2z7VPTV6fy90VW3dpF2R392',
+      width: 0
+    })
+    chai.assert.equal(actual, expected)
+  })
+
+  it(A.WINDOW_CHANGED_SIZE, () => {
+    const state = STATE_1
+    const action = {
+      type: A.WINDOW_CHANGED_SIZE,
+      payload: Immutable.Map({
+        height: 768,
+        width: 1024
+      })
+    }
+    const actual = pageReducer(state, action)
+    const expected = Immutable.Map({
+      baseUrl: '',
+      destinationItem: Immutable.Map(),
+      height: 768,
+      items: Immutable.Map(),
+      pageId: null,
+      width: 1024
+    })
     chai.assert.equal(actual, expected)
   })
 

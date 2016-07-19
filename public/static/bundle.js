@@ -207,7 +207,30 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
+	var _url = __webpack_require__(453);
+	
+	var _url2 = _interopRequireDefault(_url);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2016 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
 	
 	exports.default = {
 	
@@ -281,10 +304,12 @@
 	  },
 	
 	  setBaseUrl: function setBaseUrl(href) {
+	    var parsedUrl = _url2.default.parse(href);
+	    var baseUrl = parsedUrl.protocol + '//' + parsedUrl.host + '/';
 	    return {
-	      type: _constants.A.SET_BASE_URL,
+	      type: _constants.A.RECEIVED_BASE_URL,
 	      payload: _immutable2.default.Map({
-	        href: href
+	        baseUrl: baseUrl
 	      })
 	    };
 	  },
@@ -294,24 +319,7 @@
 	      type: _constants.A.SHOW_METADATA
 	    };
 	  }
-	}; /*
-	    * Copyright (C) 2016 Mark P. Lindsay
-	    * 
-	    * This file is part of mysteriousobjectsatnoon.
-	    *
-	    * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	    * it under the terms of the GNU General Public License as published by
-	    * the Free Software Foundation, either version 3 of the License, or
-	    * (at your option) any later version.
-	    *
-	    * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	    * GNU General Public License for more details.
-	    * 
-	    * You should have received a copy of the GNU General Public License
-	    * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	    */
+	};
 
 /***/ },
 /* 6 */
@@ -351,11 +359,11 @@
 	  OPEN_LOGIN: 'OPEN_LOGIN',
 	  PAGE_SCROLLED: 'PAGE_SCROLLED',
 	  RECEIVED_AUTH_DATA: 'RECEIVED_AUTH_DATA',
+	  RECEIVED_BASE_URL: 'RECEIVED_BASE_URL',
 	  RECEIVED_ITEMS: 'RECEIVED_ITEMS',
 	  RECEIVED_UPLOADS: 'RECEIVED_UPLOADS',
 	  RECEIVED_USERS: 'RECEIVED_USERS',
 	  RECEIVED_VOCABULARIES: 'RECEIVED_VOCABULARIES',
-	  SET_BASE_URL: 'SET_BASE_URL',
 	  SHOW_METADATA: 'SHOW_METADATA',
 	  TOGGLE_VOCABULARY: 'TOGGLE_VOCABULARY',
 	  WINDOW_CHANGED_SIZE: 'WINDOW_CHANGED_SIZE'
@@ -57576,9 +57584,9 @@
 	 */
 	
 	var initialState = _immutable2.default.Map({
+	  baseUrl: '',
 	  destinationItem: _immutable2.default.Map(),
 	  height: 0,
-	  href: '',
 	  items: _immutable2.default.Map(),
 	  pageId: null,
 	  width: 0
@@ -57593,15 +57601,15 @@
 	    case _constants.A.PAGE_SCROLLED:
 	      return state.set('scrollLeft', action.payload.get('scrollLeft'));
 	
+	    case _constants.A.RECEIVED_BASE_URL:
+	      return state.set('baseUrl', action.payload.get('baseUrl'));
+	
 	    case _constants.A.RECEIVED_ITEMS:
 	      return state.merge({
 	        destinationItem: action.payload.get('destinationItem'),
 	        items: action.payload.get('items'),
 	        pageId: action.payload.get('pageId')
 	      });
-	
-	    case _constants.A.SET_BASE_URL:
-	      return state.set('href', action.payload.get('href'));
 	
 	    case _constants.A.WINDOW_CHANGED_SIZE:
 	      return state.merge({
@@ -59167,12 +59175,6 @@
 	      return state;
 	  }
 	}
-	
-	var _getVocabularyByName = function _getVocabularyByName(name) {
-	  return state.find(function (v) {
-	    return v.name === name;
-	  });
-	};
 
 /***/ },
 /* 461 */
@@ -59274,18 +59276,7 @@
 	
 	var _getStringFromSeconds2 = _interopRequireDefault(_getStringFromSeconds);
 	
-	var _url = __webpack_require__(453);
-	
-	var _url2 = _interopRequireDefault(_url);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _getBaseUrl = (0, _reselect.createSelector)(function (state) {
-	  return state.getIn(['page', 'href']);
-	}, function (href) {
-	  var parsedUrl = _url2.default.parse(href);
-	  return parsedUrl.protocol + '//' + parsedUrl.host + '/';
-	});
 	
 	var getHalfway = exports.getHalfway = (0, _reselect.createSelector)(function (state) {
 	  return state.getIn(['page', 'width']);
@@ -59297,7 +59288,9 @@
 	
 	var getItems = exports.getItems = (0, _reselect.createSelector)(function (state) {
 	  return state.getIn(['page', 'items']);
-	}, _getBaseUrl, function (items, baseUrl) {
+	}, function (state) {
+	  return state.getIn(['page', 'baseUrl']);
+	}, function (items, baseUrl) {
 	  return items.map(function (item) {
 	    var string = (0, _getStringFromSeconds2.default)(item.get('timing'));
 	    item = item.set('url', baseUrl + string);

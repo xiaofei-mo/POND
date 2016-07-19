@@ -51,6 +51,9 @@ describe('src/utils/getSecondsFromString', () => {
   it('handles a:bc:de:fg', () => {
     assert.strictEqual(undefined, getSecondsFromString('a:bc:de:fg'))
   })
+  it('handles 1:1:01:01:01', () => {
+    assert.strictEqual(undefined, getSecondsFromString('1:1:01:01:01'))
+  })
   it('handles null', () => {
     assert.strictEqual(undefined, getSecondsFromString(null))
   })

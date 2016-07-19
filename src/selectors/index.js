@@ -1,15 +1,5 @@
 import { createSelector } from 'reselect'
 import getStringFromSeconds from '../utils/getStringFromSeconds'
-import url from 'url'
-
-const _getBaseUrl = createSelector(
-  state => state.getIn(['page', 'href']),
-
-  (href) => {
-    const parsedUrl = url.parse(href)
-    return parsedUrl.protocol + '//' + parsedUrl.host + '/'
-  }
-)
 
 export const getHalfway = createSelector(
   state => state.getIn(['page', 'width']),
@@ -22,7 +12,7 @@ export const getHalfway = createSelector(
 
 export const getItems = createSelector(
   state => state.getIn(['page', 'items']),
-  _getBaseUrl,
+  state => state.getIn(['page', 'baseUrl']),
 
   (items, baseUrl) => {
     return items.map((item) => {

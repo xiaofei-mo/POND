@@ -52,7 +52,3 @@ export default function sortReducer (state = initialState, action) {
       return state
   }
 }
-
-const _getVocabularyByName = (name) => {
-  return state.find((v) => v.name === name)
-}

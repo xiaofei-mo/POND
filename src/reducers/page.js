@@ -21,9 +21,9 @@ import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
+  baseUrl: '',
   destinationItem: Immutable.Map(),
   height: 0,
-  href: '',
   items: Immutable.Map(),
   pageId: null,
   width: 0
@@ -35,15 +35,15 @@ export default function pageReducer (state = initialState, action) {
     case A.PAGE_SCROLLED:
       return state.set('scrollLeft', action.payload.get('scrollLeft'))
 
+    case A.RECEIVED_BASE_URL:
+      return state.set('baseUrl', action.payload.get('baseUrl'))
+
     case A.RECEIVED_ITEMS:
       return state.merge({
         destinationItem: action.payload.get('destinationItem'),
         items: action.payload.get('items'),
         pageId: action.payload.get('pageId')
       })
-
-    case A.SET_BASE_URL:
-      return state.set('href', action.payload.get('href'))
 
     case A.WINDOW_CHANGED_SIZE:
       return state.merge({

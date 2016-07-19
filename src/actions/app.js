@@ -20,6 +20,7 @@
 import { A } from '../constants'
 import Firebase from 'firebase'
 import Immutable from 'immutable'
+import url from 'url'
 
 export default {
 
@@ -94,10 +95,12 @@ export default {
   },
 
   setBaseUrl: (href) => {
+    const parsedUrl = url.parse(href)
+    const baseUrl = parsedUrl.protocol + '//' + parsedUrl.host + '/'
     return {
-      type: A.SET_BASE_URL,
+      type: A.RECEIVED_BASE_URL,
       payload: Immutable.Map({
-        href: href
+        baseUrl: baseUrl
       })
     }
   },
