@@ -435,7 +435,7 @@ a {
 
 .dropzone-veil {
   z-index: 10; }
-  .dropzone-active .dropzone-veil {
+  .is-logged-in .dropzone-active .dropzone-veil {
     display: block; }
   .dropzone-veil > div {
     height: 80%;
@@ -563,14 +563,14 @@ a {
       .metadata .controls a:first-child {
         margin-left: 0; }
 
-.react-resizable-handle {
+.is-logged-in .react-resizable-handle {
   display: block;
   background-color: #ffffff;
   width: 10px;
   height: 10px;
   position: absolute;
   z-index: 5; }
-  .is-showing-metadata .react-resizable-handle {
+  .is-showing-metadata .is-logged-in .react-resizable-handle {
     display: none; }
 
 /*

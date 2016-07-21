@@ -21,7 +21,8 @@ import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
-  authData: null,
+  authData: Immutable.Map(),
+  authDataIsLoaded: false,
   isShowingMetadata: false,
   login: Immutable.Map({
     failed: false,
@@ -53,6 +54,7 @@ export default function appReducer (state = initialState, action) {
     case A.RECEIVED_AUTH_DATA:
       return state.merge({
         authData: action.payload.get('authData'),
+        authDataIsLoaded: true,
         login: state.set('login', Immutable.Map({
           isOpen: false,
           failed: false

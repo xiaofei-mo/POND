@@ -74,10 +74,9 @@ export default class TextItem extends React.Component {
     }
   }
   _handleDrag(event, ui) {
-    if (this.state.editorIsFocused) {
-      return false
-    }
-    if (this.props.isShowingMetadata) {
+    if (this.props.authData.isEmpty() || 
+        this.state.editorIsFocused ||
+        this.props.isShowingMetadata) {
       return false
     }
     const x = this.state.x + ui.deltaX
@@ -100,43 +99,16 @@ export default class TextItem extends React.Component {
     })
   }
   _handleDragStop(event, ui) {
-    if (this.state.wasDragged) {
-      this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
-    }
-    else {
-      this.refs.editor.focus()
-      // let node = null
-      // let offset = 0
-      // if (document.caretRangeFromPoint) {
-      //   const range = document.caretRangeFromPoint(event.x, event.y)
-      //   node = range.startContainer
-      //   offset = range.startOffset
-      // } 
-      // else if (event.rangeParent) {
-      //   node = event.rangeParent
-      //   offset = event.rangeOffset
-      // }
-      // if (node === null) {
+    if (!this.props.authData.isEmpty()) {
+      if (this.state.wasDragged) {
+        this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
+      }
+      else {
+        this.refs.editor.focus()
         this.setState({
           editorIsFocused: true
         })
-      //   return
-      // }
-      // const key = findAncestorOffsetKey(node).slice(0, -4)
-      // let selectionState = this.state.editorState.getSelection()
-      // console.log('selectionState before = ', selectionState.toJS())
-      // selectionState = selectionState.merge({
-      //   anchorKey: key,
-      //   anchorOffset: offset,
-      //   focusKey: key,
-      //   focusOffset: offset,
-      //   hasFocus: true
-      // })
-      // console.log('selectionState after = ', selectionState.toJS())
-      // this.setState({
-      //   editorIsFocused: true,
-      //   editorState: EditorState.forceSelection(this.state.editorState, selectionState)
-      // })
+      }
     }
   }
   _handleEditorBlur(event) {
@@ -164,7 +136,7 @@ export default class TextItem extends React.Component {
       event.preventDefault()
       event.stopPropagation()
     }
-    if (this.props.isShowingMetadata) {
+    if (this.props.authData.isEmpty() || this.props.isShowingMetadata) {
       return false
     }
     let state = this.state
@@ -258,7 +230,7 @@ export default class TextItem extends React.Component {
       content = <div className='dangerous' 
                      dangerouslySetInnerHTML={dangerousInnerHtml} />
     }
-    if (this.props.authData !== null && !this.props.authData.isEmpty()) {
+    if (!this.props.authData.isEmpty()) {
       if (this.props.item.get('userId') === this.props.authData.get('uid')) {
         content = <Editor editorState={this.state.editorState} 
                           onBlur={this._handleEditorBlur}
@@ -290,26 +262,20 @@ export default class TextItem extends React.Component {
         </Link>
       )
     }
-    if (this.props.authData !== null && !this.props.authData.isEmpty()) {
-      if (this.props.item.get('userId') === this.props.authData.get('uid')) {
-        return (
-          <DraggableCore cancel='.react-resizable-handle'
-                         onDrag={this._handleDrag} 
-                         onStop={this._handleDragStop} 
-                         onMouseDown={this._handleMouseDown}>
-            <Resizable height={this.state.height} 
-                       onClick={this._handleClick}
-                       onResize={this._handleResize}
-                       onResizeStop={this._handleResizeStop}
-                       width={this.state.width}>
-              {textItem}
-            </Resizable>
-          </DraggableCore>
-        )
-      }
-    }
-    // Not logged in, or current user does not own video.
-    return textItem
+    return (
+      <DraggableCore cancel='.react-resizable-handle'
+                     onDrag={this._handleDrag} 
+                     onStop={this._handleDragStop} 
+                     onMouseDown={this._handleMouseDown}>
+        <Resizable height={this.state.height} 
+                   onClick={this._handleClick}
+                   onResize={this._handleResize}
+                   onResizeStop={this._handleResizeStop}
+                   width={this.state.width}>
+          {textItem}
+        </Resizable>
+      </DraggableCore>
+    )
   }
 }
 

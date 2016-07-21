@@ -117,7 +117,7 @@ a {
 .dropzone-veil {
   z-index: 10;
 
-  .dropzone-active & {
+  .is-logged-in .dropzone-active & {
     display: block;
   }
 
@@ -282,7 +282,7 @@ a {
   }
 }
 
-.react-resizable-handle {
+.is-logged-in .react-resizable-handle {
   display: block;
   background-color: $white;
   width: 10px;

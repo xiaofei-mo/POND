@@ -36,7 +36,7 @@ export default class LoginUsernameLogoutControl extends React.Component {
     this.props.logout()
   }
   render() {
-    if (this.props.authData === null) {
+    if (!this.props.authDataIsLoaded) {
       return null
     }
     if (!this.props.authData.isEmpty()) {

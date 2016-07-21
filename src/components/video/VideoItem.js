@@ -68,7 +68,7 @@ export default class VideoItem extends React.Component {
     }
   }
   _handleDrag(event, ui) {
-    if (this.props.isShowingMetadata) {
+    if (this.props.authData.isEmpty() || this.props.isShowingMetadata) {
       return false
     }
     const x = this.state.x + ui.deltaX
@@ -91,10 +91,12 @@ export default class VideoItem extends React.Component {
     })
   }
   _handleDragStop(event, ui) {
-    this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
+    if (!this.props.authData.isEmpty()) {
+      this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
+    }
   }
   _handleMouseDown(event) {
-    if (this.props.isShowingMetadata) {
+    if (this.props.authData.isEmpty() || this.props.isShowingMetadata) {
       return false
     }
     let state = this.state
@@ -119,7 +121,9 @@ export default class VideoItem extends React.Component {
     })
   }
   _handleResizeStop(event, ui) {
-    this.props.setItemSize(this.props.id, this.state.height, this.state.width)
+    if (!this.props.authData.isEmpty()) {
+      this.props.setItemSize(this.props.id, this.state.height, this.state.width)
+    }
   }
   _setStyle(props) {
     const x = props.item.get('x')
@@ -203,40 +207,25 @@ export default class VideoItem extends React.Component {
         </Link>
       )
     }
-    if (this.props.authData !== null && !this.props.authData.isEmpty()) {
-      if (this.props.item.get('userId') === this.props.authData.get('uid')) {
-        // This particular video belongs to the logged-in user.
-        return (
-          <DraggableCore cancel='.react-resizable-handle'
-                         onDrag={this._handleDrag} 
-                         onMouseDown={this._handleMouseDown} 
-                         onStop={this._handleDragStop}>
-            <Resizable height={this.state.height} 
-                       lockAspectRatio={true}
-                       onResize={this._handleResize}
-                       onResizeStop={this._handleResizeStop}
-                       width={this.state.width}>
-                <div className={this._getClassName()} style={this.state.style}>
-                  {video}
-                  <Metadata authData={this.props.authData}
-                            deleteItem={this.props.deleteItem}
-                            isShowingMetadata={this.props.isShowingMetadata} 
-                            item={this.props.item} />
-                </div>
-            </Resizable>
-          </DraggableCore>
-        )
-      }
-    }
-    // Not logged in, or current user does not own video.
     return (
-      <div className={this._getClassName()} style={this.state.style}>
-        {video}
-        <Metadata authData={this.props.authData}
-                  deleteItem={this.props.deleteItem}
-                  isShowingMetadata={this.props.isShowingMetadata} 
-                  item={this.props.item} />
-      </div>
+      <DraggableCore cancel='.react-resizable-handle'
+                     onDrag={this._handleDrag} 
+                     onMouseDown={this._handleMouseDown} 
+                     onStop={this._handleDragStop}>
+        <Resizable height={this.state.height} 
+                   lockAspectRatio={true}
+                   onResize={this._handleResize}
+                   onResizeStop={this._handleResizeStop}
+                   width={this.state.width}>
+            <div className={this._getClassName()} style={this.state.style}>
+              {video}
+              <Metadata authData={this.props.authData}
+                        deleteItem={this.props.deleteItem}
+                        isShowingMetadata={this.props.isShowingMetadata} 
+                        item={this.props.item} />
+            </div>
+        </Resizable>
+      </DraggableCore>
     )
   }
 }

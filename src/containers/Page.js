@@ -33,6 +33,9 @@ import VideoItem from '../components/video/VideoItem'
 class Page extends React.Component {
   constructor() {
     super()
+    this.state = {
+      wasInitiallyScrolled: false
+    }
     this._getStyle = this._getStyle.bind(this)
     this._handleClick = this._handleClick.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -52,9 +55,7 @@ class Page extends React.Component {
       if (this.props.isShowingMetadata) {
         this.props.hideMetadata()
       }
-      else if (event.metaKey && 
-               this.props.authData !== null && 
-               !this.props.authData.isEmpty()) {
+      else if (event.metaKey && !this.props.authData.isEmpty()) {
         const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
         this.props.createTextItem(
           x, 
@@ -71,17 +72,22 @@ class Page extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     const scrollAdjustment = prevProps.paddingLeft - this.props.paddingLeft
-    if (prevProps.scrollDestination !== this.props.scrollDestination) {
-      // console.log('setting this.scrollerNode.scrollLeft = ', this.props.scrollDestination)
+    if (!this.state.wasInitiallyScrolled && 
+        prevProps.scrollDestination !== this.props.scrollDestination) {
       this.scrollerNode.scrollLeft = this.props.scrollDestination
+      this.setState({
+        wasInitiallyScrolled: true
+      })
     }
     else if (scrollAdjustment !== 0) {
-      // console.log('adjusting this.scrollerNode.scrollLeft by ', scrollAdjustment)
       this.scrollerNode.scrollLeft -= scrollAdjustment
     }
   } 
   componentWillReceiveProps(nextProps) {
     if(this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
+      this.setState({
+        wasInitiallyScrolled: false
+      })
       this.props.listenToItems(nextProps.params.timingOrUsername)
     }
   }

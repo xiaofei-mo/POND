@@ -27,7 +27,6 @@ import Login from '../components/Login'
 import LoginUsernameLogoutControl from '../components/app-control/LoginUsernameLogoutControl'
 import React from 'react'
 import Sort from './Sort'
-import Uploads from './Uploads'
 
 class App extends React.Component {
   constructor() {
@@ -35,12 +34,28 @@ class App extends React.Component {
     this._handleDroppedFiles = this._handleDroppedFiles.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
     this._handleWheel = this._handleWheel.bind(this)
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
   }
+  _getClassName() {
+    let className = 'app'
+    if (!this.props.authData.isEmpty()) {
+      className += ' is-logged-in'
+    }
+    return className
+  }
   _handleDroppedFiles(files, event) {
-    const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
-    this.props.handleDroppedFiles(files, x, event.clientY, this.props.authData)
+    if (!this.props.authData.isEmpty()) {
+      const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
+      this.props.handleDroppedFiles(
+        files, 
+        x, 
+        event.clientY, 
+        this.props.authData,
+        this.props.pageId
+      )
+    }
   }
   _handleScroll(event) {
     this.props.handleScroll(event.target.scrollLeft)
@@ -51,35 +66,20 @@ class App extends React.Component {
     let scroller = document.getElementById('scroller')
     scroller.scrollLeft = scroller.scrollLeft + event.deltaY
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.authData.isEmpty() && !nextProps.authData.isEmpty()) {
+      this.props.listenToUploads(nextProps.authData.get('uid'));
+    }
+    else if (!this.props.authData.isEmpty() && nextProps.authData.isEmpty()) {
+      this.props.stopListeningToUploads()
+    }
+  }
   componentWillMount() {
     this.props.listenToAuth()
   }
   render() {
-    if (this.props.authData === null || this.props.authData.isEmpty()) {
-      return (
-        <div className='app'
-             id='scroller'
-             ref='scroller'
-             onScroll={this._handleScroll}
-             onWheel={this._handleWheel}>
-          {this.props.children}
-          <LoginUsernameLogoutControl authData={this.props.authData} 
-                                      logout={this.props.logout}
-                                      openLogin={this.props.openLogin} />
-          <InfoAndEditControl isUploading={this.props.isUploading}
-                              showMetadata={this.props.showMetadata} 
-                              windowHeight={this.props.windowHeight}
-                              windowWidth={this.props.windowWidth} />
-          <Login attemptLogin={this.props.attemptLogin}
-                 authData={this.props.authData} 
-                 closeLogin={this.props.closeLogin}
-                 login={this.props.login} />
-          <Sort />
-        </div>
-      )
-    }
     return (
-      <div className='app'>
+      <div className={this._getClassName()}>
         <Dropzone accept='video/*'
                   activeClassName='dropzone-active'
                   className='dropzone' 
@@ -91,21 +91,24 @@ class App extends React.Component {
                   onWheel={this._handleWheel}
                   ref='scroller'>
           {this.props.children}
-          <Uploads authData={this.props.authData} />
           <LoginUsernameLogoutControl authData={this.props.authData} 
+                                      authDataIsLoaded={this.props.authDataIsLoaded}
                                       logout={this.props.logout}
                                       openLogin={this.props.openLogin} 
                                       params={this.props.params} />
-          <InfoAndEditControl isUploading={this.props.isUploading}
-                              showMetadata={this.props.showMetadata} 
+          <InfoAndEditControl showMetadata={this.props.showMetadata} 
                               windowHeight={this.props.windowHeight}
                               windowWidth={this.props.windowWidth} />
+          <Login attemptLogin={this.props.attemptLogin}
+                 authData={this.props.authData} 
+                 closeLogin={this.props.closeLogin}
+                 login={this.props.login} />
+          <Sort />
           <div className='dropzone-veil veil'>
             <div>
               <div>Drop Video</div>
             </div>
           </div>
-          <Sort />
         </Dropzone>
       </div>
     )
@@ -115,9 +118,10 @@ class App extends React.Component {
 function mapStateToProps (state) {
   return {
     authData: state.getIn(['app', 'authData']),
-    isUploading: state.getIn(['upload', 'isUploading']),
+    authDataIsLoaded: state.getIn(['app', 'authDataIsLoaded']),
     login: state.getIn(['app', 'login']),
     paddingLeft: getPaddingLeft(state),
+    pageId: state.getIn(['page', 'pageId']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
     windowHeight: state.getIn(['page', 'height']),
     windowWidth: state.getIn(['page', 'width'])
@@ -131,9 +135,11 @@ function mapDispatchToProps (dispatch) {
     handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
+    listenToUploads: bindActionCreators(actions.listenToUploads, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
     openLogin: bindActionCreators(actions.openLogin, dispatch),
-    showMetadata: bindActionCreators(actions.showMetadata, dispatch)
+    showMetadata: bindActionCreators(actions.showMetadata, dispatch),
+    stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch)
   }
 }
 

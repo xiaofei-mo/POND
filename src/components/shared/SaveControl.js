@@ -30,8 +30,7 @@ export default class SaveControl extends React.Component {
     console.log('this.props.item.get(id) = ', this.props.item.get('id'))
   }
   render() {
-    if (this.props.authData === null || 
-        this.props.authData.isEmpty() ||
+    if (this.props.authData.isEmpty() ||
         this.props.authData.get('uid') !== this.props.item.get('userId')) {
       return null
     }
