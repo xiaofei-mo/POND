@@ -21,7 +21,6 @@ import { A } from '../constants'
 import Firebase from 'firebase'
 import Immutable from 'immutable'
 import getSecondsFromString from '../utils/getSecondsFromString'
-import getStringFromSeconds from '../utils/getStringFromSeconds'
 import { push } from 'react-router-redux'
 
 export default {
@@ -51,8 +50,12 @@ export default {
         })
         itemRef.once('value', (itemSnapshot) => {
           itemRef.child('id').set(itemSnapshot.key())
-          const timingString = getStringFromSeconds(timing)
-          dispatch(push('/' + timingString))
+          dispatch({
+            type: A.TEXT_ITEM_CREATED, 
+            payload: Immutable.Map({
+              id: itemSnapshot.key()
+            })
+          })
         })        
       })
     }

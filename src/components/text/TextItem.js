@@ -55,6 +55,7 @@ export default class TextItem extends React.Component {
     this._handleResizeStop = this._handleResizeStop.bind(this)
     this._handleWheel = this._handleWheel.bind(this)
     this._setStyle = this._setStyle.bind(this)
+    this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
@@ -209,6 +210,13 @@ export default class TextItem extends React.Component {
       x: x,
       y: y
     })
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.item.get('isFocused', false)) {
+      if (!prevProps.item.get('isFocused', false)) {
+        this.refs.editor.focus()
+      }
+    }
   }
   componentWillMount() {
     if (this.props.item.get('rawState') !== undefined) {

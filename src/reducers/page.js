@@ -45,6 +45,16 @@ export default function pageReducer (state = initialState, action) {
         pageId: action.payload.get('pageId')
       })
 
+    case A.TEXT_ITEM_CREATED:
+      return state.set('items', state.get('items').map((item, id) => {
+        if (item.get('id') === id) {
+          return item.set('isFocused', true)
+        }
+        else {
+          return item.set('isFocused', false)
+        }
+      }))
+
     case A.WINDOW_CHANGED_SIZE:
       return state.merge({
         height: action.payload.get('height'),
