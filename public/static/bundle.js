@@ -41007,6 +41007,7 @@
 	    _this._handleResizeStop = _this._handleResizeStop.bind(_this);
 	    _this._handleWheel = _this._handleWheel.bind(_this);
 	    _this._setStyle = _this._setStyle.bind(_this);
+	    _this._shouldAllowDragAndResize = _this._shouldAllowDragAndResize.bind(_this);
 	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
 	    _this.componentWillMount = _this.componentWillMount.bind(_this);
 	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
@@ -41021,6 +41022,9 @@
 	      if (this.props.isShowingMetadata) {
 	        className += ' is-showing-metadata';
 	      }
+	      if (this._shouldAllowDragAndResize()) {
+	        className += ' should-allow-drag-and-resize';
+	      }
 	      return className;
 	    }
 	  }, {
@@ -41034,7 +41038,7 @@
 	  }, {
 	    key: '_handleDrag',
 	    value: function _handleDrag(event, ui) {
-	      if (this.props.authData.isEmpty() || this.state.editorIsFocused || this.props.isShowingMetadata) {
+	      if (!this._shouldAllowDragAndResize()) {
 	        return false;
 	      }
 	      var x = this.state.x + ui.deltaX;
@@ -41059,7 +41063,7 @@
 	  }, {
 	    key: '_handleDragStop',
 	    value: function _handleDragStop(event, ui) {
-	      if (!this.props.authData.isEmpty()) {
+	      if (this._shouldAllowDragAndResize()) {
 	        if (this.state.wasDragged) {
 	          this.props.setItemPosition(this.props.id, this.state.x, this.state.y);
 	        } else {
@@ -41100,7 +41104,7 @@
 	        event.preventDefault();
 	        event.stopPropagation();
 	      }
-	      if (this.props.authData.isEmpty() || this.props.isShowingMetadata) {
+	      if (!this._shouldAllowDragAndResize()) {
 	        return false;
 	      }
 	      var state = this.state;
@@ -41110,6 +41114,9 @@
 	  }, {
 	    key: '_handleResize',
 	    value: function _handleResize(event, ui) {
+	      if (!this._shouldAllowDragAndResize()) {
+	        return false;
+	      }
 	      var width = ui.size.width;
 	      if (width < _constants.C.MINIMUM_ITEM_WIDTH) {
 	        width = _constants.C.MINIMUM_ITEM_WIDTH;
@@ -41130,7 +41137,9 @@
 	  }, {
 	    key: '_handleResizeStop',
 	    value: function _handleResizeStop(event, ui) {
-	      this.props.setItemSize(this.props.id, this.state.height, this.state.width);
+	      if (this._shouldAllowDragAndResize()) {
+	        this.props.setItemSize(this.props.id, this.state.height, this.state.width);
+	      }
 	    }
 	  }, {
 	    key: '_handleWheel',
@@ -41154,6 +41163,11 @@
 	        x: x,
 	        y: y
 	      });
+	    }
+	  }, {
+	    key: '_shouldAllowDragAndResize',
+	    value: function _shouldAllowDragAndResize() {
+	      return this.props.authData.get('uid') === this.props.item.get('userId') && !this.props.isShowingMetadata && !this.state.editorIsFocused;
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -56049,6 +56063,7 @@
 	    _this._handleResize = _this._handleResize.bind(_this);
 	    _this._handleResizeStop = _this._handleResizeStop.bind(_this);
 	    _this._setStyle = _this._setStyle.bind(_this);
+	    _this._shouldAllowDragAndResize = _this._shouldAllowDragAndResize.bind(_this);
 	    _this._shouldBeMuted = _this._shouldBeMuted.bind(_this);
 	    _this.componentWillMount = _this.componentWillMount.bind(_this);
 	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
@@ -56063,6 +56078,9 @@
 	      if (this.props.isShowingMetadata) {
 	        className += ' is-showing-metadata';
 	      }
+	      if (this._shouldAllowDragAndResize()) {
+	        className += ' should-allow-drag-and-resize';
+	      }
 	      return className;
 	    }
 	  }, {
@@ -56075,7 +56093,7 @@
 	  }, {
 	    key: '_handleDrag',
 	    value: function _handleDrag(event, ui) {
-	      if (this.props.authData.isEmpty() || this.props.isShowingMetadata) {
+	      if (!this._shouldAllowDragAndResize()) {
 	        return false;
 	      }
 	      var x = this.state.x + ui.deltaX;
@@ -56100,14 +56118,14 @@
 	  }, {
 	    key: '_handleDragStop',
 	    value: function _handleDragStop(event, ui) {
-	      if (!this.props.authData.isEmpty()) {
+	      if (this._shouldAllowDragAndResize()) {
 	        this.props.setItemPosition(this.props.id, this.state.x, this.state.y);
 	      }
 	    }
 	  }, {
 	    key: '_handleMouseDown',
 	    value: function _handleMouseDown(event) {
-	      if (this.props.authData.isEmpty() || this.props.isShowingMetadata) {
+	      if (!this._shouldAllowDragAndResize()) {
 	        return false;
 	      }
 	      var state = this.state;
@@ -56117,6 +56135,9 @@
 	  }, {
 	    key: '_handleResize',
 	    value: function _handleResize(event, ui) {
+	      if (!this._shouldAllowDragAndResize()) {
+	        return false;
+	      }
 	      if (ui.size.width < _constants.C.MINIMUM_ITEM_WIDTH) {
 	        return false;
 	      }
@@ -56136,7 +56157,7 @@
 	  }, {
 	    key: '_handleResizeStop',
 	    value: function _handleResizeStop(event, ui) {
-	      if (!this.props.authData.isEmpty()) {
+	      if (this._shouldAllowDragAndResize()) {
 	        this.props.setItemSize(this.props.id, this.state.height, this.state.width);
 	      }
 	    }
@@ -56157,6 +56178,11 @@
 	        x: x,
 	        y: y
 	      });
+	    }
+	  }, {
+	    key: '_shouldAllowDragAndResize',
+	    value: function _shouldAllowDragAndResize() {
+	      return this.props.authData.get('uid') === this.props.item.get('userId') && !this.props.isShowingMetadata;
 	    }
 	  }, {
 	    key: '_shouldBeMuted',
@@ -59347,4 +59373,5 @@
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

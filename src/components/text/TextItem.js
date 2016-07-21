@@ -55,6 +55,7 @@ export default class TextItem extends React.Component {
     this._handleResizeStop = this._handleResizeStop.bind(this)
     this._handleWheel = this._handleWheel.bind(this)
     this._setStyle = this._setStyle.bind(this)
+    this._shouldAllowDragAndResize = this._shouldAllowDragAndResize.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
@@ -65,6 +66,9 @@ export default class TextItem extends React.Component {
     if (this.props.isShowingMetadata) {
       className += ' is-showing-metadata'
     }
+    if (this._shouldAllowDragAndResize()) {
+      className += ' should-allow-drag-and-resize'
+    }
     return className
   }
   _handleClick(event) {
@@ -74,9 +78,7 @@ export default class TextItem extends React.Component {
     }
   }
   _handleDrag(event, ui) {
-    if (this.props.authData.isEmpty() || 
-        this.state.editorIsFocused ||
-        this.props.isShowingMetadata) {
+    if (!this._shouldAllowDragAndResize()) {
       return false
     }
     const x = this.state.x + ui.deltaX
@@ -99,7 +101,7 @@ export default class TextItem extends React.Component {
     })
   }
   _handleDragStop(event, ui) {
-    if (!this.props.authData.isEmpty()) {
+    if (this._shouldAllowDragAndResize()) {
       if (this.state.wasDragged) {
         this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
       }
@@ -136,7 +138,7 @@ export default class TextItem extends React.Component {
       event.preventDefault()
       event.stopPropagation()
     }
-    if (this.props.authData.isEmpty() || this.props.isShowingMetadata) {
+    if (!this._shouldAllowDragAndResize()) {
       return false
     }
     let state = this.state
@@ -144,6 +146,9 @@ export default class TextItem extends React.Component {
     this.setState(state)
   }
   _handleResize(event, ui) {
+    if (!this._shouldAllowDragAndResize()) {
+      return false
+    }
     let width = ui.size.width
     if (width < C.MINIMUM_ITEM_WIDTH) {
       width = C.MINIMUM_ITEM_WIDTH
@@ -162,7 +167,9 @@ export default class TextItem extends React.Component {
     })
   }
   _handleResizeStop(event, ui) {
-    this.props.setItemSize(this.props.id, this.state.height, this.state.width)
+    if(this._shouldAllowDragAndResize()) {
+      this.props.setItemSize(this.props.id, this.state.height, this.state.width)
+    }
   }
   _handleWheel(event) {
     event.stopPropagation()
@@ -182,6 +189,11 @@ export default class TextItem extends React.Component {
       x: x,
       y: y
     })
+  }
+  _shouldAllowDragAndResize() {
+    return this.props.authData.get('uid') === this.props.item.get('userId') && 
+           !this.props.isShowingMetadata &&
+           !this.state.editorIsFocused
   }
   componentDidUpdate(prevProps) {
     if (this.props.item.get('isFocused', false)) {

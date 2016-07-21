@@ -282,7 +282,7 @@ a {
   }
 }
 
-.is-logged-in .react-resizable-handle {
+.should-allow-drag-and-resize .react-resizable-handle {
   display: block;
   background-color: $white;
   width: 10px;
