@@ -1,1 +1,1 @@
-web: forever start mysteriousobjectsatnoon.js
+web: node mysteriousobjectsatnoon.js
