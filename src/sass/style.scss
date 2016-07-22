@@ -289,6 +289,7 @@ a {
   height: 10px;
   position: absolute;
   z-index: 5;
+  cursor: nwse-resize;
 
   .is-showing-metadata & {
     display: none;

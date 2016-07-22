@@ -21,7 +21,6 @@ import { A } from '../constants'
 import Firebase from 'firebase'
 import request from 'superagent'
 import Immutable from 'immutable'
-import getStringFromSeconds from '../utils/getStringFromSeconds'
 import { push } from 'react-router-redux'
 
 export default {
@@ -32,37 +31,38 @@ export default {
       const ref = new Firebase(config.FIREBASE_URL).child('uploads')
       const uploadRef = ref.push({
         pageId: pageId,
+        userId: authData.get('uid'),
+        status: 'dropped',
         x: x,
-        y: y,
-        userId: authData.get('uid')
+        y: y
       })
       const uploadId = uploadRef.key()
-      request.get('/upload-values').end((err, res) => {
-        // One of these values is the assemblyId. Add it to our upload item in 
-        // Firebase.
+      request.get('/get-upload-values').end((err, res) => {
         uploadRef.update({
           assemblyId: res.body.assemblyId,
-          id: uploadId
+          id: uploadId,
+          status: 'uploading',
+          uri: res.body.uri
         })
-        // let formData = new FormData()
-        // formData.append('file', file)
-        // formData.append('params', res.body.params)
-        // formData.append('signature', res.body.signature)
-        // formData.append('uploadId', uploadId)
-        // request.post(res.body.uri).send(formData).end()
-        // setTimeout(() => {
-        //   _pollTransloadit(uploadRef, res.body.uri)
-        // }, 1000)
+        let formData = new FormData()
+        formData.append('file', file)
+        formData.append('params', res.body.params)
+        formData.append('signature', res.body.signature)
+        formData.append('uploadId', uploadId)
+        request.post(res.body.uri).send(formData).end((err, res) => {
+          uploadRef.update({
+            status: 'uploaded'
+          })
+        })
       })
     }
   },
 
   listenToUploads: (userId) => {
-    console.log('listenToUploads, userId = ', userId)
     return (dispatch, getState) => {
-      let ref = new Firebase(config.FIREBASE_URL).child('uploads')
-      ref = ref.orderByChild('userId').equalTo(userId)
-      ref.on('value', (snapshot) => {
+      const ref = new Firebase(config.FIREBASE_URL)
+      const uploadsRef = ref.child('uploads').orderByChild('userId').equalTo(userId)
+      uploadsRef.on('value', (snapshot) => {
         let uploads = Immutable.Map()
         if (snapshot.val() !== null) {
           uploads = Immutable.fromJS(snapshot.val())
@@ -77,99 +77,14 @@ export default {
     }
   },
 
-  saveUpload: (uploadId) => {
-    return (dispatch, getState) => {
-      const ref = new Firebase(config.FIREBASE_URL)
-      const itemsRef = ref.child('items')
-      const uploadRef = ref.child('uploads').child(uploadId)
-      uploadRef.once('value', (uploadSnapshot) => {
-        const upload = uploadSnapshot.val()
-        _determineTiming(upload.results.encode, ref).then((timingRef) => {
-          const timing = timingRef.snapshot.val()
-          const initialDimensions = _getInitialDimensions(upload.results.encode)
-          const itemRef = itemsRef.push({
-            height: initialDimensions.height,
-            isFeatured: false,
-            pageId: upload.pageId,
-            results: upload.results,
-            timing: timing,
-            type: 'video',
-            upload: upload.upload,
-            userId: upload.userId,
-            width: initialDimensions.width,
-            x: upload.x,
-            y: upload.y
-          })
-          itemRef.once('value', (itemSnapshot) => {
-            itemRef.child('id').set(itemSnapshot.key())
-            const timingString = getStringFromSeconds(timing)
-            dispatch(push('/' + timingString))
-          })
-          uploadRef.remove()
-        })
-      })
-    }
-  },
-
   stopListeningToUploads: () => {
     return (dispatch, getState) => {
-      console.log('stopListeningToUploads')
       let ref = new Firebase(config.FIREBASE_URL).child('uploads')
-      ref.off('value')      
-    }
-  }
-}
-
-const _determineTiming = (encode, ref) => {
-  return ref.child('lastTiming').transaction((lastTiming) => {
-    if (lastTiming === null) {
-      return 0
-    }
-    return Math.ceil(lastTiming) + Math.ceil(encode.meta.duration) + 1
-  })
-}
-
-const _getInitialDimensions = (encode) => {
-  let height = Math.floor(encode.meta.height)
-  let width = Math.floor(encode.meta.height * encode.meta.aspect_ratio)
-  if (width > 853) {
-    height = Math.floor(height / 2)
-    width = Math.floor(width / 2)
-  }
-  return {
-    height: height,
-    width: width
-  }
-}
-
-const _pollTransloadit = (uploadRef, uri) => {
-  request.get(uri).end((err, res) => {
-    if (err || res.body.error !== undefined) {
-      if (res.status === 404) {
-        setTimeout(() => {
-          _pollTransloadit(uploadRef, uri)
-        }, 500)
-      }
-      return
-    }
-    if (res.body.ok === 'ASSEMBLY_COMPLETED') {
-      uploadRef.update({
-        results: {
-          original: res.body.results[':original'][0],
-          encode: res.body.results.encode[0]
-        }
+      ref.off('value')
+      dispatch({
+        type: A.STOPPED_LISTENING_TO_UPLOADS
       })
-      console.log('this is where we save')
     }
-    else {
-      if (res.body.ok === 'ASSEMBLY_EXECUTING') {
-        uploadRef.update({
-          upload: res.body.uploads[0]
-        })
-      }
-      setTimeout(() => {
-        _pollTransloadit(uploadRef, uri)
-      }, 500)
-    }
-  })
+  }
 }
+

@@ -21,30 +21,43 @@ import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import React from 'react'
-import UploadItem from '../components/upload/UploadItem'
 
 export default class Uploads extends React.Component {
   constructor() {
     super()
-    this.componentWillMount = this.componentWillMount.bind(this)
+    this.state = {
+      shouldPlaySound: false
+    }
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
   }
-  componentWillMount() {
-    this.props.listenToUploads(this.props.authData.get('uid'));
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.shouldPlaySound) {
+      this.setState({
+        shouldPlaySound: false
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.authData.isEmpty() && !nextProps.authData.isEmpty()) {
+      this.props.listenToUploads(nextProps.authData.get('uid'));
+    }
+    else if (!this.props.authData.isEmpty() && nextProps.authData.isEmpty()) {
+      this.props.stopListeningToUploads()
+    }
+    if (!this.props.uploads.isEmpty() && nextProps.uploads.isEmpty()) {
+      this.setState({
+        shouldPlaySound: true
+      })
+    }
   }
   render() {
-    const items = this.props.uploads.map((upload, uploadId) => {
-      return <UploadItem cancelUpload={this.props.cancelUpload} 
-                         key={uploadId} 
-                         saveUpload={this.props.saveUpload}
-                         upload={upload}
-                         uploadId={uploadId} />
-    }).toArray()
+    if (!this.state.shouldPlaySound) {
+      return null
+    }
     return (
       <div className='uploads'>
-        <ul className='upload-items'>
-          {items}
-        </ul>
+        <audio src='static/upload_done.mp3' autoPlay />
       </div>
     )
   }
@@ -52,15 +65,15 @@ export default class Uploads extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    authData: state.getIn(['app', 'authData']),
     uploads: state.getIn(['upload', 'uploads'])
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    cancelUpload: bindActionCreators(actions.cancelUpload, dispatch),
     listenToUploads: bindActionCreators(actions.listenToUploads, dispatch),
-    saveUpload: bindActionCreators(actions.saveUpload, dispatch)
+    stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch)
   }
 }
 

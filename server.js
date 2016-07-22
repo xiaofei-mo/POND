@@ -19,8 +19,10 @@
 
 import calculateSignature from './src/utils/calculateSignature'
 import express from 'express'
+import Firebase from 'firebase'
 import getExpiresDate from './src/utils/getExpiresDate'
-import request from 'request'
+import Immutable from 'immutable'
+import request from 'superagent'
 import tsml from 'tsml'
 import uuid from 'node-uuid'
 
@@ -28,7 +30,7 @@ const app = express()
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/upload-values', (req, res, next) => {
+app.get('/get-upload-values', (req, res, next) => {
   const paramsObj = {
     auth: {
       key: process.env.TRANSLOADIT_AUTH_KEY,
@@ -39,7 +41,7 @@ app.get('/upload-values', (req, res, next) => {
   const params = JSON.stringify(paramsObj)
   const signature = calculateSignature(params)
   const assemblyId = uuid.v4().replace(/\-/g, '')
-  const uri = '//api2.transloadit.com/assemblies/' + assemblyId
+  const uri = 'https://api2.transloadit.com/assemblies/' + assemblyId
   res.json({
     params: params,
     signature: signature,
@@ -81,3 +83,120 @@ app.listen(5000, function (err) {
   }
   console.log('listening on 5000')
 })
+
+const ref = new Firebase(config.FIREBASE_URL)
+ref.authWithCustomToken(process.env.FIREBASE_SECRET)
+
+const _determineTiming = (encode) => {
+  return ref.child('lastTiming').transaction((lastTiming) => {
+    if (lastTiming === null) {
+      return 0
+    }
+    return Math.ceil(lastTiming) + Math.ceil(encode.meta.duration) + 1
+  })
+}
+
+const _getInitialDimensions = (encode) => {
+  let height = Math.floor(encode.meta.height)
+  let width = Math.floor(encode.meta.height * encode.meta.aspect_ratio)
+  if (width > 853) {
+    height = Math.floor(height / 2)
+    width = Math.floor(width / 2)
+  }
+  return {
+    height: height,
+    width: width
+  }
+}
+
+const _createItem = (uploadId) => {
+  const itemsRef = ref.child('items')
+  const uploadRef = ref.child('uploads').child(uploadId)  
+  uploadRef.once('value', (uploadSnapshot) => {
+    const upload = uploadSnapshot.val()
+    _determineTiming(upload.results.encode).then((timingRef) => {
+      const timing = timingRef.snapshot.val()
+      const initialDimensions = _getInitialDimensions(upload.results.encode)
+      const itemRef = itemsRef.push({
+        height: initialDimensions.height,
+        isFeatured: false,
+        pageId: upload.pageId,
+        results: upload.results,
+        timing: timing,
+        type: 'video',
+        uploadId: upload.id,
+        userId: upload.userId,
+        width: initialDimensions.width,
+        x: upload.x,
+        y: upload.y
+      })
+      itemRef.once('value', (itemSnapshot) => {
+        itemRef.child('id').set(itemSnapshot.key())
+      })
+      uploadRef.remove()
+    })
+  })
+}
+
+const uploadsRef = ref.child('uploads')
+uploadsRef.on('value', (snapshot) => {
+  if (snapshot.val() === null) {
+    return
+  }
+  const uploads = Immutable.fromJS(snapshot.val())
+  uploads.filter(
+    u => u.get('status') !== 'dropped' && u.get('status') !== 'done'
+  ).forEach((u) => {
+    _pollTransloadit(u.get('id'), u.get('uri'))
+  })
+  uploads.filter(
+    u => u.get('status') === 'done'
+  ).forEach((u) => {
+    console.log('calling createItem')
+    _createItem(u.get('id'))
+  })
+})
+
+const _pollTransloadit = (uploadId, uri) => {
+  request.get(uri).end((err, res) => {
+    const uploadRef = ref.child('uploads').child(uploadId)
+    const body = JSON.parse(res.text)
+    if (err || body.error !== undefined) {
+      if (body.error === 'ASSEMBLY_NOT_FOUND') {
+        setTimeout(() => {
+          _pollTransloadit(uploadId, uri)
+        }, 500)
+      }
+      return
+    }
+    if (body.ok === 'ASSEMBLY_COMPLETED') {
+      uploadRef.once('value', (snapshot) => {
+        const upload = snapshot.val()
+        if (upload !== null) {
+          uploadRef.update({
+            results: {
+              encode: body.results.encode[0],
+              original: body.results[':original'][0]
+            },
+            status: 'done'
+          })
+        }
+      })
+      return
+    }
+    if (body.ok === 'ASSEMBLY_UPLOADING' || body.ok === 'ASSEMBLY_EXECUTING') {
+      uploadRef.once('value', (snapshot) => {
+        const upload = snapshot.val()
+        if (upload !== null) {
+          uploadRef.update({
+            status: 'processing'
+          })
+          setTimeout(() => {
+            _pollTransloadit(uploadId, uri)
+          }, 500)
+        }
+      })
+      return
+    }
+  })
+}

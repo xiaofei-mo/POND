@@ -29,6 +29,9 @@ export default function uploadReducer (state = initialState, action) {
     case A.RECEIVED_UPLOADS:
       return state.set('uploads', action.payload.get('uploads'))
 
+    case A.STOPPED_LISTENING_TO_UPLOADS:
+      return state.set('uploads', Immutable.Map())
+
     default:
       return state
   }

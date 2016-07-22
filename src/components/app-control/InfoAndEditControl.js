@@ -60,27 +60,20 @@ export default class InfoAndEditControl extends React.Component {
       left: 0
     }
     const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.10) }
-    let control = (
-      <a className='info-and-edit-control app-control' 
-         href='#' 
-         onClick={this._handleClick}
-         onDragStart={this._handleDragStart}>
-        <img src='static/haumea.png' alt='Info &amp Edit' />
-      </a>
-    )
-    if (this.props.isUploading) {
-      control= (
-        <a className='info-and-edit-control app-control is-uploading' 
-           href='#' 
-           onClick={this._handleClick}
-           onDragStart={this._handleDragStart}>
-          <img src='static/haumea_uploading.gif' alt='Uploading...' />
-        </a>
-      )
+    let className = 'info-and-edit-control app-control'
+    let img = <img src='static/haumea.png' alt='Info &amp Edit' />
+    if (!this.props.uploads.isEmpty()) {
+      className += ' is-uploading'
+      img = <img src='static/haumea_uploading.gif' alt='Uploading...' />
     }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
-        {control}
+        <a className={className}
+           href='#' 
+           onClick={this._handleClick}
+           onDragStart={this._handleDragStart}>
+          {img}
+        </a>
       </Draggable>
     )
   }

@@ -27,6 +27,7 @@ import Login from '../components/Login'
 import LoginUsernameLogoutControl from '../components/app-control/LoginUsernameLogoutControl'
 import React from 'react'
 import Sort from './Sort'
+import Uploads from './Uploads'
 
 class App extends React.Component {
   constructor() {
@@ -34,7 +35,6 @@ class App extends React.Component {
     this._handleDroppedFiles = this._handleDroppedFiles.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
     this._handleWheel = this._handleWheel.bind(this)
-    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
   }
@@ -66,14 +66,6 @@ class App extends React.Component {
     let scroller = document.getElementById('scroller')
     scroller.scrollLeft = scroller.scrollLeft + event.deltaY
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.authData.isEmpty() && !nextProps.authData.isEmpty()) {
-      this.props.listenToUploads(nextProps.authData.get('uid'));
-    }
-    else if (!this.props.authData.isEmpty() && nextProps.authData.isEmpty()) {
-      this.props.stopListeningToUploads()
-    }
-  }
   componentWillMount() {
     this.props.listenToAuth()
   }
@@ -97,6 +89,7 @@ class App extends React.Component {
                                       openLogin={this.props.openLogin} 
                                       params={this.props.params} />
           <InfoAndEditControl showMetadata={this.props.showMetadata} 
+                              uploads={this.props.uploads}
                               windowHeight={this.props.windowHeight}
                               windowWidth={this.props.windowWidth} />
           <Login attemptLogin={this.props.attemptLogin}
@@ -110,6 +103,7 @@ class App extends React.Component {
             </div>
           </div>
         </Dropzone>
+        <Uploads />
       </div>
     )
   }
@@ -123,6 +117,7 @@ function mapStateToProps (state) {
     paddingLeft: getPaddingLeft(state),
     pageId: state.getIn(['page', 'pageId']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
+    uploads: state.getIn(['upload', 'uploads']),
     windowHeight: state.getIn(['page', 'height']),
     windowWidth: state.getIn(['page', 'width'])
   }
@@ -135,11 +130,9 @@ function mapDispatchToProps (dispatch) {
     handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
-    listenToUploads: bindActionCreators(actions.listenToUploads, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
     openLogin: bindActionCreators(actions.openLogin, dispatch),
-    showMetadata: bindActionCreators(actions.showMetadata, dispatch),
-    stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch)
+    showMetadata: bindActionCreators(actions.showMetadata, dispatch)
   }
 }
 
