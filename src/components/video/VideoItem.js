@@ -42,6 +42,8 @@ export default class VideoItem extends React.Component {
       x: 0,
       y: 0
     }
+    this.isFadingIn = false
+    this.isFadingOut = false
     this._getClassName = this._getClassName.bind(this)
     this._handleClick = this._handleClick.bind(this)
     this._handleDrag = this._handleDrag.bind(this)
@@ -52,6 +54,7 @@ export default class VideoItem extends React.Component {
     this._setStyle = this._setStyle.bind(this)
     this._shouldAllowDragAndResize = this._shouldAllowDragAndResize.bind(this)
     this._shouldBeMuted = this._shouldBeMuted.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
@@ -160,6 +163,9 @@ export default class VideoItem extends React.Component {
     }
     return true
   }
+  componentDidMount() {
+    this.refs.video.setVolume(0)
+  }
   componentWillMount() {
     this._setStyle(this.props)
   }
@@ -185,18 +191,34 @@ export default class VideoItem extends React.Component {
     }
     else if (this._shouldBeMuted(this.props) !== this._shouldBeMuted(nextProps)) {
       if (this._shouldBeMuted(nextProps)) {
-        fadeOut((v) => {
-          this.refs.video.setVolume(v)
-        }, 3000, () => {
-          this.refs.video.unmute()
-        })
+        if (!this.isFadingOut) {
+          fadeOut((v) => {
+            this.isFadingOut = true
+            if (this.props.isShowingMetadata) {
+              this.refs.video.setVolume(0)
+            }
+            else if (this._shouldBeMuted(this.props)) {
+              this.refs.video.setVolume(v)
+            }
+          }, 3000, () => {
+            this.isFadingOut = false
+          })
+        }
       }
       else if (!this._shouldBeMuted(nextProps)) {
-        fadeIn((v) => {
-          this.refs.video.setVolume(v)
-        }, 3000, () => {
-          this.refs.video.unmute()
-        })
+        if (!this.isFadingIn) {
+          fadeIn((v) => {
+            this.isFadingIn = true
+            if (this.props.isShowingMetadata) {
+              this.refs.video.setVolume(0)
+            }
+            else if (!this._shouldBeMuted(this.props)) {
+              this.refs.video.setVolume(v)
+            }
+          }, 3000, () => {
+            this.isFadingIn = false
+          })
+        }
       }
     }
   }
@@ -204,7 +226,6 @@ export default class VideoItem extends React.Component {
     let video = (
       <Video autoPlay 
              loop 
-             muted
              poster={this.props.item.get('posterUrl')} 
              ref='video'
       >
