@@ -26,6 +26,7 @@ const initialState = Immutable.Map({
   height: 0,
   items: Immutable.Map(),
   pageId: null,
+  scrollLeft: 0,
   width: 0
 })
 
