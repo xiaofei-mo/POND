@@ -197,11 +197,15 @@ const _listenToUsername = (username, dispatch, itemsRef) => {
     const pageId = Object.keys(userSnapshot.val())[0]
     itemsRef = ref.child('items').orderByChild('pageId').equalTo(pageId)
     itemsRef.on('value', (itemsSnapshot) => {
+      let items = Immutable.fromJS(itemsSnapshot.val())
+      if (items === null) {
+        items = Immutable.Map()
+      }
       dispatch({
         type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: Immutable.Map(),
-          items: Immutable.fromJS(itemsSnapshot.val()),
+          items: items,
           pageId: pageId
         })
       })
