@@ -54,11 +54,9 @@ export default class TextItem extends React.Component {
     this._handleResize = this._handleResize.bind(this)
     this._handleResizeStop = this._handleResizeStop.bind(this)
     this._handleWheel = this._handleWheel.bind(this)
-    this._setStyle = this._setStyle.bind(this)
     this._shouldAllowDragAndResize = this._shouldAllowDragAndResize.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
-    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
   }
   _getClassName() {
@@ -149,14 +147,18 @@ export default class TextItem extends React.Component {
     if (!this._shouldAllowDragAndResize()) {
       return false
     }
+    let height = ui.size.height
+    if (height < C.MINIMUM_ITEM_HEIGHT) {
+      height = C.MINIMUM_ITEM_HEIGHT
+    }
     let width = ui.size.width
     if (width < C.MINIMUM_ITEM_WIDTH) {
       width = C.MINIMUM_ITEM_WIDTH
     }
     this.setState({
-      height: ui.size.height,
+      height: height,
       style: {
-        height: ui.size.height + 'px',
+        height: height + 'px',
         width: width + 'px',
         transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
       },
@@ -174,22 +176,6 @@ export default class TextItem extends React.Component {
   _handleWheel(event) {
     event.stopPropagation()
   }
-  _setStyle(props) {
-    const x = props.item.get('x')
-    const y = props.item.get('y')
-    this.setState({
-      height: props.item.get('height'),
-      style: {
-        height: props.item.get('height') + 'px',
-        width: props.item.get('width') + 'px',
-        transform: 'translate(' + x + 'px, ' + y + 'px)'
-      },
-      wasDragged: this.state.wasDragged,
-      width: props.item.get('width'),
-      x: x,
-      y: y
-    })
-  }
   _shouldAllowDragAndResize() {
     return this.props.authData.get('uid') === this.props.item.get('userId') && 
            !this.props.isShowingMetadata &&
@@ -198,7 +184,9 @@ export default class TextItem extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.item.get('isFocused', false)) {
       if (!prevProps.item.get('isFocused', false)) {
-        this.refs.editor.focus()
+        if (this.refs.editor !== undefined) {
+          this.refs.editor.focus()
+        }
       }
     }
   }
@@ -218,15 +206,20 @@ export default class TextItem extends React.Component {
         editorState: EditorState.createEmpty()
       })
     }
-    this._setStyle(this.props)
-  }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.item.get('height') !== nextProps.item.get('height') ||
-        this.props.item.get('width') !== nextProps.item.get('width') ||
-        this.props.item.get('x') !== nextProps.item.get('x') || 
-        this.props.item.get('y') !== nextProps.item.get('y')) {
-      this._setStyle(nextProps)
-    }
+    const x = this.props.item.get('x')
+    const y = this.props.item.get('y')
+    this.setState({
+      height: this.props.item.get('height'),
+      style: {
+        height: this.props.item.get('height') + 'px',
+        width: this.props.item.get('width') + 'px',
+        transform: 'translate(' + x + 'px, ' + y + 'px)'
+      },
+      wasDragged: this.state.wasDragged,
+      width: this.props.item.get('width'),
+      x: x,
+      y: y
+    })
   }
   render() {
     let content = <div></div>

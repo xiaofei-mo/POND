@@ -372,6 +372,7 @@
 	};
 	
 	var C = exports.C = {
+	  MINIMUM_ITEM_HEIGHT: 42,
 	  MINIMUM_ITEM_WIDTH: 150
 	};
 
@@ -7865,7 +7866,6 @@
 	exports.default = {
 	
 	  handleDroppedFiles: function handleDroppedFiles(files, x, y, authData, pageId) {
-	    console.log('handleDroppedFiles, files = ', files, ', x = ', x, ', y = ', y, ', authData = ', authData, ', pageId = ', pageId);
 	    return function (dispatch, getState) {
 	      var file = files[0];
 	      var ref = new _firebase2.default(config.FIREBASE_URL).child('uploads');
@@ -7889,11 +7889,7 @@
 	        formData.append('params', res.body.params);
 	        formData.append('signature', res.body.signature);
 	        formData.append('uploadId', uploadId);
-	        _superagent2.default.post(res.body.uri).send(formData).end(function (err, res) {
-	          uploadRef.update({
-	            status: 'uploaded'
-	          });
-	        });
+	        _superagent2.default.post(res.body.uri).send(formData).end();
 	      });
 	    };
 	  },
@@ -9561,7 +9557,6 @@
 	    key: '_handleDroppedFiles',
 	    value: function _handleDroppedFiles(files, event) {
 	      if (!this.props.authData.isEmpty()) {
-	        console.log('event.clientX = ', event.clientX, ', this.props.scrollLeft = ', this.props.scrollLeft, ', this.props.paddingLeft = ', this.props.paddingLeft);
 	        var x = event.clientX + this.props.scrollLeft - this.props.paddingLeft;
 	        this.props.handleDroppedFiles(files, x, event.clientY, this.props.authData, this.props.pageId);
 	      }
@@ -40579,6 +40574,10 @@
 	
 	var _getHalfway2 = _interopRequireDefault(_getHalfway);
 	
+	var _getLeftEdgeOfViewport = __webpack_require__(476);
+	
+	var _getLeftEdgeOfViewport2 = _interopRequireDefault(_getLeftEdgeOfViewport);
+	
 	var _getPaddingLeft = __webpack_require__(86);
 	
 	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
@@ -40586,6 +40585,10 @@
 	var _getPaddingRight = __webpack_require__(298);
 	
 	var _getPaddingRight2 = _interopRequireDefault(_getPaddingRight);
+	
+	var _getRightEdgeOfViewport = __webpack_require__(477);
+	
+	var _getRightEdgeOfViewport2 = _interopRequireDefault(_getRightEdgeOfViewport);
 	
 	var _getScrollDestination = __webpack_require__(299);
 	
@@ -40732,7 +40735,9 @@
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: item,
 	              key: key,
+	              leftEdgeOfViewport: _this2.props.leftEdgeOfViewport,
 	              paddingLeft: _this2.props.paddingLeft,
+	              rightEdgeOfViewport: _this2.props.rightEdgeOfViewport,
 	              setItemPosition: _this2.props.setItemPosition,
 	              setItemSize: _this2.props.setItemSize });
 	          default:
@@ -40762,9 +40767,11 @@
 	    height: state.getIn(['page', 'height']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    items: state.getIn(['page', 'items']),
+	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    paddingRight: (0, _getPaddingRight2.default)(state),
 	    pageId: state.getIn(['page', 'pageId']),
+	    rightEdgeOfViewport: (0, _getRightEdgeOfViewport2.default)(state),
 	    scrollDestination: (0, _getScrollDestination2.default)(state),
 	    scrollLeft: state.getIn(['page', 'scrollLeft']),
 	    width: state.getIn(['page', 'width'])
@@ -40961,11 +40968,9 @@
 	    _this._handleResize = _this._handleResize.bind(_this);
 	    _this._handleResizeStop = _this._handleResizeStop.bind(_this);
 	    _this._handleWheel = _this._handleWheel.bind(_this);
-	    _this._setStyle = _this._setStyle.bind(_this);
 	    _this._shouldAllowDragAndResize = _this._shouldAllowDragAndResize.bind(_this);
 	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
 	    _this.componentWillMount = _this.componentWillMount.bind(_this);
-	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
@@ -41072,14 +41077,18 @@
 	      if (!this._shouldAllowDragAndResize()) {
 	        return false;
 	      }
+	      var height = ui.size.height;
+	      if (height < _constants.C.MINIMUM_ITEM_HEIGHT) {
+	        height = _constants.C.MINIMUM_ITEM_HEIGHT;
+	      }
 	      var width = ui.size.width;
 	      if (width < _constants.C.MINIMUM_ITEM_WIDTH) {
 	        width = _constants.C.MINIMUM_ITEM_WIDTH;
 	      }
 	      this.setState({
-	        height: ui.size.height,
+	        height: height,
 	        style: {
-	          height: ui.size.height + 'px',
+	          height: height + 'px',
 	          width: width + 'px',
 	          transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
 	        },
@@ -41102,24 +41111,6 @@
 	      event.stopPropagation();
 	    }
 	  }, {
-	    key: '_setStyle',
-	    value: function _setStyle(props) {
-	      var x = props.item.get('x');
-	      var y = props.item.get('y');
-	      this.setState({
-	        height: props.item.get('height'),
-	        style: {
-	          height: props.item.get('height') + 'px',
-	          width: props.item.get('width') + 'px',
-	          transform: 'translate(' + x + 'px, ' + y + 'px)'
-	        },
-	        wasDragged: this.state.wasDragged,
-	        width: props.item.get('width'),
-	        x: x,
-	        y: y
-	      });
-	    }
-	  }, {
 	    key: '_shouldAllowDragAndResize',
 	    value: function _shouldAllowDragAndResize() {
 	      return this.props.authData.get('uid') === this.props.item.get('userId') && !this.props.isShowingMetadata && !this.state.editorIsFocused;
@@ -41129,7 +41120,9 @@
 	    value: function componentDidUpdate(prevProps) {
 	      if (this.props.item.get('isFocused', false)) {
 	        if (!prevProps.item.get('isFocused', false)) {
-	          this.refs.editor.focus();
+	          if (this.refs.editor !== undefined) {
+	            this.refs.editor.focus();
+	          }
 	        }
 	      }
 	    }
@@ -41150,14 +41143,20 @@
 	          editorState: _draftJs.EditorState.createEmpty()
 	        });
 	      }
-	      this._setStyle(this.props);
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (this.props.item.get('height') !== nextProps.item.get('height') || this.props.item.get('width') !== nextProps.item.get('width') || this.props.item.get('x') !== nextProps.item.get('x') || this.props.item.get('y') !== nextProps.item.get('y')) {
-	        this._setStyle(nextProps);
-	      }
+	      var x = this.props.item.get('x');
+	      var y = this.props.item.get('y');
+	      this.setState({
+	        height: this.props.item.get('height'),
+	        style: {
+	          height: this.props.item.get('height') + 'px',
+	          width: this.props.item.get('width') + 'px',
+	          transform: 'translate(' + x + 'px, ' + y + 'px)'
+	        },
+	        wasDragged: this.state.wasDragged,
+	        width: this.props.item.get('width'),
+	        x: x,
+	        y: y
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -56019,9 +56018,10 @@
 	    _this._handleMouseDown = _this._handleMouseDown.bind(_this);
 	    _this._handleResize = _this._handleResize.bind(_this);
 	    _this._handleResizeStop = _this._handleResizeStop.bind(_this);
-	    _this._setStyle = _this._setStyle.bind(_this);
+	    _this._setVolume = _this._setVolume.bind(_this);
 	    _this._shouldAllowDragAndResize = _this._shouldAllowDragAndResize.bind(_this);
 	    _this._shouldBeMuted = _this._shouldBeMuted.bind(_this);
+	    _this._shouldBeRendered = _this._shouldBeRendered.bind(_this);
 	    _this.componentDidMount = _this.componentDidMount.bind(_this);
 	    _this.componentWillMount = _this.componentWillMount.bind(_this);
 	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
@@ -56120,22 +56120,11 @@
 	      }
 	    }
 	  }, {
-	    key: '_setStyle',
-	    value: function _setStyle(props) {
-	      var x = props.item.get('x');
-	      var y = props.item.get('y');
-	      this.setState({
-	        height: props.item.get('height'),
-	        style: {
-	          height: props.item.get('height') + 'px',
-	          width: props.item.get('width') + 'px',
-	          transform: 'translate(' + x + 'px, ' + y + 'px)'
-	        },
-	        wasDragged: this.state.wasDragged,
-	        width: props.item.get('width'),
-	        x: x,
-	        y: y
-	      });
+	    key: '_setVolume',
+	    value: function _setVolume(v) {
+	      if (this.refs.video !== undefined) {
+	        this.refs.video.setVolume(v);
+	      }
 	    }
 	  }, {
 	    key: '_shouldAllowDragAndResize',
@@ -56153,31 +56142,48 @@
 	      return true;
 	    }
 	  }, {
+	    key: '_shouldBeRendered',
+	    value: function _shouldBeRendered(props) {
+	      var zoneLeft = props.item.get('x') + props.paddingLeft;
+	      var zoneRight = props.item.get('x') + props.item.get('width') + props.paddingLeft;
+	      return zoneLeft > props.leftEdgeOfViewport && zoneLeft < props.rightEdgeOfViewport || zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport;
+	    }
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.refs.video.setVolume(0);
+	      this._setVolume(0);
 	    }
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this._setStyle(this.props);
+	      var x = this.props.item.get('x');
+	      var y = this.props.item.get('y');
+	      this.setState({
+	        height: this.props.item.get('height'),
+	        style: {
+	          height: this.props.item.get('height') + 'px',
+	          width: this.props.item.get('width') + 'px',
+	          transform: 'translate(' + x + 'px, ' + y + 'px)'
+	        },
+	        wasDragged: this.state.wasDragged,
+	        width: this.props.item.get('width'),
+	        x: x,
+	        y: y
+	      });
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _this2 = this;
 	
-	      if (this.props.item.get('height') !== nextProps.item.get('height') || this.props.item.get('width') !== nextProps.item.get('width') || this.props.item.get('x') !== nextProps.item.get('x') || this.props.item.get('y') !== nextProps.item.get('y')) {
-	        this._setStyle(nextProps);
-	      }
 	      if (this.props.isShowingMetadata !== nextProps.isShowingMetadata) {
 	        if (nextProps.isShowingMetadata) {
-	          this.refs.video.setVolume(0);
+	          this._setVolume(0);
 	        } else {
 	          if (this._shouldBeMuted(nextProps)) {
-	            this.refs.video.setVolume(0);
+	            this._setVolume(0);
 	          } else {
-	            this.refs.video.setVolume(1);
+	            this._setVolume(1);
 	          }
 	        }
 	      } else if (this._shouldBeMuted(this.props) !== this._shouldBeMuted(nextProps)) {
@@ -56186,9 +56192,9 @@
 	            (0, _fadeOut2.default)(function (v) {
 	              _this2.isFadingOut = true;
 	              if (_this2.props.isShowingMetadata) {
-	                _this2.refs.video.setVolume(0);
+	                _this2._setVolume(0);
 	              } else if (_this2._shouldBeMuted(_this2.props)) {
-	                _this2.refs.video.setVolume(v);
+	                _this2._setVolume(v);
 	              }
 	            }, 3000, function () {
 	              _this2.isFadingOut = false;
@@ -56199,9 +56205,9 @@
 	            (0, _fadeIn2.default)(function (v) {
 	              _this2.isFadingIn = true;
 	              if (_this2.props.isShowingMetadata) {
-	                _this2.refs.video.setVolume(0);
+	                _this2._setVolume(0);
 	              } else if (!_this2._shouldBeMuted(_this2.props)) {
-	                _this2.refs.video.setVolume(v);
+	                _this2._setVolume(v);
 	              }
 	            }, 3000, function () {
 	              _this2.isFadingIn = false;
@@ -56213,6 +56219,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      // if (!this._shouldBeRendered(this.props)) {
+	      //   return null
+	      // }
 	      var video = _react2.default.createElement(
 	        _reactHtml5video2.default,
 	        { autoPlay: true,
@@ -56510,6 +56519,7 @@
 		        // Non-standard props
 		        copyKeys: _react2['default'].PropTypes.object,
 		        children: _react2['default'].PropTypes.node,
+		        className: _react2['default'].PropTypes.string,
 	
 		        // HTML5 Video standard attributes
 		        autoPlay: _react2['default'].PropTypes.bool,
@@ -56664,19 +56674,37 @@
 		    /**
 		     * Seeks the video timeline.
 		     * @param  {number} time The value in seconds to seek to
+		     * @param  {bool}   forceUpdate Forces a state update without waiting for
+		     *                              throttled event.          
 		     * @return {undefined}
 		     */
-		    seek: function seek(time) {
+		    seek: function seek(time, forceUpdate) {
 		        this.videoEl.currentTime = time;
+		        // In some use cases, we wish not to wait for `onSeeked` or `onSeeking`
+		        // throttled event to update state so we force it. This is because
+		        // this method is often triggered when dragging a bar and can feel janky.
+		        // See https://github.com/mderrick/react-html5video/issues/43
+		        if (forceUpdate) {
+		            this.updateStateFromVideo();
+		        }
 		    },
 	
 		    /**
 		     * Sets the video volume.
 		     * @param  {number} volume The volume level between 0 and 1.
+		     * @param  {bool}   forceUpdate Forces a state update without waiting for
+		     *                              throttled event.  
 		     * @return {undefined}
 		     */
-		    setVolume: function setVolume(volume) {
+		    setVolume: function setVolume(volume, forceUpdate) {
 		        this.videoEl.volume = volume;
+		        // In some use cases, we wish not to wait for `onVolumeChange`
+		        // throttled event to update state so we force it. This is because
+		        // this method is often triggered when dragging a bar and can feel janky.
+		        // See https://github.com/mderrick/react-html5video/issues/43
+		        if (forceUpdate) {
+		            this.updateStateFromVideo();
+		        }
 		    },
 	
 		    /**
@@ -56760,6 +56788,8 @@
 		     * @return {string} Class string
 		     */
 		    getVideoClassName: function getVideoClassName() {
+		        var className = this.props.className;
+	
 		        var classString = 'video';
 	
 		        if (this.state.error) {
@@ -56774,6 +56804,9 @@
 	
 		        if (this.state.focused) {
 		            classString += ' video--focused';
+		        }
+		        if (className) {
+		            classString += ' ' + className;
 		        }
 		        return classString;
 		    },
@@ -56804,10 +56837,13 @@
 	
 		        // If controls prop is provided remove it
 		        // and use our own controls.
+		        // Leave `copyKeys` here even though not used
+		        // as per issue #36.
 		        var _props = this.props;
 		        var controls = _props.controls;
+		        var copyKeys = _props.copyKeys;
 	
-		        var otherProps = _objectWithoutProperties(_props, ['controls']);
+		        var otherProps = _objectWithoutProperties(_props, ['controls', 'copyKeys']);
 	
 		        return _react2['default'].createElement(
 		            'div',
@@ -57774,7 +57810,7 @@
 		     * @return {undefined}
 		     */
 		    seek: function seek(e) {
-		        this.props.seek(e.target.value * this.props.duration / 100);
+		        this.props.seek(e.target.value * this.props.duration / 100, true);
 		    },
 	
 		    onFocus: function onFocus() {
@@ -58007,7 +58043,7 @@
 		     * @return {undefined}
 		     */
 		    changeVolume: function changeVolume(e) {
-		        this.props.setVolume(e.target.value / 100);
+		        this.props.setVolume(e.target.value / 100, true);
 		        this.props.unmute();
 		    },
 	
@@ -59350,6 +59386,49 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
+
+/***/ },
+/* 473 */,
+/* 474 */,
+/* 475 */,
+/* 476 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(87);
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'scrollLeft']);
+	}, function (state) {
+	  return state.getIn(['page', 'width']);
+	}, function (scrollLeft, width) {
+	  return scrollLeft - width;
+	});
+
+/***/ },
+/* 477 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(87);
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'scrollLeft']);
+	}, function (state) {
+	  return state.getIn(['page', 'width']);
+	}, function (scrollLeft, width) {
+	  return scrollLeft + width + width;
+	});
 
 /***/ }
 /******/ ]);

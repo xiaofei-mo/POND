@@ -152,7 +152,6 @@ uploadsRef.on('value', (snapshot) => {
   uploads.filter(
     u => u.get('status') === 'done'
   ).forEach((u) => {
-    console.log('calling createItem')
     _createItem(u.get('id'))
   })
 })

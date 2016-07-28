@@ -21,8 +21,10 @@ import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import getHalfway from '../selectors/getHalfway'
+import getLeftEdgeOfViewport from '../selectors/getLeftEdgeOfViewport'
 import getPaddingLeft from '../selectors/getPaddingLeft'
 import getPaddingRight from '../selectors/getPaddingRight'
+import getRightEdgeOfViewport from '../selectors/getRightEdgeOfViewport'
 import getScrollDestination from '../selectors/getScrollDestination'
 import Immutable from 'immutable'
 import React from 'react'
@@ -113,7 +115,9 @@ class Page extends React.Component {
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
                             key={key}
+                            leftEdgeOfViewport={this.props.leftEdgeOfViewport}
                             paddingLeft={this.props.paddingLeft}
+                            rightEdgeOfViewport={this.props.rightEdgeOfViewport}
                             setItemPosition={this.props.setItemPosition}
                             setItemSize={this.props.setItemSize} />
         default:
@@ -140,9 +144,11 @@ function mapStateToProps (state) {
     height: state.getIn(['page', 'height']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
+    leftEdgeOfViewport: getLeftEdgeOfViewport(state),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),
+    rightEdgeOfViewport: getRightEdgeOfViewport(state),
     scrollDestination: getScrollDestination(state),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
     width: state.getIn(['page', 'width'])

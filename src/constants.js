@@ -40,5 +40,6 @@ export const A = {
 }
 
 export const C = {
+  MINIMUM_ITEM_HEIGHT: 42,
   MINIMUM_ITEM_WIDTH: 150
 }
