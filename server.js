@@ -139,21 +139,19 @@ const _createItem = (uploadId) => {
 }
 
 const uploadsRef = ref.child('uploads')
-uploadsRef.on('value', (snapshot) => {
-  if (snapshot.val() === null) {
+uploadsRef.on('child_changed', (snapshot) => {
+  const upload = snapshot.val()
+  if (upload === null) {
     return
   }
-  const uploads = Immutable.fromJS(snapshot.val())
-  uploads.filter(
-    u => u.get('status') !== 'dropped' && u.get('status') !== 'done'
-  ).forEach((u) => {
-    _pollTransloadit(u.get('id'), u.get('uri'))
-  })
-  uploads.filter(
-    u => u.get('status') === 'done'
-  ).forEach((u) => {
-    _createItem(u.get('id'))
-  })
+  switch (upload.status) {
+    case 'done':
+      _createItem(upload.id)
+      break
+    case 'uploaded':
+      _pollTransloadit(upload.id, upload.uri)
+      break
+  }
 })
 
 const _pollTransloadit = (uploadId, uri) => {
@@ -168,34 +166,35 @@ const _pollTransloadit = (uploadId, uri) => {
       }
       return
     }
-    if (body.ok === 'ASSEMBLY_COMPLETED') {
-      uploadRef.once('value', (snapshot) => {
-        const upload = snapshot.val()
-        if (upload !== null) {
-          uploadRef.update({
-            results: {
-              encode: body.results.encode[0],
-              original: body.results[':original'][0]
-            },
-            status: 'done'
-          })
-        }
-      })
-      return
-    }
-    if (body.ok === 'ASSEMBLY_UPLOADING' || body.ok === 'ASSEMBLY_EXECUTING') {
-      uploadRef.once('value', (snapshot) => {
-        const upload = snapshot.val()
-        if (upload !== null) {
-          uploadRef.update({
-            status: 'processing'
-          })
-          setTimeout(() => {
-            _pollTransloadit(uploadId, uri)
-          }, 500)
-        }
-      })
-      return
+    switch (body.ok) {
+      case 'ASSEMBLY_COMPLETED':
+        uploadRef.once('value', (snapshot) => {
+          const upload = snapshot.val()
+          if (upload !== null) {
+            uploadRef.update({
+              results: {
+                encode: body.results.encode[0],
+                original: body.results[':original'][0]
+              },
+              status: 'done'
+            })
+          }
+        })
+        break
+      case 'ASSEMBLY_EXECUTING':
+      case 'ASSEMBLY_UPLOADING':
+        uploadRef.once('value', (snapshot) => {
+          const upload = snapshot.val()
+          if (upload !== null) {
+            uploadRef.update({
+              status: 'processing'
+            })
+            setTimeout(() => {
+              _pollTransloadit(uploadId, uri)
+            }, 500)
+          }
+        })
+        break
     }
   })
 }
