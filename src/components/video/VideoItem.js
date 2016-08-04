@@ -50,9 +50,11 @@ export default class VideoItem extends React.Component {
     this._handleClick = this._handleClick.bind(this)
     this._handleDrag = this._handleDrag.bind(this)
     this._handleDragStop = this._handleDragStop.bind(this)
+    this._handleCanPlayThrough = this._handleCanPlayThrough.bind(this)
     this._handleMouseDown = this._handleMouseDown.bind(this)
     this._handleResize = this._handleResize.bind(this)
     this._handleResizeStop = this._handleResizeStop.bind(this)
+    this._load = this._load.bind(this)
     this._setVolume = this._setVolume.bind(this)
     this._shouldAllowDragAndResize = this._shouldAllowDragAndResize.bind(this)
     this._shouldBeMuted = this._shouldBeMuted.bind(this)
@@ -108,6 +110,10 @@ export default class VideoItem extends React.Component {
       this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
     }
   }
+  _handleCanPlayThrough(event) {
+    // http://stackoverflow.com/questions/16137381/html5-video-element-request-stay-pending-forever-on-chrome
+    event.target.play()
+  }
   _handleMouseDown(event) {
     if (!this._shouldAllowDragAndResize()) {
       return false
@@ -142,6 +148,11 @@ export default class VideoItem extends React.Component {
       this.props.setItemSize(this.props.id, this.state.height, this.state.width)
     }
   }
+  _load() {
+    if (this.refs.video !== undefined) {
+      this.refs.video.load()
+    }
+  }
   _setVolume(v) {
     if (this.refs.video !== undefined) {
       this.refs.video.setVolume(v)
@@ -167,10 +178,12 @@ export default class VideoItem extends React.Component {
   }
   componentDidMount() {
     this._setVolume(0)
+    this._load()
   }
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.shouldBeRendered && this.state.shouldBeRendered) {
       this._setVolume(0)
+      this._load()
     }
   }
   componentWillMount() {
@@ -253,9 +266,9 @@ export default class VideoItem extends React.Component {
       return null
     }
     let video = (
-      <Video autoPlay 
-             loop 
-             poster={this.props.item.get('posterUrl')} 
+      <Video loop 
+             onCanPlayThrough={this._handleCanPlayThrough}
+             preload='none'
              ref='video'
       >
         <source src={getCloudFrontUrl(this.props.item.getIn(['results', 'encode', 'ssl_url']))} type='video/mp4' />

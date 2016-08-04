@@ -131,28 +131,32 @@ export default {
 
 const _listenToFeatured = (dispatch) => {
   const ref = firebase.database().ref()
-  let itemsRef = ref.child('items')
-  const destinationItemRef = itemsRef.orderByChild('isFeatured').equalTo(true)
-  destinationItemRef.once('value', (destinationItemSnapshot) => {
-    if (destinationItemSnapshot.numChildren() !== 1) {
-      // We did not receive any items, so don't do anything. Perhaps we could
-      // display a 404 here.
-      return
-    }
-    const destinationItem = destinationItemSnapshot.val()
-    const itemId = Object.keys(destinationItem)[0]
-    const pageId = destinationItem[itemId]['pageId']
-    itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId)
-    itemsRef.on('value', (itemsSnapshot) => {
-      dispatch({
-        type: A.RECEIVED_ITEMS, 
-        payload: Immutable.Map({
-          destinationItem: Immutable.fromJS(destinationItem[itemId]),
-          items: Immutable.fromJS(itemsSnapshot.val()),
-          pageId: pageId
+  const featuredTimingRef = ref.child('featuredTiming')
+  featuredTimingRef.once('value', (featuredTimingSnapshot) => {
+    const featuredTiming = featuredTimingSnapshot.val()
+    let itemsRef = ref.child('items')
+    const destinationItemRef = itemsRef.orderByChild('timing').equalTo(featuredTiming)
+    destinationItemRef.once('value', (destinationItemSnapshot) => {
+      if (destinationItemSnapshot.numChildren() !== 1) {
+        // We did not receive any items, so don't do anything. Perhaps we could
+        // display a 404 here.
+        return
+      }
+      const destinationItem = destinationItemSnapshot.val()
+      const itemId = Object.keys(destinationItem)[0]
+      const pageId = destinationItem[itemId]['pageId']
+      itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId)
+      itemsRef.on('value', (itemsSnapshot) => {
+        dispatch({
+          type: A.RECEIVED_ITEMS, 
+          payload: Immutable.Map({
+            destinationItem: Immutable.fromJS(destinationItem[itemId]),
+            items: Immutable.fromJS(itemsSnapshot.val()),
+            pageId: pageId
+          })
         })
       })
-    })
+    })    
   })
 }
 
