@@ -26,6 +26,8 @@ import request from 'superagent'
 import tsml from 'tsml'
 import uuid from 'node-uuid'
 
+console.log('process.env = ', process.env)
+
 firebase.initializeApp({
   databaseURL: process.env.FIREBASE_DATABASE_URL,
   serviceAccount: {
