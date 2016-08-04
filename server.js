@@ -130,7 +130,6 @@ const _createItem = (uploadId) => {
       const initialDimensions = _getInitialDimensions(upload.results.encode)
       const itemRef = itemsRef.push({
         height: initialDimensions.height,
-        isFeatured: false,
         pageId: upload.pageId,
         results: upload.results,
         timing: timing,
