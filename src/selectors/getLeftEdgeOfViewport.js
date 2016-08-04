@@ -24,6 +24,6 @@ export default createSelector(
   state => state.getIn(['page', 'width']),
   
   (scrollLeft, width) => {
-    return scrollLeft - width
+    return scrollLeft - (width / 2)
   }
 )
