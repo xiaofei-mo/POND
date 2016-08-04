@@ -39,10 +39,10 @@ export default class Uploads extends React.Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.authData.isEmpty() && !nextProps.authData.isEmpty()) {
-      this.props.listenToUploads(nextProps.authData.get('uid'));
+    if (this.props.user.isEmpty() && !nextProps.user.isEmpty()) {
+      this.props.listenToUploads(nextProps.user.get('uid'));
     }
-    else if (!this.props.authData.isEmpty() && nextProps.authData.isEmpty()) {
+    else if (!this.props.user.isEmpty() && nextProps.user.isEmpty()) {
       this.props.stopListeningToUploads()
     }
     if (!this.props.uploads.isEmpty() && nextProps.uploads.isEmpty()) {
@@ -65,8 +65,8 @@ export default class Uploads extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    authData: state.getIn(['app', 'authData']),
-    uploads: state.getIn(['upload', 'uploads'])
+    uploads: state.getIn(['upload', 'uploads']),
+    user: state.getIn(['app', 'user'])
   }
 }
 

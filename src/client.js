@@ -29,10 +29,6 @@ import reducer from './reducers';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import thunk from 'redux-thunk'
 
-if (config.NODE_ENV !== 'production') {
-  // Firebase.enableLogging(true)
-}
-
 let store = applyMiddleware(
   thunk, 
   routerMiddleware(browserHistory)

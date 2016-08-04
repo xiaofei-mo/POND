@@ -57,12 +57,12 @@ class Page extends React.Component {
       if (this.props.isShowingMetadata) {
         this.props.hideMetadata()
       }
-      else if (event.metaKey && !this.props.authData.isEmpty()) {
+      else if (event.metaKey && !this.props.user.isEmpty()) {
         const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
         this.props.createTextItem(
           x, 
           event.clientY, 
-          this.props.authData, 
+          this.props.user, 
           this.props.pageId
         )
       }
@@ -97,18 +97,17 @@ class Page extends React.Component {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
         case 'text':
-          return <TextItem authData={this.props.authData}
-                           deleteItem={this.props.deleteItem}
+          return <TextItem deleteItem={this.props.deleteItem}
                            id={key} 
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
                            key={key} 
                            setItemPosition={this.props.setItemPosition} 
                            setItemSize={this.props.setItemSize}
-                           setTextItemRawState={this.props.setTextItemRawState} />
+                           setTextItemRawState={this.props.setTextItemRawState} 
+                           user={this.props.user} />
         case 'video':
-          return <VideoItem authData={this.props.authData}
-                            deleteItem={this.props.deleteItem}
+          return <VideoItem deleteItem={this.props.deleteItem}
                             halfway={this.props.halfway}
                             height={this.props.height}
                             id={key}
@@ -119,7 +118,8 @@ class Page extends React.Component {
                             paddingLeft={this.props.paddingLeft}
                             rightEdgeOfViewport={this.props.rightEdgeOfViewport}
                             setItemPosition={this.props.setItemPosition}
-                            setItemSize={this.props.setItemSize} />
+                            setItemSize={this.props.setItemSize} 
+                            user={this.props.user} />
         default:
           return null
       }
@@ -139,7 +139,6 @@ class Page extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    authData: state.getIn(['app', 'authData']),
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
@@ -151,6 +150,7 @@ function mapStateToProps (state) {
     rightEdgeOfViewport: getRightEdgeOfViewport(state),
     scrollDestination: getScrollDestination(state),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
+    user: state.getIn(['app', 'user']),
     width: state.getIn(['page', 'width'])
   }
 }

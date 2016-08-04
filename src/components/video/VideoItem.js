@@ -142,7 +142,7 @@ export default class VideoItem extends React.Component {
     }
   }
   _shouldAllowDragAndResize() {
-    return this.props.authData.get('uid') === this.props.item.get('userId') && 
+    return this.props.user.get('uid') === this.props.item.get('userId') && 
            !this.props.isShowingMetadata
   }
   _shouldBeMuted(props) {
@@ -257,10 +257,10 @@ export default class VideoItem extends React.Component {
                    width={this.state.width}>
             <div className={this._getClassName()} style={this.state.style}>
               {video}
-              <Metadata authData={this.props.authData}
-                        deleteItem={this.props.deleteItem}
+              <Metadata deleteItem={this.props.deleteItem}
                         isShowingMetadata={this.props.isShowingMetadata} 
-                        item={this.props.item} />
+                        item={this.props.item} 
+                        user={this.props.user} />
             </div>
         </Resizable>
       </DraggableCore>

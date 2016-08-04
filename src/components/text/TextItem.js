@@ -177,7 +177,7 @@ export default class TextItem extends React.Component {
     event.stopPropagation()
   }
   _shouldAllowDragAndResize() {
-    return this.props.authData.get('uid') === this.props.item.get('userId') && 
+    return this.props.user.get('uid') === this.props.item.get('userId') && 
            !this.props.isShowingMetadata &&
            !this.state.editorIsFocused
   }
@@ -235,8 +235,8 @@ export default class TextItem extends React.Component {
       content = <div className='dangerous' 
                      dangerouslySetInnerHTML={dangerousInnerHtml} />
     }
-    if (!this.props.authData.isEmpty()) {
-      if (this.props.item.get('userId') === this.props.authData.get('uid')) {
+    if (!this.props.user.isEmpty()) {
+      if (this.props.item.get('userId') === this.props.user.get('uid')) {
         content = <Editor editorState={this.state.editorState} 
                           onBlur={this._handleEditorBlur}
                           onChange={this._handleEditorChange} 
@@ -253,10 +253,10 @@ export default class TextItem extends React.Component {
              ref='textItemContent'>
           {content}
         </div>
-        <Metadata authData={this.props.authData}
-                  deleteItem={this.props.deleteItem}
+        <Metadata deleteItem={this.props.deleteItem}
                   isShowingMetadata={this.props.isShowingMetadata} 
-                  item={this.props.item} />
+                  item={this.props.item} 
+                  user={this.props.user} />
       </div>
     )
     if(this.props.item.get('linkedTo')) {

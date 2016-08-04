@@ -18,29 +18,29 @@
  */
 
 import { A } from '../constants'
-import Firebase from 'firebase'
+import firebase from '../utils/firebase'
 import request from 'superagent'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
 
 export default {
 
-  handleDroppedFiles: (files, x, y, authData, pageId) => {
+  handleDroppedFiles: (files, x, y, user, pageId) => {
     return (dispatch, getState) => {
       const file = files[0]
-      const ref = new Firebase(config.FIREBASE_URL).child('uploads')
-      const uploadRef = ref.push({
+      const ref = firebase.database().ref()
+      const uploadsRef = ref.child('uploads')
+      const uploadRef = uploadsRef.push({
         pageId: pageId,
-        userId: authData.get('uid'),
+        userId: user.get('uid'),
         status: 'dropped',
         x: x,
         y: y
       })
-      const uploadId = uploadRef.key()
       request.get('/get-upload-values').end((err, res) => {
         uploadRef.update({
           assemblyId: res.body.assemblyId,
-          id: uploadId,
+          id: uploadRef.key,
           status: 'uploading',
           uri: res.body.uri
         })
@@ -48,7 +48,7 @@ export default {
         formData.append('file', file)
         formData.append('params', res.body.params)
         formData.append('signature', res.body.signature)
-        formData.append('uploadId', uploadId)
+        formData.append('uploadId', uploadRef.key)
         request.post(res.body.uri).send(formData).end((err, res) => {
           uploadRef.update({
             status: 'uploaded'
@@ -60,7 +60,7 @@ export default {
 
   listenToUploads: (userId) => {
     return (dispatch, getState) => {
-      const ref = new Firebase(config.FIREBASE_URL)
+      const ref = firebase.database().ref()
       const uploadsRef = ref.child('uploads').orderByChild('userId').equalTo(userId)
       uploadsRef.on('value', (snapshot) => {
         let uploads = Immutable.Map()
@@ -79,8 +79,9 @@ export default {
 
   stopListeningToUploads: () => {
     return (dispatch, getState) => {
-      let ref = new Firebase(config.FIREBASE_URL).child('uploads')
-      ref.off('value')
+      const ref = firebase.database().ref()
+      const uploadsRef = ref.child('uploads')
+      uploadsRef.off('value')
       dispatch({
         type: A.STOPPED_LISTENING_TO_UPLOADS
       })

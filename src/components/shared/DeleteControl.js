@@ -30,8 +30,8 @@ export default class DeleteControl extends React.Component {
     this.props.deleteItem(this.props.item.get('id'))
   }
   render() {
-    if (this.props.authData.isEmpty() ||
-        this.props.authData.get('uid') !== this.props.item.get('userId')) {
+    if (this.props.user.isEmpty() ||
+        this.props.user.get('uid') !== this.props.item.get('userId')) {
       return null
     }
     return (

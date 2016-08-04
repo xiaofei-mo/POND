@@ -18,7 +18,7 @@
  */
 
 import { A } from '../constants'
-import Firebase from 'firebase'
+import firebase from '../utils/firebase'
 import Immutable from 'immutable'
 import url from 'url'
 
@@ -26,16 +26,11 @@ export default {
 
   attemptLogin: (email, password) => {
     return (dispatch, getState) => {
-      const ref = new Firebase(config.FIREBASE_URL)
-      ref.authWithPassword({
-        email: email,
-        password: password
-      }, (err, authData) => {
-        if (err) {
-          dispatch({
-            type: A.LOGIN_FAILED
-          })
-        }
+      const auth = firebase.auth()
+      auth.signInWithEmailAndPassword(email, password).catch((err) => {
+        dispatch({
+          type: A.LOGIN_FAILED
+        })
       })
     }
   },
@@ -54,25 +49,29 @@ export default {
   
   listenToAuth: () => {
     return (dispatch, getState) => {
-      const ref = new Firebase(config.FIREBASE_URL)
-      ref.onAuth((authData) => {
+      const auth = firebase.auth()
+      auth.onAuthStateChanged((authData) => {
         if (authData === null) {
           dispatch({
-            type: A.RECEIVED_AUTH_DATA,
+            type: A.RECEIVED_USER,
             payload: Immutable.Map({
-              authData: Immutable.Map()
+              user: Immutable.Map()
             })
           })
         }
         else {
+          const ref = firebase.database().ref()
           const userRef = ref.child('users').child(authData.uid)
           userRef.once('value', (userSnapshot) => {
             const user = userSnapshot.val()
-            authData.username = user.username
             dispatch({
-              type: A.RECEIVED_AUTH_DATA,
+              type: A.RECEIVED_USER,
               payload: Immutable.Map({
-                authData: Immutable.fromJS(authData)
+                user: Immutable.Map({
+                  email: authData.email,
+                  uid: authData.uid,
+                  username: user.username
+                })
               })
             })
           })
@@ -83,8 +82,8 @@ export default {
 
   logout: () => {
     return (dispatch, getState) => {
-      const ref = new Firebase(config.FIREBASE_URL)
-      ref.unauth()
+      const auth = firebase.auth()
+      auth.signOut()
     }
   },
 

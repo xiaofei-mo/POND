@@ -40,19 +40,19 @@ class App extends React.Component {
   }
   _getClassName() {
     let className = 'app'
-    if (!this.props.authData.isEmpty()) {
+    if (!this.props.user.isEmpty()) {
       className += ' is-logged-in'
     }
     return className
   }
   _handleDroppedFiles(files, event) {
-    if (!this.props.authData.isEmpty()) {
+    if (!this.props.user.isEmpty()) {
       const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
       this.props.handleDroppedFiles(
         files, 
         x, 
         event.clientY, 
-        this.props.authData,
+        this.props.user,
         this.props.pageId
       )
     }
@@ -83,19 +83,19 @@ class App extends React.Component {
                   onWheel={this._handleWheel}
                   ref='scroller'>
           {this.props.children}
-          <LoginUsernameLogoutControl authData={this.props.authData} 
-                                      authDataIsLoaded={this.props.authDataIsLoaded}
-                                      logout={this.props.logout}
+          <LoginUsernameLogoutControl logout={this.props.logout}
                                       openLogin={this.props.openLogin} 
-                                      params={this.props.params} />
+                                      params={this.props.params} 
+                                      user={this.props.user} 
+                                      userIsLoaded={this.props.userIsLoaded} />
           <InfoAndEditControl showMetadata={this.props.showMetadata} 
                               uploads={this.props.uploads}
                               windowHeight={this.props.windowHeight}
                               windowWidth={this.props.windowWidth} />
           <Login attemptLogin={this.props.attemptLogin}
-                 authData={this.props.authData} 
                  closeLogin={this.props.closeLogin}
-                 login={this.props.login} />
+                 login={this.props.login}
+                 user={this.props.user} />
           <Sort />
           <div className='dropzone-veil veil'>
             <div>
@@ -111,13 +111,13 @@ class App extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    authData: state.getIn(['app', 'authData']),
-    authDataIsLoaded: state.getIn(['app', 'authDataIsLoaded']),
     login: state.getIn(['app', 'login']),
     paddingLeft: getPaddingLeft(state),
     pageId: state.getIn(['page', 'pageId']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
     uploads: state.getIn(['upload', 'uploads']),
+    user: state.getIn(['app', 'user']),
+    userIsLoaded: state.getIn(['app', 'userIsLoaded']),
     windowHeight: state.getIn(['page', 'height']),
     windowWidth: state.getIn(['page', 'width'])
   }

@@ -16,18 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+import firebase from 'firebase'
 
-import { createSelector } from 'reselect'
+// firebase.database.enableLogging(true)
 
-export default createSelector(
-  state => state.getIn(['page', 'items']),
-  state => state.getIn(['page', 'width']),
+const initializedFirebase = firebase.initializeApp({
+  apiKey: config.FIREBASE_API_KEY,
+  authDomain: config.FIREBASE_AUTH_DOMAIN,
+  databaseURL: config.FIREBASE_DATABASE_URL
+})
 
-  (items, width) => {
-    const rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
-    if (rightmostItem === undefined) {
-      return 0
-    }
-    return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
-  }
-)
+module.exports = initializedFirebase

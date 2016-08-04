@@ -36,12 +36,12 @@ export default class LoginUsernameLogoutControl extends React.Component {
     this.props.logout()
   }
   render() {
-    if (!this.props.authDataIsLoaded) {
+    if (!this.props.userIsLoaded) {
       return null
     }
-    if (!this.props.authData.isEmpty()) {
+    if (!this.props.user.isEmpty()) {
       // A user is logged in. Are they on their personal page?
-      const username = this.props.authData.get('username')
+      const username = this.props.user.get('username')
       const timingOrUsername = this.props.params.timingOrUsername
       if (username === timingOrUsername) {
         return <a className='login-username-logout-control app-control' 
@@ -52,7 +52,7 @@ export default class LoginUsernameLogoutControl extends React.Component {
         return <Link className='login-username-logout-control app-control' 
                      to={'/' + username}>{username}</Link>
       }
-      label = <span>{this.props.authData.get('username')}</span>
+      label = <span>{this.props.user.get('username')}</span>
     }
     return <a className='login-username-logout-control app-control' 
               href='#' 

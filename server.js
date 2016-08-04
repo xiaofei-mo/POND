@@ -19,13 +19,21 @@
 
 import calculateSignature from './src/utils/calculateSignature'
 import express from 'express'
-import Firebase from 'firebase'
+import firebase from 'firebase'
 import getExpiresDate from './src/utils/getExpiresDate'
 import Immutable from 'immutable'
 import request from 'superagent'
 import tsml from 'tsml'
 import uuid from 'node-uuid'
 
+firebase.initializeApp({
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  serviceAccount: {
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY,
+    projectId: process.env.FIREBASE_PROJECT_ID
+  }
+})
 const app = express()
 
 app.use(express.static(__dirname + '/public'))
@@ -51,7 +59,9 @@ app.get('/get-upload-values', (req, res, next) => {
 })
 
 const config = {
-  FIREBASE_URL: process.env.FIREBASE_URL,
+  FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
+  FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV
 }
 
@@ -84,8 +94,7 @@ app.listen(5000, function (err) {
   console.log('listening on 5000')
 })
 
-const ref = new Firebase(config.FIREBASE_URL)
-ref.authWithCustomToken(process.env.FIREBASE_SECRET)
+const ref = firebase.database().ref()
 
 const _determineTiming = (encode) => {
   return ref.child('lastTiming').transaction((lastTiming) => {

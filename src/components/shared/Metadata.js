@@ -38,11 +38,11 @@ export default class Metadata extends React.Component {
     return (
       <div className='metadata'>
         <div className='controls'>
-          <SaveControl authData={this.props.authData} 
-                       item={this.props.item} />
-          <DeleteControl authData={this.props.authData} 
-                         deleteItem={this.props.deleteItem} 
-                         item={this.props.item} />
+          <SaveControl item={this.props.item}
+                       user={this.props.user} />
+          <DeleteControl deleteItem={this.props.deleteItem} 
+                         item={this.props.item} 
+                         user={this.props.user} />
         </div>
       </div>
     )
