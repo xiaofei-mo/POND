@@ -21,6 +21,7 @@ import { C } from '../../constants'
 import { DraggableCore } from 'react-draggable'
 import fadeIn from '../../utils/fadeIn'
 import fadeOut from '../../utils/fadeOut'
+import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
 import { Link } from 'react-router'
 import Metadata from '../shared/Metadata'
 import React from 'react'
@@ -32,6 +33,7 @@ export default class VideoItem extends React.Component {
     super()
     this.state = {
       height: 0,
+      shouldBeRendered: false,
       style: {
         height: '0px',
         width: '0px',
@@ -56,8 +58,10 @@ export default class VideoItem extends React.Component {
     this._shouldBeMuted = this._shouldBeMuted.bind(this)
     this._shouldBeRendered = this._shouldBeRendered.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
+    this.componentWillUnmount = this.componentWillUnmount.bind(this)
     this.render = this.render.bind(this)
   }
   _getClassName() {
@@ -87,6 +91,7 @@ export default class VideoItem extends React.Component {
     }
     this.setState({
       height: this.state.height,
+      shouldBeRendered: this.state.shouldBeRendered,
       style: {
         height: this.state.style.height,
         width: this.state.style.width,
@@ -120,6 +125,7 @@ export default class VideoItem extends React.Component {
     }
     this.setState({
       height: ui.size.height,
+      shouldBeRendered: this.state.shouldBeRendered,
       style: {
         height: ui.size.height + 'px',
         width: ui.size.width + 'px',
@@ -162,11 +168,17 @@ export default class VideoItem extends React.Component {
   componentDidMount() {
     this._setVolume(0)
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.shouldBeRendered && this.state.shouldBeRendered) {
+      this._setVolume(0)
+    }
+  }
   componentWillMount() {
     const x = this.props.item.get('x')
     const y = this.props.item.get('y')
     this.setState({
       height: this.props.item.get('height'),
+      shouldBeRendered: this._shouldBeRendered(this.props),
       style: {
         height: this.props.item.get('height') + 'px',
         width: this.props.item.get('width') + 'px',
@@ -179,6 +191,9 @@ export default class VideoItem extends React.Component {
     })
   }
   componentWillReceiveProps(nextProps) {
+    this.setState({
+      shouldBeRendered: this._shouldBeRendered(nextProps)
+    })
     if (this.props.isShowingMetadata !== nextProps.isShowingMetadata) {
       if (nextProps.isShowingMetadata) {
         this._setVolume(0)
@@ -225,17 +240,25 @@ export default class VideoItem extends React.Component {
       }
     }
   }
+  componentWillUnmount() {
+    // http://stackoverflow.com/questions/3258587/how-to-properly-unload-destroy-a-video-element
+    if (this.refs.video !== undefined) {
+      this.refs.video.pause()
+      this.refs.video.src = ''
+      this.refs.video.load()
+    }
+  }
   render() {
-    // if (!this._shouldBeRendered(this.props)) {
-    //   return null
-    // }
+    if (!this.state.shouldBeRendered) {
+      return null
+    }
     let video = (
       <Video autoPlay 
              loop 
              poster={this.props.item.get('posterUrl')} 
              ref='video'
       >
-        <source src={this.props.item.getIn(['results', 'encode', 'ssl_url'])} type='video/mp4' />
+        <source src={getCloudFrontUrl(this.props.item.getIn(['results', 'encode', 'ssl_url']))} type='video/mp4' />
       </Video>
     )
     if(this.props.item.get('linkedTo')) {

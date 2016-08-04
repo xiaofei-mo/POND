@@ -59,10 +59,12 @@ app.get('/get-upload-values', (req, res, next) => {
 })
 
 const config = {
+  CLOUDFRONT_HOSTNAME: process.env.CLOUDFRONT_HOSTNAME,
   FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
   FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
-  NODE_ENV: process.env.NODE_ENV
+  NODE_ENV: process.env.NODE_ENV,
+  S3_HOSTNAME: process.env.S3_HOSTNAME
 }
 
 app.get('*', (req, res, next) => {
