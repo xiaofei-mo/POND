@@ -23,7 +23,7 @@ import fadeIn from '../../utils/fadeIn'
 import fadeOut from '../../utils/fadeOut'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
 import { Link } from 'react-router'
-import Metadata from '../shared/Metadata'
+import Metadata from '../metadata/Metadata'
 import React from 'react'
 import { Resizable } from 'react-resizable'
 import Video from 'react-html5video'
@@ -293,12 +293,15 @@ export default class VideoItem extends React.Component {
                    width={this.state.width}>
             <div className={this._getClassName()} style={this.state.style}>
               {video}
+              <div className='obstructor'></div>
               <Metadata baseUrl={this.props.baseUrl}
                         deleteItem={this.props.deleteItem}
                         featuredItemId={this.props.featuredItemId}
+                        hideMetadata={this.props.hideMetadata}
                         isShowingMetadata={this.props.isShowingMetadata} 
                         item={this.props.item} 
                         setFeaturedItemId={this.props.setFeaturedItemId}
+                        setItemMetadata={this.props.setItemMetadata}
                         user={this.props.user} />
             </div>
         </Resizable>

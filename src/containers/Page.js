@@ -101,6 +101,7 @@ class Page extends React.Component {
           return <TextItem baseUrl={this.props.baseUrl}
                            deleteItem={this.props.deleteItem}
                            featuredItemId={this.props.featuredItemId}
+                           hideMetadata={this.props.hideMetadata}
                            id={key} 
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
@@ -109,6 +110,7 @@ class Page extends React.Component {
                            setItemPosition={this.props.setItemPosition} 
                            setItemSize={this.props.setItemSize}
                            setTextItemRawState={this.props.setTextItemRawState} 
+                           setItemMetadata={this.props.setItemMetadata}
                            user={this.props.user} />
         case 'video':
           return <VideoItem baseUrl={this.props.baseUrl}
@@ -116,6 +118,7 @@ class Page extends React.Component {
                             featuredItemId={this.props.featuredItemId}
                             halfway={this.props.halfway}
                             height={this.props.height}
+                            hideMetadata={this.props.hideMetadata}
                             id={key}
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
@@ -126,6 +129,7 @@ class Page extends React.Component {
                             setFeaturedItemId={this.props.setFeaturedItemId}
                             setItemPosition={this.props.setItemPosition}
                             setItemSize={this.props.setItemSize} 
+                            setItemMetadata={this.props.setItemMetadata}
                             user={this.props.user} />
         default:
           return null
@@ -172,6 +176,7 @@ function mapDispatchToProps (dispatch) {
     listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     setFeaturedItemId: bindActionCreators(actions.setFeaturedItemId, dispatch),
+    setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
     setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch)

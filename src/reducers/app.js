@@ -38,6 +38,7 @@ export default function appReducer (state = initialState, action) {
       return state.setIn(['login', 'isOpen'], false)
 
     case A.HIDE_METADATA:
+    case A.METADATA_WAS_SET:
       return state.merge({
         isShowingMetadata: false
       })

@@ -122,6 +122,17 @@ export default {
     }
   },
 
+  setItemMetadata: (id, metadata) => {
+    return (dispatch, getState) => {
+      firebase.database().ref().child('items').child(id).child('metadata').set(
+        metadata.toJS()
+      )
+      dispatch({
+        type: A.METADATA_WAS_SET
+      })
+    }
+  },
+
   setItemPosition: (id, x, y) => {
     return (dispatch, getState) => {
       firebase.database().ref().child('items').child(id).update({
@@ -148,7 +159,7 @@ export default {
     }
   },
   
-  setWindowSize(width, height) {
+  setWindowSize: (width, height) => {
     return {
       type: A.WINDOW_CHANGED_SIZE,
       payload: Immutable.Map({
