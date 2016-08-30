@@ -253,7 +253,8 @@ export default class TextItem extends React.Component {
              ref='textItemContent'>
           {content}
         </div>
-        <Metadata deleteItem={this.props.deleteItem}
+        <Metadata baseUrl={this.props.baseUrl}
+                  deleteItem={this.props.deleteItem}
                   featuredItemId={this.props.featuredItemId}
                   isShowingMetadata={this.props.isShowingMetadata} 
                   item={this.props.item} 

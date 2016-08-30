@@ -21,6 +21,7 @@ import DeleteControl from './DeleteControl'
 import Featured from './Featured'
 import React from 'react'
 import SaveControl from './SaveControl'
+import Url from './Url'
 
 export default class Metadata extends React.Component {
   constructor() {
@@ -45,6 +46,7 @@ export default class Metadata extends React.Component {
                       setFeaturedItemId={this.props.setFeaturedItemId} 
                       userIsOwner={userIsOwner} />
           </li>
+          <li><Url baseUrl={this.props.baseUrl} item={this.props.item} /></li>
         </ul>
         <div className='controls'>
           <SaveControl userIsOwner={userIsOwner} />

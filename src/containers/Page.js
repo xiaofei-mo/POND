@@ -98,7 +98,8 @@ class Page extends React.Component {
     const items = this.props.items.map((item, key) => {
       switch (item.get('type')) {
         case 'text':
-          return <TextItem deleteItem={this.props.deleteItem}
+          return <TextItem baseUrl={this.props.baseUrl}
+                           deleteItem={this.props.deleteItem}
                            featuredItemId={this.props.featuredItemId}
                            id={key} 
                            isShowingMetadata={this.props.isShowingMetadata}
@@ -110,7 +111,8 @@ class Page extends React.Component {
                            setTextItemRawState={this.props.setTextItemRawState} 
                            user={this.props.user} />
         case 'video':
-          return <VideoItem deleteItem={this.props.deleteItem}
+          return <VideoItem baseUrl={this.props.baseUrl}
+                            deleteItem={this.props.deleteItem}
                             featuredItemId={this.props.featuredItemId}
                             halfway={this.props.halfway}
                             height={this.props.height}
@@ -144,6 +146,7 @@ class Page extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    baseUrl: state.getIn(['page', 'baseUrl']),
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     featuredItemId: state.getIn(['page', 'featuredItemId']),

@@ -293,7 +293,8 @@ export default class VideoItem extends React.Component {
                    width={this.state.width}>
             <div className={this._getClassName()} style={this.state.style}>
               {video}
-              <Metadata deleteItem={this.props.deleteItem}
+              <Metadata baseUrl={this.props.baseUrl}
+                        deleteItem={this.props.deleteItem}
                         featuredItemId={this.props.featuredItemId}
                         isShowingMetadata={this.props.isShowingMetadata} 
                         item={this.props.item} 

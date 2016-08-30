@@ -248,41 +248,6 @@ a {
   display: block;
 }
 
-.metadata {
-  background-color: rgba(0, 0, 0, 0.75);
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  display: block;
-  will-change: transform;
-
-  .controls {
-    @include font-20;
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 34px;
-    text-align: right;
-    text-transform: lowercase;
-    padding: 0 20px 10px 0;
-
-    a {
-      display: inline-block;
-      color: $purple;
-      margin-left: 20px;
-
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-  }
-}
 
 .should-allow-drag-and-resize .react-resizable-handle {
   display: block;
@@ -298,6 +263,7 @@ a {
   }
 }
 
+@import 'metadata';
 @import 'app-control';
 @import 'sort';
 @import 'text';
