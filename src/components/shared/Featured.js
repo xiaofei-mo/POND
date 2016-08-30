@@ -19,24 +19,30 @@
 
 import React from 'react'
 
-export default class SaveControl extends React.Component {
+export default class Featured extends React.Component {
   constructor() {
     super()
-    this._handleClick = this._handleClick.bind(this)
+    this._handleChange = this._handleChange.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleClick(event) {
-    event.preventDefault()
-    console.log('this.props.item.get(id) = ', this.props.item.get('id'))
+  _handleChange(event) {
+    this.props.setFeaturedTiming(this.props.item.get('timing'))
   }
   render() {
-    if (!this.props.userIsOwner) {
-      return null
+    const isChecked = this.props.featuredTiming === this.props.item.get('timing')
+    if (this.props.userIsOwner) {
+      return (
+        <label>
+          <span>Featured? </span>
+          <input checked={isChecked} onChange={this._handleChange} type='checkbox' />
+        </label>
+      )
     }
     return (
-      <a className='save-control' href='#' onClick={this._handleClick}>
-        Save
-      </a>
+      <label>
+        <span>Featured? </span>
+        <input checked={isChecked} disabled readOnly type='checkbox'  />
+      </label>
     )
   }
 }

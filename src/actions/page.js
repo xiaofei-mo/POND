@@ -77,6 +77,21 @@ export default {
     }
   },
 
+  listenToFeaturedTiming: () => {
+    return (dispatch, getState) => {
+      const featuredTimingRef = firebase.database().ref().child('featuredTiming')
+      featuredTimingRef.on('value', (featuredTimingSnapshot) => {
+        const featuredTiming = featuredTimingSnapshot.val()
+        dispatch({
+          type: A.RECEIVED_FEATURED_TIMING, 
+          payload: Immutable.Map({
+            featuredTiming: featuredTiming
+          })
+        })
+      })
+    }
+  },
+
   listenToItems: (timingOrUsername) => {
     return (dispatch, getState) => {
       const timingSeconds = getSecondsFromString(timingOrUsername)
@@ -91,7 +106,22 @@ export default {
       _listenToFeatured(dispatch)
     }
   },
-  
+
+  setFeaturedTiming: (featuredTimingToSet) => {
+    return (dispatch, getState) => {
+      const featuredTimingRef = firebase.database().ref().child('featuredTiming')
+      featuredTimingRef.once('value', (featuredTimingSnapshot) => {
+        const featuredTiming = featuredTimingSnapshot.val()
+        if (featuredTiming === featuredTimingToSet) {
+          featuredTimingRef.remove()
+        }
+        else {
+          featuredTimingRef.set(featuredTimingToSet)
+        }
+      })
+    }
+  },
+
   setItemPosition: (id, x, y) => {
     return (dispatch, getState) => {
       firebase.database().ref().child('items').child(id).update({

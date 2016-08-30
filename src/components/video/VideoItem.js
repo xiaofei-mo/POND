@@ -294,8 +294,10 @@ export default class VideoItem extends React.Component {
             <div className={this._getClassName()} style={this.state.style}>
               {video}
               <Metadata deleteItem={this.props.deleteItem}
+                        featuredTiming={this.props.featuredTiming}
                         isShowingMetadata={this.props.isShowingMetadata} 
                         item={this.props.item} 
+                        setFeaturedTiming={this.props.setFeaturedTiming}
                         user={this.props.user} />
             </div>
         </Resizable>

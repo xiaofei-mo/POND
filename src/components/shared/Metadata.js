@@ -18,39 +18,41 @@
  */
 
 import DeleteControl from './DeleteControl'
+import Featured from './Featured'
 import React from 'react'
 import SaveControl from './SaveControl'
 
 export default class Metadata extends React.Component {
   constructor() {
     super()
-    // this._handleClick = this._handleClick.bind(this)
     this.render = this.render.bind(this)
   }
-  // _handleClick(event) {
-  //   event.preventDefault()
-  //   this.refs.url.select()
-  // }
   render() {
     if (!this.props.isShowingMetadata) {
       return null
     }
+    let userIsOwner = false
+    if (!this.props.user.isEmpty() &&
+        this.props.user.get('uid') === this.props.item.get('userId')) {
+      userIsOwner = true
+    }
     return (
       <div className='metadata'>
+        <ul>
+          <li>
+            <Featured featuredTiming={this.props.featuredTiming} 
+                      item={this.props.item} 
+                      setFeaturedTiming={this.props.setFeaturedTiming} 
+                      userIsOwner={userIsOwner} />
+          </li>
+        </ul>
         <div className='controls'>
-          <SaveControl item={this.props.item}
-                       user={this.props.user} />
+          <SaveControl userIsOwner={userIsOwner} />
           <DeleteControl deleteItem={this.props.deleteItem} 
                          item={this.props.item} 
-                         user={this.props.user} />
+                         userIsOwner={userIsOwner} />
         </div>
       </div>
     )
   }
 }
-
-        // <textarea className='url' 
-        //           defaultValue={this.props.item.get('url')}
-        //           onClick={this._handleClick} 
-        //           readOnly
-        //           ref='url' />

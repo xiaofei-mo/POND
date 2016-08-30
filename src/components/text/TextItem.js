@@ -254,8 +254,10 @@ export default class TextItem extends React.Component {
           {content}
         </div>
         <Metadata deleteItem={this.props.deleteItem}
+                  featuredTiming={this.props.featuredTiming}
                   isShowingMetadata={this.props.isShowingMetadata} 
                   item={this.props.item} 
+                  setFeaturedTiming={this.props.setFeaturedTiming}
                   user={this.props.user} />
       </div>
     )
