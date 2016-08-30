@@ -40,9 +40,9 @@ export default class Metadata extends React.Component {
       <div className='metadata'>
         <ul>
           <li>
-            <Featured featuredTiming={this.props.featuredTiming} 
+            <Featured featuredItemId={this.props.featuredItemId} 
                       item={this.props.item} 
-                      setFeaturedTiming={this.props.setFeaturedTiming} 
+                      setFeaturedItemId={this.props.setFeaturedItemId} 
                       userIsOwner={userIsOwner} />
           </li>
         </ul>

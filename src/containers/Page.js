@@ -69,7 +69,7 @@ class Page extends React.Component {
     }
   }
   componentDidMount() {
-    this.props.listenToFeaturedTiming()
+    this.props.listenToFeaturedItemId()
     this.props.listenToItems(this.props.params.timingOrUsername)
     this.scrollerNode = document.getElementById('scroller')
   }
@@ -99,19 +99,19 @@ class Page extends React.Component {
       switch (item.get('type')) {
         case 'text':
           return <TextItem deleteItem={this.props.deleteItem}
-                           featuredTiming={this.props.featuredTiming}
+                           featuredItemId={this.props.featuredItemId}
                            id={key} 
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
                            key={key} 
-                           setFeaturedTiming={this.props.setFeaturedTiming}
+                           setFeaturedItemId={this.props.setFeaturedItemId}
                            setItemPosition={this.props.setItemPosition} 
                            setItemSize={this.props.setItemSize}
                            setTextItemRawState={this.props.setTextItemRawState} 
                            user={this.props.user} />
         case 'video':
           return <VideoItem deleteItem={this.props.deleteItem}
-                            featuredTiming={this.props.featuredTiming}
+                            featuredItemId={this.props.featuredItemId}
                             halfway={this.props.halfway}
                             height={this.props.height}
                             id={key}
@@ -121,7 +121,7 @@ class Page extends React.Component {
                             leftEdgeOfViewport={this.props.leftEdgeOfViewport}
                             paddingLeft={this.props.paddingLeft}
                             rightEdgeOfViewport={this.props.rightEdgeOfViewport}
-                            setFeaturedTiming={this.props.setFeaturedTiming}
+                            setFeaturedItemId={this.props.setFeaturedItemId}
                             setItemPosition={this.props.setItemPosition}
                             setItemSize={this.props.setItemSize} 
                             user={this.props.user} />
@@ -146,7 +146,7 @@ function mapStateToProps (state) {
   return {
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
-    featuredTiming: state.getIn(['page', 'featuredTiming']),
+    featuredItemId: state.getIn(['page', 'featuredItemId']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
@@ -166,9 +166,9 @@ function mapDispatchToProps (dispatch) {
     createTextItem: bindActionCreators(actions.createTextItem, dispatch),
     deleteItem: bindActionCreators(actions.deleteItem, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
-    listenToFeaturedTiming: bindActionCreators(actions.listenToFeaturedTiming, dispatch),
+    listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
-    setFeaturedTiming: bindActionCreators(actions.setFeaturedTiming, dispatch),
+    setFeaturedItemId: bindActionCreators(actions.setFeaturedItemId, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
     setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch)

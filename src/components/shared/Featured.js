@@ -26,10 +26,10 @@ export default class Featured extends React.Component {
     this.render = this.render.bind(this)
   }
   _handleChange(event) {
-    this.props.setFeaturedTiming(this.props.item.get('timing'))
+    this.props.setFeaturedItemId(this.props.item.get('id'))
   }
   render() {
-    const isChecked = this.props.featuredTiming === this.props.item.get('timing')
+    const isChecked = this.props.featuredItemId === this.props.item.get('id')
     if (this.props.userIsOwner) {
       return (
         <label>

@@ -77,15 +77,15 @@ export default {
     }
   },
 
-  listenToFeaturedTiming: () => {
+  listenToFeaturedItemId: () => {
     return (dispatch, getState) => {
-      const featuredTimingRef = firebase.database().ref().child('featuredTiming')
-      featuredTimingRef.on('value', (featuredTimingSnapshot) => {
-        const featuredTiming = featuredTimingSnapshot.val()
+      const featuredItemIdRef = firebase.database().ref().child('featuredItemId')
+      featuredItemIdRef.on('value', (featuredItemIdSnapshot) => {
+        const featuredItemId = featuredItemIdSnapshot.val()
         dispatch({
-          type: A.RECEIVED_FEATURED_TIMING, 
+          type: A.RECEIVED_FEATURED_ITEM_ID, 
           payload: Immutable.Map({
-            featuredTiming: featuredTiming
+            featuredItemId: featuredItemId
           })
         })
       })
@@ -107,16 +107,16 @@ export default {
     }
   },
 
-  setFeaturedTiming: (featuredTimingToSet) => {
+  setFeaturedItemId: (featuredItemIdToSet) => {
     return (dispatch, getState) => {
-      const featuredTimingRef = firebase.database().ref().child('featuredTiming')
-      featuredTimingRef.once('value', (featuredTimingSnapshot) => {
-        const featuredTiming = featuredTimingSnapshot.val()
-        if (featuredTiming === featuredTimingToSet) {
-          featuredTimingRef.remove()
+      const featuredItemIdRef = firebase.database().ref().child('featuredItemId')
+      featuredItemIdRef.once('value', (featuredItemIdSnapshot) => {
+        const featuredItemId = featuredItemIdSnapshot.val()
+        if (featuredItemId === featuredItemIdToSet) {
+          featuredItemIdRef.remove()
         }
         else {
-          featuredTimingRef.set(featuredTimingToSet)
+          featuredItemIdRef.set(featuredItemIdToSet)
         }
       })
     }
@@ -161,32 +161,46 @@ export default {
 
 const _listenToFeatured = (dispatch) => {
   const ref = firebase.database().ref()
-  const featuredTimingRef = ref.child('featuredTiming')
-  featuredTimingRef.once('value', (featuredTimingSnapshot) => {
-    const featuredTiming = featuredTimingSnapshot.val()
-    let itemsRef = ref.child('items')
-    const destinationItemRef = itemsRef.orderByChild('timing').equalTo(featuredTiming)
-    destinationItemRef.once('value', (destinationItemSnapshot) => {
-      if (destinationItemSnapshot.numChildren() !== 1) {
-        // We did not receive any items, so don't do anything. Perhaps we could
-        // display a 404 here.
-        return
-      }
-      const destinationItem = destinationItemSnapshot.val()
-      const itemId = Object.keys(destinationItem)[0]
-      const pageId = destinationItem[itemId]['pageId']
-      itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId)
-      itemsRef.on('value', (itemsSnapshot) => {
-        dispatch({
-          type: A.RECEIVED_ITEMS, 
-          payload: Immutable.Map({
-            destinationItem: Immutable.fromJS(destinationItem[itemId]),
-            items: Immutable.fromJS(itemsSnapshot.val()),
-            pageId: pageId
-          })
+  let itemsRef = ref.child('items')
+
+  const _handleDestinationItem = (destinationItem) => {
+    const pageId = destinationItem['pageId']
+    itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId)
+    itemsRef.on('value', (itemsSnapshot) => {
+      dispatch({
+        type: A.RECEIVED_ITEMS, 
+        payload: Immutable.Map({
+          destinationItem: Immutable.fromJS(destinationItem),
+          items: Immutable.fromJS(itemsSnapshot.val()),
+          pageId: pageId
         })
       })
-    })    
+    })
+  }
+
+  const featuredItemIdRef = ref.child('featuredItemId')
+  featuredItemIdRef.once('value', (featuredItemIdSnapshot) => {
+    const featuredItemId = featuredItemIdSnapshot.val()
+    if (featuredItemId !== null) {
+      const destinationItemRef = itemsRef.child(featuredItemId)
+      destinationItemRef.once('value', (destinationItemSnapshot) => {
+        _handleDestinationItem(destinationItemSnapshot.val())
+      })
+    }
+    // We don't have a featuredItemId, so just pick a random item and use that
+    // as the destination item.
+    else {
+      itemsRef.once('value', (itemsSnapshot) => {
+        let i = 0
+        const rand = Math.floor(Math.random() * itemsSnapshot.numChildren())
+        itemsSnapshot.forEach((itemSnapshot) => {
+          if (i === rand) {
+            _handleDestinationItem(itemSnapshot.val())
+          }
+          i += 1
+        })
+      })
+    }
   })
 }
 

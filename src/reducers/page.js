@@ -23,7 +23,7 @@ import Immutable from 'immutable'
 const initialState = Immutable.Map({
   baseUrl: '',
   destinationItem: Immutable.Map(),
-  featuredTiming: null,
+  featuredItemId: null,
   height: 0,
   items: Immutable.Map(),
   pageId: null,
@@ -40,9 +40,8 @@ export default function pageReducer (state = initialState, action) {
     case A.RECEIVED_BASE_URL:
       return state.set('baseUrl', action.payload.get('baseUrl'))
 
-    case A.RECEIVED_FEATURED_TIMING:
-      console.log('RECEIVED_FEATURED_TIMING')
-      return state.set('featuredTiming', action.payload.get('featuredTiming'))
+    case A.RECEIVED_FEATURED_ITEM_ID:
+      return state.set('featuredItemId', action.payload.get('featuredItemId'))
 
     case A.RECEIVED_ITEMS:
       return state.merge({
