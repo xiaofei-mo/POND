@@ -18,25 +18,26 @@
  */
 
 import React from 'react'
+import getStringFromSeconds from '../../utils/getStringFromSeconds'
 
-export default class SaveControl extends React.Component {
+export default class Duration extends React.Component {
   constructor() {
     super()
-    this._handleClick = this._handleClick.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleClick(event) {
-    event.preventDefault()
-    console.log('this.props.item.get(id) = ', this.props.item.get('id'))
-  }
   render() {
-    if (!this.props.userIsOwner) {
-      return null
+    let duration = this.props.item.getIn(['results', 'encode', 'meta', 'duration'], '')
+    if (duration !== '') {
+      duration = Math.floor(duration)
+      duration = getStringFromSeconds(duration)
     }
     return (
-      <a className='save-control' href='#' onClick={this._handleClick}>
-        Save
-      </a>
+      <li>
+        <label>
+          <span>Duration</span>
+          <input readOnly tabIndex='-1' type='text' value={duration} />
+        </label>
+      </li>
     )
   }
 }

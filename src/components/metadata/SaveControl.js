@@ -17,37 +17,29 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.video-item {
-  position: absolute;
-  display: block;
-  z-index: 3;
+import React from 'react'
 
-  .video {
-    z-index: 3;
-    position: relative;
+export default class SaveControl extends React.Component {
+  constructor() {
+    super()
+    this._handleClick = this._handleClick.bind(this)
+    this.render = this.render.bind(this)
   }
-
-  &.most-recently-touched {
-    z-index: 4;
+  _handleClick(event) {
+    event.preventDefault()
+    this.props.saveMetadata()
   }
-
-  .react-resizable-handle {
-    bottom: 0;
-    right: 0;
+  render() {
+    if (!this.props.userIsOwner) {
+      return null
+    }
+    return (
+      <a className='save-control' 
+         href='#' 
+         onClick={this._handleClick} 
+         tabIndex='-1'>
+        Save
+      </a>
+    )
   }
-
-  .obstructor {
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 4;
-  }
-}
-
-video {
-  width: 100%; 
-  height: 100%; 
 }

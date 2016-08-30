@@ -26,23 +26,34 @@ export default class Featured extends React.Component {
     this.render = this.render.bind(this)
   }
   _handleChange(event) {
-    this.props.setFeaturedItemId(this.props.item.get('id'))
+    this.props.updateFeaturedItemId(this.props.item.get('id'))
   }
   render() {
     const isChecked = this.props.featuredItemId === this.props.item.get('id')
     if (this.props.userIsOwner) {
       return (
-        <label>
-          <span>Featured? </span>
-          <input checked={isChecked} onChange={this._handleChange} type='checkbox' />
-        </label>
+        <li>
+          <label>
+            <span>Featured?</span>
+            <input checked={isChecked} 
+                   onChange={this._handleChange} 
+                   tabIndex='-1' 
+                   type='checkbox' />
+          </label>
+        </li>
       )
     }
     return (
-      <label>
-        <span>Featured? </span>
-        <input checked={isChecked} disabled readOnly type='checkbox'  />
-      </label>
+      <li>
+        <label>
+          <span>Featured?</span>
+          <input checked={isChecked} 
+                 disabled 
+                 readOnly 
+                 tabIndex='-1' 
+                 type='checkbox'  />
+        </label>
+      </li>
     )
   }
 }

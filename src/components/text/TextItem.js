@@ -21,7 +21,7 @@ import { C } from '../../constants'
 import { DraggableCore } from 'react-draggable'
 import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
 import { Link } from 'react-router'
-import Metadata from '../shared/Metadata'
+import Metadata from '../metadata/Metadata'
 import React from 'react'
 import { Resizable } from 'react-resizable'
 import { stateToHTML } from 'draft-js-export-html'
@@ -256,9 +256,11 @@ export default class TextItem extends React.Component {
         <Metadata baseUrl={this.props.baseUrl}
                   deleteItem={this.props.deleteItem}
                   featuredItemId={this.props.featuredItemId}
+                  hideMetadata={this.props.hideMetadata}
                   isShowingMetadata={this.props.isShowingMetadata} 
                   item={this.props.item} 
                   setFeaturedItemId={this.props.setFeaturedItemId}
+                  setItemMetadata={this.props.setItemMetadata}
                   user={this.props.user} />
       </div>
     )

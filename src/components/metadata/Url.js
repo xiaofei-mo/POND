@@ -17,37 +17,24 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.video-item {
-  position: absolute;
-  display: block;
-  z-index: 3;
+import React from 'react'
+import getStringFromSeconds from '../../utils/getStringFromSeconds'
 
-  .video {
-    z-index: 3;
-    position: relative;
+export default class Url extends React.Component {
+  constructor() {
+    super()
+    this.render = this.render.bind(this)
   }
-
-  &.most-recently-touched {
-    z-index: 4;
+  render() {
+    const timingString = getStringFromSeconds(this.props.item.get('timing'))
+    const url = this.props.baseUrl + timingString
+    return (
+      <li>
+        <label>
+          <span>URL</span>
+          <input readOnly tabIndex='-1' type='text' value={url} />
+        </label>
+      </li>
+    )
   }
-
-  .react-resizable-handle {
-    bottom: 0;
-    right: 0;
-  }
-
-  .obstructor {
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 4;
-  }
-}
-
-video {
-  width: 100%; 
-  height: 100%; 
 }
