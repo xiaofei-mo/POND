@@ -27,6 +27,7 @@
     "filesize": "^3.3.0",
     "firebase": "^3.2.1",
     "immutable": "^3.7.6",
+    "node-uuid": "^1.4.7",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-draggable": "^2.1.2",
@@ -46,8 +47,9 @@
   },
   "scripts": {
     "build": "webpack --minimize",
+    "develop": "nf run nodemon -- --ignore src/ --ignore public/ mysteriousobjectsatnoon.js",
     "export": "nf export --type supervisord --app mysteriousobjectsatnoon --out /etc/supervisor/conf.d",
-    "start": "nf run nodemon -- --ignore src/ --ignore public/ mysteriousobjectsatnoon.js",
+    "start": "node mysteriousobjectsatnoon.js",
     "test": "istanbul cover --report text _mocha -- --compilers js:babel-core/register --recursive test",
     "watch": "webpack --watch"
   }
