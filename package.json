@@ -47,9 +47,8 @@
   },
   "scripts": {
     "build": "webpack --minimize",
-    "develop": "nf run nodemon -- --ignore src/ --ignore public/ mysteriousobjectsatnoon.js",
     "export": "nf export --type supervisord --app mysteriousobjectsatnoon --out /etc/supervisor/conf.d",
-    "start": "node mysteriousobjectsatnoon.js",
+    "start": "nf run nodemon -- --ignore src/ --ignore public/ mysteriousobjectsatnoon.js",
     "test": "istanbul cover --report text _mocha -- --compilers js:babel-core/register --recursive test",
     "watch": "webpack --watch"
   }
