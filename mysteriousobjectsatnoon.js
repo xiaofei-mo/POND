@@ -17,7 +17,5 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// nf run nodemon -- --ignore src/ --ignore public/ index.js
-
 require('babel-core/register');
 require("./server.js");
