@@ -15,21 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM node:latest
-
-# Create app directory.
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-# Install app dependencies.
-COPY package.json /usr/src/app/
-RUN npm install --silent --progress=false -g nodemon
-RUN npm install --silent --progress=false
-
-# Bundle app source.
-COPY . /usr/src/app
-
-# Open up port 5000.
-EXPOSE 5000
-
-CMD ["node", "src/mysteriousobjectsatnoon.js"]
+version: '2'
+services:
+  mysteriousobjectsatnoon:
+    build: .
+    command: nodemon src/mysteriousobjectsatnoon.js
+    env_file:
+      - .env
+    ports:
+      - '5000:5000'
+    volumes: 
+      - ./public:/usr/src/app/public
+      - ./src:/usr/src/app/src

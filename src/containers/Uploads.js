@@ -22,7 +22,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import React from 'react'
 
-export default class Uploads extends React.Component {
+class Uploads extends React.Component {
   constructor() {
     super()
     this.state = {

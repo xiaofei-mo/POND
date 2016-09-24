@@ -17,10 +17,10 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import calculateSignature from './src/utils/calculateSignature'
+import calculateSignature from './utils/calculateSignature'
 import express from 'express'
 import firebase from 'firebase'
-import getExpiresDate from './src/utils/getExpiresDate'
+import getExpiresDate from './utils/getExpiresDate'
 import Immutable from 'immutable'
 import request from 'superagent'
 import tsml from 'tsml'
@@ -36,7 +36,7 @@ firebase.initializeApp({
 })
 const app = express()
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/../public'))
 
 app.get('/get-upload-values', (req, res, next) => {
   const paramsObj = {
@@ -73,7 +73,7 @@ app.get('*', (req, res, next) => {
     <html>
       <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="static/style.css" />
+        <link rel="stylesheet" type="text/css" href="/static/style.css" />
         <script>
           var config=${JSON.stringify(config)}
         </script>
@@ -81,9 +81,9 @@ app.get('*', (req, res, next) => {
       </head>
       <body>
         <div id="mount"></div>
-        <img alt="" class="hidden" src="static/haumea_uploading.gif" />
+        <img alt="" class="hidden" src="/static/haumea_uploading.gif" />
       </body>
-      <script src="static/bundle.js"></script>
+      <script src="/static/bundle.js"></script>
     </html>
   `)
 })

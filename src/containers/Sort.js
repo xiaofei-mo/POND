@@ -27,7 +27,7 @@ import Term from '../components/sort/Term'
 import Terms from '../components/sort/Terms'
 import Vocabulary from '../components/sort/Vocabulary'
 
-export default class Sort extends React.Component {
+class Sort extends React.Component {
   constructor() {
     super()
     this.state = {
