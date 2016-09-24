@@ -57185,6 +57185,11 @@
 	      if (this._shouldAllowDragAndResize()) {
 	        className += ' should-allow-drag-and-resize';
 	      }
+	      if (!this.state.shouldBeRendered) {
+	        className += ' should-show-placeholder';
+	      } else if (this.refs.video !== undefined && this.refs.video.state.loading) {
+	        className += ' should-show-placeholder';
+	      }
 	      return className;
 	    }
 	  }, {
@@ -57321,6 +57326,10 @@
 	      if (!prevState.shouldBeRendered && this.state.shouldBeRendered) {
 	        this._setVolume(0);
 	        this._load();
+	        if (this.savedTime !== undefined) {
+	          // TODO: can we read savedTime from this.state instead?
+	          this.refs.video.seek(this.savedTime);
+	        }
 	      }
 	    }
 	  }, {
@@ -57347,9 +57356,16 @@
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _this2 = this;
 	
+	      var shouldBeRendered = this._shouldBeRendered(nextProps);
 	      this.setState({
-	        shouldBeRendered: this._shouldBeRendered(nextProps)
+	        shouldBeRendered: shouldBeRendered
 	      });
+	      if (shouldBeRendered) {
+	        if (this.refs.video !== undefined) {
+	          // TODO: try storing this in this.state instead of directly on component
+	          this.savedTime = this.refs.video.videoEl.currentTime;
+	        }
+	      }
 	      if (this.props.isShowingMetadata !== nextProps.isShowingMetadata) {
 	        if (nextProps.isShowingMetadata) {
 	          this._setVolume(0);
@@ -57403,24 +57419,24 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (!this.state.shouldBeRendered) {
-	        return null;
-	      }
-	      var video = _react2.default.createElement(
-	        _reactHtml5video2.default,
-	        { loop: true,
-	          onCanPlayThrough: this._handleCanPlayThrough,
-	          preload: 'none',
-	          ref: 'video'
-	        },
-	        _react2.default.createElement('source', { src: (0, _getCloudFrontUrl2.default)(this.props.item.getIn(['results', 'encode', 'ssl_url'])), type: 'video/mp4' })
-	      );
-	      if (this.props.item.get('linkedTo')) {
+	      var video = null;
+	      if (this.state.shouldBeRendered) {
 	        video = _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/' + this.props.item.get('linkedTo'), onClick: this._handleClick },
-	          video
+	          _reactHtml5video2.default,
+	          { loop: true,
+	            onCanPlayThrough: this._handleCanPlayThrough,
+	            preload: 'none',
+	            ref: 'video'
+	          },
+	          _react2.default.createElement('source', { src: (0, _getCloudFrontUrl2.default)(this.props.item.getIn(['results', 'encode', 'ssl_url'])), type: 'video/mp4' })
 	        );
+	        if (this.props.item.get('linkedTo')) {
+	          video = _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' + this.props.item.get('linkedTo'), onClick: this._handleClick },
+	            video
+	          );
+	        }
 	      }
 	      return _react2.default.createElement(
 	        _reactDraggable.DraggableCore,
@@ -60856,4 +60872,5 @@
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

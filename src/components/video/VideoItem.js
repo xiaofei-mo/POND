@@ -74,6 +74,12 @@ export default class VideoItem extends React.Component {
     if (this._shouldAllowDragAndResize()) {
       className += ' should-allow-drag-and-resize'
     }
+    if (!this.state.shouldBeRendered) {
+      className += ' should-show-placeholder'
+    }
+    else if (this.refs.video !== undefined && this.refs.video.state.loading) {
+      className += ' should-show-placeholder'
+    }
     return className
   }
   _handleClick(event) {
@@ -184,6 +190,10 @@ export default class VideoItem extends React.Component {
     if (!prevState.shouldBeRendered && this.state.shouldBeRendered) {
       this._setVolume(0)
       this._load()
+      if (this.savedTime !== undefined) {
+        // TODO: can we read savedTime from this.state instead?
+        this.refs.video.seek(this.savedTime)
+      }
     }
   }
   componentWillMount() {
@@ -204,9 +214,16 @@ export default class VideoItem extends React.Component {
     })
   }
   componentWillReceiveProps(nextProps) {
+    const shouldBeRendered = this._shouldBeRendered(nextProps)
     this.setState({
-      shouldBeRendered: this._shouldBeRendered(nextProps)
+      shouldBeRendered: shouldBeRendered
     })
+    if (shouldBeRendered) {
+      if (this.refs.video !== undefined) {
+        // TODO: try storing this in this.state instead of directly on component
+        this.savedTime = this.refs.video.videoEl.currentTime
+      }
+    }
     if (this.props.isShowingMetadata !== nextProps.isShowingMetadata) {
       if (nextProps.isShowingMetadata) {
         this._setVolume(0)
@@ -262,24 +279,24 @@ export default class VideoItem extends React.Component {
     }
   }
   render() {
-    if (!this.state.shouldBeRendered) {
-      return null
-    }
-    let video = (
-      <Video loop 
-             onCanPlayThrough={this._handleCanPlayThrough}
-             preload='none'
-             ref='video'
-      >
-        <source src={getCloudFrontUrl(this.props.item.getIn(['results', 'encode', 'ssl_url']))} type='video/mp4' />
-      </Video>
-    )
-    if(this.props.item.get('linkedTo')) {
+    let video = null
+    if (this.state.shouldBeRendered) {
       video = (
-        <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
-          {video}
-        </Link>
+        <Video loop 
+               onCanPlayThrough={this._handleCanPlayThrough}
+               preload='none'
+               ref='video'
+        >
+          <source src={getCloudFrontUrl(this.props.item.getIn(['results', 'encode', 'ssl_url']))} type='video/mp4' />
+        </Video>
       )
+      if(this.props.item.get('linkedTo')) {
+        video = (
+          <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
+            {video}
+          </Link>
+        )
+      }
     }
     return (
       <DraggableCore cancel='.react-resizable-handle'

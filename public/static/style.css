@@ -830,11 +830,15 @@ a {
   position: absolute;
   display: block;
   z-index: 3; }
+  .video-item.most-recently-touched {
+    z-index: 4; }
+  .video-item.should-show-placeholder {
+    background-color: #505a6a; }
+  .video-item.is-showing-metadata {
+    background-color: transparent; }
   .video-item .video {
     z-index: 3;
     position: relative; }
-  .video-item.most-recently-touched {
-    z-index: 4; }
   .video-item .react-resizable-handle {
     bottom: 0;
     right: 0; }
