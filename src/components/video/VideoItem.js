@@ -179,8 +179,9 @@ export default class VideoItem extends React.Component {
   _shouldBeRendered(props) {
     const zoneLeft = props.item.get('x') + props.paddingLeft
     const zoneRight = props.item.get('x') + props.item.get('width') + props.paddingLeft
-    return zoneLeft > props.leftEdgeOfViewport && zoneLeft < props.rightEdgeOfViewport || 
-           zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport
+    const zoneLeftIsInViewport = zoneLeft > props.leftEdgeOfViewport && zoneLeft < props.rightEdgeOfViewport
+    const zoneRightIsInViewport = zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport
+    return zoneLeftIsInViewport || zoneRightIsInViewport
   }
   componentDidMount() {
     this._setVolume(0)

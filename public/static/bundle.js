@@ -10012,7 +10012,10 @@
 	  }, {
 	    key: '_handleScroll',
 	    value: function _handleScroll(event) {
-	      this.props.handleScroll(event.target.scrollLeft);
+	      // We need to use currentTarget because that is the value that points to 
+	      // the overall App workspace, not other scrollable things (like an item's
+	      // metadata).
+	      this.props.handleScroll(event.currentTarget.scrollLeft);
 	    }
 	  }, {
 	    key: '_handleWheel',
@@ -57566,7 +57569,9 @@
 	    value: function _shouldBeRendered(props) {
 	      var zoneLeft = props.item.get('x') + props.paddingLeft;
 	      var zoneRight = props.item.get('x') + props.item.get('width') + props.paddingLeft;
-	      return zoneLeft > props.leftEdgeOfViewport && zoneLeft < props.rightEdgeOfViewport || zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport;
+	      var zoneLeftIsInViewport = zoneLeft > props.leftEdgeOfViewport && zoneLeft < props.rightEdgeOfViewport;
+	      var zoneRightIsInViewport = zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport;
+	      return zoneLeftIsInViewport || zoneRightIsInViewport;
 	    }
 	  }, {
 	    key: 'componentDidMount',

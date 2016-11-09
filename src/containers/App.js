@@ -58,7 +58,10 @@ class App extends React.Component {
     }
   }
   _handleScroll(event) {
-    this.props.handleScroll(event.target.scrollLeft)
+    // We need to use currentTarget because that is the value that points to 
+    // the overall App workspace, not other scrollable things (like an item's
+    // metadata).
+    this.props.handleScroll(event.currentTarget.scrollLeft)
   }
   _handleWheel(event) {
     // We need to use `getElementById` here because the Dropzone component makes
