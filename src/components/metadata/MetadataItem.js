@@ -25,7 +25,6 @@ export default class MetadataItem extends React.Component {
     super()
     this._handleChange = this._handleChange.bind(this)
     this._handleKeyDown = this._handleKeyDown.bind(this)
-    this.componentDidMount = this.componentDidMount.bind(this)
     this.render = this.render.bind(this)
   }
   _handleChange(event) {
@@ -42,11 +41,6 @@ export default class MetadataItem extends React.Component {
         event.preventDefault()
         this.props.hideMetadata()
         break
-    }
-  }
-  componentDidMount() {
-    if (this.props.tabIndex === 1) {
-      this.refs.input.focus()
     }
   }
   render() {
