@@ -27,7 +27,7 @@ export default class SaveControl extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    this.props.saveMetadata()
+    this.props.saveComponentMetadata()
   }
   render() {
     if (!this.props.userIsOwner) {

@@ -10,9 +10,9 @@
   display: block;
   will-change: transform;
   overflow-y: scroll;
+
   li {
-    display: inline-block;
-    margin-right: 20px;
+    display: block;
   }
   
   label {
@@ -32,7 +32,6 @@
   .controls {
     @include font-20;
     margin-top: 20px;
-    text-align: right;
     
     a {
       display: inline-block;

@@ -29,13 +29,13 @@ export default class MetadataItem extends React.Component {
   }
   _handleChange(event) {
     event.preventDefault()
-    this.props.updateMetadata(this.props.name, event.target.value)
+    this.props.updateComponentMetadata(this.props.name, event.target.value)
   }
   _handleKeyDown(event) {
     switch (event.which) {
       case 13: 
         event.preventDefault()
-        this.props.saveMetadata()
+        this.props.saveComponentMetadata()
         break
       case 27:
         event.preventDefault()
@@ -44,7 +44,7 @@ export default class MetadataItem extends React.Component {
     }
   }
   render() {
-    let value = this.props.metadata.get(this.props.name)
+    let value = this.props.componentMetadata.get(this.props.name)
     if (!this.props.userIsOwner) {
       return (
         <li>
@@ -53,7 +53,6 @@ export default class MetadataItem extends React.Component {
             <input disabled
                    readOnly 
                    ref='input'
-                   tabIndex={this.props.tabIndex}
                    type='text' 
                    value={value} />
           </label>
@@ -67,7 +66,6 @@ export default class MetadataItem extends React.Component {
           <input onChange={this._handleChange} 
                  onKeyDown={this._handleKeyDown}
                  ref='input'
-                 tabIndex={this.props.tabIndex}
                  type='text' 
                  value={value} />
         </label>
