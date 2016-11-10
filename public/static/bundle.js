@@ -55071,7 +55071,6 @@
 	                if (key === 'title' || key === 'year') {
 	                  componentMetadata = componentMetadata.set(key, value);
 	                } else {
-	                  console.log('value = ', value);
 	                  componentMetadata = componentMetadata.set(key, value.toJS().join(', '));
 	                }
 	              });
@@ -61721,5 +61720,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map
