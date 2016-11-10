@@ -45,6 +45,7 @@ export default class Metadata extends React.Component {
   }
   _saveMetadata() {
     let metadata = Immutable.Map()
+    console.log('_saveMetadata, this.state.metadata.toJS() = ', this.state.metadata.toJS())
     this.state.metadata.forEach((value, key) => {
       if (key === 'title' || key === 'year') {
         value = value.trim()
@@ -67,6 +68,7 @@ export default class Metadata extends React.Component {
     if (this.state.featuredItemId !== this.props.featuredItemId) {
       this.props.setFeaturedItemId(this.props.item.get('id'))
     }
+    console.log('_saveMetadata, saving metadata ', metadata.toJS())
     this.props.setItemMetadata(this.props.item.get('id'), metadata)
   }
   _updateFeaturedItemId(featuredItemId) {
