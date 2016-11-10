@@ -568,6 +568,22 @@ a {
     color: #ffffff;
     background-color: transparent;
     border: none; }
+  .metadata .copy-url {
+    position: relative;
+    height: 20px;
+    display: block; }
+    .metadata .copy-url .target {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      opacity: 0; }
+    .metadata .copy-url a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #5540e2;
+      z-index: 2; }
   .metadata .controls {
     font-size: 20px;
     line-height: 24px;

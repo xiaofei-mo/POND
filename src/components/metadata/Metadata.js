@@ -24,7 +24,7 @@ import Immutable from 'immutable'
 import MetadataItem from './MetadataItem'
 import React from 'react'
 import SaveControl from './SaveControl'
-import Url from './Url'
+import CopyUrl from './CopyUrl'
 
 export default class Metadata extends React.Component {
   constructor() {
@@ -122,7 +122,6 @@ export default class Metadata extends React.Component {
     return (
       <form className='metadata' onWheel={this._handleWheel}>
         <ul>
-          <Url baseUrl={this.props.baseUrl} item={this.props.item} />
           {_getMetadataItem('Title', 'title')}
           {_getMetadataItem('Year', 'year')}
           <Duration item={this.props.item} />
@@ -130,6 +129,7 @@ export default class Metadata extends React.Component {
                     item={this.props.item} 
                     updateFeaturedItemId={this._updateFeaturedItemId} 
                     userIsOwner={userIsOwner} />
+          <CopyUrl baseUrl={this.props.baseUrl} item={this.props.item} />
         </ul>
         <div className='controls'>
           <SaveControl saveComponentMetadata={this._saveComponentMetadata}
