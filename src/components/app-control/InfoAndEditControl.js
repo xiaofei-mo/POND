@@ -35,7 +35,12 @@ export default class InfoAndEditControl extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    this.props.showMetadata()
+    if (!this.props.isShowingMetadata) {
+      this.props.showMetadata()
+    }
+    else {
+      this.props.hideMetadata()
+    }
   }
   _handleDragStart(event) {
     event.preventDefault()

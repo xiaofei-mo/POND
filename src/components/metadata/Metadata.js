@@ -46,11 +46,23 @@ export default class Metadata extends React.Component {
   _saveComponentMetadata() {
     let metadata = Immutable.Map()
     this.state.componentMetadata.forEach((value, key) => {
-      value = value.trim()
-      if (value === '') {
-        value = null
+      if (key === 'title' || key === 'year') {
+        value = value.trim()
+        if (value === '') {
+          value = null
+        }
+        metadata = metadata.set(key, value)
       }
-      metadata = metadata.set(key, value)
+      else {
+        let unserializedValues = Immutable.fromJS(value.split(',').map((v) => {
+          v = v.trim()
+          if (v === '') {
+            return null
+          }
+          return v
+        }))
+        metadata = metadata.set(key, unserializedValues)
+      }
     })
     if (this.state.featuredItemId !== this.props.featuredItemId) {
       this.props.setFeaturedItemId(this.props.item.get('id'))
@@ -79,11 +91,24 @@ export default class Metadata extends React.Component {
       if (!this.state.componentMetadataAlreadySet) {
         let componentMetadata = Immutable.Map({
           title: '',
-          year: ''
+          year: '',
+          things: '',
+          textures: '',
+          forms: '',
+          movements: '',
+          emotions: '',
+          concepts: '',
+          source: '',
+          other: ''
         })
         if (nextProps.item.get('metadata') !== undefined) {
           nextProps.item.get('metadata').forEach((value, key) => {
-            componentMetadata = componentMetadata.set(key, value)
+            if (key === 'title' || key === 'year') {
+              componentMetadata = componentMetadata.set(key, value)
+            }
+            else {
+              componentMetadata = componentMetadata.set(key, value.toJS().join(', '))
+            }
           })
         }
         this.setState({
@@ -125,6 +150,14 @@ export default class Metadata extends React.Component {
           {_getMetadataItem('Title', 'title')}
           {_getMetadataItem('Year', 'year')}
           <Duration item={this.props.item} />
+          {_getMetadataItem('Things', 'things')}
+          {_getMetadataItem('Textures', 'textures')}
+          {_getMetadataItem('Forms', 'forms')}
+          {_getMetadataItem('Movements', 'movements')}
+          {_getMetadataItem('Emotions', 'emotions')}
+          {_getMetadataItem('Concepts', 'concepts')}
+          {_getMetadataItem('Source', 'source')}
+          {_getMetadataItem('Other', 'other')}
           <Featured featuredItemId={this.state.featuredItemId} 
                     item={this.props.item} 
                     updateFeaturedItemId={this._updateFeaturedItemId} 

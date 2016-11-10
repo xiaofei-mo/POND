@@ -91,7 +91,9 @@ class App extends React.Component {
                                       params={this.props.params} 
                                       user={this.props.user} 
                                       userIsLoaded={this.props.userIsLoaded} />
-          <InfoAndEditControl showMetadata={this.props.showMetadata} 
+          <InfoAndEditControl hideMetadata={this.props.hideMetadata}
+                              isShowingMetadata={this.props.isShowingMetadata}
+                              showMetadata={this.props.showMetadata} 
                               uploads={this.props.uploads}
                               windowHeight={this.props.windowHeight}
                               windowWidth={this.props.windowWidth} />
@@ -114,6 +116,7 @@ class App extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     login: state.getIn(['app', 'login']),
     paddingLeft: getPaddingLeft(state),
     pageId: state.getIn(['page', 'pageId']),
@@ -132,6 +135,7 @@ function mapDispatchToProps (dispatch) {
     closeLogin: bindActionCreators(actions.closeLogin, dispatch),
     handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
+    hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
     openLogin: bindActionCreators(actions.openLogin, dispatch),

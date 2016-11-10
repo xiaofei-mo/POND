@@ -17,9 +17,16 @@
   
   label {
     color: $purple;
+    display: block;
+    width: 100%;
+    @extend %clearfix;
 
     span {
-      margin-right: 5px;
+      display: block;
+      float: left;
+      width: 20%;
+      height: 20px;
+      line-height: 20px;
     }
   }
 
@@ -27,6 +34,10 @@
     color: $white;
     background-color: transparent;
     border: none;
+    display: block;
+    float: left;
+    width: 80%;
+    padding: 0;
   }
 
   .copy-url {

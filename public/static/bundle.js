@@ -10054,7 +10054,9 @@
 	            params: this.props.params,
 	            user: this.props.user,
 	            userIsLoaded: this.props.userIsLoaded }),
-	          _react2.default.createElement(_InfoAndEditControl2.default, { showMetadata: this.props.showMetadata,
+	          _react2.default.createElement(_InfoAndEditControl2.default, { hideMetadata: this.props.hideMetadata,
+	            isShowingMetadata: this.props.isShowingMetadata,
+	            showMetadata: this.props.showMetadata,
 	            uploads: this.props.uploads,
 	            windowHeight: this.props.windowHeight,
 	            windowWidth: this.props.windowWidth }),
@@ -10087,6 +10089,7 @@
 	
 	function mapStateToProps(state) {
 	  return {
+	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    login: state.getIn(['app', 'login']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    pageId: state.getIn(['page', 'pageId']),
@@ -10105,6 +10108,7 @@
 	    closeLogin: (0, _redux.bindActionCreators)(_actions2.default.closeLogin, dispatch),
 	    handleDroppedFiles: (0, _redux.bindActionCreators)(_actions2.default.handleDroppedFiles, dispatch),
 	    handleScroll: (0, _redux.bindActionCreators)(_actions2.default.handleScroll, dispatch),
+	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
 	    listenToAuth: (0, _redux.bindActionCreators)(_actions2.default.listenToAuth, dispatch),
 	    logout: (0, _redux.bindActionCreators)(_actions2.default.logout, dispatch),
 	    openLogin: (0, _redux.bindActionCreators)(_actions2.default.openLogin, dispatch),
@@ -16512,7 +16516,11 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      this.props.showMetadata();
+	      if (!this.props.isShowingMetadata) {
+	        this.props.showMetadata();
+	      } else {
+	        this.props.hideMetadata();
+	      }
 	    }
 	  }, {
 	    key: '_handleDragStart',
@@ -54996,11 +55004,22 @@
 	    value: function _saveComponentMetadata() {
 	      var metadata = _immutable2.default.Map();
 	      this.state.componentMetadata.forEach(function (value, key) {
-	        value = value.trim();
-	        if (value === '') {
-	          value = null;
+	        if (key === 'title' || key === 'year') {
+	          value = value.trim();
+	          if (value === '') {
+	            value = null;
+	          }
+	          metadata = metadata.set(key, value);
+	        } else {
+	          var unserializedValues = _immutable2.default.fromJS(value.split(',').map(function (v) {
+	            v = v.trim();
+	            if (v === '') {
+	              return null;
+	            }
+	            return v;
+	          }));
+	          metadata = metadata.set(key, unserializedValues);
 	        }
-	        metadata = metadata.set(key, value);
 	      });
 	      if (this.state.featuredItemId !== this.props.featuredItemId) {
 	        this.props.setFeaturedItemId(this.props.item.get('id'));
@@ -55037,11 +55056,24 @@
 	          (function () {
 	            var componentMetadata = _immutable2.default.Map({
 	              title: '',
-	              year: ''
+	              year: '',
+	              things: '',
+	              textures: '',
+	              forms: '',
+	              movements: '',
+	              emotions: '',
+	              concepts: '',
+	              source: '',
+	              other: ''
 	            });
 	            if (nextProps.item.get('metadata') !== undefined) {
 	              nextProps.item.get('metadata').forEach(function (value, key) {
-	                componentMetadata = componentMetadata.set(key, value);
+	                if (key === 'title' || key === 'year') {
+	                  componentMetadata = componentMetadata.set(key, value);
+	                } else {
+	                  console.log('value = ', value);
+	                  componentMetadata = componentMetadata.set(key, value.toJS().join(', '));
+	                }
 	              });
 	            }
 	            _this2.setState({
@@ -55089,6 +55121,14 @@
 	          _getMetadataItem('Title', 'title'),
 	          _getMetadataItem('Year', 'year'),
 	          _react2.default.createElement(_Duration2.default, { item: this.props.item }),
+	          _getMetadataItem('Things', 'things'),
+	          _getMetadataItem('Textures', 'textures'),
+	          _getMetadataItem('Forms', 'forms'),
+	          _getMetadataItem('Movements', 'movements'),
+	          _getMetadataItem('Emotions', 'emotions'),
+	          _getMetadataItem('Concepts', 'concepts'),
+	          _getMetadataItem('Source', 'source'),
+	          _getMetadataItem('Other', 'other'),
 	          _react2.default.createElement(_Featured2.default, { featuredItemId: this.state.featuredItemId,
 	            item: this.props.item,
 	            updateFeaturedItemId: this._updateFeaturedItemId,

@@ -379,7 +379,7 @@ textarea {
   -webkit-appearance: none; }
 
 .login .email-element > div:after,
-.login .password-element > div:after, .vocabularies:after, .upload-item:after {
+.login .password-element > div:after, .metadata label:after, .vocabularies:after, .upload-item:after {
   content: "";
   display: table;
   clear: both; }
@@ -561,13 +561,23 @@ a {
   .metadata li {
     display: block; }
   .metadata label {
-    color: #5540e2; }
+    color: #5540e2;
+    display: block;
+    width: 100%; }
     .metadata label span {
-      margin-right: 5px; }
+      display: block;
+      float: left;
+      width: 20%;
+      height: 20px;
+      line-height: 20px; }
   .metadata input[type='text'] {
     color: #ffffff;
     background-color: transparent;
-    border: none; }
+    border: none;
+    display: block;
+    float: left;
+    width: 80%;
+    padding: 0; }
   .metadata .copy-url {
     position: relative;
     height: 20px;
