@@ -20,20 +20,13 @@
 import calculateSignature from './utils/calculateSignature'
 import express from 'express'
 import firebase from 'firebase'
+import admin from 'firebase-admin'
 import getExpiresDate from './utils/getExpiresDate'
 import Immutable from 'immutable'
 import request from 'superagent'
 import tsml from 'tsml'
 import uuid from 'node-uuid'
 
-firebase.initializeApp({
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  serviceAccount: {
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY,
-    projectId: process.env.FIREBASE_PROJECT_ID
-  }
-})
 const app = express()
 
 app.use(express.static(__dirname + '/../public'))
@@ -96,7 +89,17 @@ app.listen(5000, function (err) {
   console.log('listening on 5000')
 })
 
-const ref = firebase.database().ref()
+const credential = admin.credential.cert({
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  projectId: process.env.FIREBASE_PROJECT_ID
+})
+admin.initializeApp({
+  credential: credential,
+  databaseURL: process.env.FIREBASE_DATABASE_URL
+})
+
+const ref = admin.database().ref()
 
 const _determineTiming = (encode) => {
   return ref.child('lastTiming').transaction((lastTiming) => {
@@ -148,8 +151,7 @@ const _createItem = (uploadId) => {
   })
 }
 
-const uploadsRef = ref.child('uploads')
-uploadsRef.on('child_changed', (snapshot) => {
+ref.child('uploads').on('child_changed', snapshot => {
   const upload = snapshot.val()
   if (upload === null) {
     return
@@ -178,7 +180,7 @@ const _pollTransloadit = (uploadId, uri) => {
     }
     switch (body.ok) {
       case 'ASSEMBLY_COMPLETED':
-        uploadRef.once('value', (snapshot) => {
+        uploadRef.once('value', snapshot => {
           const upload = snapshot.val()
           if (upload !== null) {
             uploadRef.update({
@@ -193,7 +195,7 @@ const _pollTransloadit = (uploadId, uri) => {
         break
       case 'ASSEMBLY_EXECUTING':
       case 'ASSEMBLY_UPLOADING':
-        uploadRef.once('value', (snapshot) => {
+        uploadRef.once('value', snapshot => {
           const upload = snapshot.val()
           if (upload !== null) {
             uploadRef.update({
@@ -208,3 +210,25 @@ const _pollTransloadit = (uploadId, uri) => {
     }
   })
 }
+
+ref.child('items').on('value', (snapshot) => {
+  const items = Immutable.fromJS(snapshot.val())
+  let vocabularies = Immutable.Map()
+  items.forEach(item => {
+    if (item.has('metadata')) {
+      item.get('metadata').forEach((t, vocabulary) => {
+        if (vocabulary !== 'title' && vocabulary !== 'year') {
+          let terms = Immutable.OrderedSet(t)
+          if (vocabularies.has(vocabulary)) {
+            terms = vocabularies.get(vocabulary).union(terms)
+          }
+          terms = terms.sort()
+          vocabularies = vocabularies.set(vocabulary, terms)
+        }
+      })
+    }
+  })
+  ref.child('vocabularies').set(vocabularies.toJS())
+})
+
+

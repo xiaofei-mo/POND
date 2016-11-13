@@ -27,6 +27,7 @@
     "express": "^4.13.4",
     "filesize": "^3.3.0",
     "firebase": "^3.2.1",
+    "firebase-admin": "^4.0.1",
     "immutable": "^3.7.6",
     "node-uuid": "^1.4.7",
     "react": "^15.2.1",
