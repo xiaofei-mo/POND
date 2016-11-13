@@ -213,6 +213,7 @@ const _pollTransloadit = (uploadId, uri) => {
 
 ref.child('items').on('value', (snapshot) => {
   const items = Immutable.fromJS(snapshot.val())
+  const metadata = items.get('metadata')
   let vocabularies = Immutable.Map()
   items.forEach(item => {
     if (item.has('metadata')) {

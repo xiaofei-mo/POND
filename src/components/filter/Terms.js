@@ -29,8 +29,8 @@ export default class Terms extends React.Component {
     if (!this.props.isOpen) {
       return null
     }
-    const terms = this.props.terms.map((t) => {
-      return <Term key={t.get('name')} name={t.get('name')} />
+    const terms = this.props.terms.map(t => {
+      return <Term key={t} name={t} />
     }).toArray()
     return (
       <ul className='terms'>

@@ -18,6 +18,7 @@
  */
 
 import { A } from '../constants'
+import firebase from '../utils/firebase'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
 
@@ -31,71 +32,55 @@ export default {
 
   listenToVocabularies: () => {
     return (dispatch, getState) => {
-      dispatch({
-        type: A.RECEIVED_VOCABULARIES,
-        payload: Immutable.Map({
-          vocabularies: Immutable.List([
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Color', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Rhythm', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Period', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Things', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Forms', 
-              terms: Immutable.List([
-                Immutable.Map({ name: 'ripple' }), 
-                Immutable.Map({ name: 'bubble' }), 
-                Immutable.Map({ name: 'meteorite' }), 
-                Immutable.Map({ name: 'animals' })
-              ])
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Concepts', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Sensory', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Movement', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Perspective', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'Source', 
-              terms: Immutable.List()
-            }),
-            Immutable.Map({ 
-              isOpen: false,
-              name: 'User', 
-              terms: Immutable.List()
-            })
-          ])
+      const vocabulariesRef = firebase.database().ref().child('vocabularies')
+      vocabulariesRef.on('value', snapshot => {
+        const vocabularies = Immutable.fromJS(snapshot.val())
+        dispatch({
+          type: A.RECEIVED_VOCABULARIES,
+          payload: Immutable.Map({
+            vocabularies: Immutable.List([
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Things', 
+                terms: vocabularies.get('things', Immutable.List())
+              }),
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Textures', 
+                terms: vocabularies.get('textures', Immutable.List())
+              }),
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Forms', 
+                terms: vocabularies.get('forms', Immutable.List())
+              }),
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Movements', 
+                terms: vocabularies.get('movements', Immutable.List())
+              }),
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Emotions', 
+                terms: vocabularies.get('emotions', Immutable.List())
+              }),
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Concepts', 
+                terms: vocabularies.get('concepts', Immutable.List())
+              }),
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Source', 
+                terms: vocabularies.get('source', Immutable.List())
+              }),
+              Immutable.Map({ 
+                isOpen: false,
+                name: 'Other', 
+                terms: vocabularies.get('other', Immutable.List())
+              })
+            ])
+          })
         })
       })
     }

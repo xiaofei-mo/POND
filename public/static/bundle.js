@@ -61133,6 +61133,10 @@
 	
 	var _constants = __webpack_require__(6);
 	
+	var _firebase = __webpack_require__(7);
+	
+	var _firebase2 = _interopRequireDefault(_firebase);
+	
 	var _immutable = __webpack_require__(13);
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
@@ -61140,6 +61144,25 @@
 	var _reactRouterRedux = __webpack_require__(22);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2016 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
 	
 	exports.default = {
 	
@@ -61151,55 +61174,47 @@
 	
 	  listenToVocabularies: function listenToVocabularies() {
 	    return function (dispatch, getState) {
-	      dispatch({
-	        type: _constants.A.RECEIVED_VOCABULARIES,
-	        payload: _immutable2.default.Map({
-	          vocabularies: _immutable2.default.List([_immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Color',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Rhythm',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Period',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Things',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Forms',
-	            terms: _immutable2.default.List([_immutable2.default.Map({ name: 'ripple' }), _immutable2.default.Map({ name: 'bubble' }), _immutable2.default.Map({ name: 'meteorite' }), _immutable2.default.Map({ name: 'animals' })])
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Concepts',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Sensory',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Movement',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Perspective',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'Source',
-	            terms: _immutable2.default.List()
-	          }), _immutable2.default.Map({
-	            isOpen: false,
-	            name: 'User',
-	            terms: _immutable2.default.List()
-	          })])
-	        })
+	      var vocabulariesRef = _firebase2.default.database().ref().child('vocabularies');
+	      vocabulariesRef.on('value', function (snapshot) {
+	        var vocabularies = _immutable2.default.fromJS(snapshot.val());
+	        dispatch({
+	          type: _constants.A.RECEIVED_VOCABULARIES,
+	          payload: _immutable2.default.Map({
+	            vocabularies: _immutable2.default.List([_immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Things',
+	              terms: vocabularies.get('things', _immutable2.default.List())
+	            }), _immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Textures',
+	              terms: vocabularies.get('textures', _immutable2.default.List())
+	            }), _immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Forms',
+	              terms: vocabularies.get('forms', _immutable2.default.List())
+	            }), _immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Movements',
+	              terms: vocabularies.get('movements', _immutable2.default.List())
+	            }), _immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Emotions',
+	              terms: vocabularies.get('emotions', _immutable2.default.List())
+	            }), _immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Concepts',
+	              terms: vocabularies.get('concepts', _immutable2.default.List())
+	            }), _immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Source',
+	              terms: vocabularies.get('source', _immutable2.default.List())
+	            }), _immutable2.default.Map({
+	              isOpen: false,
+	              name: 'Other',
+	              terms: vocabularies.get('other', _immutable2.default.List())
+	            })])
+	          })
+	        });
 	      });
 	    };
 	  },
@@ -61213,24 +61228,7 @@
 	    };
 	  }
 	
-	}; /*
-	    * Copyright (C) 2016 Mark P. Lindsay
-	    * 
-	    * This file is part of mysteriousobjectsatnoon.
-	    *
-	    * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	    * it under the terms of the GNU General Public License as published by
-	    * the Free Software Foundation, either version 3 of the License, or
-	    * (at your option) any later version.
-	    *
-	    * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	    * GNU General Public License for more details.
-	    * 
-	    * You should have received a copy of the GNU General Public License
-	    * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	    */
+	};
 
 /***/ },
 /* 487 */
@@ -61543,7 +61541,7 @@
 	        return null;
 	      }
 	      var terms = this.props.terms.map(function (t) {
-	        return _react2.default.createElement(_Term2.default, { key: t.get('name'), name: t.get('name') });
+	        return _react2.default.createElement(_Term2.default, { key: t, name: t });
 	      }).toArray();
 	      return _react2.default.createElement(
 	        'ul',
