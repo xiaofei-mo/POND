@@ -22,8 +22,16 @@ import React from 'react'
 export default class Term extends React.Component {
   constructor() {
     super()
+    this.state = { 
+      randomColor: '#' + Math.random().toString(16).slice(2, 8).toUpperCase(),
+      style: { 
+        color: 'white' 
+      } 
+    }
     this._handleClick = this._handleClick.bind(this)
     this._handleDragStart = this._handleDragStart.bind(this)
+    this._handleMouseOut = this._handleMouseOut.bind(this)
+    this._handleMouseOver = this._handleMouseOver.bind(this)
     this.render = this.render.bind(this)
   }
   _handleClick(event) {
@@ -33,12 +41,29 @@ export default class Term extends React.Component {
   _handleDragStart(event) {
     event.preventDefault()
   }
+  _handleMouseOut(event) {
+    this.setState({ 
+      style: { 
+        color: 'white' 
+      } 
+    })
+  }
+  _handleMouseOver(event) {
+    this.setState({ 
+      style: { 
+        color: this.state.randomColor 
+      } 
+    })
+  }
   render() {
     return (
       <li className='term'>
         <a href='#' 
            onClick={this._handleClick} 
-           onDragStart={this._handleDragStart}>{this.props.name}</a>
+           onDragStart={this._handleDragStart}
+           onMouseOut={this._handleMouseOut}
+           onMouseOver={this._handleMouseOver}
+           style={this.state.style}>{this.props.name}</a>
       </li>
     )
   }

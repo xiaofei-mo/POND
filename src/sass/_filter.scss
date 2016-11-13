@@ -18,67 +18,98 @@
  */
 
 .filter {
-  background-color: $white;
-  width: 288px;
-  height: 71px;
+  font-family: monospace;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 6;
-  color: $black;
+  color: $white;
   @include font-14;
   display: none;
-
-  a {
-    color: $black;
-  }
 
   &.react-draggable {
     display: block;
   }
-}
 
-.vocabularies {
-  @extend %clearfix;
-  column-count: 2;
-  column-rule: 1px solid $black;
-  column-gap: 0px;
-}
-
-.vocabulary {
-  position: relative;
-  width: 144px;
-  height: 18px;
-  display: block;
-  border-bottom: 1px solid $black;
-  
-  a {
-    display: block;
-    width: 144px;
-    height: 18px;
-    padding-left: 5px;
+  .opener-closer span {
+    animation: blinker steps(1) 1s infinite alternate;
+    margin-left: 3px;
   }
 
-  // &:nth-child(6) {
-  //   border-bottom: none;
-  // }
-}
+  @keyframes blinker {
+    0% { visibility: visible; }
+    50% { visibility: hidden; }
+    100% { visibility: visible; }
+  }
 
-.terms {
-  display: block;
-  position: absolute;
-  width: 144px;
-  height: auto;
-  column-count: 1;
-  z-index: 7;
-  background-color: $white;
-  top: 17px;
-  left: 0;
-}
 
-.term {
-  @include font-12;
-  display: block;
-  width: 144px;
-  height: 16px;
+  .vocabulary > a {
+     color: #949598;
+  }
+
+  .clear {
+    color: $black;
+    background-color: #949598;
+  }
+
+  .prompt {
+    margin-right: 8px;
+  }
+
+  .terms {
+    display: inline-block;
+  }
+
+  .term {
+    display: inline-block;
+    
+    &:after {
+      content: ',';
+      color: #949598 !important;
+      margin-right: 8px;
+    }
+  }
+
+  .term:last-child {
+
+    &:after {
+      content: '';
+      margin-right: 0;
+    }
+  }
+
+  .vocabulary {
+
+    &.things .term a:hover {
+      background-color: green;
+    }
+
+    &.textures .term a:hover {
+      background-color: red;
+    }
+
+    &.forms .term a:hover {
+      background-color: purple;
+    }
+
+    &.movements .term a:hover {
+      background-color: blue;
+    }
+
+    &.emotions .term a:hover {
+      background-color: pink;
+    }
+
+    &.concepts .term a:hover {
+      background-color: brown;
+    }
+
+    &.source .term a:hover {
+      background-color: orange;
+    }
+
+    &.other .term a:hover {
+      background-color: cyan;
+    }
+  }
 }

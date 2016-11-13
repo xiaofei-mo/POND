@@ -17,37 +17,27 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Prompt from './Prompt'
 import React from 'react'
-import Terms from './Terms'
+import Vocabulary from './Vocabulary'
 
-export default class Vocabulary extends React.Component {
+export default class Vocabularies extends React.Component {
   constructor() {
     super()
-    this._handleClick = this._handleClick.bind(this)
-    this._handleDragStart = this._handleDragStart.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleClick(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    this.props.toggleVocabulary(this.props.vocabulary.get('name'))
-  }
-  _handleDragStart(event) {
-    event.preventDefault()
-  }
   render() {
+    if (!this.props.isVisible) {
+      return null
+    }
+    const vocabularies = this.props.vocabularies.map((v) => {
+      return <Vocabulary key={v.get('name')}
+                         toggleVocabulary={this.props.toggleVocabulary} 
+                         vocabulary={v} />
+    }).toArray()
     return (
-      <li className={'vocabulary ' + this.props.vocabulary.get('name').toLowerCase()}>
-        <a href='#' 
-           onClick={this._handleClick} 
-           onDragStart={this._handleDragStart}>
-          {this.props.vocabulary.get('name')}
-          <Prompt isOpen={this.props.vocabulary.get('isOpen')} />
-        </a>
-        <Terms isOpen={this.props.vocabulary.get('isOpen')} 
-               terms={this.props.vocabulary.get('terms')} />
-      </li>
+      <ul className='vocabularies'>
+        {vocabularies}
+      </ul>
     )
   }
 }

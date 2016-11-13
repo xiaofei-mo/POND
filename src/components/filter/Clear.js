@@ -17,37 +17,22 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Prompt from './Prompt'
 import React from 'react'
-import Terms from './Terms'
 
-export default class Vocabulary extends React.Component {
+export default class Clear extends React.Component {
   constructor() {
     super()
     this._handleClick = this._handleClick.bind(this)
-    this._handleDragStart = this._handleDragStart.bind(this)
     this.render = this.render.bind(this)
   }
   _handleClick(event) {
     event.preventDefault()
-    event.stopPropagation()
-    this.props.toggleVocabulary(this.props.vocabulary.get('name'))
-  }
-  _handleDragStart(event) {
-    event.preventDefault()
+    console.log('clear click')
   }
   render() {
-    return (
-      <li className={'vocabulary ' + this.props.vocabulary.get('name').toLowerCase()}>
-        <a href='#' 
-           onClick={this._handleClick} 
-           onDragStart={this._handleDragStart}>
-          {this.props.vocabulary.get('name')}
-          <Prompt isOpen={this.props.vocabulary.get('isOpen')} />
-        </a>
-        <Terms isOpen={this.props.vocabulary.get('isOpen')} 
-               terms={this.props.vocabulary.get('terms')} />
-      </li>
-    )
+    if (!this.props.isVisible) {
+      return null
+    }
+    return <a className='clear' href='#' onClick={this._handleClick}>Clear</a>
   }
 }

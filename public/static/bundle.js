@@ -61248,11 +61248,19 @@
 	
 	var _redux = __webpack_require__(36);
 	
+	var _Clear = __webpack_require__(495);
+	
+	var _Clear2 = _interopRequireDefault(_Clear);
+	
 	var _reactRedux = __webpack_require__(51);
 	
 	var _reactDraggable = __webpack_require__(96);
 	
 	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
+	
+	var _OpenerCloser = __webpack_require__(492);
+	
+	var _OpenerCloser2 = _interopRequireDefault(_OpenerCloser);
 	
 	var _react = __webpack_require__(53);
 	
@@ -61262,17 +61270,9 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Term = __webpack_require__(488);
+	var _Vocabularies = __webpack_require__(493);
 	
-	var _Term2 = _interopRequireDefault(_Term);
-	
-	var _Terms = __webpack_require__(489);
-	
-	var _Terms2 = _interopRequireDefault(_Terms);
-	
-	var _Vocabulary = __webpack_require__(490);
-	
-	var _Vocabulary2 = _interopRequireDefault(_Vocabulary);
+	var _Vocabularies2 = _interopRequireDefault(_Vocabularies);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -61309,8 +61309,10 @@
 	
 	    _this.state = {
 	      height: 0,
+	      isVisible: false,
 	      width: 0
 	    };
+	    _this._handleOpenClose = _this._handleOpenClose.bind(_this);
 	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
 	    _this.componentWillMount = _this.componentWillMount.bind(_this);
 	    _this.render = _this.render.bind(_this);
@@ -61318,6 +61320,13 @@
 	  }
 	
 	  _createClass(Filter, [{
+	    key: '_handleOpenClose',
+	    value: function _handleOpenClose() {
+	      this.setState({
+	        isVisible: !this.state.isVisible
+	      });
+	    }
+	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
 	      var el = _reactDom2.default.findDOMNode(this);
@@ -61336,8 +61345,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
 	        return null;
 	      }
@@ -61347,23 +61354,19 @@
 	        bottom: this.props.windowHeight - this.state.height,
 	        left: 0
 	      };
-	      var vocabularies = this.props.vocabularies.map(function (v) {
-	        return _react2.default.createElement(_Vocabulary2.default, { key: v.get('name'),
-	          toggleVocabulary: _this2.props.toggleVocabulary,
-	          vocabulary: v });
-	      }).toArray();
-	      var defaultPosition = { x: 40, y: this.props.windowHeight * 0.75 };
+	      var defaultPosition = { x: 40, y: this.props.windowHeight * 0.5 };
 	      return _react2.default.createElement(
 	        _reactDraggable2.default,
 	        { bounds: bounds, defaultPosition: defaultPosition },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'filter' },
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'vocabularies' },
-	            vocabularies
-	          )
+	          _react2.default.createElement(_OpenerCloser2.default, { isVisible: this.state.isVisible,
+	            onOpenClose: this._handleOpenClose }),
+	          _react2.default.createElement(_Vocabularies2.default, { isVisible: this.state.isVisible,
+	            toggleVocabulary: this.props.toggleVocabulary,
+	            vocabularies: this.props.vocabularies }),
+	          _react2.default.createElement(_Clear2.default, { isVisible: this.state.isVisible })
 	        )
 	      );
 	    }
@@ -61438,8 +61441,16 @@
 	
 	    var _this = _possibleConstructorReturn(this, (Term.__proto__ || Object.getPrototypeOf(Term)).call(this));
 	
+	    _this.state = {
+	      randomColor: '#' + Math.random().toString(16).slice(2, 8).toUpperCase(),
+	      style: {
+	        color: 'white'
+	      }
+	    };
 	    _this._handleClick = _this._handleClick.bind(_this);
 	    _this._handleDragStart = _this._handleDragStart.bind(_this);
+	    _this._handleMouseOut = _this._handleMouseOut.bind(_this);
+	    _this._handleMouseOver = _this._handleMouseOver.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
@@ -61456,6 +61467,24 @@
 	      event.preventDefault();
 	    }
 	  }, {
+	    key: '_handleMouseOut',
+	    value: function _handleMouseOut(event) {
+	      this.setState({
+	        style: {
+	          color: 'white'
+	        }
+	      });
+	    }
+	  }, {
+	    key: '_handleMouseOver',
+	    value: function _handleMouseOver(event) {
+	      this.setState({
+	        style: {
+	          color: this.state.randomColor
+	        }
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -61465,7 +61494,10 @@
 	          'a',
 	          { href: '#',
 	            onClick: this._handleClick,
-	            onDragStart: this._handleDragStart },
+	            onDragStart: this._handleDragStart,
+	            onMouseOut: this._handleMouseOut,
+	            onMouseOver: this._handleMouseOver,
+	            style: this.state.style },
 	          this.props.name
 	        )
 	      );
@@ -61568,6 +61600,10 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _Prompt = __webpack_require__(494);
+	
+	var _Prompt2 = _interopRequireDefault(_Prompt);
+	
 	var _react = __webpack_require__(53);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -61632,13 +61668,14 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'li',
-	        { className: 'vocabulary' },
+	        { className: 'vocabulary ' + this.props.vocabulary.get('name').toLowerCase() },
 	        _react2.default.createElement(
 	          'a',
 	          { href: '#',
 	            onClick: this._handleClick,
 	            onDragStart: this._handleDragStart },
-	          this.props.vocabulary.get('name')
+	          this.props.vocabulary.get('name'),
+	          _react2.default.createElement(_Prompt2.default, { isOpen: this.props.vocabulary.get('isOpen') })
 	        ),
 	        _react2.default.createElement(_Terms2.default, { isOpen: this.props.vocabulary.get('isOpen'),
 	          terms: this.props.vocabulary.get('terms') })
@@ -61721,7 +61758,323 @@
 	  }
 	}
 
+/***/ },
+/* 492 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(53);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var OpenerCloser = function (_React$Component) {
+	  _inherits(OpenerCloser, _React$Component);
+	
+	  function OpenerCloser() {
+	    _classCallCheck(this, OpenerCloser);
+	
+	    var _this = _possibleConstructorReturn(this, (OpenerCloser.__proto__ || Object.getPrototypeOf(OpenerCloser)).call(this));
+	
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(OpenerCloser, [{
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      this.props.onOpenClose();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'a',
+	        { href: '#',
+	          className: 'opener-closer',
+	          onClick: this._handleClick },
+	        '\\>_',
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          '▌'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return OpenerCloser;
+	}(_react2.default.Component);
+	
+	exports.default = OpenerCloser;
+
+/***/ },
+/* 493 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(53);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Vocabulary = __webpack_require__(490);
+	
+	var _Vocabulary2 = _interopRequireDefault(_Vocabulary);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Vocabularies = function (_React$Component) {
+	  _inherits(Vocabularies, _React$Component);
+	
+	  function Vocabularies() {
+	    _classCallCheck(this, Vocabularies);
+	
+	    var _this = _possibleConstructorReturn(this, (Vocabularies.__proto__ || Object.getPrototypeOf(Vocabularies)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Vocabularies, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      if (!this.props.isVisible) {
+	        return null;
+	      }
+	      var vocabularies = this.props.vocabularies.map(function (v) {
+	        return _react2.default.createElement(_Vocabulary2.default, { key: v.get('name'),
+	          toggleVocabulary: _this2.props.toggleVocabulary,
+	          vocabulary: v });
+	      }).toArray();
+	      return _react2.default.createElement(
+	        'ul',
+	        { className: 'vocabularies' },
+	        vocabularies
+	      );
+	    }
+	  }]);
+	
+	  return Vocabularies;
+	}(_react2.default.Component);
+	
+	exports.default = Vocabularies;
+
+/***/ },
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(53);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Prompt = function (_React$Component) {
+	  _inherits(Prompt, _React$Component);
+	
+	  function Prompt() {
+	    _classCallCheck(this, Prompt);
+	
+	    var _this = _possibleConstructorReturn(this, (Prompt.__proto__ || Object.getPrototypeOf(Prompt)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Prompt, [{
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.isOpen) {
+	        return null;
+	      }
+	      return _react2.default.createElement(
+	        'span',
+	        { className: 'prompt' },
+	        ':\\>'
+	      );
+	    }
+	  }]);
+	
+	  return Prompt;
+	}(_react2.default.Component);
+	
+	exports.default = Prompt;
+
+/***/ },
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(53);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Clear = function (_React$Component) {
+	  _inherits(Clear, _React$Component);
+	
+	  function Clear() {
+	    _classCallCheck(this, Clear);
+	
+	    var _this = _possibleConstructorReturn(this, (Clear.__proto__ || Object.getPrototypeOf(Clear)).call(this));
+	
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Clear, [{
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      console.log('clear click');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.isVisible) {
+	        return null;
+	      }
+	      return _react2.default.createElement(
+	        'a',
+	        { className: 'clear', href: '#', onClick: this._handleClick },
+	        'Clear'
+	      );
+	    }
+	  }]);
+	
+	  return Clear;
+	}(_react2.default.Component);
+	
+	exports.default = Clear;
+
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

@@ -19,24 +19,31 @@
 
 import actions from '../actions'
 import { bindActionCreators } from 'redux'
+import Clear from '../components/filter/Clear'
 import { connect } from 'react-redux'
 import Draggable from 'react-draggable'
+import OpenerCloser from '../components/filter/OpenerCloser'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Term from '../components/filter/Term'
-import Terms from '../components/filter/Terms'
-import Vocabulary from '../components/filter/Vocabulary'
+import Vocabularies from '../components/filter/Vocabularies'
 
 class Filter extends React.Component {
   constructor() {
     super()
     this.state = {
       height: 0,
+      isVisible: false,
       width: 0
     }
+    this._handleOpenClose = this._handleOpenClose.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
+  }
+  _handleOpenClose() {
+    this.setState({
+      isVisible: !this.state.isVisible
+    })
   }
   componentDidUpdate() {
     let el = ReactDOM.findDOMNode(this)
@@ -60,18 +67,16 @@ class Filter extends React.Component {
       bottom: this.props.windowHeight - this.state.height,
       left: 0
     }
-    const vocabularies = this.props.vocabularies.map((v) => {
-      return <Vocabulary key={v.get('name')}
-                         toggleVocabulary={this.props.toggleVocabulary} 
-                         vocabulary={v} />
-    }).toArray()
-    const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.75) }
+    const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.5) }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
         <div className='filter'>
-          <ul className='vocabularies'>
-            {vocabularies}
-          </ul>
+          <OpenerCloser isVisible={this.state.isVisible} 
+                        onOpenClose={this._handleOpenClose} />
+          <Vocabularies isVisible={this.state.isVisible}
+                        toggleVocabulary={this.props.toggleVocabulary}
+                        vocabularies={this.props.vocabularies} />
+          <Clear isVisible={this.state.isVisible} />
         </div>
       </Draggable>
     )
