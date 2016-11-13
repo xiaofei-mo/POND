@@ -23,11 +23,11 @@ import { connect } from 'react-redux'
 import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Term from '../components/sort/Term'
-import Terms from '../components/sort/Terms'
-import Vocabulary from '../components/sort/Vocabulary'
+import Term from '../components/filter/Term'
+import Terms from '../components/filter/Terms'
+import Vocabulary from '../components/filter/Vocabulary'
 
-class Sort extends React.Component {
+class Filter extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -68,7 +68,7 @@ class Sort extends React.Component {
     const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.75) }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
-        <div className='sort'>
+        <div className='filter'>
           <ul className='vocabularies'>
             {vocabularies}
           </ul>
@@ -80,7 +80,7 @@ class Sort extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    vocabularies: state.getIn(['sort', 'vocabularies']),
+    vocabularies: state.getIn(['filter', 'vocabularies']),
     windowHeight: state.getIn(['page', 'height']),
     windowWidth: state.getIn(['page', 'width'])
   }
@@ -94,4 +94,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sort)
+export default connect(mapStateToProps, mapDispatchToProps)(Filter)

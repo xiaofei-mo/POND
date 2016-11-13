@@ -670,7 +670,7 @@ a {
  * You should have received a copy of the GNU General Public License
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
-.sort {
+.filter {
   background-color: #ffffff;
   width: 288px;
   height: 108px;
@@ -682,9 +682,9 @@ a {
   font-size: 14px;
   line-height: 18px;
   display: none; }
-  .sort a {
+  .filter a {
     color: #000000; }
-  .sort.react-draggable {
+  .filter.react-draggable {
     display: block; }
 
 .vocabularies {

@@ -18,14 +18,14 @@
  */
 
 import appActions from './app'
+import filterActions from './filter'
 import pageActions from './page'
-import sortActions from './sort'
 import uploadActions from './upload'
 
 export default Object.assign(
   {}, 
   appActions, 
+  filterActions,
   pageActions, 
-  sortActions,
   uploadActions
 )

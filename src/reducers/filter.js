@@ -24,7 +24,7 @@ const initialState = Immutable.Map({
   vocabularies: Immutable.List()
 })
 
-export default function sortReducer (state = initialState, action) {
+export default function filterReducer (state = initialState, action) {
   switch (action.type) {
 
     case A.CLOSE_ALL_VOCABULARIES:

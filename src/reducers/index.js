@@ -19,15 +19,15 @@
 
 import { combineReducers } from 'redux-immutable'
 import appReducer from './app'
+import filterReducer from './filter'
 import pageReducer from './page'
 import routerReducer from './router'
-import sortReducer from './sort'
 import uploadReducer from './upload'
 
 export default combineReducers({
   app: appReducer,
+  filter: filterReducer,
   page: pageReducer,
   routing: routerReducer,
-  sort: sortReducer,
   upload: uploadReducer
 })

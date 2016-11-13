@@ -26,7 +26,7 @@ import InfoAndEditControl from '../components/app-control/InfoAndEditControl'
 import Login from '../components/Login'
 import LoginUsernameLogoutControl from '../components/app-control/LoginUsernameLogoutControl'
 import React from 'react'
-import Sort from './Sort'
+import Filter from './Filter'
 import Uploads from './Uploads'
 
 class App extends React.Component {
@@ -101,7 +101,7 @@ class App extends React.Component {
                  closeLogin={this.props.closeLogin}
                  login={this.props.login}
                  user={this.props.user} />
-          <Sort />
+          <Filter />
           <div className='dropzone-veil veil'>
             <div>
               <div>Drop Video</div>
