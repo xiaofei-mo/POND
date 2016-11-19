@@ -38,54 +38,18 @@ export default {
         dispatch({
           type: A.RECEIVED_VOCABULARIES,
           payload: Immutable.Map({
-            vocabularies: Immutable.List([
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Things', 
-                terms: vocabularies.get('things', Immutable.List())
-              }),
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Textures', 
-                terms: vocabularies.get('textures', Immutable.List())
-              }),
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Forms', 
-                terms: vocabularies.get('forms', Immutable.List())
-              }),
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Movements', 
-                terms: vocabularies.get('movements', Immutable.List())
-              }),
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Emotions', 
-                terms: vocabularies.get('emotions', Immutable.List())
-              }),
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Concepts', 
-                terms: vocabularies.get('concepts', Immutable.List())
-              }),
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Source', 
-                terms: vocabularies.get('source', Immutable.List())
-              }),
-              Immutable.Map({ 
-                isOpen: false,
-                name: 'Other', 
-                terms: vocabularies.get('other', Immutable.List())
-              })
-            ])
+            vocabularies: vocabularies
           })
         })
       })
     }
   },
 
+  // setFromLocationSearch: locationSearch => {
+  //   return {
+  //     type: A.
+  //   }
+  // }
   toggleVocabulary: (name) => {
     return {
       type: A.TOGGLE_VOCABULARY,

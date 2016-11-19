@@ -25,6 +25,7 @@ import Draggable from 'react-draggable'
 import OpenerCloser from '../components/filter/OpenerCloser'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import queryString from 'query-string'
 import Vocabularies from '../components/filter/Vocabularies'
 
 class Filter extends React.Component {
@@ -36,6 +37,7 @@ class Filter extends React.Component {
       width: 0
     }
     this._handleOpenClose = this._handleOpenClose.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
     this.render = this.render.bind(this)
@@ -44,6 +46,10 @@ class Filter extends React.Component {
     this.setState({
       isVisible: !this.state.isVisible
     })
+  }
+  componentDidMount() {
+    console.log(location)
+    console.log(queryString.parse(location.search))
   }
   componentDidUpdate() {
     let el = ReactDOM.findDOMNode(this)

@@ -21,7 +21,64 @@ import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
-  vocabularies: Immutable.List()
+  vocabularies: Immutable.List([
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Things', 
+      setTerms: Immutable.Set(),
+      slug: 'things',
+      terms: Immutable.List()
+    }),
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Textures', 
+      setTerms: Immutable.Set(),
+      slug: 'textures',
+      terms: Immutable.List()
+    }),
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Forms', 
+      setTerms: Immutable.Set(),
+      slug: 'forms',
+      terms: Immutable.List()
+    }),
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Movements', 
+      setTerms: Immutable.Set(),
+      slug: 'movements',
+      terms: Immutable.List()
+    }),
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Emotions', 
+      setTerms: Immutable.Set(),
+      slug: 'emotions',
+      terms: Immutable.List()
+    }),
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Concepts', 
+      setTerms: Immutable.Set(),
+      slug: 'concepts',
+      terms: Immutable.List()
+    }),
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Source', 
+      setTerms: Immutable.Set(),
+      slug: 'source',
+      terms: Immutable.List()
+    }),
+    Immutable.Map({ 
+      isOpen: false,
+      name: 'Other', 
+      setTerms: Immutable.Set(),
+      slug: 'other',
+      terms: Immutable.List()
+    })
+  ])
 })
 
 export default function filterReducer (state = initialState, action) {
@@ -34,11 +91,21 @@ export default function filterReducer (state = initialState, action) {
       )
 
     case A.RECEIVED_VOCABULARIES:
-      return state.set('vocabularies', action.payload.get('vocabularies'))
+      return state.set(
+        'vocabularies', 
+        state.get('vocabularies').map(v => {
+          if (action.payload.get('vocabularies').has(v.get('slug'))) {
+            return v.set('terms', action.payload.getIn(['vocabularies', v.get('slug')]))
+          }
+          return v
+        })
+      )
     
     case A.TOGGLE_VOCABULARY:
-      return state.set('vocabularies', 
-        state.get('vocabularies').map((v) => {
+      return state.set(
+        'vocabularies', 
+        state.get('vocabularies').map(v => {
+          // Change to slug?
           if (v.get('name') === action.payload.get('name')) {
             return v.set('isOpen', !v.get('isOpen'))
           }
