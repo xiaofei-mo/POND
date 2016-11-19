@@ -45,7 +45,9 @@ export default class Vocabulary extends React.Component {
           {this.props.vocabulary.get('name')}
           <Prompt isOpen={this.props.vocabulary.get('isOpen')} />
         </a>
-        <Terms isOpen={this.props.vocabulary.get('isOpen')} 
+        <Terms applied={this.props.vocabulary.get('applied')}
+               isOpen={this.props.vocabulary.get('isOpen')} 
+               slug={this.props.vocabulary.get('slug')}
                terms={this.props.vocabulary.get('terms')} />
       </li>
     )

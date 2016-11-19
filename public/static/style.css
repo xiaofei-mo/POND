@@ -711,21 +711,29 @@ a {
   .filter .term:last-child:after {
     content: '';
     margin-right: 0; }
-  .filter .vocabulary.things .term a:hover {
+  .filter .vocabulary.things .term a:hover,
+  .filter .vocabulary.things .term.is-applied a {
     background-color: green; }
-  .filter .vocabulary.textures .term a:hover {
+  .filter .vocabulary.textures .term a:hover,
+  .filter .vocabulary.textures .term.is-applied a {
     background-color: red; }
-  .filter .vocabulary.forms .term a:hover {
+  .filter .vocabulary.forms .term a:hover,
+  .filter .vocabulary.forms .term.is-applied a {
     background-color: purple; }
-  .filter .vocabulary.movements .term a:hover {
+  .filter .vocabulary.movements .term a:hover,
+  .filter .vocabulary.movements .term.is-applied a {
     background-color: blue; }
-  .filter .vocabulary.emotions .term a:hover {
+  .filter .vocabulary.emotions .term a:hover,
+  .filter .vocabulary.emotions .term.is-applied a {
     background-color: pink; }
-  .filter .vocabulary.concepts .term a:hover {
+  .filter .vocabulary.concepts .term a:hover,
+  .filter .vocabulary.concepts .term.is-applied a {
     background-color: brown; }
-  .filter .vocabulary.source .term a:hover {
+  .filter .vocabulary.source .term a:hover,
+  .filter .vocabulary.source .term.is-applied a {
     background-color: orange; }
-  .filter .vocabulary.other .term a:hover {
+  .filter .vocabulary.other .term a:hover,
+  .filter .vocabulary.other .term.is-applied a {
     background-color: cyan; }
 
 /*

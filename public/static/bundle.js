@@ -7531,11 +7531,6 @@
 	    };
 	  },
 	
-	  // setFromLocationSearch: locationSearch => {
-	  //   return {
-	  //     type: A.
-	  //   }
-	  // }
 	  toggleVocabulary: function toggleVocabulary(name) {
 	    return {
 	      type: _constants.A.TOGGLE_VOCABULARY,
@@ -41157,10 +41152,6 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _queryString = __webpack_require__(263);
-	
-	var _queryString2 = _interopRequireDefault(_queryString);
-	
 	var _Vocabularies = __webpack_require__(301);
 	
 	var _Vocabularies2 = _interopRequireDefault(_Vocabularies);
@@ -41204,7 +41195,6 @@
 	      width: 0
 	    };
 	    _this._handleOpenClose = _this._handleOpenClose.bind(_this);
-	    _this.componentDidMount = _this.componentDidMount.bind(_this);
 	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
 	    _this.componentWillMount = _this.componentWillMount.bind(_this);
 	    _this.render = _this.render.bind(_this);
@@ -41217,12 +41207,6 @@
 	      this.setState({
 	        isVisible: !this.state.isVisible
 	      });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      console.log(location);
-	      console.log(_queryString2.default.parse(location.search));
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -41624,7 +41608,9 @@
 	          this.props.vocabulary.get('name'),
 	          _react2.default.createElement(_Prompt2.default, { isOpen: this.props.vocabulary.get('isOpen') })
 	        ),
-	        _react2.default.createElement(_Terms2.default, { isOpen: this.props.vocabulary.get('isOpen'),
+	        _react2.default.createElement(_Terms2.default, { applied: this.props.vocabulary.get('applied'),
+	          isOpen: this.props.vocabulary.get('isOpen'),
+	          slug: this.props.vocabulary.get('slug'),
 	          terms: this.props.vocabulary.get('terms') })
 	      );
 	    }
@@ -41767,11 +41753,16 @@
 	  _createClass(Terms, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      if (!this.props.isOpen) {
 	        return null;
 	      }
 	      var terms = this.props.terms.map(function (t) {
-	        return _react2.default.createElement(_Term2.default, { key: t, name: t });
+	        if (_this2.props.applied.includes(t)) {
+	          return _react2.default.createElement(_Term2.default, { isApplied: true, key: t, name: t, slug: _this2.props.slug });
+	        }
+	        return _react2.default.createElement(_Term2.default, { isApplied: false, key: t, name: t, slug: _this2.props.slug });
 	      }).toArray();
 	      return _react2.default.createElement(
 	        'ul',
@@ -41836,24 +41827,35 @@
 	    var _this = _possibleConstructorReturn(this, (Term.__proto__ || Object.getPrototypeOf(Term)).call(this));
 	
 	    _this.state = {
-	      randomColor: '#' + Math.random().toString(16).slice(2, 8).toUpperCase(),
-	      style: {
-	        color: 'white'
-	      }
+	      randomColor: '#' + Math.random().toString(16).slice(2, 8).toUpperCase()
 	    };
+	    _this._getClassName = _this._getClassName.bind(_this);
 	    _this._handleClick = _this._handleClick.bind(_this);
 	    _this._handleDragStart = _this._handleDragStart.bind(_this);
 	    _this._handleMouseOut = _this._handleMouseOut.bind(_this);
 	    _this._handleMouseOver = _this._handleMouseOver.bind(_this);
+	    _this._highlight = _this._highlight.bind(_this);
+	    _this._unHighlight = _this._unHighlight.bind(_this);
+	    _this.componentWillMount = _this.componentWillMount.bind(_this);
+	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Term, [{
+	    key: '_getClassName',
+	    value: function _getClassName() {
+	      var className = 'term';
+	      if (this.props.isApplied) {
+	        className += ' is-applied';
+	      }
+	      return className;
+	    }
+	  }, {
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      console.log('term ' + this.props.name + ' click');
+	      console.log('vocabulary slug ' + this.props.slug + ' term ' + this.props.name + ' click');
 	    }
 	  }, {
 	    key: '_handleDragStart',
@@ -41863,15 +41865,18 @@
 	  }, {
 	    key: '_handleMouseOut',
 	    value: function _handleMouseOut(event) {
-	      this.setState({
-	        style: {
-	          color: 'white'
-	        }
-	      });
+	      if (!this.props.isApplied) {
+	        this._unHighlight();
+	      }
 	    }
 	  }, {
 	    key: '_handleMouseOver',
 	    value: function _handleMouseOver(event) {
+	      this._highlight();
+	    }
+	  }, {
+	    key: '_highlight',
+	    value: function _highlight() {
 	      this.setState({
 	        style: {
 	          color: this.state.randomColor
@@ -41879,11 +41884,38 @@
 	      });
 	    }
 	  }, {
+	    key: '_unHighlight',
+	    value: function _unHighlight() {
+	      this.setState({
+	        style: {
+	          color: 'white'
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      if (this.props.isApplied) {
+	        this._highlight();
+	      } else {
+	        this._unHighlight();
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.isApplied) {
+	        this._highlight();
+	      } else {
+	        this._unHighlight();
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'li',
-	        { className: 'term' },
+	        { className: this._getClassName() },
 	        _react2.default.createElement(
 	          'a',
 	          { href: '#',
@@ -61793,6 +61825,26 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /*
+	                                                                                                                                                                                                                                                   * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                   * 
+	                                                                                                                                                                                                                                                   * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                   * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                   * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                   * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                   * (at your option) any later version.
+	                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                   * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                   * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                   * 
+	                                                                                                                                                                                                                                                   * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                   * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                   */
+	
 	exports.default = filterReducer;
 	
 	var _constants = __webpack_require__(6);
@@ -61801,74 +61853,59 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _queryString = __webpack_require__(263);
 	
-	/*
-	 * Copyright (C) 2016 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
+	var _queryString2 = _interopRequireDefault(_queryString);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var initialState = _immutable2.default.Map({
 	  vocabularies: _immutable2.default.List([_immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Things',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'things',
 	    terms: _immutable2.default.List()
 	  }), _immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Textures',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'textures',
 	    terms: _immutable2.default.List()
 	  }), _immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Forms',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'forms',
 	    terms: _immutable2.default.List()
 	  }), _immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Movements',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'movements',
 	    terms: _immutable2.default.List()
 	  }), _immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Emotions',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'emotions',
 	    terms: _immutable2.default.List()
 	  }), _immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Concepts',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'concepts',
 	    terms: _immutable2.default.List()
 	  }), _immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Source',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'source',
 	    terms: _immutable2.default.List()
 	  }), _immutable2.default.Map({
+	    applied: _immutable2.default.Set(),
 	    isOpen: false,
 	    name: 'Other',
-	    setTerms: _immutable2.default.Set(),
 	    slug: 'other',
 	    terms: _immutable2.default.List()
 	  })])
@@ -61878,34 +61915,64 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
 	  var action = arguments[1];
 	
-	  switch (action.type) {
+	  var _ret = function () {
+	    switch (action.type) {
 	
-	    case _constants.A.CLOSE_ALL_VOCABULARIES:
-	      return state.set('vocabularies', state.get('vocabularies').map(function (v) {
-	        return v.set('isOpen', false);
-	      }));
+	      case _constants.A.CLOSE_ALL_VOCABULARIES:
+	        return {
+	          v: state.set('vocabularies', state.get('vocabularies').map(function (v) {
+	            return v.set('isOpen', false);
+	          }))
+	        };
 	
-	    case _constants.A.RECEIVED_VOCABULARIES:
-	      return state.set('vocabularies', state.get('vocabularies').map(function (v) {
-	        if (action.payload.get('vocabularies').has(v.get('slug'))) {
-	          return v.set('terms', action.payload.getIn(['vocabularies', v.get('slug')]));
-	        }
-	        return v;
-	      }));
+	      case _constants.A.LOCATION_CHANGED:
+	        var search = action.payload.hash.replace(/#/, '');
+	        var appliedFilters = _immutable2.default.fromJS(_queryString2.default.parse(search));
+	        return {
+	          v: state.set('vocabularies', state.get('vocabularies').map(function (v) {
+	            appliedFilters.forEach(function (afs, slug) {
+	              if (slug === v.get('slug')) {
+	                if (!_immutable2.default.List.isList(afs)) {
+	                  v = v.set('applied', v.get('applied').add(afs));
+	                } else {
+	                  v = v.set('applied', v.get('applied').union(afs));
+	                }
+	              }
+	            });
+	            return v;
+	          }))
+	        };
 	
-	    case _constants.A.TOGGLE_VOCABULARY:
-	      return state.set('vocabularies', state.get('vocabularies').map(function (v) {
-	        // Change to slug?
-	        if (v.get('name') === action.payload.get('name')) {
-	          return v.set('isOpen', !v.get('isOpen'));
-	        } else {
-	          return v.set('isOpen', false);
-	        }
-	      }));
+	      case _constants.A.RECEIVED_VOCABULARIES:
+	        return {
+	          v: state.set('vocabularies', state.get('vocabularies').map(function (v) {
+	            if (action.payload.get('vocabularies').has(v.get('slug'))) {
+	              return v.set('terms', action.payload.getIn(['vocabularies', v.get('slug')]));
+	            }
+	            return v;
+	          }))
+	        };
 	
-	    default:
-	      return state;
-	  }
+	      case _constants.A.TOGGLE_VOCABULARY:
+	        return {
+	          v: state.set('vocabularies', state.get('vocabularies').map(function (v) {
+	            // Change to slug?
+	            if (v.get('name') === action.payload.get('name')) {
+	              return v.set('isOpen', !v.get('isOpen'));
+	            } else {
+	              return v.set('isOpen', false);
+	            }
+	          }))
+	        };
+	
+	      default:
+	        return {
+	          v: state
+	        };
+	    }
+	  }();
+	
+	  if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	}
 
 /***/ },

@@ -80,35 +80,43 @@
 
   .vocabulary {
 
-    &.things .term a:hover {
+    &.things .term a:hover,
+    &.things .term.is-applied a {
       background-color: green;
     }
 
-    &.textures .term a:hover {
+    &.textures .term a:hover,
+    &.textures .term.is-applied a {
       background-color: red;
     }
 
-    &.forms .term a:hover {
+    &.forms .term a:hover,
+    &.forms .term.is-applied a {
       background-color: purple;
     }
 
-    &.movements .term a:hover {
+    &.movements .term a:hover,
+    &.movements .term.is-applied a {
       background-color: blue;
     }
 
-    &.emotions .term a:hover {
+    &.emotions .term a:hover,
+    &.emotions .term.is-applied a {
       background-color: pink;
     }
 
-    &.concepts .term a:hover {
+    &.concepts .term a:hover,
+    &.concepts .term.is-applied a {
       background-color: brown;
     }
 
-    &.source .term a:hover {
+    &.source .term a:hover,
+    &.source .term.is-applied a {
       background-color: orange;
     }
 
-    &.other .term a:hover {
+    &.other .term a:hover,
+    &.other .term.is-applied a {
       background-color: cyan;
     }
   }

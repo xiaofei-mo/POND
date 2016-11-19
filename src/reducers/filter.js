@@ -19,62 +19,63 @@
 
 import { A } from '../constants'
 import Immutable from 'immutable'
+import queryString from 'query-string'
 
 const initialState = Immutable.Map({
   vocabularies: Immutable.List([
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Things', 
-      setTerms: Immutable.Set(),
       slug: 'things',
       terms: Immutable.List()
     }),
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Textures', 
-      setTerms: Immutable.Set(),
       slug: 'textures',
       terms: Immutable.List()
     }),
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Forms', 
-      setTerms: Immutable.Set(),
       slug: 'forms',
       terms: Immutable.List()
     }),
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Movements', 
-      setTerms: Immutable.Set(),
       slug: 'movements',
       terms: Immutable.List()
     }),
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Emotions', 
-      setTerms: Immutable.Set(),
       slug: 'emotions',
       terms: Immutable.List()
     }),
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Concepts', 
-      setTerms: Immutable.Set(),
       slug: 'concepts',
       terms: Immutable.List()
     }),
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Source', 
-      setTerms: Immutable.Set(),
       slug: 'source',
       terms: Immutable.List()
     }),
     Immutable.Map({ 
+      applied: Immutable.Set(),
       isOpen: false,
       name: 'Other', 
-      setTerms: Immutable.Set(),
       slug: 'other',
       terms: Immutable.List()
     })
@@ -88,6 +89,26 @@ export default function filterReducer (state = initialState, action) {
       return state.set(
         'vocabularies', 
         state.get('vocabularies').map(v => v.set('isOpen', false))
+      )
+
+    case A.LOCATION_CHANGED:
+      const search = action.payload.hash.replace(/#/, '')
+      const appliedFilters = Immutable.fromJS(queryString.parse(search))
+      return state.set(
+        'vocabularies',
+        state.get('vocabularies').map(v => {
+          appliedFilters.forEach((afs, slug) => {
+            if (slug === v.get('slug')) {
+              if (!Immutable.List.isList(afs)) {
+                v = v.set('applied', v.get('applied').add(afs))
+              }
+              else {
+                v = v.set('applied', v.get('applied').union(afs))
+              }
+            }
+          })
+          return v
+        })
       )
 
     case A.RECEIVED_VOCABULARIES:

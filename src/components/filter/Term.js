@@ -24,40 +24,73 @@ export default class Term extends React.Component {
     super()
     this.state = { 
       randomColor: '#' + Math.random().toString(16).slice(2, 8).toUpperCase(),
-      style: { 
-        color: 'white' 
-      } 
     }
+    this._getClassName = this._getClassName.bind(this)
     this._handleClick = this._handleClick.bind(this)
     this._handleDragStart = this._handleDragStart.bind(this)
     this._handleMouseOut = this._handleMouseOut.bind(this)
     this._handleMouseOver = this._handleMouseOver.bind(this)
+    this._highlight = this._highlight.bind(this)
+    this._unHighlight = this._unHighlight.bind(this)
+    this.componentWillMount = this.componentWillMount.bind(this)
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
+  }
+  _getClassName() {
+    let className = 'term'
+    if (this.props.isApplied) {
+      className += ' is-applied'
+    }
+    return className
   }
   _handleClick(event) {
     event.preventDefault()
-    console.log('term ' + this.props.name + ' click')
+    console.log('vocabulary slug ' + this.props.slug + ' term ' + this.props.name + ' click')
   }
   _handleDragStart(event) {
     event.preventDefault()
   }
   _handleMouseOut(event) {
-    this.setState({ 
-      style: { 
-        color: 'white' 
-      } 
-    })
+    if (!this.props.isApplied) {
+      this._unHighlight()
+    }
   }
   _handleMouseOver(event) {
+    this._highlight()
+  }
+  _highlight() {
     this.setState({ 
       style: { 
         color: this.state.randomColor 
       } 
     })
   }
+  _unHighlight() {
+    this.setState({ 
+      style: { 
+        color: 'white' 
+      } 
+    })
+  }
+  componentWillMount() {
+    if (this.props.isApplied) {
+      this._highlight()
+    }
+    else {
+      this._unHighlight()
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isApplied) {
+      this._highlight()
+    }
+    else {
+      this._unHighlight()
+    }
+  }
   render() {
     return (
-      <li className='term'>
+      <li className={this._getClassName()}>
         <a href='#' 
            onClick={this._handleClick} 
            onDragStart={this._handleDragStart}

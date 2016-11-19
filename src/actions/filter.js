@@ -45,11 +45,6 @@ export default {
     }
   },
 
-  // setFromLocationSearch: locationSearch => {
-  //   return {
-  //     type: A.
-  //   }
-  // }
   toggleVocabulary: (name) => {
     return {
       type: A.TOGGLE_VOCABULARY,

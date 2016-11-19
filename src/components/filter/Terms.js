@@ -30,7 +30,10 @@ export default class Terms extends React.Component {
       return null
     }
     const terms = this.props.terms.map(t => {
-      return <Term key={t} name={t} />
+      if (this.props.applied.includes(t)) {
+        return <Term isApplied={true} key={t} name={t} slug={this.props.slug} />
+      }
+      return <Term isApplied={false} key={t} name={t} slug={this.props.slug} />
     }).toArray()
     return (
       <ul className='terms'>
