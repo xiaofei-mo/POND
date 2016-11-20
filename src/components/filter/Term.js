@@ -18,6 +18,7 @@
  */
 
 import React from 'react'
+import toggleFilter from '../../utils/toggleFilter'
 
 export default class Term extends React.Component {
   constructor() {
@@ -45,7 +46,7 @@ export default class Term extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    console.log('vocabulary slug ' + this.props.slug + ' term ' + this.props.name + ' click')
+    toggleFilter(this.props.slug, this.props.name)
   }
   _handleDragStart(event) {
     event.preventDefault()

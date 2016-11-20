@@ -17,42 +17,34 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { A } from '../constants'
-import firebase from '../utils/firebase'
+import getAppliedFilters from './getAppliedFilters'
 import Immutable from 'immutable'
-import { push } from 'react-router-redux'
+import queryString from 'query-string'
 
-export default {
-
-  closeAllVocabularies: () => {
-    return {
-      type: A.CLOSE_ALL_VOCABULARIES
+export default function toggleFilter (slug, term) {
+  let appliedFilters = getAppliedFilters()
+  if (appliedFilters.has(slug)) {
+    let appliedTerms = appliedFilters.get(slug)
+    if (appliedTerms.contains(term)) {
+      appliedTerms = appliedTerms.delete(term)
     }
-  },
-
-  listenToVocabularies: () => {
-    return (dispatch, getState) => {
-      const vocabulariesRef = firebase.database().ref().child('vocabularies')
-      vocabulariesRef.on('value', snapshot => {
-        const vocabularies = Immutable.fromJS(snapshot.val())
-        dispatch({
-          type: A.RECEIVED_VOCABULARIES,
-          payload: Immutable.Map({
-            vocabularies: vocabularies
-          })
-        })
-      })
+    else {
+      appliedTerms = appliedTerms.add(term)
     }
-  },
-
-  // Switch to slug
-  toggleVocabulary: name => {
-    return {
-      type: A.TOGGLE_VOCABULARY,
-      payload: Immutable.Map({
-        name: name
-      })
+    if (!appliedTerms.isEmpty()) {
+      appliedFilters = appliedFilters.set(slug, appliedTerms)
+    }
+    else {
+      appliedFilters = appliedFilters.delete(slug)
     }
   }
-
+  else {
+    appliedFilters = appliedFilters.set(slug, Immutable.Set([term]))
+  }
+  if (appliedFilters.isEmpty()) {
+    location.hash = ''
+  }
+  else {
+    location.hash = queryString.stringify(appliedFilters.toJS())
+  }
 }

@@ -7531,6 +7531,7 @@
 	    };
 	  },
 	
+	  // Switch to slug
 	  toggleVocabulary: function toggleVocabulary(name) {
 	    return {
 	      type: _constants.A.TOGGLE_VOCABULARY,
@@ -41793,6 +41794,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _toggleFilter = __webpack_require__(491);
+	
+	var _toggleFilter2 = _interopRequireDefault(_toggleFilter);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41855,7 +41860,7 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      console.log('vocabulary slug ' + this.props.slug + ' term ' + this.props.name + ' click');
+	      (0, _toggleFilter2.default)(this.props.slug, this.props.name);
 	    }
 	  }, {
 	    key: '_handleDragStart',
@@ -61849,13 +61854,13 @@
 	
 	var _constants = __webpack_require__(6);
 	
+	var _getAppliedFilters = __webpack_require__(490);
+	
+	var _getAppliedFilters2 = _interopRequireDefault(_getAppliedFilters);
+	
 	var _immutable = __webpack_require__(13);
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
-	
-	var _queryString = __webpack_require__(263);
-	
-	var _queryString2 = _interopRequireDefault(_queryString);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -61926,19 +61931,14 @@
 	        };
 	
 	      case _constants.A.LOCATION_CHANGED:
-	        var search = action.payload.hash.replace(/#/, '');
-	        var appliedFilters = _immutable2.default.fromJS(_queryString2.default.parse(search));
+	        var appliedFilters = (0, _getAppliedFilters2.default)();
 	        return {
 	          v: state.set('vocabularies', state.get('vocabularies').map(function (v) {
-	            appliedFilters.forEach(function (afs, slug) {
-	              if (slug === v.get('slug')) {
-	                if (!_immutable2.default.List.isList(afs)) {
-	                  v = v.set('applied', v.get('applied').add(afs));
-	                } else {
-	                  v = v.set('applied', v.get('applied').union(afs));
-	                }
-	              }
-	            });
+	            if (appliedFilters.has(v.get('slug'))) {
+	              v = v.set('applied', appliedFilters.get(v.get('slug')));
+	            } else {
+	              v = v.set('applied', _immutable2.default.Set());
+	            }
 	            return v;
 	          }))
 	        };
@@ -62206,6 +62206,126 @@
 	
 	exports['default'] = thunk;
 
+/***/ },
+/* 490 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getAppliedFilters;
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	var _queryString = __webpack_require__(263);
+	
+	var _queryString2 = _interopRequireDefault(_queryString);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2016 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	
+	function getAppliedFilters() {
+	  var search = location.hash.replace(/#/, '');
+	  var appliedFilters = _immutable2.default.fromJS(_queryString2.default.parse(search));
+	  appliedFilters = appliedFilters.map(function (afs, slug) {
+	    if (_immutable2.default.List.isList(afs)) {
+	      return _immutable2.default.Set(afs);
+	    } else {
+	      return _immutable2.default.Set([afs]);
+	    }
+	  });
+	  return appliedFilters;
+	}
+
+/***/ },
+/* 491 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = toggleFilter;
+	
+	var _getAppliedFilters = __webpack_require__(490);
+	
+	var _getAppliedFilters2 = _interopRequireDefault(_getAppliedFilters);
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	var _queryString = __webpack_require__(263);
+	
+	var _queryString2 = _interopRequireDefault(_queryString);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function toggleFilter(slug, term) {
+	  var appliedFilters = (0, _getAppliedFilters2.default)();
+	  if (appliedFilters.has(slug)) {
+	    var appliedTerms = appliedFilters.get(slug);
+	    if (appliedTerms.contains(term)) {
+	      appliedTerms = appliedTerms.delete(term);
+	    } else {
+	      appliedTerms = appliedTerms.add(term);
+	    }
+	    if (!appliedTerms.isEmpty()) {
+	      appliedFilters = appliedFilters.set(slug, appliedTerms);
+	    } else {
+	      appliedFilters = appliedFilters.delete(slug);
+	    }
+	  } else {
+	    appliedFilters = appliedFilters.set(slug, _immutable2.default.Set([term]));
+	  }
+	  if (appliedFilters.isEmpty()) {
+	    location.hash = '';
+	  } else {
+	    location.hash = _queryString2.default.stringify(appliedFilters.toJS());
+	  }
+	} /*
+	   * Copyright (C) 2016 Mark P. Lindsay
+	   * 
+	   * This file is part of mysteriousobjectsatnoon.
+	   *
+	   * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	   * it under the terms of the GNU General Public License as published by
+	   * the Free Software Foundation, either version 3 of the License, or
+	   * (at your option) any later version.
+	   *
+	   * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	   * GNU General Public License for more details.
+	   * 
+	   * You should have received a copy of the GNU General Public License
+	   * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	   */
+
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

@@ -17,42 +17,19 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { A } from '../constants'
-import firebase from '../utils/firebase'
 import Immutable from 'immutable'
-import { push } from 'react-router-redux'
+import queryString from 'query-string'
 
-export default {
-
-  closeAllVocabularies: () => {
-    return {
-      type: A.CLOSE_ALL_VOCABULARIES
+export default function getAppliedFilters () {
+  const search = location.hash.replace(/#/, '')
+  let appliedFilters = Immutable.fromJS(queryString.parse(search))
+  appliedFilters = appliedFilters.map((afs, slug) => {
+    if (Immutable.List.isList(afs)) {
+      return Immutable.Set(afs)
     }
-  },
-
-  listenToVocabularies: () => {
-    return (dispatch, getState) => {
-      const vocabulariesRef = firebase.database().ref().child('vocabularies')
-      vocabulariesRef.on('value', snapshot => {
-        const vocabularies = Immutable.fromJS(snapshot.val())
-        dispatch({
-          type: A.RECEIVED_VOCABULARIES,
-          payload: Immutable.Map({
-            vocabularies: vocabularies
-          })
-        })
-      })
+    else {
+      return Immutable.Set([afs])
     }
-  },
-
-  // Switch to slug
-  toggleVocabulary: name => {
-    return {
-      type: A.TOGGLE_VOCABULARY,
-      payload: Immutable.Map({
-        name: name
-      })
-    }
-  }
-
+  })
+  return appliedFilters
 }

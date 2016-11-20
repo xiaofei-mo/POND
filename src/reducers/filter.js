@@ -18,8 +18,8 @@
  */
 
 import { A } from '../constants'
+import getAppliedFilters from '../utils/getAppliedFilters'
 import Immutable from 'immutable'
-import queryString from 'query-string'
 
 const initialState = Immutable.Map({
   vocabularies: Immutable.List([
@@ -92,21 +92,16 @@ export default function filterReducer (state = initialState, action) {
       )
 
     case A.LOCATION_CHANGED:
-      const search = action.payload.hash.replace(/#/, '')
-      const appliedFilters = Immutable.fromJS(queryString.parse(search))
+      const appliedFilters = getAppliedFilters()
       return state.set(
         'vocabularies',
         state.get('vocabularies').map(v => {
-          appliedFilters.forEach((afs, slug) => {
-            if (slug === v.get('slug')) {
-              if (!Immutable.List.isList(afs)) {
-                v = v.set('applied', v.get('applied').add(afs))
-              }
-              else {
-                v = v.set('applied', v.get('applied').union(afs))
-              }
-            }
-          })
+          if (appliedFilters.has(v.get('slug'))) {
+            v = v.set('applied', appliedFilters.get(v.get('slug')))
+          }
+          else {
+            v = v.set('applied', Immutable.Set())
+          }
           return v
         })
       )
@@ -116,7 +111,10 @@ export default function filterReducer (state = initialState, action) {
         'vocabularies', 
         state.get('vocabularies').map(v => {
           if (action.payload.get('vocabularies').has(v.get('slug'))) {
-            return v.set('terms', action.payload.getIn(['vocabularies', v.get('slug')]))
+            return v.set(
+              'terms', 
+              action.payload.getIn(['vocabularies', v.get('slug')])
+            )
           }
           return v
         })
