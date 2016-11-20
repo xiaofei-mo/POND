@@ -34,24 +34,31 @@ export default createSelector(
     // answers the question "should we filter this item? true for yes and false 
     // for no."
     return items.filterNot(item => {
+
+      // If the item doesn't have metadata, it will never match on the applied
+      // filters. So, we return true to filter (not include) this item.
       if (!item.has('metadata')) {
-        // If the item doesn't have metadata, it will never match on the applied
-        // filters. So, we return true to filter (not include) this item.
         return true
       }
-      // By default, we filter this item.
+
+      // By default we filter all items.
       let shouldFilter = true
-      // Examine each applied filter.
+
+      // For each filter's vocabulary slug, see if the item has any terms that
+      // are included in the applied terms.
       appliedFilters.forEach((appliedTerms, slug) => {
-        // For each filter's vocabulary slug, see if the item has metadata for 
-        // it.
         const terms = item.getIn(['metadata', slug], Immutable.Set())
-        // If the applied terms from the filter are contained within the terms
-        // in the item's metadata,
-        if (appliedTerms.isSubset(terms)) {
-          // do not filter out this item. Include it.
-          shouldFilter = false
-        }
+        terms.forEach(term => {
+          if (appliedTerms.includes(term)) {
+            // If the item has a term that is included, we want to include the
+            // item. This means that the filters are a logical OR. Or, as
+            // Xiaofei writes in `Wireframe 1106_OLDMENU4MARK.pdf`:
+            //
+            // "1st selected tag returns all objects to that tag, and subsequent 
+            // selections ADD to results."
+            shouldFilter = false
+          }
+        })
       })
       return shouldFilter
     })

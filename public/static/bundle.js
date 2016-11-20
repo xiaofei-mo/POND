@@ -62156,30 +62156,21 @@
 	 */
 	
 	var initialState = _immutable2.default.Map({
-	  // appliedFilters: Immutable.Map(),
 	  baseUrl: '',
 	  destinationItem: _immutable2.default.Map(),
 	  featuredItemId: null,
 	  height: 0,
-	  // isInFilterMode: false,
 	  items: _immutable2.default.Map(),
 	  pageId: null,
 	  scrollLeft: 0,
 	  width: 0
 	});
-	// import getAppliedFilters from '../utils/getAppliedFilters'
+	
 	function pageReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
 	  var action = arguments[1];
 	
 	  switch (action.type) {
-	
-	    // case A.LOCATION_CHANGED:
-	    //   const appliedFilters = getAppliedFilters()
-	    //   return state.merge({
-	    //     appliedFilters: appliedFilters,
-	    //     isInFilterMode: !appliedFilters.isEmpty()
-	    //   })
 	
 	    case _constants.A.PAGE_SCROLLED:
 	      return state.set('scrollLeft', action.payload.get('scrollLeft'));
@@ -62508,24 +62499,31 @@
 	  // answers the question "should we filter this item? true for yes and false 
 	  // for no."
 	  return items.filterNot(function (item) {
+	
+	    // If the item doesn't have metadata, it will never match on the applied
+	    // filters. So, we return true to filter (not include) this item.
 	    if (!item.has('metadata')) {
-	      // If the item doesn't have metadata, it will never match on the applied
-	      // filters. So, we return true to filter (not include) this item.
 	      return true;
 	    }
-	    // By default, we filter this item.
+	
+	    // By default we filter all items.
 	    var shouldFilter = true;
-	    // Examine each applied filter.
+	
+	    // For each filter's vocabulary slug, see if the item has any terms that
+	    // are included in the applied terms.
 	    appliedFilters.forEach(function (appliedTerms, slug) {
-	      // For each filter's vocabulary slug, see if the item has metadata for 
-	      // it.
 	      var terms = item.getIn(['metadata', slug], _immutable2.default.Set());
-	      // If the applied terms from the filter are contained within the terms
-	      // in the item's metadata,
-	      if (appliedTerms.isSubset(terms)) {
-	        // do not filter out this item. Include it.
-	        shouldFilter = false;
-	      }
+	      terms.forEach(function (term) {
+	        if (appliedTerms.includes(term)) {
+	          // If the item has a term that is included, we want to include the
+	          // item. This means that the filters are a logical OR. Or, as
+	          // Xiaofei writes in `Wireframe 1106_OLDMENU4MARK.pdf`:
+	          //
+	          // "1st selected tag returns all objects to that tag, and subsequent 
+	          // selections ADD to results."
+	          shouldFilter = false;
+	        }
+	      });
 	    });
 	    return shouldFilter;
 	  });
