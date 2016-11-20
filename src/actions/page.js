@@ -103,7 +103,7 @@ export default {
         _listenToUsername(timingOrUsername, dispatch)
         return
       }
-      _listenToFeatured(dispatch)
+      _listenToFeatured(dispatch, getState)
     }
   },
 
@@ -170,19 +170,20 @@ export default {
   }
 }
 
-const _listenToFeatured = (dispatch) => {
+const _listenToFeatured = (dispatch, getState) => {
   const ref = firebase.database().ref()
   let itemsRef = ref.child('items')
-
+  
   const _handleDestinationItem = (destinationItem) => {
     const pageId = destinationItem['pageId']
     itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId)
     itemsRef.on('value', (itemsSnapshot) => {
+      let items = Immutable.fromJS(itemsSnapshot.val())
       dispatch({
         type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem),
-          items: Immutable.fromJS(itemsSnapshot.val()),
+          items: items,
           pageId: pageId
         })
       })
@@ -229,11 +230,12 @@ const _listenToTimingSeconds = (timingSeconds, dispatch) => {
     const pageId = destinationItem[itemId]['pageId']
     itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId)
     itemsRef.on('value', (itemsSnapshot) => {
+      let items = Immutable.fromJS(itemsSnapshot.val())
       dispatch({
         type: A.RECEIVED_ITEMS, 
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem[itemId]),
-          items: Immutable.fromJS(itemsSnapshot.val()),
+          items: items,
           pageId: pageId
         })
       })

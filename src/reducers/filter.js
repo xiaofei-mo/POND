@@ -22,6 +22,8 @@ import getAppliedFilters from '../utils/getAppliedFilters'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
+  appliedFilters: Immutable.Map(),
+  isInFilterMode: false,
   vocabularies: Immutable.List([
     Immutable.Map({ 
       applied: Immutable.Set(),
@@ -93,9 +95,10 @@ export default function filterReducer (state = initialState, action) {
 
     case A.LOCATION_CHANGED:
       const appliedFilters = getAppliedFilters()
-      return state.set(
-        'vocabularies',
-        state.get('vocabularies').map(v => {
+      return state.merge({
+        appliedFilters: appliedFilters,
+        isInFilterMode: !appliedFilters.isEmpty(),
+        vocabularies: state.get('vocabularies').map(v => {
           if (appliedFilters.has(v.get('slug'))) {
             v = v.set('applied', appliedFilters.get(v.get('slug')))
           }
@@ -104,7 +107,7 @@ export default function filterReducer (state = initialState, action) {
           }
           return v
         })
-      )
+      })
 
     case A.RECEIVED_VOCABULARIES:
       return state.set(

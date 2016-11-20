@@ -78,7 +78,7 @@
 	
 	var _reactRouterRedux = __webpack_require__(21);
 	
-	var _reduxThunk = __webpack_require__(489);
+	var _reduxThunk = __webpack_require__(491);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -8013,7 +8013,7 @@
 	        _listenToUsername(timingOrUsername, dispatch);
 	        return;
 	      }
-	      _listenToFeatured(dispatch);
+	      _listenToFeatured(dispatch, getState);
 	    };
 	  },
 	
@@ -8094,7 +8094,7 @@
 	    * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
 	    */
 	
-	var _listenToFeatured = function _listenToFeatured(dispatch) {
+	var _listenToFeatured = function _listenToFeatured(dispatch, getState) {
 	  var ref = _firebase2.default.database().ref();
 	  var itemsRef = ref.child('items');
 	
@@ -8102,11 +8102,12 @@
 	    var pageId = destinationItem['pageId'];
 	    itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId);
 	    itemsRef.on('value', function (itemsSnapshot) {
+	      var items = _immutable2.default.fromJS(itemsSnapshot.val());
 	      dispatch({
 	        type: _constants.A.RECEIVED_ITEMS,
 	        payload: _immutable2.default.Map({
 	          destinationItem: _immutable2.default.fromJS(destinationItem),
-	          items: _immutable2.default.fromJS(itemsSnapshot.val()),
+	          items: items,
 	          pageId: pageId
 	        })
 	      });
@@ -8153,11 +8154,12 @@
 	    var pageId = destinationItem[itemId]['pageId'];
 	    itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId);
 	    itemsRef.on('value', function (itemsSnapshot) {
+	      var items = _immutable2.default.fromJS(itemsSnapshot.val());
 	      dispatch({
 	        type: _constants.A.RECEIVED_ITEMS,
 	        payload: _immutable2.default.Map({
 	          destinationItem: _immutable2.default.fromJS(destinationItem[itemId]),
-	          items: _immutable2.default.fromJS(itemsSnapshot.val()),
+	          items: items,
 	          pageId: pageId
 	        })
 	      });
@@ -38004,36 +38006,23 @@
 
 	'use strict';
 	var strictUriEncode = __webpack_require__(264);
-	var objectAssign = __webpack_require__(55);
-	
-	function encode(value, opts) {
-		if (opts.encode) {
-			return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
-		}
-	
-		return value;
-	}
 	
 	exports.extract = function (str) {
 		return str.split('?')[1] || '';
 	};
 	
 	exports.parse = function (str) {
-		// Create an object with no prototype
-		// https://github.com/sindresorhus/query-string/issues/47
-		var ret = Object.create(null);
-	
 		if (typeof str !== 'string') {
-			return ret;
+			return {};
 		}
 	
 		str = str.trim().replace(/^(\?|#|&)/, '');
 	
 		if (!str) {
-			return ret;
+			return {};
 		}
 	
-		str.split('&').forEach(function (param) {
+		return str.split('&').reduce(function (ret, param) {
 			var parts = param.replace(/\+/g, ' ').split('=');
 			// Firefox (pre 40) decodes `%3D` to `=`
 			// https://github.com/sindresorhus/query-string/pull/37
@@ -38046,26 +38035,19 @@
 			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
 			val = val === undefined ? null : decodeURIComponent(val);
 	
-			if (ret[key] === undefined) {
+			if (!ret.hasOwnProperty(key)) {
 				ret[key] = val;
 			} else if (Array.isArray(ret[key])) {
 				ret[key].push(val);
 			} else {
 				ret[key] = [ret[key], val];
 			}
-		});
 	
-		return ret;
+			return ret;
+		}, {});
 	};
 	
-	exports.stringify = function (obj, opts) {
-		var defaults = {
-			encode: true,
-			strict: true
-		};
-	
-		opts = objectAssign(defaults, opts);
-	
+	exports.stringify = function (obj) {
 		return obj ? Object.keys(obj).sort().map(function (key) {
 			var val = obj[key];
 	
@@ -38074,28 +38056,16 @@
 			}
 	
 			if (val === null) {
-				return encode(key, opts);
+				return key;
 			}
 	
 			if (Array.isArray(val)) {
-				var result = [];
-	
-				val.slice().forEach(function (val2) {
-					if (val2 === undefined) {
-						return;
-					}
-	
-					if (val2 === null) {
-						result.push(encode(key, opts));
-					} else {
-						result.push(encode(key, opts) + '=' + encode(val2, opts));
-					}
-				});
-	
-				return result.join('&');
+				return val.slice().sort().map(function (val2) {
+					return strictUriEncode(key) + '=' + strictUriEncode(val2);
+				}).join('&');
 			}
 	
-			return encode(key, opts) + '=' + encode(val, opts);
+			return strictUriEncode(key) + '=' + strictUriEncode(val);
 		}).filter(function (x) {
 			return x.length > 0;
 		}).join('&') : '';
@@ -41287,6 +41257,10 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _clearAppliedFilters = __webpack_require__(493);
+	
+	var _clearAppliedFilters2 = _interopRequireDefault(_clearAppliedFilters);
+	
 	var _react = __webpack_require__(53);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -41333,7 +41307,7 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      console.log('clear click');
+	      (0, _clearAppliedFilters2.default)();
 	    }
 	  }, {
 	    key: 'render',
@@ -41794,9 +41768,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _toggleFilter = __webpack_require__(491);
+	var _toggleAppliedFilter = __webpack_require__(492);
 	
-	var _toggleFilter2 = _interopRequireDefault(_toggleFilter);
+	var _toggleAppliedFilter2 = _interopRequireDefault(_toggleAppliedFilter);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -41860,7 +41834,7 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      (0, _toggleFilter2.default)(this.props.slug, this.props.name);
+	      (0, _toggleAppliedFilter2.default)(this.props.slug, this.props.name);
 	    }
 	  }, {
 	    key: '_handleDragStart',
@@ -42085,6 +42059,10 @@
 	
 	var _getHalfway2 = _interopRequireDefault(_getHalfway);
 	
+	var _getFilteredItems = __webpack_require__(494);
+	
+	var _getFilteredItems2 = _interopRequireDefault(_getFilteredItems);
+	
 	var _getLeftEdgeOfViewport = __webpack_require__(309);
 	
 	var _getLeftEdgeOfViewport2 = _interopRequireDefault(_getLeftEdgeOfViewport);
@@ -42288,8 +42266,9 @@
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
 	    featuredItemId: state.getIn(['page', 'featuredItemId']),
+	    isInFilterMode: state.getIn(['filter', 'isInFilterMode']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
-	    items: state.getIn(['page', 'items']),
+	    items: (0, _getFilteredItems2.default)(state),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    paddingRight: (0, _getPaddingRight2.default)(state),
@@ -61500,15 +61479,15 @@
 	
 	var _filter2 = _interopRequireDefault(_filter);
 	
-	var _page = __webpack_require__(486);
+	var _page = __webpack_require__(488);
 	
 	var _page2 = _interopRequireDefault(_page);
 	
-	var _router = __webpack_require__(487);
+	var _router = __webpack_require__(489);
 	
 	var _router2 = _interopRequireDefault(_router);
 	
-	var _upload = __webpack_require__(488);
+	var _upload = __webpack_require__(490);
 	
 	var _upload2 = _interopRequireDefault(_upload);
 	
@@ -61854,7 +61833,7 @@
 	
 	var _constants = __webpack_require__(6);
 	
-	var _getAppliedFilters = __webpack_require__(490);
+	var _getAppliedFilters = __webpack_require__(486);
 	
 	var _getAppliedFilters2 = _interopRequireDefault(_getAppliedFilters);
 	
@@ -61865,6 +61844,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var initialState = _immutable2.default.Map({
+	  appliedFilters: _immutable2.default.Map(),
+	  isInFilterMode: false,
 	  vocabularies: _immutable2.default.List([_immutable2.default.Map({
 	    applied: _immutable2.default.Set(),
 	    isOpen: false,
@@ -61933,14 +61914,18 @@
 	      case _constants.A.LOCATION_CHANGED:
 	        var appliedFilters = (0, _getAppliedFilters2.default)();
 	        return {
-	          v: state.set('vocabularies', state.get('vocabularies').map(function (v) {
-	            if (appliedFilters.has(v.get('slug'))) {
-	              v = v.set('applied', appliedFilters.get(v.get('slug')));
-	            } else {
-	              v = v.set('applied', _immutable2.default.Set());
-	            }
-	            return v;
-	          }))
+	          v: state.merge({
+	            appliedFilters: appliedFilters,
+	            isInFilterMode: !appliedFilters.isEmpty(),
+	            vocabularies: state.get('vocabularies').map(function (v) {
+	              if (appliedFilters.has(v.get('slug'))) {
+	                v = v.set('applied', appliedFilters.get(v.get('slug')));
+	              } else {
+	                v = v.set('applied', _immutable2.default.Set());
+	              }
+	              return v;
+	            })
+	          })
 	        };
 	
 	      case _constants.A.RECEIVED_VOCABULARIES:
@@ -61984,6 +61969,163 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = getAppliedFilters;
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	var _queryString = __webpack_require__(487);
+	
+	var _queryString2 = _interopRequireDefault(_queryString);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2016 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	
+	function getAppliedFilters() {
+	  var search = location.hash.replace(/#/, '');
+	  var appliedFilters = _immutable2.default.fromJS(_queryString2.default.parse(search));
+	  appliedFilters = appliedFilters.map(function (afs, slug) {
+	    if (_immutable2.default.List.isList(afs)) {
+	      return _immutable2.default.Set(afs);
+	    } else {
+	      return _immutable2.default.Set([afs]);
+	    }
+	  });
+	  return appliedFilters;
+	}
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var strictUriEncode = __webpack_require__(264);
+	var objectAssign = __webpack_require__(55);
+	
+	function encode(value, opts) {
+		if (opts.encode) {
+			return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
+		}
+	
+		return value;
+	}
+	
+	exports.extract = function (str) {
+		return str.split('?')[1] || '';
+	};
+	
+	exports.parse = function (str) {
+		// Create an object with no prototype
+		// https://github.com/sindresorhus/query-string/issues/47
+		var ret = Object.create(null);
+	
+		if (typeof str !== 'string') {
+			return ret;
+		}
+	
+		str = str.trim().replace(/^(\?|#|&)/, '');
+	
+		if (!str) {
+			return ret;
+		}
+	
+		str.split('&').forEach(function (param) {
+			var parts = param.replace(/\+/g, ' ').split('=');
+			// Firefox (pre 40) decodes `%3D` to `=`
+			// https://github.com/sindresorhus/query-string/pull/37
+			var key = parts.shift();
+			var val = parts.length > 0 ? parts.join('=') : undefined;
+	
+			key = decodeURIComponent(key);
+	
+			// missing `=` should be `null`:
+			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+			val = val === undefined ? null : decodeURIComponent(val);
+	
+			if (ret[key] === undefined) {
+				ret[key] = val;
+			} else if (Array.isArray(ret[key])) {
+				ret[key].push(val);
+			} else {
+				ret[key] = [ret[key], val];
+			}
+		});
+	
+		return ret;
+	};
+	
+	exports.stringify = function (obj, opts) {
+		var defaults = {
+			encode: true,
+			strict: true
+		};
+	
+		opts = objectAssign(defaults, opts);
+	
+		return obj ? Object.keys(obj).sort().map(function (key) {
+			var val = obj[key];
+	
+			if (val === undefined) {
+				return '';
+			}
+	
+			if (val === null) {
+				return encode(key, opts);
+			}
+	
+			if (Array.isArray(val)) {
+				var result = [];
+	
+				val.slice().forEach(function (val2) {
+					if (val2 === undefined) {
+						return;
+					}
+	
+					if (val2 === null) {
+						result.push(encode(key, opts));
+					} else {
+						result.push(encode(key, opts) + '=' + encode(val2, opts));
+					}
+				});
+	
+				return result.join('&');
+			}
+	
+			return encode(key, opts) + '=' + encode(val, opts);
+		}).filter(function (x) {
+			return x.length > 0;
+		}).join('&') : '';
+	};
+
+
+/***/ },
+/* 488 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = pageReducer;
 	
 	var _constants = __webpack_require__(6);
@@ -62014,21 +62156,30 @@
 	 */
 	
 	var initialState = _immutable2.default.Map({
+	  // appliedFilters: Immutable.Map(),
 	  baseUrl: '',
 	  destinationItem: _immutable2.default.Map(),
 	  featuredItemId: null,
 	  height: 0,
+	  // isInFilterMode: false,
 	  items: _immutable2.default.Map(),
 	  pageId: null,
 	  scrollLeft: 0,
 	  width: 0
 	});
-	
+	// import getAppliedFilters from '../utils/getAppliedFilters'
 	function pageReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
 	  var action = arguments[1];
 	
 	  switch (action.type) {
+	
+	    // case A.LOCATION_CHANGED:
+	    //   const appliedFilters = getAppliedFilters()
+	    //   return state.merge({
+	    //     appliedFilters: appliedFilters,
+	    //     isInFilterMode: !appliedFilters.isEmpty()
+	    //   })
 	
 	    case _constants.A.PAGE_SCROLLED:
 	      return state.set('scrollLeft', action.payload.get('scrollLeft'));
@@ -62067,7 +62218,7 @@
 	}
 
 /***/ },
-/* 487 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62121,7 +62272,7 @@
 	}
 
 /***/ },
-/* 488 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62179,7 +62330,7 @@
 	}
 
 /***/ },
-/* 489 */
+/* 491 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62207,7 +62358,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 490 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62215,62 +62366,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = getAppliedFilters;
+	exports.default = toggleAppliedFilter;
 	
-	var _immutable = __webpack_require__(13);
-	
-	var _immutable2 = _interopRequireDefault(_immutable);
-	
-	var _queryString = __webpack_require__(263);
-	
-	var _queryString2 = _interopRequireDefault(_queryString);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	 * Copyright (C) 2016 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
-	
-	function getAppliedFilters() {
-	  var search = location.hash.replace(/#/, '');
-	  var appliedFilters = _immutable2.default.fromJS(_queryString2.default.parse(search));
-	  appliedFilters = appliedFilters.map(function (afs, slug) {
-	    if (_immutable2.default.List.isList(afs)) {
-	      return _immutable2.default.Set(afs);
-	    } else {
-	      return _immutable2.default.Set([afs]);
-	    }
-	  });
-	  return appliedFilters;
-	}
-
-/***/ },
-/* 491 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = toggleFilter;
-	
-	var _getAppliedFilters = __webpack_require__(490);
+	var _getAppliedFilters = __webpack_require__(486);
 	
 	var _getAppliedFilters2 = _interopRequireDefault(_getAppliedFilters);
 	
@@ -62278,13 +62376,13 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _queryString = __webpack_require__(263);
+	var _queryString = __webpack_require__(487);
 	
 	var _queryString2 = _interopRequireDefault(_queryString);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function toggleFilter(slug, term) {
+	function toggleAppliedFilter(slug, term) {
 	  var appliedFilters = (0, _getAppliedFilters2.default)();
 	  if (appliedFilters.has(slug)) {
 	    var appliedTerms = appliedFilters.get(slug);
@@ -62325,7 +62423,114 @@
 	   * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
 	   */
 
+/***/ },
+/* 493 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = clearAppliedFilters;
+	/*
+	 * Copyright (C) 2016 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	
+	function clearAppliedFilters() {
+	  location.hash = '';
+	}
+
+/***/ },
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(94);
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2016 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['page', 'items']);
+	}, function (state) {
+	  return state.getIn(['filter', 'isInFilterMode']);
+	}, function (state) {
+	  return state.getIn(['filter', 'appliedFilters']);
+	}, function (items, isInFilterMode, appliedFilters) {
+	  // Return all items if we're not in filter mode.
+	  if (!isInFilterMode) {
+	    return items;
+	  }
+	  // filterNot means we will only include items that return false. This 
+	  // answers the question "should we filter this item? true for yes and false 
+	  // for no."
+	  return items.filterNot(function (item) {
+	    if (!item.has('metadata')) {
+	      // If the item doesn't have metadata, it will never match on the applied
+	      // filters. So, we return true to filter (not include) this item.
+	      return true;
+	    }
+	    // By default, we filter this item.
+	    var shouldFilter = true;
+	    // Examine each applied filter.
+	    appliedFilters.forEach(function (appliedTerms, slug) {
+	      // For each filter's vocabulary slug, see if the item has metadata for 
+	      // it.
+	      var terms = item.getIn(['metadata', slug], _immutable2.default.Set());
+	      // If the applied terms from the filter are contained within the terms
+	      // in the item's metadata,
+	      if (appliedTerms.isSubset(terms)) {
+	        // do not filter out this item. Include it.
+	        shouldFilter = false;
+	      }
+	    });
+	    return shouldFilter;
+	  });
+	});
+
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

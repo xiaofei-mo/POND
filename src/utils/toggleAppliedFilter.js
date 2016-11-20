@@ -21,7 +21,7 @@ import getAppliedFilters from './getAppliedFilters'
 import Immutable from 'immutable'
 import queryString from 'query-string'
 
-export default function toggleFilter (slug, term) {
+export default function toggleAppliedFilter (slug, term) {
   let appliedFilters = getAppliedFilters()
   if (appliedFilters.has(slug)) {
     let appliedTerms = appliedFilters.get(slug)
