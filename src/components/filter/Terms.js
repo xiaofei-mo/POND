@@ -31,9 +31,17 @@ export default class Terms extends React.Component {
     }
     const terms = this.props.terms.map(t => {
       if (this.props.applied.includes(t)) {
-        return <Term isApplied={true} key={t} name={t} slug={this.props.slug} />
+        return <Term isApplied={true} 
+                     key={t} 
+                     name={t} 
+                     slug={this.props.slug} 
+                     toggleAppliedFilter={this.props.toggleAppliedFilter} />
       }
-      return <Term isApplied={false} key={t} name={t} slug={this.props.slug} />
+      return <Term isApplied={false} 
+                   key={t} 
+                   name={t} 
+                   slug={this.props.slug} 
+                   toggleAppliedFilter={this.props.toggleAppliedFilter} />
     }).toArray()
     return (
       <ul className='terms'>

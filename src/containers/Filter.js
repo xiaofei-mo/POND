@@ -74,6 +74,7 @@ class Filter extends React.Component {
           <OpenerCloser isVisible={this.state.isVisible} 
                         onOpenClose={this._handleOpenClose} />
           <Vocabularies isVisible={this.state.isVisible}
+                        toggleAppliedFilter={this.props.toggleAppliedFilter}
                         toggleVocabulary={this.props.toggleVocabulary}
                         vocabularies={this.props.vocabularies} />
           <Clear isVisible={this.state.isVisible} />
@@ -95,6 +96,8 @@ function mapDispatchToProps (dispatch) {
   return {
     listenToVocabularies: bindActionCreators(actions.listenToVocabularies, 
                                              dispatch),
+    toggleAppliedFilter: bindActionCreators(actions.toggleAppliedFilter, 
+                                            dispatch),
     toggleVocabulary: bindActionCreators(actions.toggleVocabulary, dispatch)
   }
 }

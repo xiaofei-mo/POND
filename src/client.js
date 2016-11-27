@@ -21,6 +21,7 @@ import actions from './actions'
 import App from './containers/App'
 import { applyMiddleware, createStore } from 'redux'
 import { browserHistory, IndexRoute, Route, Router } from 'react-router'
+import FilterPage from './containers/FilterPage'
 import Page from './containers/Page'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -44,6 +45,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
+        <Route path='filter/:search' component={FilterPage} />
         <IndexRoute component={Page} />
         <Route path=':timingOrUsername' component={Page} />
       </Route>

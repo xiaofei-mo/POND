@@ -17,19 +17,33 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { connect } from 'react-redux'
 import Immutable from 'immutable'
-import queryString from 'query-string'
+import React from 'react'
 
-export default function getAppliedFilters () {
-  const search = location.hash.replace(/#/, '')
-  let appliedFilters = Immutable.fromJS(queryString.parse(search))
-  appliedFilters = appliedFilters.map((afs, slug) => {
-    if (Immutable.List.isList(afs)) {
-      return Immutable.Set(afs)
-    }
-    else {
-      return Immutable.Set([afs])
-    }
-  })
-  return appliedFilters
+class FilterPage extends React.Component {
+  constructor() {
+    super()
+    this.render = this.render.bind(this)
+  }
+  render() {
+    // console.log('FilterPage.render, this.props = ', this.props)
+    return (
+      <div className='page' 
+           id='filter-page'>
+      </div>
+    )
+  }
 }
+
+function mapStateToProps (state) {
+  return {
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterPage)

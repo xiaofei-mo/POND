@@ -21,6 +21,7 @@ import { A } from '../constants'
 import firebase from '../utils/firebase'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
+import queryString from 'query-string'
 
 export default {
 
@@ -42,6 +43,38 @@ export default {
           })
         })
       })
+    }
+  },
+
+  toggleAppliedFilter: (slug, term) => {
+    return (dispatch, getState) => {
+      let appliedFilters = getState().getIn(['filter', 'appliedFilters'])
+      if (appliedFilters.has(slug)) {
+        let appliedTerms = appliedFilters.get(slug)
+        if (appliedTerms.contains(term)) {
+          appliedTerms = appliedTerms.delete(term)
+        }
+        else {
+          appliedTerms = appliedTerms.add(term)
+        }
+        if (!appliedTerms.isEmpty()) {
+          appliedFilters = appliedFilters.set(slug, appliedTerms)
+        }
+        else {
+          appliedFilters = appliedFilters.delete(slug)
+        }
+      }
+      else {
+        appliedFilters = appliedFilters.set(slug, Immutable.Set([term]))
+      }
+      if (appliedFilters.isEmpty()) {
+        dispatch(push('/'))
+      }
+      else {
+        let pathname = '/filter/'
+        pathname += queryString.stringify(appliedFilters.toJS())
+        dispatch(push(pathname))
+      }
     }
   },
 

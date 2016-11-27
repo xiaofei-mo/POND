@@ -18,8 +18,8 @@
  */
 
 import { A } from '../constants'
-import getAppliedFilters from '../utils/getAppliedFilters'
 import Immutable from 'immutable'
+import queryString from 'query-string'
 
 const initialState = Immutable.Map({
   appliedFilters: Immutable.Map(),
@@ -94,7 +94,17 @@ export default function filterReducer (state = initialState, action) {
       )
 
     case A.LOCATION_CHANGED:
-      const appliedFilters = getAppliedFilters()
+      const pathname = action.payload.pathname
+      const search = pathname.replace(/filter/, '').replace(/\//g, '')
+      let appliedFilters = Immutable.fromJS(queryString.parse(search))
+      appliedFilters = appliedFilters.map((afs, slug) => {
+        if (Immutable.List.isList(afs)) {
+          return Immutable.Set(afs)
+        }
+        else {
+          return Immutable.Set([afs])
+        }
+      })
       return state.merge({
         appliedFilters: appliedFilters,
         isInFilterMode: !appliedFilters.isEmpty(),

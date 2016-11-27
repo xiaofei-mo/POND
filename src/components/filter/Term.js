@@ -18,7 +18,6 @@
  */
 
 import React from 'react'
-import toggleAppliedFilter from '../../utils/toggleAppliedFilter'
 
 export default class Term extends React.Component {
   constructor() {
@@ -46,7 +45,7 @@ export default class Term extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    toggleAppliedFilter(this.props.slug, this.props.name)
+    this.props.toggleAppliedFilter(this.props.slug, this.props.name)
   }
   _handleDragStart(event) {
     event.preventDefault()

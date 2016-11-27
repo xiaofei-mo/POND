@@ -21,7 +21,6 @@ import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import getHalfway from '../selectors/getHalfway'
-import getFilteredItems from '../selectors/getFilteredItems'
 import getLeftEdgeOfViewport from '../selectors/getLeftEdgeOfViewport'
 import getPaddingLeft from '../selectors/getPaddingLeft'
 import getPaddingRight from '../selectors/getPaddingRight'
@@ -155,9 +154,8 @@ function mapStateToProps (state) {
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     featuredItemId: state.getIn(['page', 'featuredItemId']),
-    isInFilterMode: state.getIn(['filter', 'isInFilterMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
-    items: getFilteredItems(state),
+    items: state.getIn(['page', 'items']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
