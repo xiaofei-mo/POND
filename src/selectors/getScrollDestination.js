@@ -21,12 +21,18 @@ import { createSelector } from 'reselect'
 import getPaddingLeft from './getPaddingLeft'
 
 export default createSelector(
+  state => state.getIn(['filter', 'isInFilterMode']),
   state => state.getIn(['page', 'items']),
+  state => state.getIn(['filter', 'filteredItems']),
   state => state.getIn(['page', 'destinationItem']),
   state => state.getIn(['page', 'width']),
   getPaddingLeft,
 
-  (items, destinationItem, width, paddingLeft) => {
+  (isInFilterMode, regularItems, filteredItems, destinationItem, width, paddingLeft) => {
+    let items = regularItems
+    if (isInFilterMode) {
+      items = filteredItems
+    }
     if (items.isEmpty() || width === 0) {
       return null
     }

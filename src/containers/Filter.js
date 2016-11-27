@@ -77,7 +77,9 @@ class Filter extends React.Component {
                         toggleAppliedFilter={this.props.toggleAppliedFilter}
                         toggleVocabulary={this.props.toggleVocabulary}
                         vocabularies={this.props.vocabularies} />
-          <Clear isVisible={this.state.isVisible} />
+          <Clear appliedFilters={this.props.appliedFilters}
+                 clearAppliedFilters={this.props.clearAppliedFilters}
+                 isVisible={this.state.isVisible} />
         </div>
       </Draggable>
     )
@@ -86,6 +88,7 @@ class Filter extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    appliedFilters: state.getIn(['filter', 'appliedFilters']),
     vocabularies: state.getIn(['filter', 'vocabularies']),
     windowHeight: state.getIn(['page', 'height']),
     windowWidth: state.getIn(['page', 'width'])
@@ -94,6 +97,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    clearAppliedFilters: bindActionCreators(actions.clearAppliedFilters, 
+                                            dispatch),
     listenToVocabularies: bindActionCreators(actions.listenToVocabularies, 
                                              dispatch),
     toggleAppliedFilter: bindActionCreators(actions.toggleAppliedFilter, 

@@ -362,6 +362,7 @@
 	  PAGE_SCROLLED: 'PAGE_SCROLLED',
 	  RECEIVED_BASE_URL: 'RECEIVED_BASE_URL',
 	  RECEIVED_FEATURED_ITEM_ID: 'RECEIVED_FEATURED_ITEM_ID',
+	  RECEIVED_FILTERED_ITEMS: 'RECEIVED_FILTERED_ITEMS',
 	  RECEIVED_ITEMS: 'RECEIVED_ITEMS',
 	  RECEIVED_UPLOADS: 'RECEIVED_UPLOADS',
 	  RECEIVED_USER: 'RECEIVED_USER',
@@ -7502,9 +7503,50 @@
 	
 	exports.default = {
 	
+	  clearAppliedFilters: function clearAppliedFilters() {
+	    return function (dispatch, getState) {
+	      dispatch((0, _reactRouterRedux.push)('/'));
+	    };
+	  },
+	
 	  closeAllVocabularies: function closeAllVocabularies() {
 	    return {
 	      type: _constants.A.CLOSE_ALL_VOCABULARIES
+	    };
+	  },
+	
+	  listenToFilteredItems: function listenToFilteredItems(appliedFilters) {
+	    return function (dispatch, getState) {
+	      var ref = _firebase2.default.database().ref();
+	      var itemsRef = ref.child('items');
+	      var vlRef = ref.child('vocabulariesLookup');
+	      var itemPromises = [];
+	      var vlPromises = [];
+	      var filteredItems = _immutable2.default.Map();
+	      appliedFilters.forEach(function (terms, slug) {
+	        terms.forEach(function (term) {
+	          vlPromises.push(vlRef.child(slug + '/' + term).once('value'));
+	        });
+	      });
+	      Promise.all(vlPromises).then(function (snapshots) {
+	        snapshots.forEach(function (snapshot) {
+	          snapshot.val().forEach(function (itemId) {
+	            itemPromises.push(itemsRef.child(itemId).once('value'));
+	          });
+	        });
+	        Promise.all(itemPromises).then(function (itemSnapshots) {
+	          itemSnapshots.forEach(function (itemSnapshot) {
+	            var item = _immutable2.default.fromJS(itemSnapshot.val());
+	            filteredItems = filteredItems.set(item.get('id'), item);
+	          });
+	          dispatch({
+	            type: _constants.A.RECEIVED_FILTERED_ITEMS,
+	            payload: _immutable2.default.Map({
+	              filteredItems: filteredItems
+	            })
+	          });
+	        });
+	      });
 	    };
 	  },
 	
@@ -16416,13 +16458,22 @@
 	var _reselect = __webpack_require__(96);
 	
 	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['filter', 'isInFilterMode']);
+	}, function (state) {
 	  return state.getIn(['page', 'items']);
 	}, function (state) {
+	  return state.getIn(['filter', 'filteredItems']);
+	}, function (state) {
 	  return state.getIn(['page', 'width']);
-	}, function (items, width) {
+	}, function (isInFilterMode, items, filteredItems, width) {
 	  var leftmostItem = items.minBy(function (item) {
 	    return item.get('x');
 	  });
+	  if (isInFilterMode) {
+	    leftmostItem = filteredItems.minBy(function (item) {
+	      return item.get('x');
+	    });
+	  }
 	  if (leftmostItem === undefined) {
 	    return 0;
 	  }
@@ -41361,7 +41412,9 @@
 	            toggleAppliedFilter: this.props.toggleAppliedFilter,
 	            toggleVocabulary: this.props.toggleVocabulary,
 	            vocabularies: this.props.vocabularies }),
-	          _react2.default.createElement(_Clear2.default, { isVisible: this.state.isVisible })
+	          _react2.default.createElement(_Clear2.default, { appliedFilters: this.props.appliedFilters,
+	            clearAppliedFilters: this.props.clearAppliedFilters,
+	            isVisible: this.state.isVisible })
 	        )
 	      );
 	    }
@@ -41372,6 +41425,7 @@
 	
 	function mapStateToProps(state) {
 	  return {
+	    appliedFilters: state.getIn(['filter', 'appliedFilters']),
 	    vocabularies: state.getIn(['filter', 'vocabularies']),
 	    windowHeight: state.getIn(['page', 'height']),
 	    windowWidth: state.getIn(['page', 'width'])
@@ -41380,6 +41434,7 @@
 	
 	function mapDispatchToProps(dispatch) {
 	  return {
+	    clearAppliedFilters: (0, _redux.bindActionCreators)(_actions2.default.clearAppliedFilters, dispatch),
 	    listenToVocabularies: (0, _redux.bindActionCreators)(_actions2.default.listenToVocabularies, dispatch),
 	    toggleAppliedFilter: (0, _redux.bindActionCreators)(_actions2.default.toggleAppliedFilter, dispatch),
 	    toggleVocabulary: (0, _redux.bindActionCreators)(_actions2.default.toggleVocabulary, dispatch)
@@ -41399,10 +41454,6 @@
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _clearAppliedFilters = __webpack_require__(301);
-	
-	var _clearAppliedFilters2 = _interopRequireDefault(_clearAppliedFilters);
 	
 	var _react = __webpack_require__(56);
 	
@@ -41450,12 +41501,12 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      (0, _clearAppliedFilters2.default)();
+	      this.props.clearAppliedFilters();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (!this.props.isVisible) {
+	      if (!this.props.isVisible || this.props.appliedFilters.isEmpty()) {
 	        return null;
 	      }
 	      return _react2.default.createElement(
@@ -41472,39 +41523,7 @@
 	exports.default = Clear;
 
 /***/ },
-/* 301 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = clearAppliedFilters;
-	/*
-	 * Copyright (C) 2016 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
-	
-	function clearAppliedFilters() {
-	  location.hash = '';
-	}
-
-/***/ },
+/* 301 */,
 /* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -42229,7 +42248,37 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _actions = __webpack_require__(4);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _redux = __webpack_require__(39);
+	
 	var _reactRedux = __webpack_require__(54);
+	
+	var _getHalfway = __webpack_require__(311);
+	
+	var _getHalfway2 = _interopRequireDefault(_getHalfway);
+	
+	var _getLeftEdgeOfViewport = __webpack_require__(312);
+	
+	var _getLeftEdgeOfViewport2 = _interopRequireDefault(_getLeftEdgeOfViewport);
+	
+	var _getPaddingLeft = __webpack_require__(95);
+	
+	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
+	
+	var _getPaddingRight = __webpack_require__(313);
+	
+	var _getPaddingRight2 = _interopRequireDefault(_getPaddingRight);
+	
+	var _getRightEdgeOfViewport = __webpack_require__(314);
+	
+	var _getRightEdgeOfViewport2 = _interopRequireDefault(_getRightEdgeOfViewport);
+	
+	var _getScrollDestination = __webpack_require__(315);
+	
+	var _getScrollDestination2 = _interopRequireDefault(_getScrollDestination);
 	
 	var _immutable = __webpack_require__(13);
 	
@@ -42238,6 +42287,14 @@
 	var _react = __webpack_require__(56);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _TextItem = __webpack_require__(316);
+	
+	var _TextItem2 = _interopRequireDefault(_TextItem);
+	
+	var _VideoItem = __webpack_require__(475);
+	
+	var _VideoItem2 = _interopRequireDefault(_VideoItem);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -42272,16 +42329,113 @@
 	
 	    var _this = _possibleConstructorReturn(this, (FilterPage.__proto__ || Object.getPrototypeOf(FilterPage)).call(this));
 	
+	    _this.state = {
+	      wasInitiallyScrolled: false
+	    };
+	    _this._getStyle = _this._getStyle.bind(_this);
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this.componentDidMount = _this.componentDidMount.bind(_this);
+	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
+	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(FilterPage, [{
+	    key: '_getStyle',
+	    value: function _getStyle() {
+	      var style = {
+	        paddingLeft: this.props.paddingLeft + 'px',
+	        paddingRight: this.props.paddingRight + 'px'
+	      };
+	      return style;
+	    }
+	  }, {
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      if (event.target === this.refs.page) {
+	        if (this.props.isShowingMetadata) {
+	          this.props.hideMetadata();
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.listenToFilteredItems(this.props.appliedFilters);
+	      this.scrollerNode = document.getElementById('scroller');
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      var scrollAdjustment = prevProps.paddingLeft - this.props.paddingLeft;
+	      if (!this.state.wasInitiallyScrolled && prevProps.scrollDestination !== this.props.scrollDestination) {
+	        this.scrollerNode.scrollLeft = this.props.scrollDestination;
+	        this.setState({
+	          wasInitiallyScrolled: true
+	        });
+	      } else if (scrollAdjustment !== 0) {
+	        this.scrollerNode.scrollLeft -= scrollAdjustment;
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (this.props.appliedFilters !== nextProps.appliedFilters) {
+	        this.setState({
+	          wasInitiallyScrolled: false
+	        });
+	        this.props.listenToFilteredItems(nextProps.appliedFilters);
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      // console.log('FilterPage.render, this.props = ', this.props)
-	      return _react2.default.createElement('div', { className: 'page',
-	        id: 'filter-page' });
+	      var _this2 = this;
+	
+	      var filteredItems = this.props.filteredItems.map(function (filteredItem, key) {
+	        switch (filteredItem.get('type')) {
+	          case 'text':
+	            return _react2.default.createElement(_TextItem2.default, { baseUrl: _this2.props.baseUrl,
+	              deleteItem: _this2.props.deleteItem,
+	              featuredItemId: _this2.props.featuredItemId,
+	              hideMetadata: _this2.props.hideMetadata,
+	              id: key,
+	              isShowingMetadata: _this2.props.isShowingMetadata,
+	              item: filteredItem,
+	              key: key,
+	              setFeaturedItemId: _this2.props.setFeaturedItemId,
+	              setTextItemRawState: _this2.props.setTextItemRawState,
+	              setItemMetadata: _this2.props.setItemMetadata,
+	              user: _this2.props.user });
+	          case 'video':
+	            return _react2.default.createElement(_VideoItem2.default, { baseUrl: _this2.props.baseUrl,
+	              deleteItem: _this2.props.deleteItem,
+	              featuredItemId: _this2.props.featuredItemId,
+	              halfway: _this2.props.halfway,
+	              height: _this2.props.height,
+	              hideMetadata: _this2.props.hideMetadata,
+	              id: key,
+	              isShowingMetadata: _this2.props.isShowingMetadata,
+	              item: filteredItem,
+	              key: key,
+	              leftEdgeOfViewport: _this2.props.leftEdgeOfViewport,
+	              paddingLeft: _this2.props.paddingLeft,
+	              rightEdgeOfViewport: _this2.props.rightEdgeOfViewport,
+	              setFeaturedItemId: _this2.props.setFeaturedItemId,
+	              setItemMetadata: _this2.props.setItemMetadata,
+	              user: _this2.props.user });
+	          default:
+	            return null;
+	        }
+	      }).toArray();
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'page',
+	          id: 'filter-page',
+	          style: this._getStyle() },
+	        filteredItems
+	      );
 	    }
 	  }]);
 	
@@ -42289,11 +42443,34 @@
 	}(_react2.default.Component);
 	
 	function mapStateToProps(state) {
-	  return {};
+	  return {
+	    appliedFilters: state.getIn(['filter', 'appliedFilters']),
+	    baseUrl: state.getIn(['page', 'baseUrl']),
+	    halfway: (0, _getHalfway2.default)(state),
+	    height: state.getIn(['page', 'height']),
+	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
+	    filteredItems: state.getIn(['filter', 'filteredItems']),
+	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
+	    paddingLeft: (0, _getPaddingLeft2.default)(state),
+	    paddingRight: (0, _getPaddingRight2.default)(state),
+	    pageId: state.getIn(['page', 'pageId']),
+	    rightEdgeOfViewport: (0, _getRightEdgeOfViewport2.default)(state),
+	    scrollDestination: (0, _getScrollDestination2.default)(state),
+	    scrollLeft: state.getIn(['page', 'scrollLeft']),
+	    user: state.getIn(['app', 'user']),
+	    width: state.getIn(['page', 'width'])
+	  };
 	}
 	
 	function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    deleteItem: (0, _redux.bindActionCreators)(_actions2.default.deleteItem, dispatch),
+	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
+	    listenToFilteredItems: (0, _redux.bindActionCreators)(_actions2.default.listenToFilteredItems, dispatch),
+	    setFeaturedItemId: (0, _redux.bindActionCreators)(_actions2.default.setFeaturedItemId, dispatch),
+	    setItemMetadata: (0, _redux.bindActionCreators)(_actions2.default.setItemMetadata, dispatch),
+	    setTextItemRawState: (0, _redux.bindActionCreators)(_actions2.default.setTextItemRawState, dispatch)
+	  };
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FilterPage);
@@ -42643,13 +42820,22 @@
 	var _reselect = __webpack_require__(96);
 	
 	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['filter', 'isInFilterMode']);
+	}, function (state) {
 	  return state.getIn(['page', 'items']);
 	}, function (state) {
+	  return state.getIn(['filter', 'filteredItems']);
+	}, function (state) {
 	  return state.getIn(['page', 'width']);
-	}, function (items, width) {
+	}, function (isInFilterMode, items, filteredItems, width) {
 	  var rightmostItem = items.maxBy(function (item) {
 	    return item.get('width') + item.get('x');
 	  });
+	  if (isInFilterMode) {
+	    rightmostItem = filteredItems.maxBy(function (item) {
+	      return item.get('width') + item.get('x');
+	    });
+	  }
 	  if (rightmostItem === undefined) {
 	    return 0;
 	  }
@@ -42748,12 +42934,20 @@
 	 */
 	
 	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['filter', 'isInFilterMode']);
+	}, function (state) {
 	  return state.getIn(['page', 'items']);
+	}, function (state) {
+	  return state.getIn(['filter', 'filteredItems']);
 	}, function (state) {
 	  return state.getIn(['page', 'destinationItem']);
 	}, function (state) {
 	  return state.getIn(['page', 'width']);
-	}, _getPaddingLeft2.default, function (items, destinationItem, width, paddingLeft) {
+	}, _getPaddingLeft2.default, function (isInFilterMode, regularItems, filteredItems, destinationItem, width, paddingLeft) {
+	  var items = regularItems;
+	  if (isInFilterMode) {
+	    items = filteredItems;
+	  }
 	  if (items.isEmpty() || width === 0) {
 	    return null;
 	  }
@@ -59044,6 +59238,9 @@
 	  }, {
 	    key: '_shouldAllowDragAndResize',
 	    value: function _shouldAllowDragAndResize() {
+	      if (this.props.setItemPosition === undefined || this.props.setItemSize === undefined) {
+	        return false;
+	      }
 	      return this.props.user.get('uid') === this.props.item.get('userId') && !this.props.isShowingMetadata;
 	    }
 	  }, {
@@ -62103,6 +62300,7 @@
 	
 	var initialState = _immutable2.default.Map({
 	  appliedFilters: _immutable2.default.Map(),
+	  filteredItems: _immutable2.default.Map(),
 	  isInFilterMode: false,
 	  vocabularies: _immutable2.default.List([_immutable2.default.Map({
 	    applied: _immutable2.default.Set(),
@@ -62180,9 +62378,14 @@
 	            return _immutable2.default.Set([afs]);
 	          }
 	        });
+	        var filteredItems = state.get('filteredItems');
+	        if (appliedFilters.isEmpty()) {
+	          filteredItems = _immutable2.default.Map();
+	        }
 	        return {
 	          v: state.merge({
 	            appliedFilters: appliedFilters,
+	            filteredItems: filteredItems,
 	            isInFilterMode: !appliedFilters.isEmpty(),
 	            vocabularies: state.get('vocabularies').map(function (v) {
 	              if (appliedFilters.has(v.get('slug'))) {
@@ -62193,6 +62396,16 @@
 	              return v;
 	            })
 	          })
+	        };
+	
+	      case _constants.A.RECEIVED_FILTERED_ITEMS:
+	        var lastX = 0;
+	        return {
+	          v: state.set('filteredItems', action.payload.get('filteredItems').map(function (fi) {
+	            fi = fi.set('x', lastX);
+	            lastX += fi.get('width') + 50;
+	            return fi;
+	          }))
 	        };
 	
 	      case _constants.A.RECEIVED_VOCABULARIES:

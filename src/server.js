@@ -213,23 +213,33 @@ const _pollTransloadit = (uploadId, uri) => {
 
 ref.child('items').on('value', (snapshot) => {
   const items = Immutable.fromJS(snapshot.val())
-  const metadata = items.get('metadata')
   let vocabularies = Immutable.Map()
+  let vocabulariesLookup = Immutable.Map()
   items.forEach(item => {
     if (item.has('metadata')) {
-      item.get('metadata').forEach((t, vocabulary) => {
-        if (vocabulary !== 'title' && vocabulary !== 'year') {
-          let terms = Immutable.OrderedSet(t)
-          if (vocabularies.has(vocabulary)) {
-            terms = vocabularies.get(vocabulary).union(terms)
+      item.get('metadata').forEach((terms, slug) => {
+        if (slug !== 'title' && slug !== 'year') {
+          let termsSet = Immutable.OrderedSet(terms)
+          if (vocabularies.has(slug)) {
+            termsSet = vocabularies.get(slug).union(termsSet)
           }
-          terms = terms.sort()
-          vocabularies = vocabularies.set(vocabulary, terms)
+          termsSet = termsSet.sort()
+          vocabularies = vocabularies.set(slug, termsSet)
+
+          // Lookup "table" for filtering.
+          let vocabularyLookup = vocabulariesLookup.get(slug, Immutable.Map())
+          terms.forEach(term => {
+            let itemIds = vocabularyLookup.get(term, Immutable.Set())
+            itemIds = itemIds.add(item.get('id'))
+            vocabularyLookup = vocabularyLookup.set(term, itemIds)
+          })
+          vocabulariesLookup = vocabulariesLookup.set(slug, vocabularyLookup)
         }
       })
     }
   })
   ref.child('vocabularies').set(vocabularies.toJS())
+  ref.child('vocabulariesLookup').set(vocabulariesLookup.toJS())
 })
 
 
