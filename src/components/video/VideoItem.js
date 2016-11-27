@@ -165,6 +165,10 @@ export default class VideoItem extends React.Component {
     }
   }
   _shouldAllowDragAndResize() {
+    if (this.props.setItemPosition === undefined || 
+        this.props.setItemSize === undefined) {
+      return false
+    }
     return this.props.user.get('uid') === this.props.item.get('userId') && 
            !this.props.isShowingMetadata
   }

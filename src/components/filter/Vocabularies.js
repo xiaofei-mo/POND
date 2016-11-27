@@ -31,6 +31,7 @@ export default class Vocabularies extends React.Component {
     }
     const vocabularies = this.props.vocabularies.map((v) => {
       return <Vocabulary key={v.get('name')}
+                         toggleAppliedFilter={this.props.toggleAppliedFilter}
                          toggleVocabulary={this.props.toggleVocabulary} 
                          vocabulary={v} />
     }).toArray()

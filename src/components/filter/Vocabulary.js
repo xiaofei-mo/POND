@@ -48,7 +48,8 @@ export default class Vocabulary extends React.Component {
         <Terms applied={this.props.vocabulary.get('applied')}
                isOpen={this.props.vocabulary.get('isOpen')} 
                slug={this.props.vocabulary.get('slug')}
-               terms={this.props.vocabulary.get('terms')} />
+               terms={this.props.vocabulary.get('terms')} 
+               toggleAppliedFilter={this.props.toggleAppliedFilter} />
       </li>
     )
   }

@@ -20,11 +20,16 @@
 import { createSelector } from 'reselect'
 
 export default createSelector(
+  state => state.getIn(['filter', 'isInFilterMode']),
   state => state.getIn(['page', 'items']),
+  state => state.getIn(['filter', 'filteredItems']),
   state => state.getIn(['page', 'width']),
   
-  (items, width) => {
-    const leftmostItem = items.minBy(item => item.get('x'))
+  (isInFilterMode, items, filteredItems, width) => {
+    let leftmostItem = items.minBy(item => item.get('x'))
+    if (isInFilterMode) {
+      leftmostItem = filteredItems.minBy(item => item.get('x'))
+    }
     if (leftmostItem === undefined) {
       return 0
     }

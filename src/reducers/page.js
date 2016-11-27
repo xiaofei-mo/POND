@@ -33,7 +33,14 @@ const initialState = Immutable.Map({
 
 export default function pageReducer (state = initialState, action) {
   switch (action.type) {
-      
+    
+    case A.LOCATION_CHANGED:
+      return state.merge({
+        destinationItem: Immutable.Map(),
+        items: Immutable.Map(),
+        pageId: null
+      })
+
     case A.PAGE_SCROLLED:
       return state.set('scrollLeft', action.payload.get('scrollLeft'))
 

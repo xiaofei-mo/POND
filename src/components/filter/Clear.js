@@ -17,7 +17,6 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import clearAppliedFilters from '../../utils/clearAppliedFilters'
 import React from 'react'
 
 export default class Clear extends React.Component {
@@ -28,10 +27,10 @@ export default class Clear extends React.Component {
   }
   _handleClick(event) {
     event.preventDefault()
-    clearAppliedFilters()
+    this.props.clearAppliedFilters()
   }
   render() {
-    if (!this.props.isVisible) {
+    if (!this.props.isVisible || this.props.appliedFilters.isEmpty()) {
       return null
     }
     return <a className='clear' href='#' onClick={this._handleClick}>Clear</a>

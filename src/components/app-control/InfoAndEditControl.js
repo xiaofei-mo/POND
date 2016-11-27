@@ -66,10 +66,10 @@ export default class InfoAndEditControl extends React.Component {
     }
     const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.10) }
     let className = 'info-and-edit-control app-control'
-    let img = <img src='static/haumea.png' alt='Info &amp Edit' />
+    let img = <img src='/static/haumea.png' alt='Info &amp Edit' />
     if (!this.props.uploads.isEmpty()) {
       className += ' is-uploading'
-      img = <img src='static/haumea_uploading.gif' alt='Uploading...' />
+      img = <img src='/static/haumea_uploading.gif' alt='Uploading...' />
     }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>

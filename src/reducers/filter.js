@@ -18,11 +18,12 @@
  */
 
 import { A } from '../constants'
-import getAppliedFilters from '../utils/getAppliedFilters'
 import Immutable from 'immutable'
+import queryString from 'query-string'
 
 const initialState = Immutable.Map({
   appliedFilters: Immutable.Map(),
+  filteredItems: Immutable.Map(),
   isInFilterMode: false,
   vocabularies: Immutable.List([
     Immutable.Map({ 
@@ -94,9 +95,24 @@ export default function filterReducer (state = initialState, action) {
       )
 
     case A.LOCATION_CHANGED:
-      const appliedFilters = getAppliedFilters()
+      const pathname = action.payload.pathname
+      const search = pathname.replace(/filter/, '').replace(/\//g, '')
+      let appliedFilters = Immutable.fromJS(queryString.parse(search))
+      appliedFilters = appliedFilters.map((afs, slug) => {
+        if (Immutable.List.isList(afs)) {
+          return Immutable.Set(afs)
+        }
+        else {
+          return Immutable.Set([afs])
+        }
+      })
+      let filteredItems = state.get('filteredItems')
+      if (appliedFilters.isEmpty()) {
+        filteredItems = Immutable.Map()
+      }
       return state.merge({
         appliedFilters: appliedFilters,
+        filteredItems: filteredItems,
         isInFilterMode: !appliedFilters.isEmpty(),
         vocabularies: state.get('vocabularies').map(v => {
           if (appliedFilters.has(v.get('slug'))) {
@@ -108,6 +124,17 @@ export default function filterReducer (state = initialState, action) {
           return v
         })
       })
+
+    case A.RECEIVED_FILTERED_ITEMS:
+      let lastX = 0
+      return state.set(
+        'filteredItems', 
+        action.payload.get('filteredItems').map(fi => {
+          fi = fi.set('x', lastX)
+          lastX += fi.get('width') + 50
+          return fi
+        })
+      )
 
     case A.RECEIVED_VOCABULARIES:
       return state.set(
