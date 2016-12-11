@@ -17,52 +17,23 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.video-item {
-  position: absolute;
-  display: block;
-  z-index: 3;
+import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
+import React from 'react'
 
-  &.most-recently-touched {
-    z-index: 4;
+export default class PosterImage extends React.Component {
+  constructor() {
+    super()
+    this.render = this.render.bind(this)
   }
-
-  &.should-show-placeholder {
-    background-color: $placeholder-purple-gray;
+  render() {
+    const sslUrl = this.props.item.getIn(['results', 'posterImage', 'ssl_url'])
+    if (sslUrl === undefined) {
+      return null
+    }
+    const backgroundImage = 'url(' + getCloudFrontUrl(sslUrl) + ')'
+    const style = {
+      backgroundImage: backgroundImage
+    }
+    return <div className='poster-image' style={style}></div>
   }
-
-  &.is-showing-metadata {
-    background-color: transparent;
-  }
-
-  .video {
-    z-index: 3;
-    position: relative;
-  }
-
-  .react-resizable-handle {
-    bottom: 0;
-    right: 0;
-  }
-
-  .obstructor,
-  .poster-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 4;
-  }
-
-  .poster-image {
-    background-size: cover;
-    // We want the video to cover the poster image once it loads.
-    z-index: 2;
-  }
-}
-
-video {
-  width: 100%; 
-  height: 100%; 
 }

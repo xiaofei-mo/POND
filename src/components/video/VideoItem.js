@@ -24,6 +24,7 @@ import fadeOut from '../../utils/fadeOut'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
 import { Link } from 'react-router'
 import Metadata from '../metadata/Metadata'
+import PosterImage from './PosterImage'
 import React from 'react'
 import { Resizable } from 'react-resizable'
 import Video from 'react-html5video'
@@ -33,6 +34,7 @@ export default class VideoItem extends React.Component {
     super()
     this.state = {
       height: 0,
+      posterImageStyle: {},
       shouldBeRendered: false,
       style: {
         height: '0px',
@@ -99,6 +101,7 @@ export default class VideoItem extends React.Component {
     }
     this.setState({
       height: this.state.height,
+      posterImageStyle: this.state.posterImageStyle,
       shouldBeRendered: this.state.shouldBeRendered,
       style: {
         height: this.state.style.height,
@@ -137,6 +140,7 @@ export default class VideoItem extends React.Component {
     }
     this.setState({
       height: ui.size.height,
+      posterImageStyle: this.state.posterImageStyle,
       shouldBeRendered: this.state.shouldBeRendered,
       style: {
         height: ui.size.height + 'px',
@@ -316,6 +320,7 @@ export default class VideoItem extends React.Component {
             <div className={this._getClassName()} style={this.state.style}>
               {video}
               <div className='obstructor'></div>
+              <PosterImage item={this.props.item} />
               <Metadata baseUrl={this.props.baseUrl}
                         deleteItem={this.props.deleteItem}
                         featuredItemId={this.props.featuredItemId}

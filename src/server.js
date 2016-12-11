@@ -186,7 +186,8 @@ const _pollTransloadit = (uploadId, uri) => {
             uploadRef.update({
               results: {
                 encode: body.results.encode[0],
-                original: body.results[':original'][0]
+                original: body.results[':original'][0],
+                posterImage: body.results.poster_image[0]
               },
               status: 'done'
             })
