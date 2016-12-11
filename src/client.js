@@ -22,6 +22,7 @@ import App from './containers/App'
 import { applyMiddleware, createStore } from 'redux'
 import { browserHistory, IndexRoute, Route, Router } from 'react-router'
 import FilterPage from './containers/FilterPage'
+import getNoise from './utils/getNoise'
 import Page from './containers/Page'
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -60,3 +61,16 @@ window.addEventListener('resize', () => {
   store.dispatch(actions.setWindowSize(window.innerWidth, window.innerHeight))
 })
 window.dispatchEvent(new Event('resize'))
+
+
+// "Xiaofei's Rays"
+var inc = 0.005
+var xoff = 0.0
+function castRay (timestamp) {
+  xoff += inc
+  let alpha = getNoise(xoff)
+  let backgroundColor = 'rgba(0, 0, 0, ' + alpha.toString() + ')'
+  document.body.style.backgroundColor = backgroundColor
+  window.requestAnimationFrame(castRay)
+}
+window.requestAnimationFrame(castRay)
