@@ -144,7 +144,7 @@ const _createItem = (uploadId) => {
         y: upload.y
       })
       itemRef.once('value', (itemSnapshot) => {
-        itemRef.child('id').set(itemSnapshot.key())
+        itemRef.child('id').set(itemSnapshot.key)
       })
       uploadRef.remove()
     })
