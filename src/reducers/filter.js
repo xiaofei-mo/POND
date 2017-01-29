@@ -95,20 +95,25 @@ export default function filterReducer (state = initialState, action) {
       )
 
     case A.LOCATION_CHANGED:
+      let search = ''
+      let appliedFilters = Immutable.Map()
+      let filteredItems = Immutable.Map()
       const pathname = action.payload.pathname
-      const search = pathname.replace(/filter/, '').replace(/\//g, '')
-      let appliedFilters = Immutable.fromJS(queryString.parse(search))
-      appliedFilters = appliedFilters.map((afs, slug) => {
-        if (Immutable.List.isList(afs)) {
-          return Immutable.Set(afs)
+      if (pathname.startsWith('/filter')) {
+        search = pathname.replace(/filter/, '').replace(/\//g, '')
+        appliedFilters = Immutable.fromJS(queryString.parse(search))
+        appliedFilters = appliedFilters.map((afs, slug) => {
+          if (Immutable.List.isList(afs)) {
+            return Immutable.Set(afs)
+          }
+          else {
+            return Immutable.Set([afs])
+          }
+        })
+        filteredItems = state.get('filteredItems')
+        if (appliedFilters.isEmpty()) {
+          filteredItems = Immutable.Map()
         }
-        else {
-          return Immutable.Set([afs])
-        }
-      })
-      let filteredItems = state.get('filteredItems')
-      if (appliedFilters.isEmpty()) {
-        filteredItems = Immutable.Map()
       }
       return state.merge({
         appliedFilters: appliedFilters,

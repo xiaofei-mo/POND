@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
@@ -75,19 +75,22 @@ class Page extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     const scrollAdjustment = prevProps.paddingLeft - this.props.paddingLeft
-    if (!this.state.wasInitiallyScrolled && 
-        prevProps.scrollDestination !== this.props.scrollDestination) {
-      this.scrollerNode.scrollLeft = this.props.scrollDestination
-      this.setState({
-        wasInitiallyScrolled: true
-      })
+    if (!this.state.wasInitiallyScrolled) {
+      if (prevProps.scrollDestination !== this.props.scrollDestination) {
+        if (this.props.scrollDestination !== null) {
+          this.scrollerNode.scrollLeft = this.props.scrollDestination
+          this.setState({
+            wasInitiallyScrolled: true
+          })
+        }
+      }
     }
     else if (scrollAdjustment !== 0) {
       this.scrollerNode.scrollLeft -= scrollAdjustment
     }
   } 
   componentWillReceiveProps(nextProps) {
-    if(this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
+    if (this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
       this.setState({
         wasInitiallyScrolled: false
       })
