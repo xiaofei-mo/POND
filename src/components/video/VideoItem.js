@@ -223,6 +223,17 @@ export default class VideoItem extends React.Component {
     })
   }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.item.get('x') !== this.props.item.get('x')) {
+      this.setState({
+        style: {
+          height: this.state.style.height,
+          width: this.state.style.width,
+          transform: 'translate(' + nextProps.item.get('x') + 'px, ' + this.state.y + 'px)'
+        },
+        x: nextProps.item.get('x'),
+        y: this.state.y
+      })
+    }
     const shouldBeRendered = this._shouldBeRendered(nextProps)
     this.setState({
       shouldBeRendered: shouldBeRendered
