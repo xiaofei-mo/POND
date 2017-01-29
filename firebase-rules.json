@@ -40,10 +40,25 @@
       ".read": true,
       ".validate": "newData.hasChildren()",
       "$userId": {
-        ".write": "auth !== null && $userId === auth.uid",
         ".validate": "newData.hasChildren()"
       },
       ".indexOn": "username"
+    },
+
+    "vocabularies": {
+      ".read": true,
+      ".validate": "newData.hasChildren()",
+      "$slug": {
+        ".validate": "newData.hasChildren()"
+      }
+    },
+
+    "vocabulariesLookup": {
+      ".read": true,
+      ".validate": "newData.hasChildren()",
+      "$slug": {
+        ".validate": "newData.hasChildren()"
+      }
     },
 
     "$other": {
