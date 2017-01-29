@@ -1,0 +1,59 @@
+.login {
+  bottom: 40px;
+  right: 40px;
+  font-family: monospace;
+  position: fixed;
+  z-index: 6;
+  color: $white;
+  @include font-14;
+  border-bottom: 1px solid $white;
+  width: 125px;
+  padding-bottom: 3px;
+
+  a {
+    display: block;
+  }
+
+  input[type='password'],
+  input[type='text'] {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    color: $gray;
+  }
+
+  .logging-in {
+    text-transform: lowercase;
+    color: $gray;
+  }
+  
+  .login-failed {
+    text-transform: lowercase;
+    position: absolute;
+    bottom: -19px;
+    left: 0;
+  }
+
+  .logout {
+    color: $gray;
+  }
+
+  .logout-confirm {
+    text-transform: lowercase;
+    color: $gray;
+
+    span {
+      margin-right: 3px;
+
+      &.question {
+        margin-right: 6px;
+      }
+    }
+    
+    a {
+      display: inline;
+      margin-right: 4px;
+    }
+  }
+}

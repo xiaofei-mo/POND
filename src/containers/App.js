@@ -23,8 +23,7 @@ import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
 import getPaddingLeft from '../selectors/getPaddingLeft'
 import InfoAndEditControl from '../components/app-control/InfoAndEditControl'
-import Login from '../components/Login'
-import LoginUsernameLogoutControl from '../components/app-control/LoginUsernameLogoutControl'
+import Login from '../components/login/Login'
 import React from 'react'
 import Filter from './Filter'
 import Uploads from './Uploads'
@@ -86,21 +85,18 @@ class App extends React.Component {
                   onWheel={this._handleWheel}
                   ref='scroller'>
           {this.props.children}
-          <LoginUsernameLogoutControl logout={this.props.logout}
-                                      openLogin={this.props.openLogin} 
-                                      params={this.props.params} 
-                                      user={this.props.user} 
-                                      userIsLoaded={this.props.userIsLoaded} />
+          <Login attemptLogin={this.props.attemptLogin}
+                 loginFailed={this.props.loginFailed}
+                 logout={this.props.logout}
+                 params={this.props.params} 
+                 user={this.props.user} 
+                 userIsLoaded={this.props.userIsLoaded} />
           <InfoAndEditControl hideMetadata={this.props.hideMetadata}
                               isShowingMetadata={this.props.isShowingMetadata}
                               showMetadata={this.props.showMetadata} 
                               uploads={this.props.uploads}
                               windowHeight={this.props.windowHeight}
                               windowWidth={this.props.windowWidth} />
-          <Login attemptLogin={this.props.attemptLogin}
-                 closeLogin={this.props.closeLogin}
-                 login={this.props.login}
-                 user={this.props.user} />
           <Filter />
           <div className='dropzone-veil veil'>
             <div>
@@ -117,7 +113,7 @@ class App extends React.Component {
 function mapStateToProps (state) {
   return {
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
-    login: state.getIn(['app', 'login']),
+    loginFailed: state.getIn(['app', 'loginFailed']),
     paddingLeft: getPaddingLeft(state),
     pageId: state.getIn(['page', 'pageId']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
@@ -132,13 +128,11 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     attemptLogin: bindActionCreators(actions.attemptLogin, dispatch),
-    closeLogin: bindActionCreators(actions.closeLogin, dispatch),
     handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
-    openLogin: bindActionCreators(actions.openLogin, dispatch),
     showMetadata: bindActionCreators(actions.showMetadata, dispatch)
   }
 }

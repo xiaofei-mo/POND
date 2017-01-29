@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
@@ -22,7 +22,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 export default class InfoAndEditControl extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       height: 0,
@@ -33,7 +33,7 @@ export default class InfoAndEditControl extends React.Component {
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.render = this.render.bind(this)
   }
-  _handleClick(event) {
+  _handleClick (event) {
     event.preventDefault()
     if (!this.props.isShowingMetadata) {
       this.props.showMetadata()
@@ -42,10 +42,10 @@ export default class InfoAndEditControl extends React.Component {
       this.props.hideMetadata()
     }
   }
-  _handleDragStart(event) {
+  _handleDragStart (event) {
     event.preventDefault()
   }
-  componentDidUpdate() {
+  componentDidUpdate () {
     let el = ReactDOM.findDOMNode(this)
     if (el !== null && this.state.height === 0 && this.state.width === 0) {
       this.setState({
@@ -54,7 +54,7 @@ export default class InfoAndEditControl extends React.Component {
       })
     }
   }
-  render() {
+  render () {
     if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
       return null
     }

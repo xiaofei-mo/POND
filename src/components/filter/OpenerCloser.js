@@ -31,9 +31,9 @@ export default class OpenerCloser extends React.Component {
   }
   render() {
     return (
-      <a href='#' 
-         className='opener-closer' 
-         onClick={this._handleClick}>\&gt;_<span>▌</span></a>
+      <a className='opener-closer' href='#' onClick={this._handleClick}>
+        \&gt;_<span className='blinker'>▌</span>
+      </a>
     )
   }
 }

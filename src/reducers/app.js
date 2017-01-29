@@ -22,50 +22,33 @@ import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
   isShowingMetadata: false,
-  login: Immutable.Map({
-    failed: false,
-    isOpen: false
-  }),
+  loginFailed: false,
   user: Immutable.Map(),
   userIsLoaded: false
 })
 
 export default function appReducer (state = initialState, action) {
-  let newState
   switch (action.type) {
-
-    case A.CLOSE_LOGIN:
-      return state.setIn(['login', 'isOpen'], false)
 
     case A.HIDE_METADATA:
     case A.METADATA_WAS_SET:
-      return state.merge({
-        isShowingMetadata: false
-      })
+      return state.set('isShowingMetadata', false)
+
+    case A.LOGIN_ATTEMPTED:
+      return state.set('loginFailed', false)
 
     case A.LOGIN_FAILED:
-      return state.setIn(['login', 'failed'], true)
-
-    case A.OPEN_LOGIN:
-      return state.set('login', Immutable.Map({
-        isOpen: true,
-        failed: false
-      }))
+      return state.set('loginFailed', true)
 
     case A.RECEIVED_USER:
       return state.merge({
-        login: state.set('login', Immutable.Map({
-          isOpen: false,
-          failed: false
-        })),
+        loginFailed: false,
         user: action.payload.get('user'),
         userIsLoaded: true
       })
 
     case A.SHOW_METADATA:
-      return state.merge({
-        isShowingMetadata: true
-      })
+      return state.set('isShowingMetadata', true)
 
     default:
       return state

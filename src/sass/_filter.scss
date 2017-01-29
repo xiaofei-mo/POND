@@ -42,14 +42,13 @@
     100% { visibility: visible; }
   }
 
-
   .vocabulary > a {
-     color: #949598;
+     color: $gray;
   }
 
   .clear {
     color: $black;
-    background-color: #949598;
+    background-color: $gray;
   }
 
   .prompt {
@@ -65,7 +64,7 @@
     
     &:after {
       content: ',';
-      color: #949598 !important;
+      color: $gray !important;
       margin-right: 8px;
     }
   }

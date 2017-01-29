@@ -26,18 +26,15 @@ export default {
 
   attemptLogin: (email, password) => {
     return (dispatch, getState) => {
+      dispatch({
+        type: A.LOGIN_ATTEMPTED
+      })
       const auth = firebase.auth()
       auth.signInWithEmailAndPassword(email, password).catch((err) => {
         dispatch({
           type: A.LOGIN_FAILED
         })
       })
-    }
-  },
-
-  closeLogin: () => {
-    return {
-      type: A.CLOSE_LOGIN
     }
   },
 
@@ -84,12 +81,6 @@ export default {
     return (dispatch, getState) => {
       const auth = firebase.auth()
       auth.signOut()
-    }
-  },
-
-  openLogin: () => {
-    return {
-      type: A.OPEN_LOGIN
     }
   },
 
