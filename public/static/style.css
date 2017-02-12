@@ -499,11 +499,14 @@ a {
   padding: 10px;
   display: block;
   will-change: transform;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 18px; }
   .metadata li {
     display: block; }
   .metadata label {
-    color: #5540e2;
+    color: #ffffff;
     display: block;
     width: 100%; }
     .metadata label span {
@@ -513,13 +516,15 @@ a {
       height: 20px;
       line-height: 20px; }
   .metadata input[type='text'] {
-    color: #ffffff;
+    color: #949598;
     background-color: transparent;
     border: none;
     display: block;
     float: left;
     width: 80%;
-    padding: 0; }
+    padding: 0;
+    font-size: 14px;
+    line-height: 20px; }
   .metadata .copy-url {
     position: relative;
     height: 20px;
@@ -534,7 +539,7 @@ a {
       position: absolute;
       top: 0;
       left: 0;
-      color: #5540e2;
+      color: #ffffff;
       z-index: 2; }
   .metadata .controls {
     font-size: 20px;
@@ -542,7 +547,7 @@ a {
     margin-top: 20px; }
     .metadata .controls a {
       display: inline-block;
-      color: #5540e2;
+      color: #ffffff;
       margin-left: 20px; }
       .metadata .controls a:first-child {
         margin-left: 0; }

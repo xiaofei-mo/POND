@@ -10,13 +10,15 @@
   display: block;
   will-change: transform;
   overflow-y: scroll;
+  font-family: monospace;
+  @include font-14;
 
   li {
     display: block;
   }
   
   label {
-    color: $purple;
+    color: $white;
     display: block;
     width: 100%;
     @extend %clearfix;
@@ -31,13 +33,15 @@
   }
 
   input[type='text'] {
-    color: $white;
+    color: $gray;
     background-color: transparent;
     border: none;
     display: block;
     float: left;
     width: 80%;
     padding: 0;
+    font-size: 14px;
+    line-height: 20px;
   }
 
   .copy-url {
@@ -57,7 +61,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      color: $purple;
+      color: $white;
       z-index: 2;
     }
   }
@@ -68,7 +72,7 @@
     
     a {
       display: inline-block;
-      color: $purple;
+      color: $white;
       margin-left: 20px;
 
       &:first-child {
