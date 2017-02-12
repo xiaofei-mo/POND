@@ -173,6 +173,10 @@
 	
 	var _filter2 = _interopRequireDefault(_filter);
 	
+	var _link = __webpack_require__(502);
+	
+	var _link2 = _interopRequireDefault(_link);
+	
 	var _page = __webpack_require__(29);
 	
 	var _page2 = _interopRequireDefault(_page);
@@ -183,26 +187,24 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/*
-	 * Copyright (C) 2016 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
-	
-	exports.default = Object.assign({}, _app2.default, _filter2.default, _page2.default, _upload2.default);
+	exports.default = Object.assign({}, _app2.default, _filter2.default, _link2.default, _page2.default, _upload2.default); /*
+	                                                                                                                         * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                         * 
+	                                                                                                                         * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                         *
+	                                                                                                                         * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                         * it under the terms of the GNU General Public License as published by
+	                                                                                                                         * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                         * (at your option) any later version.
+	                                                                                                                         *
+	                                                                                                                         * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                         * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                         * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                         * GNU General Public License for more details.
+	                                                                                                                         * 
+	                                                                                                                         * You should have received a copy of the GNU General Public License
+	                                                                                                                         * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                         */
 
 /***/ },
 /* 5 */
@@ -363,6 +365,7 @@
 	  LOGIN_ATTEMPTED: 'LOGIN_ATTEMPTED',
 	  LOGIN_FAILED: 'LOGIN_FAILED',
 	  METADATA_WAS_SET: 'METADATA_WAS_SET',
+	  PAGE_CLICKED: 'PAGE_CLICKED',
 	  PAGE_SCROLLED: 'PAGE_SCROLLED',
 	  RECEIVED_BASE_URL: 'RECEIVED_BASE_URL',
 	  RECEIVED_FEATURED_ITEM_ID: 'RECEIVED_FEATURED_ITEM_ID',
@@ -376,6 +379,7 @@
 	  STARTED_POLLING_UPLOAD: 'STARTED_POLLING_UPLOAD',
 	  STOPPED_LISTENING_TO_UPLOADS: 'STOPPED_LISTENING_TO_UPLOADS',
 	  TEXT_ITEM_CREATED: 'TEXT_ITEM_CREATED',
+	  TOGGLE_LINKING_MODE: 'TOGGLE_LINKING_MODE',
 	  TOGGLE_VOCABULARY: 'TOGGLE_VOCABULARY',
 	  WINDOW_CHANGED_SIZE: 'WINDOW_CHANGED_SIZE'
 	};
@@ -8305,6 +8309,12 @@
 	    };
 	  },
 	
+	  pageClicked: function pageClicked() {
+	    return {
+	      type: _constants.A.PAGE_CLICKED
+	    };
+	  },
+	
 	  setFeaturedItemId: function setFeaturedItemId(featuredItemIdToSet) {
 	    return function (dispatch, getState) {
 	      var featuredItemIdRef = _firebase2.default.database().ref().child('featuredItemId');
@@ -10318,7 +10328,8 @@
 	            uploads: this.props.uploads,
 	            windowHeight: this.props.windowHeight,
 	            windowWidth: this.props.windowWidth }),
-	          _react2.default.createElement(_LinkControl2.default, { user: this.props.user,
+	          _react2.default.createElement(_LinkControl2.default, { toggleLinkingMode: this.props.toggleLinkingMode,
+	            user: this.props.user,
 	            windowHeight: this.props.windowHeight,
 	            windowWidth: this.props.windowWidth }),
 	          _react2.default.createElement(_Filter2.default, null),
@@ -10346,6 +10357,7 @@
 	
 	function mapStateToProps(state) {
 	  return {
+	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    loginFailed: state.getIn(['app', 'loginFailed']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
@@ -10367,7 +10379,8 @@
 	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
 	    listenToAuth: (0, _redux.bindActionCreators)(_actions2.default.listenToAuth, dispatch),
 	    logout: (0, _redux.bindActionCreators)(_actions2.default.logout, dispatch),
-	    showMetadata: (0, _redux.bindActionCreators)(_actions2.default.showMetadata, dispatch)
+	    showMetadata: (0, _redux.bindActionCreators)(_actions2.default.showMetadata, dispatch),
+	    toggleLinkingMode: (0, _redux.bindActionCreators)(_actions2.default.toggleLinkingMode, dispatch)
 	  };
 	}
 	
@@ -42732,9 +42745,7 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      if (event.target === this.refs.page) {
-	        if (this.props.isShowingMetadata) {
-	          this.props.hideMetadata();
-	        }
+	        this.props.pageClicked();
 	      }
 	    }
 	  }, {
@@ -42845,6 +42856,7 @@
 	    deleteItem: (0, _redux.bindActionCreators)(_actions2.default.deleteItem, dispatch),
 	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
 	    listenToFilteredItems: (0, _redux.bindActionCreators)(_actions2.default.listenToFilteredItems, dispatch),
+	    pageClicked: (0, _redux.bindActionCreators)(_actions2.default.pageClicked, dispatch),
 	    setFeaturedItemId: (0, _redux.bindActionCreators)(_actions2.default.setFeaturedItemId, dispatch),
 	    setItemMetadata: (0, _redux.bindActionCreators)(_actions2.default.setItemMetadata, dispatch),
 	    setTextItemRawState: (0, _redux.bindActionCreators)(_actions2.default.setTextItemRawState, dispatch)
@@ -62401,9 +62413,8 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      if (event.target === this.refs.page) {
-	        if (this.props.isShowingMetadata) {
-	          this.props.hideMetadata();
-	        } else if (event.metaKey && !this.props.user.isEmpty()) {
+	        this.props.pageClicked();
+	        if (event.metaKey && !this.props.user.isEmpty()) {
 	          var x = event.clientX + this.props.scrollLeft - this.props.paddingLeft;
 	          this.props.createTextItem(x, event.clientY, this.props.user, this.props.pageId);
 	        }
@@ -62531,6 +62542,7 @@
 	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
 	    listenToFeaturedItemId: (0, _redux.bindActionCreators)(_actions2.default.listenToFeaturedItemId, dispatch),
 	    listenToItems: (0, _redux.bindActionCreators)(_actions2.default.listenToItems, dispatch),
+	    pageClicked: (0, _redux.bindActionCreators)(_actions2.default.pageClicked, dispatch),
 	    setFeaturedItemId: (0, _redux.bindActionCreators)(_actions2.default.setFeaturedItemId, dispatch),
 	    setItemMetadata: (0, _redux.bindActionCreators)(_actions2.default.setItemMetadata, dispatch),
 	    setItemPosition: (0, _redux.bindActionCreators)(_actions2.default.setItemPosition, dispatch),
@@ -62561,6 +62573,10 @@
 	
 	var _filter2 = _interopRequireDefault(_filter);
 	
+	var _link = __webpack_require__(501);
+	
+	var _link2 = _interopRequireDefault(_link);
+	
 	var _page = __webpack_require__(495);
 	
 	var _page2 = _interopRequireDefault(_page);
@@ -62575,32 +62591,31 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/*
-	 * Copyright (C) 2016 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
-	
 	exports.default = (0, _reduxImmutable.combineReducers)({
 	  app: _app2.default,
 	  filter: _filter2.default,
+	  link: _link2.default,
 	  page: _page2.default,
 	  routing: _router2.default,
 	  upload: _upload2.default
-	});
+	}); /*
+	     * Copyright (C) 2016 Mark P. Lindsay
+	     * 
+	     * This file is part of mysteriousobjectsatnoon.
+	     *
+	     * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	     * it under the terms of the GNU General Public License as published by
+	     * the Free Software Foundation, either version 3 of the License, or
+	     * (at your option) any later version.
+	     *
+	     * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	     * GNU General Public License for more details.
+	     * 
+	     * You should have received a copy of the GNU General Public License
+	     * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	     */
 
 /***/ },
 /* 487 */
@@ -62842,6 +62857,7 @@
 	
 	    case _constants.A.HIDE_METADATA:
 	    case _constants.A.METADATA_WAS_SET:
+	    case _constants.A.TOGGLE_LINKING_MODE:
 	      return state.set('isShowingMetadata', false);
 	
 	    case _constants.A.LOGIN_ATTEMPTED:
@@ -62849,6 +62865,12 @@
 	
 	    case _constants.A.LOGIN_FAILED:
 	      return state.set('loginFailed', true);
+	
+	    case _constants.A.PAGE_CLICKED:
+	      if (state.get('isShowingMetadata')) {
+	        return state.set('isShowingMetadata', false);
+	      }
+	      return state;
 	
 	    case _constants.A.RECEIVED_USER:
 	      return state.merge({
@@ -63396,9 +63418,13 @@
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      this.setState(function (previousState) {
-	        return { isOpen: !previousState.isOpen };
-	      });
+	      if (!this.props.user.isEmpty()) {
+	        this.props.toggleLinkingMode();
+	      } else {
+	        this.setState(function (previousState) {
+	          return { isOpen: !previousState.isOpen };
+	        });
+	      }
 	    }
 	  }, {
 	    key: '_handleDragStart',
@@ -63600,7 +63626,124 @@
 	
 	exports.default = MetadataControl;
 
+/***/ },
+/* 501 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = appReducer;
+	
+	var _constants = __webpack_require__(6);
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2017 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	
+	var initialState = _immutable2.default.Map({
+	  isInLinkingMode: false
+	});
+	
+	function appReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	
+	    case _constants.A.PAGE_CLICKED:
+	      if (state.get('isInLinkingMode')) {
+	        return state.set('isInLinkingMode', false);
+	      }
+	      return state;
+	
+	    case _constants.A.SHOW_METADATA:
+	      return state.set('isInLinkingMode', false);
+	
+	    case _constants.A.TOGGLE_LINKING_MODE:
+	      return state.set('isInLinkingMode', !state.get('isInLinkingMode'));
+	
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 502 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _constants = __webpack_require__(6);
+	
+	var _firebase = __webpack_require__(7);
+	
+	var _firebase2 = _interopRequireDefault(_firebase);
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	var _reactRouterRedux = __webpack_require__(21);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2017 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	
+	exports.default = {
+	
+	  toggleLinkingMode: function toggleLinkingMode() {
+	    return {
+	      type: _constants.A.TOGGLE_LINKING_MODE
+	    };
+	  }
+	
+	};
+
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

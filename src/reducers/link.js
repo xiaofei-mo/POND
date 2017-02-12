@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
@@ -17,19 +17,29 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { combineReducers } from 'redux-immutable'
-import appReducer from './app'
-import filterReducer from './filter'
-import linkReducer from './link'
-import pageReducer from './page'
-import routerReducer from './router'
-import uploadReducer from './upload'
+import { A } from '../constants'
+import Immutable from 'immutable'
 
-export default combineReducers({
-  app: appReducer,
-  filter: filterReducer,
-  link: linkReducer,
-  page: pageReducer,
-  routing: routerReducer,
-  upload: uploadReducer
+const initialState = Immutable.Map({
+  isInLinkingMode: false
 })
+
+export default function appReducer (state = initialState, action) {
+  switch (action.type) {
+
+    case A.PAGE_CLICKED:
+      if (state.get('isInLinkingMode')) {
+        return state.set('isInLinkingMode', false)
+      }
+      return state
+
+    case A.SHOW_METADATA:
+      return state.set('isInLinkingMode', false)
+
+    case A.TOGGLE_LINKING_MODE:
+      return state.set('isInLinkingMode', !state.get('isInLinkingMode'))
+
+    default:
+      return state
+  }
+}

@@ -53,9 +53,7 @@ class FilterPage extends React.Component {
   }
   _handleClick(event) {
     if (event.target === this.refs.page) {
-      if (this.props.isShowingMetadata) {
-        this.props.hideMetadata()
-      }
+      this.props.pageClicked()
     }
   }
   componentDidMount() {
@@ -156,6 +154,7 @@ function mapDispatchToProps (dispatch) {
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToFilteredItems: bindActionCreators(actions.listenToFilteredItems, 
                                               dispatch),
+    pageClicked: bindActionCreators(actions.pageClicked, dispatch),
     setFeaturedItemId: bindActionCreators(actions.setFeaturedItemId, dispatch),
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch)

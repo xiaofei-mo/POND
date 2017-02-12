@@ -98,7 +98,8 @@ class App extends React.Component {
                            uploads={this.props.uploads}
                            windowHeight={this.props.windowHeight}
                            windowWidth={this.props.windowWidth} />
-          <LinkControl user={this.props.user} 
+          <LinkControl toggleLinkingMode={this.props.toggleLinkingMode}
+                       user={this.props.user} 
                        windowHeight={this.props.windowHeight} 
                        windowWidth={this.props.windowWidth} />
           <Filter />
@@ -116,6 +117,7 @@ class App extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     loginFailed: state.getIn(['app', 'loginFailed']),
     paddingLeft: getPaddingLeft(state),
@@ -137,7 +139,8 @@ function mapDispatchToProps (dispatch) {
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
-    showMetadata: bindActionCreators(actions.showMetadata, dispatch)
+    showMetadata: bindActionCreators(actions.showMetadata, dispatch),
+    toggleLinkingMode: bindActionCreators(actions.toggleLinkingMode, dispatch)
   }
 }
 

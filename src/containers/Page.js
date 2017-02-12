@@ -54,10 +54,8 @@ class Page extends React.Component {
   }
   _handleClick(event) {
     if (event.target === this.refs.page) {
-      if (this.props.isShowingMetadata) {
-        this.props.hideMetadata()
-      }
-      else if (event.metaKey && !this.props.user.isEmpty()) {
+      this.props.pageClicked()
+      if (event.metaKey && !this.props.user.isEmpty()) {
         const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
         this.props.createTextItem(
           x, 
@@ -178,6 +176,7 @@ function mapDispatchToProps (dispatch) {
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
+    pageClicked: bindActionCreators(actions.pageClicked, dispatch),
     setFeaturedItemId: bindActionCreators(actions.setFeaturedItemId, dispatch),
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),

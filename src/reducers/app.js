@@ -32,6 +32,7 @@ export default function appReducer (state = initialState, action) {
 
     case A.HIDE_METADATA:
     case A.METADATA_WAS_SET:
+    case A.TOGGLE_LINKING_MODE:
       return state.set('isShowingMetadata', false)
 
     case A.LOGIN_ATTEMPTED:
@@ -39,6 +40,12 @@ export default function appReducer (state = initialState, action) {
 
     case A.LOGIN_FAILED:
       return state.set('loginFailed', true)
+
+    case A.PAGE_CLICKED:
+      if (state.get('isShowingMetadata')) {
+        return state.set('isShowingMetadata', false)
+      }
+      return state
 
     case A.RECEIVED_USER:
       return state.merge({

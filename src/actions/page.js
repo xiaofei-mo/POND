@@ -107,6 +107,12 @@ export default {
     }
   },
 
+  pageClicked: () => {
+    return {
+      type: A.PAGE_CLICKED
+    }
+  },
+
   setFeaturedItemId: (featuredItemIdToSet) => {
     return (dispatch, getState) => {
       const featuredItemIdRef = firebase.database().ref().child('featuredItemId')

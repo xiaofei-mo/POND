@@ -19,6 +19,7 @@
 
 import appActions from './app'
 import filterActions from './filter'
+import linkActions from './link'
 import pageActions from './page'
 import uploadActions from './upload'
 
@@ -26,6 +27,7 @@ export default Object.assign(
   {}, 
   appActions, 
   filterActions,
+  linkActions,
   pageActions, 
   uploadActions
 )

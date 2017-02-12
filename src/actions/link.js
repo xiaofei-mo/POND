@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
@@ -17,19 +17,17 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { combineReducers } from 'redux-immutable'
-import appReducer from './app'
-import filterReducer from './filter'
-import linkReducer from './link'
-import pageReducer from './page'
-import routerReducer from './router'
-import uploadReducer from './upload'
+import { A } from '../constants'
+import firebase from '../utils/firebase'
+import Immutable from 'immutable'
+import { push } from 'react-router-redux'
 
-export default combineReducers({
-  app: appReducer,
-  filter: filterReducer,
-  link: linkReducer,
-  page: pageReducer,
-  routing: routerReducer,
-  upload: uploadReducer
-})
+export default {
+
+  toggleLinkingMode: () => {
+    return {
+      type: A.TOGGLE_LINKING_MODE
+    }
+  }
+
+}

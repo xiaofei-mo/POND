@@ -54,9 +54,15 @@ export default class LinkControl extends React.Component {
   }
   _handleClick (event) {
     event.preventDefault()
-    this.setState(previousState => {
-      return { isOpen: !previousState.isOpen }
-    })
+    if (!this.props.user.isEmpty()) {
+      this.props.toggleLinkingMode()
+    }
+    else {
+      this.setState(previousState => {
+        return { isOpen: !previousState.isOpen }
+      })
+    }
+
   }
   _handleDragStart (event) {
     event.preventDefault()
@@ -101,7 +107,7 @@ export default class LinkControl extends React.Component {
             <img src='/static/plane.gif' alt='Link' />
           </a>
           <Bubble isOpen={this.state.isOpen} 
-                  onClick={this._handleClick} />
+                  onClick={this._handleClick}/>
         </div>
       </Draggable>
     )
