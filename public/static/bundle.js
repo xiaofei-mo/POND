@@ -63342,30 +63342,65 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
-	var LinkControl = function (_React$Component) {
-	  _inherits(LinkControl, _React$Component);
+	var Bubble = function (_React$Component) {
+	  _inherits(Bubble, _React$Component);
+	
+	  function Bubble() {
+	    _classCallCheck(this, Bubble);
+	
+	    var _this = _possibleConstructorReturn(this, (Bubble.__proto__ || Object.getPrototypeOf(Bubble)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Bubble, [{
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.isOpen) {
+	        return null;
+	      }
+	      if (!this.props.user.isEmpty()) {
+	        return null;
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'bubble', onClick: this.props.onClick },
+	        'See something you like? Click it to see where it takes you.'
+	      );
+	    }
+	  }]);
+	
+	  return Bubble;
+	}(_react2.default.Component);
+	
+	var LinkControl = function (_React$Component2) {
+	  _inherits(LinkControl, _React$Component2);
 	
 	  function LinkControl() {
 	    _classCallCheck(this, LinkControl);
 	
-	    var _this = _possibleConstructorReturn(this, (LinkControl.__proto__ || Object.getPrototypeOf(LinkControl)).call(this));
+	    var _this2 = _possibleConstructorReturn(this, (LinkControl.__proto__ || Object.getPrototypeOf(LinkControl)).call(this));
 	
-	    _this.state = {
+	    _this2.state = {
 	      height: 0,
+	      isOpen: false,
 	      width: 0
 	    };
-	    _this._handleClick = _this._handleClick.bind(_this);
-	    _this._handleDragStart = _this._handleDragStart.bind(_this);
-	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
-	    _this.render = _this.render.bind(_this);
-	    return _this;
+	    _this2._handleClick = _this2._handleClick.bind(_this2);
+	    _this2._handleDragStart = _this2._handleDragStart.bind(_this2);
+	    _this2.componentDidUpdate = _this2.componentDidUpdate.bind(_this2);
+	    _this2.render = _this2.render.bind(_this2);
+	    return _this2;
 	  }
 	
 	  _createClass(LinkControl, [{
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
 	      event.preventDefault();
-	      console.log('click');
+	      this.setState(function (previousState) {
+	        return { isOpen: !previousState.isOpen };
+	      });
 	    }
 	  }, {
 	    key: '_handleDragStart',
@@ -63403,12 +63438,18 @@
 	        _reactDraggable2.default,
 	        { bounds: bounds, defaultPosition: defaultPosition },
 	        _react2.default.createElement(
-	          'a',
-	          { className: 'link-control app-control',
-	            href: '#',
+	          'div',
+	          { className: 'link-control app-control' },
+	          _react2.default.createElement(
+	            'a',
+	            { href: '#',
+	              onClick: this._handleClick,
+	              onDragStart: this._handleDragStart },
+	            _react2.default.createElement('img', { src: '/static/plane.gif', alt: 'Link' })
+	          ),
+	          _react2.default.createElement(Bubble, { isOpen: this.state.isOpen,
 	            onClick: this._handleClick,
-	            onDragStart: this._handleDragStart },
-	          _react2.default.createElement('img', { src: '/static/plane.gif', alt: 'Link' })
+	            user: this.props.user })
 	        )
 	      );
 	    }

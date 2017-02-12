@@ -21,11 +21,32 @@ import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+class Bubble extends React.Component {
+  constructor() {
+    super()
+    this.render = this.render.bind(this)
+  }
+  render() {
+    if (!this.props.isOpen) {
+      return null
+    }
+    if (!this.props.user.isEmpty()) {
+      return null
+    }
+    return (
+      <div className='bubble' onClick={this.props.onClick}>
+        See something you like? Click it to see where it takes you.
+      </div>
+    )
+  }
+}
+
 export default class LinkControl extends React.Component {
   constructor () {
     super()
     this.state = {
       height: 0,
+      isOpen: false,
       width: 0
     }
     this._handleClick = this._handleClick.bind(this)
@@ -35,7 +56,9 @@ export default class LinkControl extends React.Component {
   }
   _handleClick (event) {
     event.preventDefault()
-    console.log('click')
+    this.setState(previousState => {
+      return { isOpen: !previousState.isOpen }
+    })
   }
   _handleDragStart (event) {
     event.preventDefault()
@@ -65,12 +88,16 @@ export default class LinkControl extends React.Component {
     }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
-        <a className='link-control app-control'
-           href='#' 
-           onClick={this._handleClick}
-           onDragStart={this._handleDragStart}>
-          <img src='/static/plane.gif' alt='Link' />
-        </a>
+        <div className='link-control app-control'>
+          <a href='#' 
+             onClick={this._handleClick}
+             onDragStart={this._handleDragStart}>
+            <img src='/static/plane.gif' alt='Link' />
+          </a>
+          <Bubble isOpen={this.state.isOpen} 
+                  onClick={this._handleClick}
+                  user={this.props.user} />
+        </div>
       </Draggable>
     )
   }
