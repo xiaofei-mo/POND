@@ -24,6 +24,15 @@ import { push } from 'react-router-redux'
 
 export default {
 
+  itemClicked: (item) => {
+    return {
+      type: A.ITEM_CLICKED,
+      payload: Immutable.Map({
+        item: item
+      })
+    }
+  },
+
   toggleLinkingMode: () => {
     return {
       type: A.TOGGLE_LINKING_MODE

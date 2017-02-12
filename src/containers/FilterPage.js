@@ -90,8 +90,10 @@ class FilterPage extends React.Component {
                            featuredItemId={this.props.featuredItemId}
                            hideMetadata={this.props.hideMetadata}
                            id={key} 
+                           isInLinkingMode={this.props.isInLinkingMode}
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={filteredItem} 
+                           itemClicked={this.props.itemClicked}
                            key={key} 
                            setFeaturedItemId={this.props.setFeaturedItemId}
                            setTextItemRawState={this.props.setTextItemRawState} 
@@ -105,8 +107,10 @@ class FilterPage extends React.Component {
                             height={this.props.height}
                             hideMetadata={this.props.hideMetadata}
                             id={key}
+                            isInLinkingMode={this.props.isInLinkingMode}
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={filteredItem}
+                            itemClicked={this.props.itemClicked}
                             key={key}
                             leftEdgeOfViewport={this.props.leftEdgeOfViewport}
                             paddingLeft={this.props.paddingLeft}
@@ -134,6 +138,7 @@ function mapStateToProps (state) {
     baseUrl: state.getIn(['page', 'baseUrl']),
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
+    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     filteredItems: state.getIn(['filter', 'filteredItems']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
@@ -152,6 +157,7 @@ function mapDispatchToProps (dispatch) {
   return {
     deleteItem: bindActionCreators(actions.deleteItem, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
+    itemClicked: bindActionCreators(actions.itemClicked, dispatch),
     listenToFilteredItems: bindActionCreators(actions.listenToFilteredItems, 
                                               dispatch),
     pageClicked: bindActionCreators(actions.pageClicked, dispatch),

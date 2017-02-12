@@ -117,7 +117,6 @@ class App extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     loginFailed: state.getIn(['app', 'loginFailed']),
     paddingLeft: getPaddingLeft(state),

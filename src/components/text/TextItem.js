@@ -74,6 +74,10 @@ export default class TextItem extends React.Component {
       event.preventDefault()
       return false
     }
+    else {
+      // Not dragged.
+      this.props.itemClicked(this.props.item)
+    }
   }
   _handleDrag(event, ui) {
     if (!this._shouldAllowDragAndResize()) {
@@ -244,34 +248,6 @@ export default class TextItem extends React.Component {
                           ref='editor' />
       }
     }
-    let textItem = (
-      <div className={this._getClassName()} 
-           ref='textItem'
-           style={this.state.style}>
-        <div className='text-item-content' 
-             onWheel={this._handleWheel}
-             ref='textItemContent'>
-          {content}
-        </div>
-        <Metadata baseUrl={this.props.baseUrl}
-                  deleteItem={this.props.deleteItem}
-                  featuredItemId={this.props.featuredItemId}
-                  hideMetadata={this.props.hideMetadata}
-                  isShowingMetadata={this.props.isShowingMetadata} 
-                  item={this.props.item} 
-                  setFeaturedItemId={this.props.setFeaturedItemId}
-                  setItemMetadata={this.props.setItemMetadata}
-                  user={this.props.user} />
-      </div>
-    )
-    if(this.props.item.get('linkedTo')) {
-      textItem = (
-        <Link to={'/' + this.props.item.get('linkedTo')} 
-              onClick={this._handleClick}>
-          {textItem}
-        </Link>
-      )
-    }
     return (
       <DraggableCore cancel='.react-resizable-handle'
                      onDrag={this._handleDrag} 
@@ -282,7 +258,24 @@ export default class TextItem extends React.Component {
                    onResize={this._handleResize}
                    onResizeStop={this._handleResizeStop}
                    width={this.state.width}>
-          {textItem}
+          <div className={this._getClassName()} 
+               ref='textItem'
+               style={this.state.style}>
+            <div className='text-item-content' 
+                 onWheel={this._handleWheel}
+                 ref='textItemContent'>
+              {content}
+            </div>
+            <Metadata baseUrl={this.props.baseUrl}
+                      deleteItem={this.props.deleteItem}
+                      featuredItemId={this.props.featuredItemId}
+                      hideMetadata={this.props.hideMetadata}
+                      isShowingMetadata={this.props.isShowingMetadata} 
+                      item={this.props.item} 
+                      setFeaturedItemId={this.props.setFeaturedItemId}
+                      setItemMetadata={this.props.setItemMetadata}
+                      user={this.props.user} />
+          </div>
         </Resizable>
       </DraggableCore>
     )

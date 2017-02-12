@@ -104,14 +104,17 @@ class Page extends React.Component {
                            featuredItemId={this.props.featuredItemId}
                            hideMetadata={this.props.hideMetadata}
                            id={key} 
+                           isInLinkingMode={this.props.isInLinkingMode}
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
+                           itemClicked={this.props.itemClicked}
                            key={key} 
                            setFeaturedItemId={this.props.setFeaturedItemId}
                            setItemPosition={this.props.setItemPosition} 
                            setItemSize={this.props.setItemSize}
                            setTextItemRawState={this.props.setTextItemRawState} 
                            setItemMetadata={this.props.setItemMetadata}
+                           sourceItem={this.props.sourceItem}
                            user={this.props.user} />
         case 'video':
           return <VideoItem baseUrl={this.props.baseUrl}
@@ -121,8 +124,10 @@ class Page extends React.Component {
                             height={this.props.height}
                             hideMetadata={this.props.hideMetadata}
                             id={key}
+                            isInLinkingMode={this.props.isInLinkingMode}
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
+                            itemClicked={this.props.itemClicked}
                             key={key}
                             leftEdgeOfViewport={this.props.leftEdgeOfViewport}
                             paddingLeft={this.props.paddingLeft}
@@ -131,6 +136,7 @@ class Page extends React.Component {
                             setItemPosition={this.props.setItemPosition}
                             setItemSize={this.props.setItemSize} 
                             setItemMetadata={this.props.setItemMetadata}
+                            sourceItem={this.props.sourceItem}
                             user={this.props.user} />
         default:
           return null
@@ -155,6 +161,7 @@ function mapStateToProps (state) {
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     featuredItemId: state.getIn(['page', 'featuredItemId']),
+    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
@@ -164,6 +171,7 @@ function mapStateToProps (state) {
     rightEdgeOfViewport: getRightEdgeOfViewport(state),
     scrollDestination: getScrollDestination(state),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
+    sourceItem: state.getIn(['link', 'sourceItem']),
     user: state.getIn(['app', 'user']),
     width: state.getIn(['page', 'width'])
   }
@@ -174,6 +182,7 @@ function mapDispatchToProps (dispatch) {
     createTextItem: bindActionCreators(actions.createTextItem, dispatch),
     deleteItem: bindActionCreators(actions.deleteItem, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
+    itemClicked: bindActionCreators(actions.itemClicked, dispatch),
     listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId, dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     pageClicked: bindActionCreators(actions.pageClicked, dispatch),

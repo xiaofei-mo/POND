@@ -901,6 +901,10 @@ a {
   .video-item .poster-image {
     background-size: cover;
     z-index: 2; }
+  .video-item.is-source-item {
+    z-index: 2; }
+    .video-item.is-source-item .obstructor {
+      background-color: rgba(0, 0, 0, 0.5); }
 
 video {
   width: 100%;

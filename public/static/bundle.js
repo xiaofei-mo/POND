@@ -361,6 +361,7 @@
 	var A = exports.A = {
 	  CLOSE_ALL_VOCABULARIES: 'CLOSE_ALL_VOCABULARIES',
 	  HIDE_METADATA: 'HIDE_METADATA',
+	  ITEM_CLICKED: 'ITEM_CLICKED',
 	  LOCATION_CHANGED: '@@router/LOCATION_CHANGE',
 	  LOGIN_ATTEMPTED: 'LOGIN_ATTEMPTED',
 	  LOGIN_FAILED: 'LOGIN_FAILED',
@@ -10357,7 +10358,6 @@
 	
 	function mapStateToProps(state) {
 	  return {
-	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    loginFailed: state.getIn(['app', 'loginFailed']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
@@ -42790,8 +42790,10 @@
 	              featuredItemId: _this2.props.featuredItemId,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
+	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: filteredItem,
+	              itemClicked: _this2.props.itemClicked,
 	              key: key,
 	              setFeaturedItemId: _this2.props.setFeaturedItemId,
 	              setTextItemRawState: _this2.props.setTextItemRawState,
@@ -42805,8 +42807,10 @@
 	              height: _this2.props.height,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
+	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: filteredItem,
+	              itemClicked: _this2.props.itemClicked,
 	              key: key,
 	              leftEdgeOfViewport: _this2.props.leftEdgeOfViewport,
 	              paddingLeft: _this2.props.paddingLeft,
@@ -42837,6 +42841,7 @@
 	    baseUrl: state.getIn(['page', 'baseUrl']),
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
+	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    filteredItems: state.getIn(['filter', 'filteredItems']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
@@ -42855,6 +42860,7 @@
 	  return {
 	    deleteItem: (0, _redux.bindActionCreators)(_actions2.default.deleteItem, dispatch),
 	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
+	    itemClicked: (0, _redux.bindActionCreators)(_actions2.default.itemClicked, dispatch),
 	    listenToFilteredItems: (0, _redux.bindActionCreators)(_actions2.default.listenToFilteredItems, dispatch),
 	    pageClicked: (0, _redux.bindActionCreators)(_actions2.default.pageClicked, dispatch),
 	    setFeaturedItemId: (0, _redux.bindActionCreators)(_actions2.default.setFeaturedItemId, dispatch),
@@ -43210,6 +43216,9 @@
 	      if (this.state.wasDragged) {
 	        event.preventDefault();
 	        return false;
+	      } else {
+	        // Not dragged.
+	        this.props.itemClicked(this.props.item);
 	      }
 	    }
 	  }, {
@@ -43400,36 +43409,6 @@
 	            ref: 'editor' });
 	        }
 	      }
-	      var textItem = _react2.default.createElement(
-	        'div',
-	        { className: this._getClassName(),
-	          ref: 'textItem',
-	          style: this.state.style },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'text-item-content',
-	            onWheel: this._handleWheel,
-	            ref: 'textItemContent' },
-	          content
-	        ),
-	        _react2.default.createElement(_Metadata2.default, { baseUrl: this.props.baseUrl,
-	          deleteItem: this.props.deleteItem,
-	          featuredItemId: this.props.featuredItemId,
-	          hideMetadata: this.props.hideMetadata,
-	          isShowingMetadata: this.props.isShowingMetadata,
-	          item: this.props.item,
-	          setFeaturedItemId: this.props.setFeaturedItemId,
-	          setItemMetadata: this.props.setItemMetadata,
-	          user: this.props.user })
-	      );
-	      if (this.props.item.get('linkedTo')) {
-	        textItem = _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/' + this.props.item.get('linkedTo'),
-	            onClick: this._handleClick },
-	          textItem
-	        );
-	      }
 	      return _react2.default.createElement(
 	        _reactDraggable.DraggableCore,
 	        { cancel: '.react-resizable-handle',
@@ -43443,7 +43422,28 @@
 	            onResize: this._handleResize,
 	            onResizeStop: this._handleResizeStop,
 	            width: this.state.width },
-	          textItem
+	          _react2.default.createElement(
+	            'div',
+	            { className: this._getClassName(),
+	              ref: 'textItem',
+	              style: this.state.style },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'text-item-content',
+	                onWheel: this._handleWheel,
+	                ref: 'textItemContent' },
+	              content
+	            ),
+	            _react2.default.createElement(_Metadata2.default, { baseUrl: this.props.baseUrl,
+	              deleteItem: this.props.deleteItem,
+	              featuredItemId: this.props.featuredItemId,
+	              hideMetadata: this.props.hideMetadata,
+	              isShowingMetadata: this.props.isShowingMetadata,
+	              item: this.props.item,
+	              setFeaturedItemId: this.props.setFeaturedItemId,
+	              setItemMetadata: this.props.setItemMetadata,
+	              user: this.props.user })
+	          )
 	        )
 	      );
 	    }
@@ -59182,8 +59182,6 @@
 	
 	var _getCloudFrontUrl2 = _interopRequireDefault(_getCloudFrontUrl);
 	
-	var _reactRouter = __webpack_require__(239);
-	
 	var _Metadata = __webpack_require__(446);
 	
 	var _Metadata2 = _interopRequireDefault(_Metadata);
@@ -59237,6 +59235,7 @@
 	
 	    _this.state = {
 	      height: 0,
+	      isSourceItem: false,
 	      posterImageStyle: {},
 	      shouldBeRendered: false,
 	      style: {
@@ -59283,6 +59282,9 @@
 	      if (this._shouldAllowDragAndResize()) {
 	        className += ' should-allow-drag-and-resize';
 	      }
+	      if (this.state.isSourceItem) {
+	        className += ' is-source-item';
+	      }
 	      if (!this.state.shouldBeRendered) {
 	        className += ' should-show-placeholder';
 	      } else if (this.refs.video !== undefined && this.refs.video.state.loading) {
@@ -59295,6 +59297,8 @@
 	    value: function _handleClick(event) {
 	      if (this.state.wasDragged) {
 	        event.preventDefault();
+	      } else {
+	        this.props.itemClicked(this.props.item);
 	      }
 	    }
 	  }, {
@@ -59461,6 +59465,15 @@
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _this2 = this;
 	
+	      if (nextProps.sourceItem === nextProps.item) {
+	        this.setState({
+	          isSourceItem: true
+	        });
+	      } else if (this.state.isSourceItem) {
+	        this.setState({
+	          isSourceItem: false
+	        });
+	      }
 	      if (nextProps.item.get('x') !== this.props.item.get('x')) {
 	        this.setState({
 	          style: {
@@ -59546,13 +59559,6 @@
 	          },
 	          _react2.default.createElement('source', { src: (0, _getCloudFrontUrl2.default)(this.props.item.getIn(['results', 'encode', 'ssl_url'])), type: 'video/mp4' })
 	        );
-	        if (this.props.item.get('linkedTo')) {
-	          video = _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' + this.props.item.get('linkedTo'), onClick: this._handleClick },
-	            video
-	          );
-	        }
 	      }
 	      return _react2.default.createElement(
 	        _reactDraggable.DraggableCore,
@@ -59569,7 +59575,9 @@
 	            width: this.state.width },
 	          _react2.default.createElement(
 	            'div',
-	            { className: this._getClassName(), style: this.state.style },
+	            { className: this._getClassName(),
+	              onClick: this._handleClick,
+	              style: this.state.style },
 	            video,
 	            _react2.default.createElement('div', { className: 'obstructor' }),
 	            _react2.default.createElement(_PosterImage2.default, { item: this.props.item }),
@@ -62467,14 +62475,17 @@
 	              featuredItemId: _this2.props.featuredItemId,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
+	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: item,
+	              itemClicked: _this2.props.itemClicked,
 	              key: key,
 	              setFeaturedItemId: _this2.props.setFeaturedItemId,
 	              setItemPosition: _this2.props.setItemPosition,
 	              setItemSize: _this2.props.setItemSize,
 	              setTextItemRawState: _this2.props.setTextItemRawState,
 	              setItemMetadata: _this2.props.setItemMetadata,
+	              sourceItem: _this2.props.sourceItem,
 	              user: _this2.props.user });
 	          case 'video':
 	            return _react2.default.createElement(_VideoItem2.default, { baseUrl: _this2.props.baseUrl,
@@ -62484,8 +62495,10 @@
 	              height: _this2.props.height,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
+	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: item,
+	              itemClicked: _this2.props.itemClicked,
 	              key: key,
 	              leftEdgeOfViewport: _this2.props.leftEdgeOfViewport,
 	              paddingLeft: _this2.props.paddingLeft,
@@ -62494,6 +62507,7 @@
 	              setItemPosition: _this2.props.setItemPosition,
 	              setItemSize: _this2.props.setItemSize,
 	              setItemMetadata: _this2.props.setItemMetadata,
+	              sourceItem: _this2.props.sourceItem,
 	              user: _this2.props.user });
 	          default:
 	            return null;
@@ -62521,6 +62535,7 @@
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
 	    featuredItemId: state.getIn(['page', 'featuredItemId']),
+	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    items: state.getIn(['page', 'items']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
@@ -62530,6 +62545,7 @@
 	    rightEdgeOfViewport: (0, _getRightEdgeOfViewport2.default)(state),
 	    scrollDestination: (0, _getScrollDestination2.default)(state),
 	    scrollLeft: state.getIn(['page', 'scrollLeft']),
+	    sourceItem: state.getIn(['link', 'sourceItem']),
 	    user: state.getIn(['app', 'user']),
 	    width: state.getIn(['page', 'width'])
 	  };
@@ -62540,6 +62556,7 @@
 	    createTextItem: (0, _redux.bindActionCreators)(_actions2.default.createTextItem, dispatch),
 	    deleteItem: (0, _redux.bindActionCreators)(_actions2.default.deleteItem, dispatch),
 	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
+	    itemClicked: (0, _redux.bindActionCreators)(_actions2.default.itemClicked, dispatch),
 	    listenToFeaturedItemId: (0, _redux.bindActionCreators)(_actions2.default.listenToFeaturedItemId, dispatch),
 	    listenToItems: (0, _redux.bindActionCreators)(_actions2.default.listenToItems, dispatch),
 	    pageClicked: (0, _redux.bindActionCreators)(_actions2.default.pageClicked, dispatch),
@@ -63665,7 +63682,8 @@
 	 */
 	
 	var initialState = _immutable2.default.Map({
-	  isInLinkingMode: false
+	  isInLinkingMode: false,
+	  sourceItem: null
 	});
 	
 	function appReducer() {
@@ -63674,17 +63692,32 @@
 	
 	  switch (action.type) {
 	
+	    case _constants.A.ITEM_CLICKED:
+	      if (state.get('isInLinkingMode')) {
+	        return state.set('sourceItem', action.payload.get('item'));
+	      }
+	      return state;
+	
 	    case _constants.A.PAGE_CLICKED:
 	      if (state.get('isInLinkingMode')) {
-	        return state.set('isInLinkingMode', false);
+	        return state.merge({
+	          isInLinkingMode: false,
+	          sourceItem: null
+	        });
 	      }
 	      return state;
 	
 	    case _constants.A.SHOW_METADATA:
-	      return state.set('isInLinkingMode', false);
+	      return state.merge({
+	        isInLinkingMode: false,
+	        sourceItem: null
+	      });
 	
 	    case _constants.A.TOGGLE_LINKING_MODE:
-	      return state.set('isInLinkingMode', !state.get('isInLinkingMode'));
+	      return state.merge({
+	        isInLinkingMode: !state.get('isInLinkingMode'),
+	        sourceItem: null
+	      });
 	
 	    default:
 	      return state;
@@ -63736,6 +63769,15 @@
 	
 	exports.default = {
 	
+	  itemClicked: function itemClicked(item) {
+	    return {
+	      type: _constants.A.ITEM_CLICKED,
+	      payload: _immutable2.default.Map({
+	        item: item
+	      })
+	    };
+	  },
+	
 	  toggleLinkingMode: function toggleLinkingMode() {
 	    return {
 	      type: _constants.A.TOGGLE_LINKING_MODE
@@ -63746,4 +63788,5 @@
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

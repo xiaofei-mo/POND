@@ -22,7 +22,6 @@ import { DraggableCore } from 'react-draggable'
 import fadeIn from '../../utils/fadeIn'
 import fadeOut from '../../utils/fadeOut'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
-import { Link } from 'react-router'
 import Metadata from '../metadata/Metadata'
 import PosterImage from './PosterImage'
 import React from 'react'
@@ -34,6 +33,7 @@ export default class VideoItem extends React.Component {
     super()
     this.state = {
       height: 0,
+      isSourceItem: false,
       posterImageStyle: {},
       shouldBeRendered: false,
       style: {
@@ -76,6 +76,9 @@ export default class VideoItem extends React.Component {
     if (this._shouldAllowDragAndResize()) {
       className += ' should-allow-drag-and-resize'
     }
+    if (this.state.isSourceItem) {
+      className += ' is-source-item'
+    }
     if (!this.state.shouldBeRendered) {
       className += ' should-show-placeholder'
     }
@@ -87,6 +90,9 @@ export default class VideoItem extends React.Component {
   _handleClick(event) {
     if (this.state.wasDragged) {
       event.preventDefault()
+    }
+    else {
+      this.props.itemClicked(this.props.item)
     }
   }
   _handleDrag(event, ui) {
@@ -223,6 +229,16 @@ export default class VideoItem extends React.Component {
     })
   }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.sourceItem === nextProps.item) {
+      this.setState({
+        isSourceItem: true
+      })
+    }
+    else if (this.state.isSourceItem) {
+      this.setState({
+        isSourceItem: false
+      })
+    }
     if (nextProps.item.get('x') !== this.props.item.get('x')) {
       this.setState({
         style: {
@@ -310,13 +326,6 @@ export default class VideoItem extends React.Component {
           <source src={getCloudFrontUrl(this.props.item.getIn(['results', 'encode', 'ssl_url']))} type='video/mp4' />
         </Video>
       )
-      if(this.props.item.get('linkedTo')) {
-        video = (
-          <Link to={'/' + this.props.item.get('linkedTo')} onClick={this._handleClick}>
-            {video}
-          </Link>
-        )
-      }
     }
     return (
       <DraggableCore cancel='.react-resizable-handle'
@@ -328,7 +337,9 @@ export default class VideoItem extends React.Component {
                    onResize={this._handleResize}
                    onResizeStop={this._handleResizeStop}
                    width={this.state.width}>
-            <div className={this._getClassName()} style={this.state.style}>
+            <div className={this._getClassName()} 
+                 onClick={this._handleClick} 
+                 style={this.state.style}>
               {video}
               <div className='obstructor'></div>
               <PosterImage item={this.props.item} />

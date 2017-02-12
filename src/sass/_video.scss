@@ -60,6 +60,14 @@
     // We want the video to cover the poster image once it loads.
     z-index: 2;
   }
+
+  &.is-source-item {
+    z-index: 2;
+    
+    .obstructor {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 
 video {

@@ -21,23 +21,39 @@ import { A } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
-  isInLinkingMode: false
+  isInLinkingMode: false,
+  sourceItem: null
 })
 
 export default function appReducer (state = initialState, action) {
   switch (action.type) {
 
+    case A.ITEM_CLICKED:
+      if (state.get('isInLinkingMode')) {
+        return state.set('sourceItem', action.payload.get('item'))
+      }
+      return state
+
     case A.PAGE_CLICKED:
       if (state.get('isInLinkingMode')) {
-        return state.set('isInLinkingMode', false)
+        return state.merge({
+          isInLinkingMode: false,
+          sourceItem: null
+        })
       }
       return state
 
     case A.SHOW_METADATA:
-      return state.set('isInLinkingMode', false)
+      return state.merge({
+        isInLinkingMode: false,
+        sourceItem: null
+      })
 
     case A.TOGGLE_LINKING_MODE:
-      return state.set('isInLinkingMode', !state.get('isInLinkingMode'))
+      return state.merge({
+        isInLinkingMode: !state.get('isInLinkingMode'),
+        sourceItem: null
+      })
 
     default:
       return state
