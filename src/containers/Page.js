@@ -99,12 +99,17 @@ class Page extends React.Component {
   }
   render() {
     const items = this.props.items.filter(item => {
-      // If there's a linking mode source item, omit it from the items displayed
-      // on the page.
-      if (this.props.linkSourceItem === null) {
-        return true
+      // If there's a linking mode source or destination item, omit them from 
+      // the items displayed on the page.
+      if (this.props.linkSourceItem !== null && 
+          this.props.linkSourceItem.get('id') === item.get('id')) {
+        return false
       }
-      return this.props.linkSourceItem.get('id') !== item.get('id')
+      if (this.props.linkDestinationItem !== null &&
+          this.props.linkDestinationItem.get('id') === item.get('id')) {
+        return false
+      }
+      return true
     }).map((item, key) => {
       switch (item.get('type')) {
         case 'text':
@@ -117,6 +122,7 @@ class Page extends React.Component {
                            item={item} 
                            itemClicked={this.props.itemClicked}
                            key={key} 
+                           linkDestinationItem={this.props.linkDestinationItem}
                            setFeaturedItemId={this.props.setFeaturedItemId}
                            setItemPosition={this.props.setItemPosition} 
                            setItemSize={this.props.setItemSize}
@@ -136,6 +142,7 @@ class Page extends React.Component {
                             itemClicked={this.props.itemClicked}
                             key={key}
                             leftEdgeOfViewport={this.props.leftEdgeOfViewport}
+                            linkDestinationItem={this.props.linkDestinationItem}
                             paddingLeft={this.props.paddingLeft}
                             rightEdgeOfViewport={this.props.rightEdgeOfViewport}
                             setFeaturedItemId={this.props.setFeaturedItemId}
@@ -169,6 +176,7 @@ function mapStateToProps (state) {
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
+    linkDestinationItem: state.getIn(['link', 'destination', 'item']),
     linkSourceItem: state.getIn(['link', 'source', 'item']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),

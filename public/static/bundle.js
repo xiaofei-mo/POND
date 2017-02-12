@@ -364,6 +364,8 @@
 	  CLOSE_ALL_VOCABULARIES: 'CLOSE_ALL_VOCABULARIES',
 	  HIDE_METADATA: 'HIDE_METADATA',
 	  ITEM_CLICKED: 'ITEM_CLICKED',
+	  LINKING_TRANSITION_STAGE_1_FINISHED: 'LINKING_TRANSITION_STAGE_1_FINISHED',
+	  LINKING_TRANSITION_FINISHED: 'LINKING_TRANSITION_FINISHED',
 	  LOCATION_CHANGED: '@@router/LOCATION_CHANGE',
 	  LOGIN_ATTEMPTED: 'LOGIN_ATTEMPTED',
 	  LOGIN_FAILED: 'LOGIN_FAILED',
@@ -8251,6 +8253,9 @@
 	      var state = getState();
 	      if (state.getIn(['link', 'source', 'item']) !== null) {
 	        (function () {
+	          // If we have a source item, it means that this is a click on the 
+	          // destination item. So, let's form a link from the source item to the
+	          // destination item in Firebase.
 	          var sourceId = state.getIn(['link', 'source', 'item', 'id']);
 	          var destinationId = item.get('id');
 	          var sourceRef = _firebase2.default.database().ref().child('items').child(sourceId);
@@ -8260,6 +8265,20 @@
 	              sourceRef.child('linkedTo').push(destinationId);
 	            }
 	          });
+	          // Start the timer for stage 2 of the linking transition. Stage 2 starts
+	          // 4 seconds in.
+	          setTimeout(function () {
+	            dispatch({
+	              type: _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED
+	            });
+	          }, 4000);
+	          // Also, start the timer for completely ending the linking transition 
+	          // after 7 seconds.
+	          setTimeout(function () {
+	            dispatch({
+	              type: _constants.A.LINKING_TRANSITION_FINISHED
+	            });
+	          }, 7000);
 	        })();
 	      }
 	      dispatch({
@@ -10352,6 +10371,12 @@
 	      if (!this.props.user.isEmpty()) {
 	        className += ' is-logged-in';
 	      }
+	      if (this.props.isInLinkingTransition) {
+	        className += ' is-in-linking-transition';
+	        if (this.props.isInLinkingTransitionStage2) {
+	          className += ' stage-2';
+	        }
+	      }
 	      return className;
 	    }
 	  }, {
@@ -10365,6 +10390,11 @@
 	  }, {
 	    key: '_handleScroll',
 	    value: function _handleScroll(event) {
+	      // Prevent scrolling in linking transition mode.
+	      if (this.props.isInLinkingTransition) {
+	        event.preventDefault();
+	        return false;
+	      }
 	      // We need to use currentTarget because that is the value that points to 
 	      // the overall App workspace, not other scrollable things (like an item's
 	      // metadata).
@@ -10373,6 +10403,11 @@
 	  }, {
 	    key: '_handleWheel',
 	    value: function _handleWheel(event) {
+	      // Prevent scrolling in linking transition mode.
+	      if (this.props.isInLinkingTransition) {
+	        event.preventDefault();
+	        return false;
+	      }
 	      // We need to use `getElementById` here because the Dropzone component makes
 	      // it difficult to access its underlying <div> directly.
 	      var scroller = document.getElementById('scroller');
@@ -10428,7 +10463,8 @@
 	                'Drop Video'
 	              )
 	            )
-	          )
+	          ),
+	          _react2.default.createElement('div', { className: 'linking-transition-veil veil' })
 	        ),
 	        _react2.default.createElement(_Uploads2.default, null)
 	      );
@@ -10440,6 +10476,8 @@
 	
 	function mapStateToProps(state) {
 	  return {
+	    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
+	    isInLinkingTransitionStage2: state.getIn(['link', 'isInLinkingTransitionStage2']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    loginFailed: state.getIn(['app', 'loginFailed']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
@@ -43181,10 +43219,15 @@
 	      var filteredItems = this.props.filteredItems.filter(function (item) {
 	        // If there's a linking mode source item, omit it from the items displayed
 	        // on the page.
-	        if (_this2.props.linkSourceItem === null) {
-	          return true;
+	        // If there's a linking mode source or destination item, omit them from 
+	        // the items displayed on the page.
+	        if (_this2.props.linkSourceItem !== null && _this2.props.linkSourceItem.get('id') === item.get('id')) {
+	          return false;
 	        }
-	        return _this2.props.linkSourceItem.get('id') !== item.get('id');
+	        if (_this2.props.linkDestinationItem !== null && _this2.props.linkDestinationItem.get('id') === item.get('id')) {
+	          return false;
+	        }
+	        return true;
 	      }).map(function (filteredItem, key) {
 	        switch (filteredItem.get('type')) {
 	          case 'text':
@@ -43247,6 +43290,7 @@
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    filteredItems: state.getIn(['filter', 'filteredItems']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
+	    linkDestinationItem: state.getIn(['link', 'destination', 'item']),
 	    linkSourceItem: state.getIn(['link', 'source', 'item']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    paddingRight: (0, _getPaddingRight2.default)(state),
@@ -62866,12 +62910,15 @@
 	      var _this2 = this;
 	
 	      var items = this.props.items.filter(function (item) {
-	        // If there's a linking mode source item, omit it from the items displayed
-	        // on the page.
-	        if (_this2.props.linkSourceItem === null) {
-	          return true;
+	        // If there's a linking mode source or destination item, omit them from 
+	        // the items displayed on the page.
+	        if (_this2.props.linkSourceItem !== null && _this2.props.linkSourceItem.get('id') === item.get('id')) {
+	          return false;
 	        }
-	        return _this2.props.linkSourceItem.get('id') !== item.get('id');
+	        if (_this2.props.linkDestinationItem !== null && _this2.props.linkDestinationItem.get('id') === item.get('id')) {
+	          return false;
+	        }
+	        return true;
 	      }).map(function (item, key) {
 	        switch (item.get('type')) {
 	          case 'text':
@@ -62884,6 +62931,7 @@
 	              item: item,
 	              itemClicked: _this2.props.itemClicked,
 	              key: key,
+	              linkDestinationItem: _this2.props.linkDestinationItem,
 	              setFeaturedItemId: _this2.props.setFeaturedItemId,
 	              setItemPosition: _this2.props.setItemPosition,
 	              setItemSize: _this2.props.setItemSize,
@@ -62903,6 +62951,7 @@
 	              itemClicked: _this2.props.itemClicked,
 	              key: key,
 	              leftEdgeOfViewport: _this2.props.leftEdgeOfViewport,
+	              linkDestinationItem: _this2.props.linkDestinationItem,
 	              paddingLeft: _this2.props.paddingLeft,
 	              rightEdgeOfViewport: _this2.props.rightEdgeOfViewport,
 	              setFeaturedItemId: _this2.props.setFeaturedItemId,
@@ -62939,6 +62988,7 @@
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    items: state.getIn(['page', 'items']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
+	    linkDestinationItem: state.getIn(['link', 'destination', 'item']),
 	    linkSourceItem: state.getIn(['link', 'source', 'item']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    paddingRight: (0, _getPaddingRight2.default)(state),
@@ -63535,10 +63585,14 @@
 	
 	var initialState = _immutable2.default.Map({
 	  destination: _immutable2.default.Map({
-	    item: null
+	    currentTime: 0,
+	    item: null,
+	    left: 0,
+	    top: 0
 	  }),
 	  isInLinkingMode: false,
 	  isInLinkingTransition: false,
+	  isInLinkingTransitionStage2: false,
 	  source: _immutable2.default.Map({
 	    currentTime: 0,
 	    item: null,
@@ -63566,59 +63620,37 @@
 	            })
 	          });
 	        }
-	        // Second click is the destination item.
+	        // Second click is the destination item. (The Firebase stuff is done in 
+	        // link actions, along with setting the timer to end the linking 
+	        // transition.
 	        else {
 	            return state.merge({
-	              isInLinkingMode: false,
-	              source: _immutable2.default.Map({
-	                currentTime: 0,
-	                item: null,
-	                left: 0,
-	                top: 0
-	              })
+	              destination: _immutable2.default.Map({
+	                currentTime: action.payload.get('currentTime'),
+	                item: action.payload.get('item'),
+	                left: action.payload.get('left'),
+	                top: action.payload.get('top')
+	              }),
+	              isInLinkingTransition: true
 	            });
-	
-	            // Uncomment and expand on this for enabling animation.
-	            // return state.merge({
-	            //   destination: Immutable.Map({
-	            //     item: action.payload.get('item')
-	            //   }),
-	            //   isInLinkingTransition: true
-	            // })
 	          }
 	      }
 	      return state;
 	
+	    case _constants.A.LINKING_TRANSITION_FINISHED:
+	      return state.merge(initialState);
+	
+	    case _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED:
+	      return state.set('isInLinkingTransitionStage2', true);
+	
 	    case _constants.A.PAGE_CLICKED:
 	      if (state.get('isInLinkingMode')) {
-	        return state.merge({
-	          destination: _immutable2.default.Map({
-	            item: null
-	          }),
-	          isInLinkingMode: false,
-	          source: _immutable2.default.Map({
-	            currentTime: 0,
-	            item: null,
-	            left: 0,
-	            top: 0
-	          })
-	        });
+	        return state.merge(initialState);
 	      }
 	      return state;
 	
 	    case _constants.A.SHOW_METADATA:
-	      return state.merge({
-	        destination: _immutable2.default.Map({
-	          item: null
-	        }),
-	        isInLinkingMode: false,
-	        source: _immutable2.default.Map({
-	          currentTime: 0,
-	          item: null,
-	          left: 0,
-	          top: 0
-	        })
-	      });
+	      return state.merge(initialState);
 	
 	    case _constants.A.TOGGLE_LINKING_MODE:
 	      return state.merge({
@@ -63626,6 +63658,7 @@
 	          item: null
 	        }),
 	        isInLinkingMode: !state.get('isInLinkingMode'),
+	        isInLinkingTransition: false,
 	        source: _immutable2.default.Map({
 	          currentTime: 0,
 	          item: null,
@@ -63685,6 +63718,7 @@
 	  items: _immutable2.default.Map(),
 	  pageId: null,
 	  scrollLeft: 0,
+	  stateOnLinkSourceClick: null,
 	  width: 0
 	});
 	
@@ -63693,6 +63727,26 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
+	
+	    case _constants.A.ITEM_CLICKED:
+	      // If we're NOT on a filter page,
+	      if (state.get('pageId') !== null) {
+	        // And this is a click on a source item,
+	        if (state.get('stateOnLinkSourceClick') === null) {
+	          // take a snapshot of the current state and store it for redisplay at
+	          // the end of the linking transition.
+	          var stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick');
+	          return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick);
+	        }
+	      }
+	      return state;
+	
+	    case _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED:
+	      if (state.get('stateOnLinkSourceClick') !== null) {
+	        var restoredState = state.get('stateOnLinkSourceClick').set('stateOnLinkSourceClick', null);
+	        return restoredState;
+	      }
+	      return state;
 	
 	    case _constants.A.LOCATION_CHANGED:
 	      return state.merge({
@@ -63757,12 +63811,12 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/*
-	 * Copyright (C) 2016 Mark P. Lindsay
+	 * Copyright (C) 2017 Mark P. Lindsay
 	 * 
 	 * This file is part of mysteriousobjectsatnoon.
 	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	 * modify it under the terms of the GNU General Public License as published by
 	 * the Free Software Foundation, either version 3 of the License, or
 	 * (at your option) any later version.
 	 *
@@ -63772,7 +63826,8 @@
 	 * GNU General Public License for more details.
 	 * 
 	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 * along with mysteriousobjectsatnoon.  If not, see 
+	 * <http://www.gnu.org/licenses/>.
 	 */
 	
 	var initialState = _immutable2.default.Map({
@@ -63783,12 +63838,14 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
 	  var action = arguments[1];
 	
-	  if (action.type === _constants.A.LOCATION_CHANGED) {
-	    return state.merge({
-	      locationBeforeTransitions: _immutable2.default.fromJS(action.payload)
-	    });
+	  switch (action.type) {
+	    case _constants.A.LOCATION_CHANGED:
+	      return state.merge({
+	        locationBeforeTransitions: _immutable2.default.fromJS(action.payload)
+	      });
+	    default:
+	      return state;
 	  }
-	  return state;
 	}
 
 /***/ },
@@ -63901,6 +63958,10 @@
 	
 	var _Control2 = _interopRequireDefault(_Control);
 	
+	var _DestinationItem = __webpack_require__(505);
+	
+	var _DestinationItem2 = _interopRequireDefault(_DestinationItem);
+	
 	var _reactDraggable = __webpack_require__(98);
 	
 	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
@@ -63965,6 +64026,10 @@
 	          user: this.props.user,
 	          windowHeight: this.props.windowHeight,
 	          windowWidth: this.props.windowWidth }),
+	        _react2.default.createElement(_DestinationItem2.default, { currentTime: this.props.destination.get('currentTime'),
+	          item: this.props.destination.get('item'),
+	          left: this.props.destination.get('left'),
+	          top: this.props.destination.get('top') }),
 	        _react2.default.createElement(_SourceItem2.default, { currentTime: this.props.source.get('currentTime'),
 	          item: this.props.source.get('item'),
 	          left: this.props.source.get('left'),
@@ -63978,6 +64043,7 @@
 	
 	function mapStateToProps(state) {
 	  return {
+	    destination: state.getIn(['link', 'destination']),
 	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
 	    source: state.getIn(['link', 'source']),
 	    user: state.getIn(['app', 'user']),
@@ -64058,26 +64124,17 @@
 	
 	    var _this = _possibleConstructorReturn(this, (SourceItem.__proto__ || Object.getPrototypeOf(SourceItem)).call(this));
 	
-	    _this._handleCanPlayThrough = _this._handleCanPlayThrough.bind(_this);
 	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(SourceItem, [{
-	    key: '_handleCanPlayThrough',
-	    value: function _handleCanPlayThrough(event) {
-	      // http://stackoverflow.com/questions/16137381/html5-video-element-request-stay-pending-forever-on-chrome
-	      event.target.play();
-	    }
-	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate(prevProps, prevState) {
 	      if (this.refs.video !== undefined) {
 	        // Fast-forward to the playback position of the clicked video.
 	        this.refs.video.seek(this.props.currentTime);
-	        // All link source video items are muted.
-	        this.refs.video.mute();
 	      }
 	    }
 	  }, {
@@ -64095,6 +64152,8 @@
 	        top: this.props.top + 'px',
 	        width: this.props.item.get('width') + 'px'
 	      };
+	      var sslUrl = this.props.item.getIn(['results', 'encode', 'ssl_url']);
+	      var src = (0, _getCloudFrontUrl2.default)(sslUrl);
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'video-item is-source-item',
@@ -64102,13 +64161,9 @@
 	          style: style },
 	        _react2.default.createElement(
 	          _reactHtml5video2.default,
-	          { loop: true,
-	            onCanPlayThrough: this._handleCanPlayThrough,
-	            ref: 'video'
-	          },
-	          _react2.default.createElement('source', { src: (0, _getCloudFrontUrl2.default)(this.props.item.getIn(['results', 'encode', 'ssl_url'])), type: 'video/mp4' })
+	          { loop: true, ref: 'video' },
+	          _react2.default.createElement('source', { src: src, type: 'video/mp4' })
 	        ),
-	        _react2.default.createElement('div', { className: 'obstructor' }),
 	        _react2.default.createElement(_PosterImage2.default, { item: this.props.item })
 	      );
 	    }
@@ -64118,6 +64173,127 @@
 	}(_react2.default.Component);
 	
 	exports.default = SourceItem;
+
+/***/ },
+/* 505 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _constants = __webpack_require__(6);
+	
+	var _getCloudFrontUrl = __webpack_require__(484);
+	
+	var _getCloudFrontUrl2 = _interopRequireDefault(_getCloudFrontUrl);
+	
+	var _PosterImage = __webpack_require__(485);
+	
+	var _PosterImage2 = _interopRequireDefault(_PosterImage);
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactHtml5video = __webpack_require__(486);
+	
+	var _reactHtml5video2 = _interopRequireDefault(_reactHtml5video);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2017 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var DestinationItem = function (_React$Component) {
+	  _inherits(DestinationItem, _React$Component);
+	
+	  function DestinationItem() {
+	    _classCallCheck(this, DestinationItem);
+	
+	    var _this = _possibleConstructorReturn(this, (DestinationItem.__proto__ || Object.getPrototypeOf(DestinationItem)).call(this));
+	
+	    _this._handleCanPlayThrough = _this._handleCanPlayThrough.bind(_this);
+	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(DestinationItem, [{
+	    key: '_handleCanPlayThrough',
+	    value: function _handleCanPlayThrough(event) {
+	      // http://stackoverflow.com/questions/16137381/html5-video-element-request-stay-pending-forever-on-chrome
+	      event.target.play();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      if (this.refs.video !== undefined) {
+	        // Fast-forward to the playback position of the clicked video.
+	        this.refs.video.seek(this.props.currentTime);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.item === null) {
+	        return null;
+	      }
+	      if (this.props.item.get('type') !== 'video') {
+	        return null;
+	      }
+	      var style = {
+	        height: this.props.item.get('height') + 'px',
+	        left: this.props.left + 'px',
+	        top: this.props.top + 'px',
+	        width: this.props.item.get('width') + 'px'
+	      };
+	      var sslUrl = this.props.item.getIn(['results', 'encode', 'ssl_url']);
+	      var src = (0, _getCloudFrontUrl2.default)(sslUrl);
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'video-item is-destination-item',
+	          ref: 'item',
+	          style: style },
+	        _react2.default.createElement(
+	          _reactHtml5video2.default,
+	          { loop: true, onCanPlayThrough: this._handleCanPlayThrough, ref: 'video' },
+	          _react2.default.createElement('source', { src: src, type: 'video/mp4' })
+	        ),
+	        _react2.default.createElement(_PosterImage2.default, { item: this.props.item })
+	      );
+	    }
+	  }]);
+	
+	  return DestinationItem;
+	}(_react2.default.Component);
+	
+	exports.default = DestinationItem;
 
 /***/ }
 /******/ ]);

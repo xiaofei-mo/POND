@@ -86,10 +86,17 @@ class FilterPage extends React.Component {
     const filteredItems = this.props.filteredItems.filter(item => {
       // If there's a linking mode source item, omit it from the items displayed
       // on the page.
-      if (this.props.linkSourceItem === null) {
-        return true
+      // If there's a linking mode source or destination item, omit them from 
+      // the items displayed on the page.
+      if (this.props.linkSourceItem !== null && 
+          this.props.linkSourceItem.get('id') === item.get('id')) {
+        return false
       }
-      return this.props.linkSourceItem.get('id') !== item.get('id')
+      if (this.props.linkDestinationItem !== null &&
+          this.props.linkDestinationItem.get('id') === item.get('id')) {
+        return false
+      }
+      return true
     }).map((filteredItem, key) => {
       switch (filteredItem.get('type')) {
         case 'text':
@@ -149,6 +156,7 @@ function mapStateToProps (state) {
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     filteredItems: state.getIn(['filter', 'filteredItems']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
+    linkDestinationItem: state.getIn(['link', 'destination', 'item']),
     linkSourceItem: state.getIn(['link', 'source', 'item']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),

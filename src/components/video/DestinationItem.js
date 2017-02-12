@@ -24,11 +24,16 @@ import PosterImage from './PosterImage'
 import React from 'react'
 import Video from 'react-html5video'
 
-export default class SourceItem extends React.Component {
+export default class DestinationItem extends React.Component {
   constructor() {
     super()
+    this._handleCanPlayThrough = this._handleCanPlayThrough.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.render = this.render.bind(this)
+  }
+  _handleCanPlayThrough(event) {
+    // http://stackoverflow.com/questions/16137381/html5-video-element-request-stay-pending-forever-on-chrome
+    event.target.play()
   }
   componentDidUpdate(prevProps, prevState) {
     if (this.refs.video !== undefined) {
@@ -52,10 +57,10 @@ export default class SourceItem extends React.Component {
     const sslUrl = this.props.item.getIn(['results', 'encode', 'ssl_url'])
     const src = getCloudFrontUrl(sslUrl)
     return (
-      <div className='video-item is-source-item'
+      <div className='video-item is-destination-item'
            ref='item'
            style={style}>
-        <Video loop ref='video'>
+        <Video loop onCanPlayThrough={this._handleCanPlayThrough} ref='video'>
           <source src={src} type='video/mp4' />
         </Video>
         <PosterImage item={this.props.item} />

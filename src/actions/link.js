@@ -29,6 +29,9 @@ export default {
     return (dispatch, getState) => {
       const state = getState()
       if (state.getIn(['link', 'source', 'item']) !== null) {
+        // If we have a source item, it means that this is a click on the 
+        // destination item. So, let's form a link from the source item to the
+        // destination item in Firebase.
         const sourceId = state.getIn(['link', 'source', 'item', 'id'])
         const destinationId = item.get('id')
         const sourceRef = firebase.database().ref().child('items')
@@ -39,6 +42,20 @@ export default {
             sourceRef.child('linkedTo').push(destinationId)
           }
         })
+        // Start the timer for stage 2 of the linking transition. Stage 2 starts
+        // 4 seconds in.
+        setTimeout(() => {
+          dispatch({
+            type: A.LINKING_TRANSITION_STAGE_1_FINISHED
+          })
+        }, 4000)
+        // Also, start the timer for completely ending the linking transition 
+        // after 7 seconds.
+        setTimeout(() => {
+          dispatch({
+            type: A.LINKING_TRANSITION_FINISHED
+          })
+        }, 7000)
       }
       dispatch({
         type: A.ITEM_CLICKED,

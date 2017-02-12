@@ -129,6 +129,14 @@ a {
   left: 0;
 }
 
+.linking-transition-veil {
+  z-index: 11;
+  
+  .is-in-linking-transition & {
+    display: block;
+  }
+}
+
 .dropzone-veil {
   z-index: 10;
 

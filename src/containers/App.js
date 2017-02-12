@@ -44,6 +44,12 @@ class App extends React.Component {
     if (!this.props.user.isEmpty()) {
       className += ' is-logged-in'
     }
+    if (this.props.isInLinkingTransition) {
+      className += ' is-in-linking-transition'
+      if (this.props.isInLinkingTransitionStage2) {
+        className += ' stage-2'
+      }
+    }
     return className
   }
   _handleDroppedFiles(files, event) {
@@ -59,12 +65,22 @@ class App extends React.Component {
     }
   }
   _handleScroll(event) {
+    // Prevent scrolling in linking transition mode.
+    if (this.props.isInLinkingTransition) {
+      event.preventDefault()
+      return false
+    }
     // We need to use currentTarget because that is the value that points to 
     // the overall App workspace, not other scrollable things (like an item's
     // metadata).
     this.props.handleScroll(event.currentTarget.scrollLeft)
   }
   _handleWheel(event) {
+    // Prevent scrolling in linking transition mode.
+    if (this.props.isInLinkingTransition) {
+      event.preventDefault()
+      return false
+    }
     // We need to use `getElementById` here because the Dropzone component makes
     // it difficult to access its underlying <div> directly.
     let scroller = document.getElementById('scroller')
@@ -106,6 +122,8 @@ class App extends React.Component {
               <div>Drop Video</div>
             </div>
           </div>
+          <div className='linking-transition-veil veil'>
+          </div>
         </Dropzone>
         <Uploads />
       </div>
@@ -115,6 +133,9 @@ class App extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
+    isInLinkingTransitionStage2: state.getIn(['link', 
+                                              'isInLinkingTransitionStage2']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     loginFailed: state.getIn(['app', 'loginFailed']),
     paddingLeft: getPaddingLeft(state),

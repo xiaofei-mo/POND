@@ -28,12 +28,34 @@ const initialState = Immutable.Map({
   items: Immutable.Map(),
   pageId: null,
   scrollLeft: 0,
+  stateOnLinkSourceClick: null,
   width: 0
 })
 
 export default function pageReducer (state = initialState, action) {
   switch (action.type) {
     
+    case A.ITEM_CLICKED:
+      // If we're NOT on a filter page,
+      if (state.get('pageId') !== null) {
+        // And this is a click on a source item,
+        if (state.get('stateOnLinkSourceClick') === null) {
+          // take a snapshot of the current state and store it for redisplay at
+          // the end of the linking transition.
+          const stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick')
+          return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick)
+        }
+      }
+      return state
+
+    case A.LINKING_TRANSITION_STAGE_1_FINISHED:
+      if (state.get('stateOnLinkSourceClick') !== null) {
+        const restoredState = state.get('stateOnLinkSourceClick')
+                              .set('stateOnLinkSourceClick', null)
+        return restoredState
+      }
+      return state
+
     case A.LOCATION_CHANGED:
       return state.merge({
         destinationItem: Immutable.Map(),

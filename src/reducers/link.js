@@ -23,10 +23,14 @@ import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
   destination: Immutable.Map({
-    item: null
+    currentTime: 0,
+    item: null,
+    left: 0,
+    top: 0
   }),
   isInLinkingMode: false,
   isInLinkingTransition: false,
+  isInLinkingTransitionStage2: false,
   source: Immutable.Map({
     currentTime: 0,
     item: null,
@@ -51,60 +55,37 @@ export default function appReducer (state = initialState, action) {
             })
           })
         }
-        // Second click is the destination item.
+        // Second click is the destination item. (The Firebase stuff is done in 
+        // link actions, along with setting the timer to end the linking 
+        // transition.
         else {
           return state.merge({
-            isInLinkingMode: false,
-            source: Immutable.Map({
-              currentTime: 0,
-              item: null,
-              left: 0,
-              top: 0
-            })
+            destination: Immutable.Map({
+              currentTime: action.payload.get('currentTime'),
+              item: action.payload.get('item'),
+              left: action.payload.get('left'),
+              top: action.payload.get('top')
+            }),
+            isInLinkingTransition: true
           })
-
-
-          // Uncomment and expand on this for enabling animation.
-          // return state.merge({
-          //   destination: Immutable.Map({
-          //     item: action.payload.get('item')
-          //   }),
-          //   isInLinkingTransition: true
-          // })
         }
       }
       return state
 
+    case A.LINKING_TRANSITION_FINISHED:
+      return state.merge(initialState)
+
+    case A.LINKING_TRANSITION_STAGE_1_FINISHED:
+      return state.set('isInLinkingTransitionStage2', true)
+
     case A.PAGE_CLICKED:
       if (state.get('isInLinkingMode')) {
-        return state.merge({
-          destination: Immutable.Map({
-            item: null
-          }),
-          isInLinkingMode: false,
-          source: Immutable.Map({
-            currentTime: 0,
-            item: null,
-            left: 0,
-            top: 0
-          })
-        })
+        return state.merge(initialState)
       }
       return state
 
     case A.SHOW_METADATA:
-      return state.merge({
-        destination: Immutable.Map({
-          item: null
-        }),
-        isInLinkingMode: false,
-        source: Immutable.Map({
-          currentTime: 0,
-          item: null,
-          left: 0,
-          top: 0
-        })
-      })
+      return state.merge(initialState)
 
     case A.TOGGLE_LINKING_MODE:
       return state.merge({
@@ -112,6 +93,7 @@ export default function appReducer (state = initialState, action) {
           item: null
         }),
         isInLinkingMode: !state.get('isInLinkingMode'),
+        isInLinkingTransition: false,
         source: Immutable.Map({
           currentTime: 0,
           item: null,

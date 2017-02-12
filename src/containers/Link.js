@@ -22,6 +22,7 @@ import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Control from '../components/link/Control'
+import DestinationVideoItem from '../components/video/DestinationItem'
 import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -39,6 +40,10 @@ class Link extends React.Component {
                  user={this.props.user} 
                  windowHeight={this.props.windowHeight} 
                  windowWidth={this.props.windowWidth} />
+        <DestinationVideoItem currentTime={this.props.destination.get('currentTime')}
+                              item={this.props.destination.get('item')}
+                              left={this.props.destination.get('left')}
+                              top={this.props.destination.get('top')} />
         <SourceVideoItem currentTime={this.props.source.get('currentTime')}
                          item={this.props.source.get('item')}
                          left={this.props.source.get('left')}
@@ -50,6 +55,7 @@ class Link extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    destination: state.getIn(['link', 'destination']),
     isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
     source: state.getIn(['link', 'source']),
     user: state.getIn(['app', 'user']),
