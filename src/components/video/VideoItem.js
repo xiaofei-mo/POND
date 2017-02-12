@@ -230,13 +230,29 @@ export default class VideoItem extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.sourceItem === nextProps.item) {
-      this.setState({
-        isSourceItem: true
+      this.setState((prevState, props) => {
+        const bcr = this.refs.item.getBoundingClientRect()
+        return {
+          isSourceItem: true,
+          style: {
+            height: prevState.style.height,
+            left: bcr.left + 'px',
+            top: bcr.top + 'px',
+            width: prevState.style.width
+          }
+        }
       })
     }
     else if (this.state.isSourceItem) {
-      this.setState({
-        isSourceItem: false
+      this.setState((prevState, props) => {
+        return {
+          isSourceItem: false,
+          style: {
+            height: prevState.style.height,
+            width: prevState.style.width,
+            transform: 'translate(' + prevState.x + 'px, ' + prevState.y + 'px)'
+          }
+        }
       })
     }
     if (nextProps.item.get('x') !== this.props.item.get('x')) {
@@ -339,6 +355,7 @@ export default class VideoItem extends React.Component {
                    width={this.state.width}>
             <div className={this._getClassName()} 
                  onClick={this._handleClick} 
+                 ref='item'
                  style={this.state.style}>
               {video}
               <div className='obstructor'></div>

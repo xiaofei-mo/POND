@@ -59466,12 +59466,28 @@
 	      var _this2 = this;
 	
 	      if (nextProps.sourceItem === nextProps.item) {
-	        this.setState({
-	          isSourceItem: true
+	        this.setState(function (prevState, props) {
+	          var bcr = _this2.refs.item.getBoundingClientRect();
+	          return {
+	            isSourceItem: true,
+	            style: {
+	              height: prevState.style.height,
+	              left: bcr.left + 'px',
+	              top: bcr.top + 'px',
+	              width: prevState.style.width
+	            }
+	          };
 	        });
 	      } else if (this.state.isSourceItem) {
-	        this.setState({
-	          isSourceItem: false
+	        this.setState(function (prevState, props) {
+	          return {
+	            isSourceItem: false,
+	            style: {
+	              height: prevState.style.height,
+	              width: prevState.style.width,
+	              transform: 'translate(' + prevState.x + 'px, ' + prevState.y + 'px)'
+	            }
+	          };
 	        });
 	      }
 	      if (nextProps.item.get('x') !== this.props.item.get('x')) {
@@ -59577,6 +59593,7 @@
 	            'div',
 	            { className: this._getClassName(),
 	              onClick: this._handleClick,
+	              ref: 'item',
 	              style: this.state.style },
 	            video,
 	            _react2.default.createElement('div', { className: 'obstructor' }),
@@ -63788,5 +63805,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

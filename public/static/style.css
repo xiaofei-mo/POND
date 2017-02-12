@@ -902,7 +902,8 @@ a {
     background-size: cover;
     z-index: 2; }
   .video-item.is-source-item {
-    z-index: 2; }
+    z-index: 2;
+    position: fixed; }
     .video-item.is-source-item .obstructor {
       background-color: rgba(0, 0, 0, 0.5); }
 
