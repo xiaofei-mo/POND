@@ -89,7 +89,8 @@ class Page extends React.Component {
     }
   } 
   componentWillReceiveProps(nextProps) {
-    if (this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
+    if (this.props.params.timingOrUsername !== 
+        nextProps.params.timingOrUsername) {
       this.setState({
         wasInitiallyScrolled: false
       })
@@ -186,14 +187,16 @@ function mapDispatchToProps (dispatch) {
     deleteItem: bindActionCreators(actions.deleteItem, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     itemClicked: bindActionCreators(actions.itemClicked, dispatch),
-    listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId, dispatch),
+    listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId, 
+                            dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     pageClicked: bindActionCreators(actions.pageClicked, dispatch),
     setFeaturedItemId: bindActionCreators(actions.setFeaturedItemId, dispatch),
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
-    setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch)
+    setTextItemRawState: bindActionCreators(actions.setTextItemRawState, 
+                         dispatch)
   }
 }
 

@@ -54,11 +54,23 @@ export default function appReducer (state = initialState, action) {
         // Second click is the destination item.
         else {
           return state.merge({
-            destination: Immutable.Map({
-              item: action.payload.get('item')
-            }),
-            isInLinkingTransition: true
+            isInLinkingMode: false,
+            source: Immutable.Map({
+              currentTime: 0,
+              item: null,
+              left: 0,
+              top: 0
+            })
           })
+
+
+          // Uncomment and expand on this for enabling animation.
+          // return state.merge({
+          //   destination: Immutable.Map({
+          //     item: action.payload.get('item')
+          //   }),
+          //   isInLinkingTransition: true
+          // })
         }
       }
       return state

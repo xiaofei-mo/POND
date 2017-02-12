@@ -8247,14 +8247,30 @@
 	exports.default = {
 	
 	  itemClicked: function itemClicked(item, left, top, currentTime) {
-	    return {
-	      type: _constants.A.ITEM_CLICKED,
-	      payload: _immutable2.default.Map({
-	        currentTime: currentTime,
-	        item: item,
-	        left: left,
-	        top: top
-	      })
+	    return function (dispatch, getState) {
+	      var state = getState();
+	      if (state.getIn(['link', 'source', 'item']) !== null) {
+	        (function () {
+	          var sourceId = state.getIn(['link', 'source', 'item', 'id']);
+	          var destinationId = item.get('id');
+	          var sourceRef = _firebase2.default.database().ref().child('items').child(sourceId);
+	          sourceRef.child('linkedTo').once('value', function (snapshot) {
+	            var linkedTo = _immutable2.default.fromJS(snapshot.val());
+	            if (linkedTo === null || !linkedTo.includes(destinationId)) {
+	              sourceRef.child('linkedTo').push(destinationId);
+	            }
+	          });
+	        })();
+	      }
+	      dispatch({
+	        type: _constants.A.ITEM_CLICKED,
+	        payload: _immutable2.default.Map({
+	          currentTime: currentTime,
+	          item: item,
+	          left: left,
+	          top: top
+	        })
+	      });
 	    };
 	  },
 	
@@ -63553,11 +63569,22 @@
 	        // Second click is the destination item.
 	        else {
 	            return state.merge({
-	              destination: _immutable2.default.Map({
-	                item: action.payload.get('item')
-	              }),
-	              isInLinkingTransition: true
+	              isInLinkingMode: false,
+	              source: _immutable2.default.Map({
+	                currentTime: 0,
+	                item: null,
+	                left: 0,
+	                top: 0
+	              })
 	            });
+	
+	            // Uncomment and expand on this for enabling animation.
+	            // return state.merge({
+	            //   destination: Immutable.Map({
+	            //     item: action.payload.get('item')
+	            //   }),
+	            //   isInLinkingTransition: true
+	            // })
 	          }
 	      }
 	      return state;

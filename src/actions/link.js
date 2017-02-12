@@ -26,13 +26,28 @@ import { push } from 'react-router-redux'
 export default {
 
   itemClicked: (item, left, top, currentTime) => {
-    return {
-      type: A.ITEM_CLICKED,
-      payload: Immutable.Map({
-        currentTime: currentTime,
-        item: item,
-        left: left,
-        top: top
+    return (dispatch, getState) => {
+      const state = getState()
+      if (state.getIn(['link', 'source', 'item']) !== null) {
+        const sourceId = state.getIn(['link', 'source', 'item', 'id'])
+        const destinationId = item.get('id')
+        const sourceRef = firebase.database().ref().child('items')
+                          .child(sourceId)
+        sourceRef.child('linkedTo').once('value', snapshot => {
+          const linkedTo = Immutable.fromJS(snapshot.val())
+          if (linkedTo === null || !linkedTo.includes(destinationId)) {
+            sourceRef.child('linkedTo').push(destinationId)
+          }
+        })
+      }
+      dispatch({
+        type: A.ITEM_CLICKED,
+        payload: Immutable.Map({
+          currentTime: currentTime,
+          item: item,
+          left: left,
+          top: top
+        })
       })
     }
   },
