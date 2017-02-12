@@ -53,7 +53,7 @@ class FilterPage extends React.Component {
     return style
   }
   _handleClick(event) {
-    if (event.target === this.refs.page) {
+    if (event.target === this.refs.filterPage) {
       this.props.pageClicked()
     }
   }
@@ -131,6 +131,8 @@ class FilterPage extends React.Component {
     return (
       <div className='page' 
            id='filter-page'
+           onClick={this._handleClick}
+           ref='filterPage'
            style={this._getStyle()}>
         {filteredItems}
       </div>

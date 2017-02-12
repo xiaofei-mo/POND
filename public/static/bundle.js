@@ -43124,7 +43124,7 @@
 	  }, {
 	    key: '_handleClick',
 	    value: function _handleClick(event) {
-	      if (event.target === this.refs.page) {
+	      if (event.target === this.refs.filterPage) {
 	        this.props.pageClicked();
 	      }
 	    }
@@ -43211,6 +43211,8 @@
 	        'div',
 	        { className: 'page',
 	          id: 'filter-page',
+	          onClick: this._handleClick,
+	          ref: 'filterPage',
 	          style: this._getStyle() },
 	        filteredItems
 	      );
@@ -64067,5 +64069,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map
