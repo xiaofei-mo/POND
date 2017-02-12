@@ -63360,9 +63360,6 @@
 	      if (!this.props.isOpen) {
 	        return null;
 	      }
-	      if (!this.props.user.isEmpty()) {
-	        return null;
-	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'bubble', onClick: this.props.onClick },
@@ -63390,6 +63387,7 @@
 	    _this2._handleClick = _this2._handleClick.bind(_this2);
 	    _this2._handleDragStart = _this2._handleDragStart.bind(_this2);
 	    _this2.componentDidUpdate = _this2.componentDidUpdate.bind(_this2);
+	    _this2.componentWillReceiveProps = _this2.componentWillReceiveProps.bind(_this2);
 	    _this2.render = _this2.render.bind(_this2);
 	    return _this2;
 	  }
@@ -63415,6 +63413,16 @@
 	        this.setState({
 	          height: el.offsetHeight,
 	          width: el.offsetWidth
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      // Close the bubble if a user logs in.
+	      if (this.props.user.isEmpty() && !nextProps.user.isEmpty()) {
+	        this.setState({
+	          isOpen: false
 	        });
 	      }
 	    }
@@ -63448,8 +63456,7 @@
 	            _react2.default.createElement('img', { src: '/static/plane.gif', alt: 'Link' })
 	          ),
 	          _react2.default.createElement(Bubble, { isOpen: this.state.isOpen,
-	            onClick: this._handleClick,
-	            user: this.props.user })
+	            onClick: this._handleClick })
 	        )
 	      );
 	    }

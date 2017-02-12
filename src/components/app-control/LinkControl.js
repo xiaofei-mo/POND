@@ -30,9 +30,6 @@ class Bubble extends React.Component {
     if (!this.props.isOpen) {
       return null
     }
-    if (!this.props.user.isEmpty()) {
-      return null
-    }
     return (
       <div className='bubble' onClick={this.props.onClick}>
         See something you like? Click it to see where it takes you.
@@ -52,6 +49,7 @@ export default class LinkControl extends React.Component {
     this._handleClick = this._handleClick.bind(this)
     this._handleDragStart = this._handleDragStart.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
   }
   _handleClick (event) {
@@ -69,6 +67,14 @@ export default class LinkControl extends React.Component {
       this.setState({
         height: el.offsetHeight,
         width: el.offsetWidth
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    // Close the bubble if a user logs in.
+    if (this.props.user.isEmpty() && !nextProps.user.isEmpty()) {
+      this.setState({
+        isOpen: false
       })
     }
   }
@@ -95,8 +101,7 @@ export default class LinkControl extends React.Component {
             <img src='/static/plane.gif' alt='Link' />
           </a>
           <Bubble isOpen={this.state.isOpen} 
-                  onClick={this._handleClick}
-                  user={this.props.user} />
+                  onClick={this._handleClick} />
         </div>
       </Draggable>
     )
