@@ -1,10 +1,10 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,7 +14,8 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 import actions from '../actions'
@@ -82,7 +83,14 @@ class FilterPage extends React.Component {
     }
   }
   render() {
-    const filteredItems = this.props.filteredItems.map((filteredItem, key) => {
+    const filteredItems = this.props.filteredItems.filter(item => {
+      // If there's a linking mode source item, omit it from the items displayed
+      // on the page.
+      if (this.props.linkSourceItem === null) {
+        return true
+      }
+      return this.props.linkSourceItem.get('id') !== item.get('id')
+    }).map((filteredItem, key) => {
       switch (filteredItem.get('type')) {
         case 'text':
           return <TextItem baseUrl={this.props.baseUrl}
@@ -90,7 +98,6 @@ class FilterPage extends React.Component {
                            featuredItemId={this.props.featuredItemId}
                            hideMetadata={this.props.hideMetadata}
                            id={key} 
-                           isInLinkingMode={this.props.isInLinkingMode}
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={filteredItem} 
                            itemClicked={this.props.itemClicked}
@@ -107,7 +114,6 @@ class FilterPage extends React.Component {
                             height={this.props.height}
                             hideMetadata={this.props.hideMetadata}
                             id={key}
-                            isInLinkingMode={this.props.isInLinkingMode}
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={filteredItem}
                             itemClicked={this.props.itemClicked}
@@ -138,10 +144,10 @@ function mapStateToProps (state) {
     baseUrl: state.getIn(['page', 'baseUrl']),
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
-    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     filteredItems: state.getIn(['filter', 'filteredItems']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
+    linkSourceItem: state.getIn(['link', 'source', 'item']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),

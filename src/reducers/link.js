@@ -1,10 +1,10 @@
-/*
+/*/*
  * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,7 +14,8 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 import { A } from '../constants'
@@ -22,7 +23,12 @@ import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
   isInLinkingMode: false,
-  sourceItem: null
+  source: Immutable.Map({
+    currentTime: 0,
+    item: null,
+    left: 0,
+    top: 0
+  })
 })
 
 export default function appReducer (state = initialState, action) {
@@ -30,7 +36,14 @@ export default function appReducer (state = initialState, action) {
 
     case A.ITEM_CLICKED:
       if (state.get('isInLinkingMode')) {
-        return state.set('sourceItem', action.payload.get('item'))
+        return state.merge({
+          source: Immutable.Map({
+            currentTime: action.payload.get('currentTime'),
+            item: action.payload.get('item'),
+            left: action.payload.get('left'),
+            top: action.payload.get('top')
+          })
+        })
       }
       return state
 
@@ -38,7 +51,12 @@ export default function appReducer (state = initialState, action) {
       if (state.get('isInLinkingMode')) {
         return state.merge({
           isInLinkingMode: false,
-          sourceItem: null
+          source: Immutable.Map({
+            currentTime: 0,
+            item: null,
+            left: 0,
+            top: 0
+          })
         })
       }
       return state
@@ -46,13 +64,23 @@ export default function appReducer (state = initialState, action) {
     case A.SHOW_METADATA:
       return state.merge({
         isInLinkingMode: false,
-        sourceItem: null
+        source: Immutable.Map({
+          currentTime: 0,
+          item: null,
+          left: 0,
+          top: 0
+        })
       })
 
     case A.TOGGLE_LINKING_MODE:
       return state.merge({
         isInLinkingMode: !state.get('isInLinkingMode'),
-        sourceItem: null
+        source: Immutable.Map({
+          currentTime: 0,
+          item: null,
+          left: 0,
+          top: 0
+        })
       })
 
     default:

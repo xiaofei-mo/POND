@@ -3,8 +3,8 @@
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,7 +14,8 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 import actions from '../actions'
@@ -96,7 +97,14 @@ class Page extends React.Component {
     }
   }
   render() {
-    const items = this.props.items.map((item, key) => {
+    const items = this.props.items.filter(item => {
+      // If there's a linking mode source item, omit it from the items displayed
+      // on the page.
+      if (this.props.linkSourceItem === null) {
+        return true
+      }
+      return this.props.linkSourceItem.get('id') !== item.get('id')
+    }).map((item, key) => {
       switch (item.get('type')) {
         case 'text':
           return <TextItem baseUrl={this.props.baseUrl}
@@ -104,7 +112,6 @@ class Page extends React.Component {
                            featuredItemId={this.props.featuredItemId}
                            hideMetadata={this.props.hideMetadata}
                            id={key} 
-                           isInLinkingMode={this.props.isInLinkingMode}
                            isShowingMetadata={this.props.isShowingMetadata}
                            item={item} 
                            itemClicked={this.props.itemClicked}
@@ -114,7 +121,6 @@ class Page extends React.Component {
                            setItemSize={this.props.setItemSize}
                            setTextItemRawState={this.props.setTextItemRawState} 
                            setItemMetadata={this.props.setItemMetadata}
-                           sourceItem={this.props.sourceItem}
                            user={this.props.user} />
         case 'video':
           return <VideoItem baseUrl={this.props.baseUrl}
@@ -124,7 +130,6 @@ class Page extends React.Component {
                             height={this.props.height}
                             hideMetadata={this.props.hideMetadata}
                             id={key}
-                            isInLinkingMode={this.props.isInLinkingMode}
                             isShowingMetadata={this.props.isShowingMetadata}
                             item={item}
                             itemClicked={this.props.itemClicked}
@@ -136,7 +141,6 @@ class Page extends React.Component {
                             setItemPosition={this.props.setItemPosition}
                             setItemSize={this.props.setItemSize} 
                             setItemMetadata={this.props.setItemMetadata}
-                            sourceItem={this.props.sourceItem}
                             user={this.props.user} />
         default:
           return null
@@ -161,17 +165,16 @@ function mapStateToProps (state) {
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     featuredItemId: state.getIn(['page', 'featuredItemId']),
-    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
+    linkSourceItem: state.getIn(['link', 'source', 'item']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),
     rightEdgeOfViewport: getRightEdgeOfViewport(state),
     scrollDestination: getScrollDestination(state),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
-    sourceItem: state.getIn(['link', 'sourceItem']),
     user: state.getIn(['app', 'user']),
     width: state.getIn(['page', 'width'])
   }

@@ -3,8 +3,8 @@
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,7 +14,8 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 import actions from '../actions'
@@ -23,9 +24,9 @@ import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
 import Filter from './Filter'
 import getPaddingLeft from '../selectors/getPaddingLeft'
-import LinkControl from '../components/app-control/LinkControl'
+import Link from './Link'
 import Login from '../components/login/Login'
-import MetadataControl from '../components/app-control/MetadataControl'
+import MetadataControl from '../components/metadata/Control'
 import React from 'react'
 import Uploads from './Uploads'
 
@@ -98,11 +99,8 @@ class App extends React.Component {
                            uploads={this.props.uploads}
                            windowHeight={this.props.windowHeight}
                            windowWidth={this.props.windowWidth} />
-          <LinkControl toggleLinkingMode={this.props.toggleLinkingMode}
-                       user={this.props.user} 
-                       windowHeight={this.props.windowHeight} 
-                       windowWidth={this.props.windowWidth} />
           <Filter />
+          <Link />
           <div className='dropzone-veil veil'>
             <div>
               <div>Drop Video</div>
@@ -138,8 +136,7 @@ function mapDispatchToProps (dispatch) {
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
-    showMetadata: bindActionCreators(actions.showMetadata, dispatch),
-    toggleLinkingMode: bindActionCreators(actions.toggleLinkingMode, dispatch)
+    showMetadata: bindActionCreators(actions.showMetadata, dispatch)
   }
 }
 

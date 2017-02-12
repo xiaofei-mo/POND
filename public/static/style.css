@@ -3,8 +3,8 @@
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,7 +14,8 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 /*! normalize.css v4.0.0 | MIT License | github.com/necolas/normalize.css */
 /**
@@ -488,6 +489,232 @@ a {
   .is-showing-metadata .should-allow-drag-and-resize .react-resizable-handle {
     display: none; }
 
+.app-control {
+  font-size: 28px;
+  position: fixed;
+  color: #ffffff;
+  z-index: 7;
+  display: block; }
+
+/*
+ * Copyright (C) 2017 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
+ */
+.filter {
+  font-family: monospace;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 18px;
+  display: none; }
+  .filter.react-draggable {
+    display: block; }
+  .filter .opener-closer span {
+    animation: blinker steps(1) 1s infinite alternate;
+    margin-left: 3px; }
+
+@keyframes blinker {
+  0% {
+    visibility: visible; }
+  50% {
+    visibility: hidden; }
+  100% {
+    visibility: visible; } }
+  .filter .vocabulary > a {
+    color: #949598; }
+  .filter .clear {
+    color: #000000;
+    background-color: #949598; }
+  .filter .prompt {
+    margin-right: 8px; }
+  .filter .terms {
+    display: inline-block; }
+  .filter .term {
+    display: inline-block; }
+    .filter .term:after {
+      content: ',';
+      color: #949598 !important;
+      margin-right: 8px; }
+  .filter .term:last-child:after {
+    content: '';
+    margin-right: 0; }
+  .filter .vocabulary.things .term a:hover,
+  .filter .vocabulary.things .term.is-applied a {
+    background-color: green; }
+  .filter .vocabulary.textures .term a:hover,
+  .filter .vocabulary.textures .term.is-applied a {
+    background-color: red; }
+  .filter .vocabulary.forms .term a:hover,
+  .filter .vocabulary.forms .term.is-applied a {
+    background-color: purple; }
+  .filter .vocabulary.movements .term a:hover,
+  .filter .vocabulary.movements .term.is-applied a {
+    background-color: blue; }
+  .filter .vocabulary.emotions .term a:hover,
+  .filter .vocabulary.emotions .term.is-applied a {
+    background-color: pink; }
+  .filter .vocabulary.concepts .term a:hover,
+  .filter .vocabulary.concepts .term.is-applied a {
+    background-color: brown; }
+  .filter .vocabulary.source .term a:hover,
+  .filter .vocabulary.source .term.is-applied a {
+    background-color: orange; }
+  .filter .vocabulary.other .term a:hover,
+  .filter .vocabulary.other .term.is-applied a {
+    background-color: cyan; }
+
+/*
+ * Copyright (C) 2017 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
+ */
+.link .control {
+  top: 0;
+  left: 0; }
+  .link .control a {
+    display: block;
+    width: 110px;
+    height: 115px;
+    overflow: hidden; }
+  .link .control img {
+    margin: -5px 0 0 -5px;
+    width: 156px;
+    height: 120px;
+    display: block; }
+  .link .control .bubble {
+    font-family: monospace;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 18px;
+    position: absolute;
+    top: 30px;
+    left: 120px;
+    width: 210px; }
+
+/*
+ * Copyright (C) 2017 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
+ */
+.login {
+  bottom: 40px;
+  right: 40px;
+  font-family: monospace;
+  position: fixed;
+  z-index: 6;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 18px;
+  border-bottom: 1px solid #ffffff;
+  width: 125px;
+  padding-bottom: 3px; }
+  .login a {
+    display: block; }
+  .login input[type='password'],
+  .login input[type='text'] {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    color: #949598; }
+  .login .logging-in {
+    text-transform: lowercase;
+    color: #949598; }
+  .login .login-failed {
+    text-transform: lowercase;
+    position: absolute;
+    bottom: -19px;
+    left: 0; }
+  .login .logout {
+    color: #949598; }
+  .login .logout-confirm {
+    text-transform: lowercase;
+    color: #949598; }
+    .login .logout-confirm span {
+      margin-right: 3px; }
+      .login .logout-confirm span.question {
+        margin-right: 6px; }
+    .login .logout-confirm a {
+      display: inline;
+      margin-right: 4px; }
+
+/*
+ * Copyright (C) 2017 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
+ */
+.metadata-control {
+  width: 112px;
+  height: 75px;
+  top: 0;
+  left: 0;
+  overflow: hidden; }
+  .metadata-control img {
+    margin: -13px 0 0 -19px;
+    width: 150px;
+    height: 100px;
+    display: block; }
+
 .metadata {
   background-color: rgba(0, 0, 0, 0.75);
   position: absolute;
@@ -564,8 +791,8 @@ a {
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -575,193 +802,8 @@ a {
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
- */
-.app-control {
-  font-size: 28px;
-  position: fixed;
-  color: #ffffff;
-  z-index: 7;
-  display: block; }
-
-.metadata-control {
-  width: 112px;
-  height: 75px;
-  top: 0;
-  left: 0;
-  overflow: hidden; }
-  .metadata-control img {
-    margin: -13px 0 0 -19px;
-    width: 150px;
-    height: 100px;
-    display: block; }
-
-.link-control {
-  top: 0;
-  left: 0; }
-  .link-control a {
-    display: block;
-    width: 110px;
-    height: 115px;
-    overflow: hidden; }
-  .link-control img {
-    margin: -5px 0 0 -5px;
-    width: 156px;
-    height: 120px;
-    display: block; }
-  .link-control .bubble {
-    font-family: monospace;
-    color: #ffffff;
-    font-size: 14px;
-    line-height: 18px;
-    position: absolute;
-    top: 30px;
-    left: 120px;
-    width: 210px; }
-
-/*
- * Copyright (C) 2016 Mark P. Lindsay
- * 
- * This file is part of mysteriousobjectsatnoon.
- *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
- */
-.filter {
-  font-family: monospace;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 6;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 18px;
-  display: none; }
-  .filter.react-draggable {
-    display: block; }
-  .filter .opener-closer span {
-    animation: blinker steps(1) 1s infinite alternate;
-    margin-left: 3px; }
-
-@keyframes blinker {
-  0% {
-    visibility: visible; }
-  50% {
-    visibility: hidden; }
-  100% {
-    visibility: visible; } }
-  .filter .vocabulary > a {
-    color: #949598; }
-  .filter .clear {
-    color: #000000;
-    background-color: #949598; }
-  .filter .prompt {
-    margin-right: 8px; }
-  .filter .terms {
-    display: inline-block; }
-  .filter .term {
-    display: inline-block; }
-    .filter .term:after {
-      content: ',';
-      color: #949598 !important;
-      margin-right: 8px; }
-  .filter .term:last-child:after {
-    content: '';
-    margin-right: 0; }
-  .filter .vocabulary.things .term a:hover,
-  .filter .vocabulary.things .term.is-applied a {
-    background-color: green; }
-  .filter .vocabulary.textures .term a:hover,
-  .filter .vocabulary.textures .term.is-applied a {
-    background-color: red; }
-  .filter .vocabulary.forms .term a:hover,
-  .filter .vocabulary.forms .term.is-applied a {
-    background-color: purple; }
-  .filter .vocabulary.movements .term a:hover,
-  .filter .vocabulary.movements .term.is-applied a {
-    background-color: blue; }
-  .filter .vocabulary.emotions .term a:hover,
-  .filter .vocabulary.emotions .term.is-applied a {
-    background-color: pink; }
-  .filter .vocabulary.concepts .term a:hover,
-  .filter .vocabulary.concepts .term.is-applied a {
-    background-color: brown; }
-  .filter .vocabulary.source .term a:hover,
-  .filter .vocabulary.source .term.is-applied a {
-    background-color: orange; }
-  .filter .vocabulary.other .term a:hover,
-  .filter .vocabulary.other .term.is-applied a {
-    background-color: cyan; }
-
-.login {
-  bottom: 40px;
-  right: 40px;
-  font-family: monospace;
-  position: fixed;
-  z-index: 6;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 18px;
-  border-bottom: 1px solid #ffffff;
-  width: 125px;
-  padding-bottom: 3px; }
-  .login a {
-    display: block; }
-  .login input[type='password'],
-  .login input[type='text'] {
-    width: 100%;
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-    color: #949598; }
-  .login .logging-in {
-    text-transform: lowercase;
-    color: #949598; }
-  .login .login-failed {
-    text-transform: lowercase;
-    position: absolute;
-    bottom: -19px;
-    left: 0; }
-  .login .logout {
-    color: #949598; }
-  .login .logout-confirm {
-    text-transform: lowercase;
-    color: #949598; }
-    .login .logout-confirm span {
-      margin-right: 3px; }
-      .login .logout-confirm span.question {
-        margin-right: 6px; }
-    .login .logout-confirm a {
-      display: inline;
-      margin-right: 4px; }
-
-/*
- * Copyright (C) 2016 Mark P. Lindsay
- * 
- * This file is part of mysteriousobjectsatnoon.
- *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 .text-item {
   font-size: 14px;
@@ -793,12 +835,12 @@ a {
     margin: 0; }
 
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -808,7 +850,8 @@ a {
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 .uploads {
   position: fixed;
@@ -856,12 +899,12 @@ a {
     display: block; }
 
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -871,7 +914,8 @@ a {
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 .video-item {
   position: absolute;
@@ -902,7 +946,7 @@ a {
     background-size: cover;
     z-index: 2; }
   .video-item.is-source-item {
-    z-index: 2;
+    z-index: 1;
     position: fixed; }
     .video-item.is-source-item .obstructor {
       background-color: rgba(0, 0, 0, 0.5); }

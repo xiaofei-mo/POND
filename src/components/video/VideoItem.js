@@ -1,10 +1,10 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,7 +14,8 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 import { C } from '../../constants'
@@ -33,7 +34,6 @@ export default class VideoItem extends React.Component {
     super()
     this.state = {
       height: 0,
-      isSourceItem: false,
       posterImageStyle: {},
       shouldBeRendered: false,
       style: {
@@ -76,9 +76,6 @@ export default class VideoItem extends React.Component {
     if (this._shouldAllowDragAndResize()) {
       className += ' should-allow-drag-and-resize'
     }
-    if (this.state.isSourceItem) {
-      className += ' is-source-item'
-    }
     if (!this.state.shouldBeRendered) {
       className += ' should-show-placeholder'
     }
@@ -92,7 +89,12 @@ export default class VideoItem extends React.Component {
       event.preventDefault()
     }
     else {
-      this.props.itemClicked(this.props.item)
+      // Get the BCR so we can fix the source video item's position correctly.
+      const bcr = this.refs.item.getBoundingClientRect()
+      // Also, let's start the source video item at the clicked video's current
+      // time.
+      const currentTime = this.refs.video.videoEl.currentTime
+      this.props.itemClicked(this.props.item, bcr.left, bcr.top, currentTime)
     }
   }
   _handleDrag(event, ui) {
@@ -229,32 +231,6 @@ export default class VideoItem extends React.Component {
     })
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.sourceItem === nextProps.item) {
-      this.setState((prevState, props) => {
-        const bcr = this.refs.item.getBoundingClientRect()
-        return {
-          isSourceItem: true,
-          style: {
-            height: prevState.style.height,
-            left: bcr.left + 'px',
-            top: bcr.top + 'px',
-            width: prevState.style.width
-          }
-        }
-      })
-    }
-    else if (this.state.isSourceItem) {
-      this.setState((prevState, props) => {
-        return {
-          isSourceItem: false,
-          style: {
-            height: prevState.style.height,
-            width: prevState.style.width,
-            transform: 'translate(' + prevState.x + 'px, ' + prevState.y + 'px)'
-          }
-        }
-      })
-    }
     if (nextProps.item.get('x') !== this.props.item.get('x')) {
       this.setState({
         style: {

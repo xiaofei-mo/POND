@@ -3,8 +3,8 @@
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,55 +14,34 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
-
+ 
 import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-class Bubble extends React.Component {
-  constructor() {
-    super()
-    this.render = this.render.bind(this)
-  }
-  render() {
-    if (!this.props.isOpen) {
-      return null
-    }
-    return (
-      <div className='bubble' onClick={this.props.onClick}>
-        See something you like? Click it to see where it takes you.
-      </div>
-    )
-  }
-}
-
-export default class LinkControl extends React.Component {
+export default class Control extends React.Component {
   constructor () {
     super()
     this.state = {
       height: 0,
-      isOpen: false,
       width: 0
     }
     this._handleClick = this._handleClick.bind(this)
     this._handleDragStart = this._handleDragStart.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
-    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
     this.render = this.render.bind(this)
   }
   _handleClick (event) {
     event.preventDefault()
-    if (!this.props.user.isEmpty()) {
-      this.props.toggleLinkingMode()
+    if (!this.props.isShowingMetadata) {
+      this.props.showMetadata()
     }
     else {
-      this.setState(previousState => {
-        return { isOpen: !previousState.isOpen }
-      })
+      this.props.hideMetadata()
     }
-
   }
   _handleDragStart (event) {
     event.preventDefault()
@@ -76,14 +55,6 @@ export default class LinkControl extends React.Component {
       })
     }
   }
-  componentWillReceiveProps(nextProps) {
-    // Close the bubble if a user logs in.
-    if (this.props.user.isEmpty() && !nextProps.user.isEmpty()) {
-      this.setState({
-        isOpen: false
-      })
-    }
-  }
   render () {
     if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
       return null
@@ -94,21 +65,21 @@ export default class LinkControl extends React.Component {
       bottom: this.props.windowHeight - this.state.height,
       left: 0
     }
-    const defaultPosition = { 
-      x: (this.props.windowWidth * 0.45),
-      y: (this.props.windowHeight * 0.75) 
+    const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.10) }
+    let className = 'metadata-control app-control'
+    let img = <img src='/static/haumea.png' alt='Metadata' />
+    if (!this.props.uploads.isEmpty()) {
+      className += ' is-uploading'
+      img = <img src='/static/haumea_uploading.gif' alt='Uploading...' />
     }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
-        <div className='link-control app-control'>
-          <a href='#' 
-             onClick={this._handleClick}
-             onDragStart={this._handleDragStart}>
-            <img src='/static/plane.gif' alt='Link' />
-          </a>
-          <Bubble isOpen={this.state.isOpen} 
-                  onClick={this._handleClick}/>
-        </div>
+        <a className={className}
+           href='#' 
+           onClick={this._handleClick}
+           onDragStart={this._handleDragStart}>
+          {img}
+        </a>
       </Draggable>
     )
   }

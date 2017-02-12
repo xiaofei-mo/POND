@@ -18,62 +18,34 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-.login {
-  bottom: 40px;
-  right: 40px;
-  font-family: monospace;
-  position: fixed;
-  z-index: 6;
-  color: $white;
-  @include font-14;
-  border-bottom: 1px solid $white;
-  width: 125px;
-  padding-bottom: 3px;
+.link {
 
-  a {
-    display: block;
-  }
-
-  input[type='password'],
-  input[type='text'] {
-    width: 100%;
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-    color: $gray;
-  }
-
-  .logging-in {
-    text-transform: lowercase;
-    color: $gray;
-  }
-  
-  .login-failed {
-    text-transform: lowercase;
-    position: absolute;
-    bottom: -19px;
+  .control {
+    top: 0;
     left: 0;
-  }
 
-  .logout {
-    color: $gray;
-  }
-
-  .logout-confirm {
-    text-transform: lowercase;
-    color: $gray;
-
-    span {
-      margin-right: 3px;
-
-      &.question {
-        margin-right: 6px;
-      }
-    }
-    
     a {
-      display: inline;
-      margin-right: 4px;
+      display: block;
+      width: 110px;
+      height: 115px;
+      overflow: hidden;
+    }
+
+    img {
+      margin: -5px 0 0 -5px;
+      width: 156px;
+      height: 120px;
+      display: block;
+    }
+
+    .bubble {
+      font-family: monospace;
+      color: $white;
+      @include font-14;
+      position: absolute;
+      top: 30px;
+      left: 120px;
+      width: 210px;
     }
   }
 }

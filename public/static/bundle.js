@@ -50,29 +50,29 @@
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _App = __webpack_require__(38);
+	var _App = __webpack_require__(39);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _redux = __webpack_require__(39);
+	var _redux = __webpack_require__(40);
 	
-	var _reactRouter = __webpack_require__(239);
+	var _reactRouter = __webpack_require__(249);
 	
-	var _FilterPage = __webpack_require__(313);
+	var _FilterPage = __webpack_require__(316);
 	
 	var _FilterPage2 = _interopRequireDefault(_FilterPage);
 	
-	var _getNoise = __webpack_require__(484);
+	var _getNoise = __webpack_require__(487);
 	
 	var _getNoise2 = _interopRequireDefault(_getNoise);
 	
-	var _Page = __webpack_require__(485);
+	var _Page = __webpack_require__(488);
 	
 	var _Page2 = _interopRequireDefault(_Page);
 	
-	var _reactRedux = __webpack_require__(54);
+	var _reactRedux = __webpack_require__(55);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -80,13 +80,13 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _reducers = __webpack_require__(486);
+	var _reducers = __webpack_require__(489);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
 	var _reactRouterRedux = __webpack_require__(21);
 	
-	var _reduxThunk = __webpack_require__(498);
+	var _reduxThunk = __webpack_require__(502);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -97,8 +97,8 @@
 	                                                                                                                                                                              * 
 	                                                                                                                                                                              * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                              *
-	                                                                                                                                                                              * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                              * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                              * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                              * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                              * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                              * (at your option) any later version.
 	                                                                                                                                                                              *
@@ -108,7 +108,8 @@
 	                                                                                                                                                                              * GNU General Public License for more details.
 	                                                                                                                                                                              * 
 	                                                                                                                                                                              * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                              * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                              * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                              * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                              */
 	
 	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store, {
@@ -173,15 +174,15 @@
 	
 	var _filter2 = _interopRequireDefault(_filter);
 	
-	var _link = __webpack_require__(502);
+	var _link = __webpack_require__(29);
 	
 	var _link2 = _interopRequireDefault(_link);
 	
-	var _page = __webpack_require__(29);
+	var _page = __webpack_require__(30);
 	
 	var _page2 = _interopRequireDefault(_page);
 	
-	var _upload = __webpack_require__(31);
+	var _upload = __webpack_require__(32);
 	
 	var _upload2 = _interopRequireDefault(_upload);
 	
@@ -344,8 +345,8 @@
 	 * 
 	 * This file is part of mysteriousobjectsatnoon.
 	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	 * modify it under the terms of the GNU General Public License as published by
 	 * the Free Software Foundation, either version 3 of the License, or
 	 * (at your option) any later version.
 	 *
@@ -355,7 +356,8 @@
 	 * GNU General Public License for more details.
 	 * 
 	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	 * along with mysteriousobjectsatnoon.  If not, see 
+	 * <http://www.gnu.org/licenses/>.
 	 */
 	
 	var A = exports.A = {
@@ -8218,7 +8220,73 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _getSecondsFromString = __webpack_require__(30);
+	var _reactRouterRedux = __webpack_require__(21);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright (C) 2017 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	 * modify it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see 
+	 * <http://www.gnu.org/licenses/>.
+	 */
+	
+	exports.default = {
+	
+	  itemClicked: function itemClicked(item, left, top, currentTime) {
+	    return {
+	      type: _constants.A.ITEM_CLICKED,
+	      payload: _immutable2.default.Map({
+	        currentTime: currentTime,
+	        item: item,
+	        left: left,
+	        top: top
+	      })
+	    };
+	  },
+	
+	  toggleLinkingMode: function toggleLinkingMode() {
+	    return {
+	      type: _constants.A.TOGGLE_LINKING_MODE
+	    };
+	  }
+	
+	};
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _constants = __webpack_require__(6);
+	
+	var _firebase = __webpack_require__(7);
+	
+	var _firebase2 = _interopRequireDefault(_firebase);
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	var _getSecondsFromString = __webpack_require__(31);
 	
 	var _getSecondsFromString2 = _interopRequireDefault(_getSecondsFromString);
 	
@@ -8496,7 +8564,7 @@
 	};
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8547,7 +8615,7 @@
 	}
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8562,7 +8630,7 @@
 	
 	var _firebase2 = _interopRequireDefault(_firebase);
 	
-	var _superagent = __webpack_require__(32);
+	var _superagent = __webpack_require__(33);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
@@ -8658,17 +8726,17 @@
 	    */
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 	
-	var Emitter = __webpack_require__(33);
-	var reduce = __webpack_require__(34);
-	var requestBase = __webpack_require__(35);
-	var isObject = __webpack_require__(36);
+	var Emitter = __webpack_require__(34);
+	var reduce = __webpack_require__(35);
+	var requestBase = __webpack_require__(36);
+	var isObject = __webpack_require__(37);
 	
 	/**
 	 * Root reference for iframes.
@@ -8717,7 +8785,7 @@
 	 * Expose `request`.
 	 */
 	
-	var request = module.exports = __webpack_require__(37).bind(null, Request);
+	var request = module.exports = __webpack_require__(38).bind(null, Request);
 	
 	/**
 	 * Determine XHR.
@@ -9741,7 +9809,7 @@
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -9910,7 +9978,7 @@
 
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports) {
 
 	
@@ -9939,13 +10007,13 @@
 	};
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(36);
+	var isObject = __webpack_require__(37);
 	
 	/**
 	 * Clear previous timeout.
@@ -10111,7 +10179,7 @@
 
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	/**
@@ -10130,7 +10198,7 @@
 
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports) {
 
 	// The node and browser modules expose versions of this with the
@@ -10168,7 +10236,7 @@
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10183,39 +10251,39 @@
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _redux = __webpack_require__(39);
+	var _redux = __webpack_require__(40);
 	
-	var _reactRedux = __webpack_require__(54);
+	var _reactRedux = __webpack_require__(55);
 	
-	var _reactDropzone = __webpack_require__(94);
+	var _reactDropzone = __webpack_require__(95);
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 	
-	var _Filter = __webpack_require__(304);
+	var _Filter = __webpack_require__(96);
 	
 	var _Filter2 = _interopRequireDefault(_Filter);
 	
-	var _getPaddingLeft = __webpack_require__(95);
+	var _getPaddingLeft = __webpack_require__(243);
 	
 	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
 	
-	var _LinkControl = __webpack_require__(499);
+	var _Link = __webpack_require__(503);
 	
-	var _LinkControl2 = _interopRequireDefault(_LinkControl);
+	var _Link2 = _interopRequireDefault(_Link);
 	
-	var _Login = __webpack_require__(237);
+	var _Login = __webpack_require__(247);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _MetadataControl = __webpack_require__(500);
+	var _Control = __webpack_require__(314);
 	
-	var _MetadataControl2 = _interopRequireDefault(_MetadataControl);
+	var _Control2 = _interopRequireDefault(_Control);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Uploads = __webpack_require__(312);
+	var _Uploads = __webpack_require__(315);
 	
 	var _Uploads2 = _interopRequireDefault(_Uploads);
 	
@@ -10230,8 +10298,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
@@ -10241,7 +10309,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var App = function (_React$Component) {
@@ -10323,17 +10392,14 @@
 	            params: this.props.params,
 	            user: this.props.user,
 	            userIsLoaded: this.props.userIsLoaded }),
-	          _react2.default.createElement(_MetadataControl2.default, { hideMetadata: this.props.hideMetadata,
+	          _react2.default.createElement(_Control2.default, { hideMetadata: this.props.hideMetadata,
 	            isShowingMetadata: this.props.isShowingMetadata,
 	            showMetadata: this.props.showMetadata,
 	            uploads: this.props.uploads,
 	            windowHeight: this.props.windowHeight,
 	            windowWidth: this.props.windowWidth }),
-	          _react2.default.createElement(_LinkControl2.default, { toggleLinkingMode: this.props.toggleLinkingMode,
-	            user: this.props.user,
-	            windowHeight: this.props.windowHeight,
-	            windowWidth: this.props.windowWidth }),
 	          _react2.default.createElement(_Filter2.default, null),
+	          _react2.default.createElement(_Link2.default, null),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'dropzone-veil veil' },
@@ -10379,15 +10445,14 @@
 	    hideMetadata: (0, _redux.bindActionCreators)(_actions2.default.hideMetadata, dispatch),
 	    listenToAuth: (0, _redux.bindActionCreators)(_actions2.default.listenToAuth, dispatch),
 	    logout: (0, _redux.bindActionCreators)(_actions2.default.logout, dispatch),
-	    showMetadata: (0, _redux.bindActionCreators)(_actions2.default.showMetadata, dispatch),
-	    toggleLinkingMode: (0, _redux.bindActionCreators)(_actions2.default.toggleLinkingMode, dispatch)
+	    showMetadata: (0, _redux.bindActionCreators)(_actions2.default.showMetadata, dispatch)
 	  };
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -10395,27 +10460,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 	
-	var _createStore = __webpack_require__(41);
+	var _createStore = __webpack_require__(42);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(49);
+	var _combineReducers = __webpack_require__(50);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _bindActionCreators = __webpack_require__(51);
+	var _bindActionCreators = __webpack_require__(52);
 	
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 	
-	var _applyMiddleware = __webpack_require__(52);
+	var _applyMiddleware = __webpack_require__(53);
 	
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 	
-	var _compose = __webpack_require__(53);
+	var _compose = __webpack_require__(54);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _warning = __webpack_require__(50);
+	var _warning = __webpack_require__(51);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -10436,10 +10501,10 @@
 	exports.bindActionCreators = _bindActionCreators2['default'];
 	exports.applyMiddleware = _applyMiddleware2['default'];
 	exports.compose = _compose2['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -10625,7 +10690,7 @@
 
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10634,11 +10699,11 @@
 	exports.ActionTypes = undefined;
 	exports['default'] = createStore;
 	
-	var _isPlainObject = __webpack_require__(42);
+	var _isPlainObject = __webpack_require__(43);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _symbolObservable = __webpack_require__(46);
+	var _symbolObservable = __webpack_require__(47);
 	
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 	
@@ -10891,11 +10956,11 @@
 	}
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(43),
-	    isObjectLike = __webpack_require__(45);
+	var getPrototype = __webpack_require__(44),
+	    isObjectLike = __webpack_require__(46);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -10965,10 +11030,10 @@
 
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(44);
+	var overArg = __webpack_require__(45);
 	
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -10977,7 +11042,7 @@
 
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/**
@@ -10998,7 +11063,7 @@
 
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	/**
@@ -11033,14 +11098,14 @@
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(47);
+	module.exports = __webpack_require__(48);
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -11049,7 +11114,7 @@
 		value: true
 	});
 	
-	var _ponyfill = __webpack_require__(48);
+	var _ponyfill = __webpack_require__(49);
 	
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
 	
@@ -11068,7 +11133,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -11096,7 +11161,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -11104,13 +11169,13 @@
 	exports.__esModule = true;
 	exports['default'] = combineReducers;
 	
-	var _createStore = __webpack_require__(41);
+	var _createStore = __webpack_require__(42);
 	
-	var _isPlainObject = __webpack_require__(42);
+	var _isPlainObject = __webpack_require__(43);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(50);
+	var _warning = __webpack_require__(51);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -11241,10 +11306,10 @@
 	    return hasChanged ? nextState : state;
 	  };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -11274,7 +11339,7 @@
 	}
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -11330,7 +11395,7 @@
 	}
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11341,7 +11406,7 @@
 	
 	exports['default'] = applyMiddleware;
 	
-	var _compose = __webpack_require__(53);
+	var _compose = __webpack_require__(54);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
@@ -11393,7 +11458,7 @@
 	}
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -11436,7 +11501,7 @@
 	}
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11444,11 +11509,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 	
-	var _Provider = __webpack_require__(55);
+	var _Provider = __webpack_require__(56);
 	
 	var _Provider2 = _interopRequireDefault(_Provider);
 	
-	var _connect = __webpack_require__(89);
+	var _connect = __webpack_require__(90);
 	
 	var _connect2 = _interopRequireDefault(_connect);
 	
@@ -11458,7 +11523,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -11466,13 +11531,13 @@
 	exports.__esModule = true;
 	exports["default"] = undefined;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
-	var _storeShape = __webpack_require__(87);
+	var _storeShape = __webpack_require__(88);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _warning = __webpack_require__(88);
+	var _warning = __webpack_require__(89);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -11539,19 +11604,19 @@
 	Provider.childContextTypes = {
 	  store: _storeShape2["default"].isRequired
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(57);
+	module.exports = __webpack_require__(58);
 
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -11569,24 +11634,24 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var ReactChildren = __webpack_require__(58);
-	var ReactComponent = __webpack_require__(70);
-	var ReactPureComponent = __webpack_require__(73);
-	var ReactClass = __webpack_require__(74);
-	var ReactDOMFactories = __webpack_require__(79);
-	var ReactElement = __webpack_require__(62);
-	var ReactPropTypes = __webpack_require__(84);
-	var ReactVersion = __webpack_require__(85);
+	var ReactChildren = __webpack_require__(59);
+	var ReactComponent = __webpack_require__(71);
+	var ReactPureComponent = __webpack_require__(74);
+	var ReactClass = __webpack_require__(75);
+	var ReactDOMFactories = __webpack_require__(80);
+	var ReactElement = __webpack_require__(63);
+	var ReactPropTypes = __webpack_require__(85);
+	var ReactVersion = __webpack_require__(86);
 	
-	var onlyChild = __webpack_require__(86);
-	var warning = __webpack_require__(64);
+	var onlyChild = __webpack_require__(87);
+	var warning = __webpack_require__(65);
 	
 	var createElement = ReactElement.createElement;
 	var createFactory = ReactElement.createFactory;
 	var cloneElement = ReactElement.cloneElement;
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactElementValidator = __webpack_require__(80);
+	  var ReactElementValidator = __webpack_require__(81);
 	  createElement = ReactElementValidator.createElement;
 	  createFactory = ReactElementValidator.createFactory;
 	  cloneElement = ReactElementValidator.cloneElement;
@@ -11643,10 +11708,10 @@
 	};
 	
 	module.exports = React;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -11662,11 +11727,11 @@
 	
 	'use strict';
 	
-	var PooledClass = __webpack_require__(59);
-	var ReactElement = __webpack_require__(62);
+	var PooledClass = __webpack_require__(60);
+	var ReactElement = __webpack_require__(63);
 	
-	var emptyFunction = __webpack_require__(65);
-	var traverseAllChildren = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
+	var traverseAllChildren = __webpack_require__(68);
 	
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
 	var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -11842,7 +11907,7 @@
 	module.exports = ReactChildren;
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -11858,9 +11923,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Static poolers. Several custom versions for each potential number of
@@ -11966,10 +12031,10 @@
 	};
 	
 	module.exports = PooledClass;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	/**
@@ -12013,7 +12078,7 @@
 	module.exports = reactProdInvariant;
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12065,10 +12130,10 @@
 	}
 	
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12086,10 +12151,10 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var ReactCurrentOwner = __webpack_require__(63);
+	var ReactCurrentOwner = __webpack_require__(64);
 	
-	var warning = __webpack_require__(64);
-	var canDefineProperty = __webpack_require__(66);
+	var warning = __webpack_require__(65);
+	var canDefineProperty = __webpack_require__(67);
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	
 	// The Symbol used to tag the ReactElement type. If there is no native Symbol
@@ -12419,10 +12484,10 @@
 	ReactElement.REACT_ELEMENT_TYPE = REACT_ELEMENT_TYPE;
 	
 	module.exports = ReactElement;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports) {
 
 	/**
@@ -12458,7 +12523,7 @@
 	module.exports = ReactCurrentOwner;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12473,7 +12538,7 @@
 	
 	'use strict';
 	
-	var emptyFunction = __webpack_require__(65);
+	var emptyFunction = __webpack_require__(66);
 	
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -12527,10 +12592,10 @@
 	}
 	
 	module.exports = warning;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12573,7 +12638,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12600,10 +12665,10 @@
 	}
 	
 	module.exports = canDefineProperty;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12619,15 +12684,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactCurrentOwner = __webpack_require__(63);
-	var ReactElement = __webpack_require__(62);
+	var ReactCurrentOwner = __webpack_require__(64);
+	var ReactElement = __webpack_require__(63);
 	
-	var getIteratorFn = __webpack_require__(68);
-	var invariant = __webpack_require__(61);
-	var KeyEscapeUtils = __webpack_require__(69);
-	var warning = __webpack_require__(64);
+	var getIteratorFn = __webpack_require__(69);
+	var invariant = __webpack_require__(62);
+	var KeyEscapeUtils = __webpack_require__(70);
+	var warning = __webpack_require__(65);
 	
 	var SEPARATOR = '.';
 	var SUBSEPARATOR = ':';
@@ -12773,10 +12838,10 @@
 	}
 	
 	module.exports = traverseAllChildren;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports) {
 
 	/**
@@ -12822,7 +12887,7 @@
 	module.exports = getIteratorFn;
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports) {
 
 	/**
@@ -12886,7 +12951,7 @@
 	module.exports = KeyEscapeUtils;
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12902,14 +12967,14 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactNoopUpdateQueue = __webpack_require__(71);
+	var ReactNoopUpdateQueue = __webpack_require__(72);
 	
-	var canDefineProperty = __webpack_require__(66);
-	var emptyObject = __webpack_require__(72);
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var canDefineProperty = __webpack_require__(67);
+	var emptyObject = __webpack_require__(73);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -13007,10 +13072,10 @@
 	}
 	
 	module.exports = ReactComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13026,7 +13091,7 @@
 	
 	'use strict';
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	function warnNoop(publicInstance, callerName) {
 	  if (process.env.NODE_ENV !== 'production') {
@@ -13109,10 +13174,10 @@
 	};
 	
 	module.exports = ReactNoopUpdateQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13134,10 +13199,10 @@
 	}
 	
 	module.exports = emptyObject;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13155,10 +13220,10 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var ReactComponent = __webpack_require__(70);
-	var ReactNoopUpdateQueue = __webpack_require__(71);
+	var ReactComponent = __webpack_require__(71);
+	var ReactNoopUpdateQueue = __webpack_require__(72);
 	
-	var emptyObject = __webpack_require__(72);
+	var emptyObject = __webpack_require__(73);
 	
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -13184,7 +13249,7 @@
 	module.exports = ReactPureComponent;
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13200,20 +13265,20 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
-	var ReactComponent = __webpack_require__(70);
-	var ReactElement = __webpack_require__(62);
-	var ReactPropTypeLocations = __webpack_require__(75);
-	var ReactPropTypeLocationNames = __webpack_require__(77);
-	var ReactNoopUpdateQueue = __webpack_require__(71);
+	var ReactComponent = __webpack_require__(71);
+	var ReactElement = __webpack_require__(63);
+	var ReactPropTypeLocations = __webpack_require__(76);
+	var ReactPropTypeLocationNames = __webpack_require__(78);
+	var ReactNoopUpdateQueue = __webpack_require__(72);
 	
-	var emptyObject = __webpack_require__(72);
-	var invariant = __webpack_require__(61);
-	var keyMirror = __webpack_require__(76);
-	var keyOf = __webpack_require__(78);
-	var warning = __webpack_require__(64);
+	var emptyObject = __webpack_require__(73);
+	var invariant = __webpack_require__(62);
+	var keyMirror = __webpack_require__(77);
+	var keyOf = __webpack_require__(79);
+	var warning = __webpack_require__(65);
 	
 	var MIXINS_KEY = keyOf({ mixins: null });
 	
@@ -13919,10 +13984,10 @@
 	};
 	
 	module.exports = ReactClass;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13938,7 +14003,7 @@
 	
 	'use strict';
 	
-	var keyMirror = __webpack_require__(76);
+	var keyMirror = __webpack_require__(77);
 	
 	var ReactPropTypeLocations = keyMirror({
 	  prop: null,
@@ -13949,7 +14014,7 @@
 	module.exports = ReactPropTypeLocations;
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13965,7 +14030,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Constructs an enumeration with keys equal to their value.
@@ -13999,10 +14064,10 @@
 	};
 	
 	module.exports = keyMirror;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14029,10 +14094,10 @@
 	}
 	
 	module.exports = ReactPropTypeLocationNames;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -14071,7 +14136,7 @@
 	module.exports = keyOf;
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14087,7 +14152,7 @@
 	
 	'use strict';
 	
-	var ReactElement = __webpack_require__(62);
+	var ReactElement = __webpack_require__(63);
 	
 	/**
 	 * Create a factory that creates HTML tag elements.
@@ -14096,7 +14161,7 @@
 	 */
 	var createDOMFactory = ReactElement.createFactory;
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactElementValidator = __webpack_require__(80);
+	  var ReactElementValidator = __webpack_require__(81);
 	  createDOMFactory = ReactElementValidator.createFactory;
 	}
 	
@@ -14244,10 +14309,10 @@
 	};
 	
 	module.exports = ReactDOMFactories;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14270,16 +14335,16 @@
 	
 	'use strict';
 	
-	var ReactCurrentOwner = __webpack_require__(63);
-	var ReactComponentTreeHook = __webpack_require__(81);
-	var ReactElement = __webpack_require__(62);
-	var ReactPropTypeLocations = __webpack_require__(75);
+	var ReactCurrentOwner = __webpack_require__(64);
+	var ReactComponentTreeHook = __webpack_require__(82);
+	var ReactElement = __webpack_require__(63);
+	var ReactPropTypeLocations = __webpack_require__(76);
 	
-	var checkReactTypeSpec = __webpack_require__(82);
+	var checkReactTypeSpec = __webpack_require__(83);
 	
-	var canDefineProperty = __webpack_require__(66);
-	var getIteratorFn = __webpack_require__(68);
-	var warning = __webpack_require__(64);
+	var canDefineProperty = __webpack_require__(67);
+	var getIteratorFn = __webpack_require__(69);
+	var warning = __webpack_require__(65);
 	
 	function getDeclarationErrorAddendum() {
 	  if (ReactCurrentOwner.current) {
@@ -14478,10 +14543,10 @@
 	};
 	
 	module.exports = ReactElementValidator;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14497,12 +14562,12 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactCurrentOwner = __webpack_require__(63);
+	var ReactCurrentOwner = __webpack_require__(64);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	function isNative(fn) {
 	  // Based on isNative() from Lodash
@@ -14826,10 +14891,10 @@
 	};
 	
 	module.exports = ReactComponentTreeHook;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14845,13 +14910,13 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactPropTypeLocationNames = __webpack_require__(77);
-	var ReactPropTypesSecret = __webpack_require__(83);
+	var ReactPropTypeLocationNames = __webpack_require__(78);
+	var ReactPropTypesSecret = __webpack_require__(84);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	var ReactComponentTreeHook;
 	
@@ -14861,7 +14926,7 @@
 	  // https://github.com/facebook/react/issues/7240
 	  // Remove the inline requires when we don't need them anymore:
 	  // https://github.com/facebook/react/pull/7178
-	  ReactComponentTreeHook = __webpack_require__(81);
+	  ReactComponentTreeHook = __webpack_require__(82);
 	}
 	
 	var loggedTypeFailures = {};
@@ -14903,7 +14968,7 @@
 	
 	        if (process.env.NODE_ENV !== 'production') {
 	          if (!ReactComponentTreeHook) {
-	            ReactComponentTreeHook = __webpack_require__(81);
+	            ReactComponentTreeHook = __webpack_require__(82);
 	          }
 	          if (debugID !== null) {
 	            componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -14919,10 +14984,10 @@
 	}
 	
 	module.exports = checkReactTypeSpec;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports) {
 
 	/**
@@ -14943,7 +15008,7 @@
 	module.exports = ReactPropTypesSecret;
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14959,13 +15024,13 @@
 	
 	'use strict';
 	
-	var ReactElement = __webpack_require__(62);
-	var ReactPropTypeLocationNames = __webpack_require__(77);
-	var ReactPropTypesSecret = __webpack_require__(83);
+	var ReactElement = __webpack_require__(63);
+	var ReactPropTypeLocationNames = __webpack_require__(78);
+	var ReactPropTypesSecret = __webpack_require__(84);
 	
-	var emptyFunction = __webpack_require__(65);
-	var getIteratorFn = __webpack_require__(68);
-	var warning = __webpack_require__(64);
+	var emptyFunction = __webpack_require__(66);
+	var getIteratorFn = __webpack_require__(69);
+	var warning = __webpack_require__(65);
 	
 	/**
 	 * Collection of methods that allow declaration and validation of props that are
@@ -15377,10 +15442,10 @@
 	}
 	
 	module.exports = ReactPropTypes;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports) {
 
 	/**
@@ -15399,7 +15464,7 @@
 	module.exports = '15.3.2';
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15414,11 +15479,11 @@
 	 */
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactElement = __webpack_require__(62);
+	var ReactElement = __webpack_require__(63);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Returns the first child in a collection of children and verifies that there
@@ -15440,17 +15505,17 @@
 	}
 	
 	module.exports = onlyChild;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	exports["default"] = _react.PropTypes.shape({
 	  subscribe: _react.PropTypes.func.isRequired,
@@ -15459,7 +15524,7 @@
 	});
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -15488,7 +15553,7 @@
 	}
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -15498,33 +15563,33 @@
 	exports.__esModule = true;
 	exports["default"] = connect;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
-	var _storeShape = __webpack_require__(87);
+	var _storeShape = __webpack_require__(88);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _shallowEqual = __webpack_require__(90);
+	var _shallowEqual = __webpack_require__(91);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _wrapActionCreators = __webpack_require__(91);
+	var _wrapActionCreators = __webpack_require__(92);
 	
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 	
-	var _warning = __webpack_require__(88);
+	var _warning = __webpack_require__(89);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _isPlainObject = __webpack_require__(42);
+	var _isPlainObject = __webpack_require__(43);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _hoistNonReactStatics = __webpack_require__(92);
+	var _hoistNonReactStatics = __webpack_require__(93);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -15884,10 +15949,10 @@
 	    return (0, _hoistNonReactStatics2["default"])(Connect, WrappedComponent);
 	  };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15918,7 +15983,7 @@
 	}
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15926,7 +15991,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 	
-	var _redux = __webpack_require__(39);
+	var _redux = __webpack_require__(40);
 	
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -15935,7 +16000,7 @@
 	}
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports) {
 
 	/**
@@ -15991,7 +16056,7 @@
 
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -16046,15 +16111,15 @@
 	
 	module.exports = invariant;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
 		if(true)
-			module.exports = factory(__webpack_require__(56));
+			module.exports = factory(__webpack_require__(57));
 		else if(typeof define === 'function' && define.amd)
 			define(["react"], factory);
 		else if(typeof exports === 'object')
@@ -16461,7 +16526,7 @@
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16470,176 +16535,251 @@
 	  value: true
 	});
 	
-	var _reselect = __webpack_require__(96);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	exports.default = (0, _reselect.createSelector)(function (state) {
-	  return state.getIn(['filter', 'isInFilterMode']);
-	}, function (state) {
-	  return state.getIn(['page', 'items']);
-	}, function (state) {
-	  return state.getIn(['filter', 'filteredItems']);
-	}, function (state) {
-	  return state.getIn(['page', 'width']);
-	}, function (isInFilterMode, items, filteredItems, width) {
-	  var leftmostItem = items.minBy(function (item) {
-	    return item.get('x');
-	  });
-	  if (isInFilterMode) {
-	    leftmostItem = filteredItems.minBy(function (item) {
-	      return item.get('x');
-	    });
+	var _actions = __webpack_require__(4);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _redux = __webpack_require__(40);
+	
+	var _Clear = __webpack_require__(97);
+	
+	var _Clear2 = _interopRequireDefault(_Clear);
+	
+	var _reactRedux = __webpack_require__(55);
+	
+	var _reactDraggable = __webpack_require__(98);
+	
+	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
+	
+	var _OpenerCloser = __webpack_require__(237);
+	
+	var _OpenerCloser2 = _interopRequireDefault(_OpenerCloser);
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(99);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _Vocabularies = __webpack_require__(238);
+	
+	var _Vocabularies2 = _interopRequireDefault(_Vocabularies);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2017 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Filter = function (_React$Component) {
+	  _inherits(Filter, _React$Component);
+	
+	  function Filter() {
+	    _classCallCheck(this, Filter);
+	
+	    var _this = _possibleConstructorReturn(this, (Filter.__proto__ || Object.getPrototypeOf(Filter)).call(this));
+	
+	    _this.state = {
+	      height: 0,
+	      isVisible: false,
+	      width: 0
+	    };
+	    _this._handleOpenClose = _this._handleOpenClose.bind(_this);
+	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
+	    _this.componentWillMount = _this.componentWillMount.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
 	  }
-	  if (leftmostItem === undefined) {
-	    return 0;
-	  }
-	  var x = leftmostItem.get('x');
-	  if (x > 0) {
-	    return width - x;
-	  }
-	  return Math.abs(x) + width;
-	}); /*
-	     * Copyright (C) 2016 Mark P. Lindsay
-	     * 
-	     * This file is part of mysteriousobjectsatnoon.
-	     *
-	     * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	     * it under the terms of the GNU General Public License as published by
-	     * the Free Software Foundation, either version 3 of the License, or
-	     * (at your option) any later version.
-	     *
-	     * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	     * GNU General Public License for more details.
-	     * 
-	     * You should have received a copy of the GNU General Public License
-	     * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	     */
+	
+	  _createClass(Filter, [{
+	    key: '_handleOpenClose',
+	    value: function _handleOpenClose() {
+	      this.setState({
+	        isVisible: !this.state.isVisible
+	      });
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      var el = _reactDom2.default.findDOMNode(this);
+	      if (el !== null && this.state.height === 0 && this.state.width === 0) {
+	        this.setState({
+	          height: el.offsetHeight,
+	          width: el.offsetWidth
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.listenToVocabularies();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
+	        return null;
+	      }
+	      var bounds = {
+	        top: 0,
+	        right: this.props.windowWidth - this.state.width,
+	        bottom: this.props.windowHeight - this.state.height,
+	        left: 0
+	      };
+	      var defaultPosition = { x: 40, y: this.props.windowHeight * 0.5 };
+	      return _react2.default.createElement(
+	        _reactDraggable2.default,
+	        { bounds: bounds, defaultPosition: defaultPosition },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'filter' },
+	          _react2.default.createElement(_OpenerCloser2.default, { isVisible: this.state.isVisible,
+	            onOpenClose: this._handleOpenClose }),
+	          _react2.default.createElement(_Vocabularies2.default, { isVisible: this.state.isVisible,
+	            toggleAppliedFilter: this.props.toggleAppliedFilter,
+	            toggleVocabulary: this.props.toggleVocabulary,
+	            vocabularies: this.props.vocabularies }),
+	          _react2.default.createElement(_Clear2.default, { appliedFilters: this.props.appliedFilters,
+	            clearAppliedFilters: this.props.clearAppliedFilters,
+	            isVisible: this.state.isVisible })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Filter;
+	}(_react2.default.Component);
+	
+	function mapStateToProps(state) {
+	  return {
+	    appliedFilters: state.getIn(['filter', 'appliedFilters']),
+	    vocabularies: state.getIn(['filter', 'vocabularies']),
+	    windowHeight: state.getIn(['page', 'height']),
+	    windowWidth: state.getIn(['page', 'width'])
+	  };
+	}
+	
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    clearAppliedFilters: (0, _redux.bindActionCreators)(_actions2.default.clearAppliedFilters, dispatch),
+	    listenToVocabularies: (0, _redux.bindActionCreators)(_actions2.default.listenToVocabularies, dispatch),
+	    toggleAppliedFilter: (0, _redux.bindActionCreators)(_actions2.default.toggleAppliedFilter, dispatch),
+	    toggleVocabulary: (0, _redux.bindActionCreators)(_actions2.default.toggleVocabulary, dispatch)
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Filter);
 
 /***/ },
-/* 96 */
-/***/ function(module, exports) {
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.__esModule = true;
-	exports.defaultMemoize = defaultMemoize;
-	exports.createSelectorCreator = createSelectorCreator;
-	exports.createStructuredSelector = createStructuredSelector;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	function defaultEqualityCheck(a, b) {
-	  return a === b;
-	}
+	var _react = __webpack_require__(57);
 	
-	function defaultMemoize(func) {
-	  var equalityCheck = arguments.length <= 1 || arguments[1] === undefined ? defaultEqualityCheck : arguments[1];
+	var _react2 = _interopRequireDefault(_react);
 	
-	  var lastArgs = null;
-	  var lastResult = null;
-	  return function () {
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	    if (lastArgs === null || lastArgs.length !== args.length || !args.every(function (value, index) {
-	      return equalityCheck(value, lastArgs[index]);
-	    })) {
-	      lastResult = func.apply(undefined, args);
-	    }
-	    lastArgs = args;
-	    return lastResult;
-	  };
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function getDependencies(funcs) {
-	  var dependencies = Array.isArray(funcs[0]) ? funcs[0] : funcs;
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	  if (!dependencies.every(function (dep) {
-	    return typeof dep === 'function';
-	  })) {
-	    var dependencyTypes = dependencies.map(function (dep) {
-	      return typeof dep;
-	    }).join(', ');
-	    throw new Error('Selector creators expect all input-selectors to be functions, ' + ('instead received the following types: [' + dependencyTypes + ']'));
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Clear = function (_React$Component) {
+	  _inherits(Clear, _React$Component);
+	
+	  function Clear() {
+	    _classCallCheck(this, Clear);
+	
+	    var _this = _possibleConstructorReturn(this, (Clear.__proto__ || Object.getPrototypeOf(Clear)).call(this));
+	
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
 	  }
 	
-	  return dependencies;
-	}
-	
-	function createSelectorCreator(memoize) {
-	  for (var _len2 = arguments.length, memoizeOptions = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-	    memoizeOptions[_key2 - 1] = arguments[_key2];
-	  }
-	
-	  return function () {
-	    for (var _len3 = arguments.length, funcs = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-	      funcs[_key3] = arguments[_key3];
+	  _createClass(Clear, [{
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      this.props.clearAppliedFilters();
 	    }
-	
-	    var recomputations = 0;
-	    var resultFunc = funcs.pop();
-	    var dependencies = getDependencies(funcs);
-	
-	    var memoizedResultFunc = memoize.apply(undefined, [function () {
-	      recomputations++;
-	      return resultFunc.apply(undefined, arguments);
-	    }].concat(memoizeOptions));
-	
-	    var selector = function selector(state, props) {
-	      for (var _len4 = arguments.length, args = Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
-	        args[_key4 - 2] = arguments[_key4];
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.isVisible || this.props.appliedFilters.isEmpty()) {
+	        return null;
 	      }
-	
-	      var params = dependencies.map(function (dependency) {
-	        return dependency.apply(undefined, [state, props].concat(args));
-	      });
-	      return memoizedResultFunc.apply(undefined, _toConsumableArray(params));
-	    };
-	
-	    selector.resultFunc = resultFunc;
-	    selector.recomputations = function () {
-	      return recomputations;
-	    };
-	    selector.resetRecomputations = function () {
-	      return recomputations = 0;
-	    };
-	    return selector;
-	  };
-	}
-	
-	var createSelector = exports.createSelector = createSelectorCreator(defaultMemoize);
-	
-	function createStructuredSelector(selectors) {
-	  var selectorCreator = arguments.length <= 1 || arguments[1] === undefined ? createSelector : arguments[1];
-	
-	  if (typeof selectors !== 'object') {
-	    throw new Error('createStructuredSelector expects first argument to be an object ' + ('where each property is a selector, instead received a ' + typeof selectors));
-	  }
-	  var objectKeys = Object.keys(selectors);
-	  return selectorCreator(objectKeys.map(function (key) {
-	    return selectors[key];
-	  }), function () {
-	    for (var _len5 = arguments.length, values = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-	      values[_key5] = arguments[_key5];
+	      return _react2.default.createElement(
+	        'a',
+	        { className: 'clear', href: '#', onClick: this._handleClick },
+	        'Clear'
+	      );
 	    }
+	  }]);
 	
-	    return values.reduce(function (composition, value, index) {
-	      composition[objectKeys[index]] = value;
-	      return composition;
-	    }, {});
-	  });
-	}
+	  return Clear;
+	}(_react2.default.Component);
+	
+	exports.default = Clear;
 
 /***/ },
-/* 97 */,
 /* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
 		if(true)
-			module.exports = factory(__webpack_require__(56), __webpack_require__(99));
+			module.exports = factory(__webpack_require__(57), __webpack_require__(99));
 		else if(typeof define === 'function' && define.amd)
 			define(["react", "react-dom"], factory);
 		else if(typeof exports === 'object')
@@ -18218,12 +18358,12 @@
 	var ReactMount = __webpack_require__(227);
 	var ReactReconciler = __webpack_require__(124);
 	var ReactUpdates = __webpack_require__(121);
-	var ReactVersion = __webpack_require__(85);
+	var ReactVersion = __webpack_require__(86);
 	
 	var findDOMNode = __webpack_require__(232);
 	var getHostComponentFromComposite = __webpack_require__(233);
 	var renderSubtreeIntoContainer = __webpack_require__(234);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	ReactDefaultInjection.inject();
 	
@@ -18308,7 +18448,7 @@
 	}
 	
 	module.exports = ReactDOM;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 101 */
@@ -18327,12 +18467,12 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
 	var DOMProperty = __webpack_require__(102);
 	var ReactDOMComponentFlags = __webpack_require__(103);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
 	var Flags = ReactDOMComponentFlags;
@@ -18502,7 +18642,7 @@
 	};
 	
 	module.exports = ReactDOMComponentTree;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 102 */
@@ -18521,9 +18661,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	function checkMask(value, bitmask) {
 	  return (value & bitmask) === bitmask;
@@ -18714,7 +18854,7 @@
 	};
 	
 	module.exports = DOMProperty;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 103 */
@@ -18852,7 +18992,7 @@
 	var SyntheticCompositionEvent = __webpack_require__(117);
 	var SyntheticInputEvent = __webpack_require__(119);
 	
-	var keyOf = __webpack_require__(78);
+	var keyOf = __webpack_require__(79);
 	
 	var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 	var START_KEYCODE = 229;
@@ -19240,7 +19380,7 @@
 	
 	'use strict';
 	
-	var keyMirror = __webpack_require__(76);
+	var keyMirror = __webpack_require__(77);
 	
 	var PropagationPhases = keyMirror({ bubbled: null, captured: null });
 	
@@ -19348,7 +19488,7 @@
 	
 	var accumulateInto = __webpack_require__(112);
 	var forEachAccumulated = __webpack_require__(113);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var PropagationPhases = EventConstants.PropagationPhases;
 	var getListener = EventPluginHub.getListener;
@@ -19466,7 +19606,7 @@
 	};
 	
 	module.exports = EventPropagators;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 108 */
@@ -19485,7 +19625,7 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
 	var EventPluginRegistry = __webpack_require__(109);
 	var EventPluginUtils = __webpack_require__(110);
@@ -19493,7 +19633,7 @@
 	
 	var accumulateInto = __webpack_require__(112);
 	var forEachAccumulated = __webpack_require__(113);
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Internal store for event listeners
@@ -19723,7 +19863,7 @@
 	};
 	
 	module.exports = EventPluginHub;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 109 */
@@ -19742,9 +19882,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Injectable ordering of event plugins.
@@ -19976,7 +20116,7 @@
 	};
 	
 	module.exports = EventPluginRegistry;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 110 */
@@ -19995,13 +20135,13 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
 	var EventConstants = __webpack_require__(106);
 	var ReactErrorUtils = __webpack_require__(111);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	/**
 	 * Injected dependencies:
@@ -20211,7 +20351,7 @@
 	};
 	
 	module.exports = EventPluginUtils;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 111 */
@@ -20293,7 +20433,7 @@
 	}
 	
 	module.exports = ReactErrorUtils;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 112 */
@@ -20313,9 +20453,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Accumulates items that must not be null or undefined into the first one. This
@@ -20357,7 +20497,7 @@
 	}
 	
 	module.exports = accumulateInto;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 113 */
@@ -20454,7 +20594,7 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var PooledClass = __webpack_require__(59);
+	var PooledClass = __webpack_require__(60);
 	
 	var getTextContentAccessor = __webpack_require__(116);
 	
@@ -20633,10 +20773,10 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var PooledClass = __webpack_require__(59);
+	var PooledClass = __webpack_require__(60);
 	
-	var emptyFunction = __webpack_require__(65);
-	var warning = __webpack_require__(64);
+	var emptyFunction = __webpack_require__(66);
+	var warning = __webpack_require__(65);
 	
 	var didWarnForAddedNewProperty = false;
 	var isProxySupported = typeof Proxy === 'function';
@@ -20886,7 +21026,7 @@
 	    process.env.NODE_ENV !== 'production' ? warning(warningCondition, 'This synthetic event is reused for performance reasons. If you\'re seeing this, ' + 'you\'re %s `%s` on a released/nullified synthetic event. %s. ' + 'If you must keep the original synthetic event around, use event.persist(). ' + 'See https://fb.me/react-event-pooling for more information.', action, propName, result) : void 0;
 	  }
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 119 */
@@ -20958,7 +21098,7 @@
 	var getEventTarget = __webpack_require__(135);
 	var isEventSupported = __webpack_require__(136);
 	var isTextInputElement = __webpack_require__(137);
-	var keyOf = __webpack_require__(78);
+	var keyOf = __webpack_require__(79);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -21277,16 +21417,16 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
 	var CallbackQueue = __webpack_require__(122);
-	var PooledClass = __webpack_require__(59);
+	var PooledClass = __webpack_require__(60);
 	var ReactFeatureFlags = __webpack_require__(123);
 	var ReactReconciler = __webpack_require__(124);
 	var Transaction = __webpack_require__(134);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var dirtyComponents = [];
 	var updateBatchNumber = 0;
@@ -21515,7 +21655,7 @@
 	};
 	
 	module.exports = ReactUpdates;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 122 */
@@ -21534,12 +21674,12 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
-	var PooledClass = __webpack_require__(59);
+	var PooledClass = __webpack_require__(60);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * A specialized pseudo-event module to help keep track of components waiting to
@@ -21627,7 +21767,7 @@
 	PooledClass.addPoolingTo(CallbackQueue);
 	
 	module.exports = CallbackQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 123 */
@@ -21676,7 +21816,7 @@
 	var ReactRef = __webpack_require__(125);
 	var ReactInstrumentation = __webpack_require__(127);
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	/**
 	 * Helper to call ReactRef.attachRefs with this composite component, split out
@@ -21828,7 +21968,7 @@
 	};
 	
 	module.exports = ReactReconciler;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 125 */
@@ -21932,9 +22072,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * ReactOwners are capable of storing references to owned components.
@@ -22013,7 +22153,7 @@
 	};
 	
 	module.exports = ReactOwner;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 127 */
@@ -22040,7 +22180,7 @@
 	}
 	
 	module.exports = { debugTool: debugTool };
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 128 */
@@ -22061,12 +22201,12 @@
 	
 	var ReactInvalidSetStateWarningHook = __webpack_require__(129);
 	var ReactHostOperationHistoryHook = __webpack_require__(130);
-	var ReactComponentTreeHook = __webpack_require__(81);
+	var ReactComponentTreeHook = __webpack_require__(82);
 	var ReactChildrenMutationWarningHook = __webpack_require__(131);
 	var ExecutionEnvironment = __webpack_require__(114);
 	
 	var performanceNow = __webpack_require__(132);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var hooks = [];
 	var didHookThrowForEvent = {};
@@ -22347,7 +22487,7 @@
 	}
 	
 	module.exports = ReactDebugTool;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 129 */
@@ -22366,7 +22506,7 @@
 	
 	'use strict';
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	if (process.env.NODE_ENV !== 'production') {
 	  var processingChildContext = false;
@@ -22389,7 +22529,7 @@
 	};
 	
 	module.exports = ReactInvalidSetStateWarningHook;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 130 */
@@ -22450,9 +22590,9 @@
 	
 	'use strict';
 	
-	var ReactComponentTreeHook = __webpack_require__(81);
+	var ReactComponentTreeHook = __webpack_require__(82);
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	function handleElement(debugID, element) {
 	  if (element == null) {
@@ -22491,7 +22631,7 @@
 	};
 	
 	module.exports = ReactChildrenMutationWarningHook;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 132 */
@@ -22575,9 +22715,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * `Transaction` creates a black box that is able to wrap any method such that
@@ -22795,7 +22935,7 @@
 	};
 	
 	module.exports = Transaction;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 135 */
@@ -22975,7 +23115,7 @@
 	
 	'use strict';
 	
-	var keyOf = __webpack_require__(78);
+	var keyOf = __webpack_require__(79);
 	
 	/**
 	 * Module that is injectable into `EventPluginHub`, that specifies a
@@ -23012,7 +23152,7 @@
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var SyntheticMouseEvent = __webpack_require__(140);
 	
-	var keyOf = __webpack_require__(78);
+	var keyOf = __webpack_require__(79);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -23771,7 +23911,7 @@
 	};
 	
 	module.exports = DOMChildrenOperations;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 147 */
@@ -24259,14 +24399,14 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
 	var DOMLazyTree = __webpack_require__(147);
 	var ExecutionEnvironment = __webpack_require__(114);
 	
 	var createNodesFromMarkup = __webpack_require__(154);
-	var emptyFunction = __webpack_require__(65);
-	var invariant = __webpack_require__(61);
+	var emptyFunction = __webpack_require__(66);
+	var invariant = __webpack_require__(62);
 	
 	var Danger = {
 	
@@ -24294,7 +24434,7 @@
 	};
 	
 	module.exports = Danger;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 154 */
@@ -24319,7 +24459,7 @@
 	
 	var createArrayFromMixed = __webpack_require__(155);
 	var getMarkupWrap = __webpack_require__(156);
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Dummy container used to render all markup.
@@ -24383,7 +24523,7 @@
 	}
 	
 	module.exports = createNodesFromMarkup;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 155 */
@@ -24402,7 +24542,7 @@
 	 * @typechecks
 	 */
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Convert array-like objects to arrays.
@@ -24515,7 +24655,7 @@
 	}
 	
 	module.exports = createArrayFromMixed;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 156 */
@@ -24537,7 +24677,7 @@
 	
 	var ExecutionEnvironment = __webpack_require__(114);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Dummy container used to detect which wraps are necessary.
@@ -24615,7 +24755,7 @@
 	}
 	
 	module.exports = getMarkupWrap;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 157 */
@@ -24634,7 +24774,7 @@
 	
 	'use strict';
 	
-	var keyMirror = __webpack_require__(76);
+	var keyMirror = __webpack_require__(77);
 	
 	/**
 	 * When a component's children are updated, a series of update configuration
@@ -24712,7 +24852,7 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
 	var AutoFocusUtils = __webpack_require__(160);
@@ -24736,14 +24876,14 @@
 	var ReactMultiChild = __webpack_require__(182);
 	var ReactServerRenderingTransaction = __webpack_require__(194);
 	
-	var emptyFunction = __webpack_require__(65);
+	var emptyFunction = __webpack_require__(66);
 	var escapeTextContentForBrowser = __webpack_require__(152);
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	var isEventSupported = __webpack_require__(136);
-	var keyOf = __webpack_require__(78);
+	var keyOf = __webpack_require__(79);
 	var shallowEqual = __webpack_require__(189);
 	var validateDOMNesting = __webpack_require__(197);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var Flags = ReactDOMComponentFlags;
 	var deleteListener = EventPluginHub.deleteListener;
@@ -25703,7 +25843,7 @@
 	_assign(ReactDOMComponent.prototype, ReactDOMComponent.Mixin, ReactMultiChild.Mixin);
 	
 	module.exports = ReactDOMComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 160 */
@@ -25790,7 +25930,7 @@
 	var dangerousStyleValue = __webpack_require__(166);
 	var hyphenateStyleName = __webpack_require__(167);
 	var memoizeStringOnly = __webpack_require__(169);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var processStyleName = memoizeStringOnly(function (styleName) {
 	  return hyphenateStyleName(styleName);
@@ -25974,7 +26114,7 @@
 	};
 	
 	module.exports = CSSPropertyOperations;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 163 */
@@ -26227,7 +26367,7 @@
 	'use strict';
 	
 	var CSSProperty = __webpack_require__(163);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var isUnitlessNumber = CSSProperty.isUnitlessNumber;
 	var styleWarnings = {};
@@ -26292,7 +26432,7 @@
 	}
 	
 	module.exports = dangerousStyleValue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 167 */
@@ -26430,7 +26570,7 @@
 	var ReactInstrumentation = __webpack_require__(127);
 	
 	var quoteAttributeValueForBrowser = __webpack_require__(171);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + DOMProperty.ATTRIBUTE_NAME_START_CHAR + '][' + DOMProperty.ATTRIBUTE_NAME_CHAR + ']*$');
 	var illegalAttributeNameCache = {};
@@ -26633,7 +26773,7 @@
 	};
 	
 	module.exports = DOMPropertyOperations;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 171 */
@@ -27246,7 +27386,7 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
 	var DisabledInputUtils = __webpack_require__(176);
@@ -27255,8 +27395,8 @@
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var ReactUpdates = __webpack_require__(121);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	var didWarnValueLink = false;
 	var didWarnCheckedLink = false;
@@ -27502,7 +27642,7 @@
 	}
 	
 	module.exports = ReactDOMInput;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 178 */
@@ -27521,14 +27661,14 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactPropTypes = __webpack_require__(84);
-	var ReactPropTypeLocations = __webpack_require__(75);
-	var ReactPropTypesSecret = __webpack_require__(83);
+	var ReactPropTypes = __webpack_require__(85);
+	var ReactPropTypeLocations = __webpack_require__(76);
+	var ReactPropTypesSecret = __webpack_require__(84);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	var hasReadOnlyValue = {
 	  'button': true,
@@ -27644,7 +27784,7 @@
 	};
 	
 	module.exports = LinkedValueUtils;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 179 */
@@ -27665,11 +27805,11 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var ReactChildren = __webpack_require__(58);
+	var ReactChildren = __webpack_require__(59);
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var ReactDOMSelect = __webpack_require__(180);
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	var didWarnInvalidOptionChildren = false;
 	
 	function flattenChildren(children) {
@@ -27773,7 +27913,7 @@
 	};
 	
 	module.exports = ReactDOMOption;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 180 */
@@ -27799,7 +27939,7 @@
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var ReactUpdates = __webpack_require__(121);
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var didWarnValueLink = false;
 	var didWarnValueDefaultValue = false;
@@ -27980,7 +28120,7 @@
 	}
 	
 	module.exports = ReactDOMSelect;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 181 */
@@ -27999,7 +28139,7 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
 	var DisabledInputUtils = __webpack_require__(176);
@@ -28007,8 +28147,8 @@
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var ReactUpdates = __webpack_require__(121);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	var didWarnValueLink = false;
 	var didWarnValDefaultVal = false;
@@ -28141,7 +28281,7 @@
 	}
 	
 	module.exports = ReactDOMTextarea;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 182 */
@@ -28160,20 +28300,20 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
 	var ReactComponentEnvironment = __webpack_require__(183);
 	var ReactInstanceMap = __webpack_require__(184);
 	var ReactInstrumentation = __webpack_require__(127);
 	var ReactMultiChildUpdateTypes = __webpack_require__(157);
 	
-	var ReactCurrentOwner = __webpack_require__(63);
+	var ReactCurrentOwner = __webpack_require__(64);
 	var ReactReconciler = __webpack_require__(124);
 	var ReactChildReconciler = __webpack_require__(185);
 	
-	var emptyFunction = __webpack_require__(65);
+	var emptyFunction = __webpack_require__(66);
 	var flattenChildren = __webpack_require__(193);
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Make an update for markup to be rendered and inserted at a supplied index.
@@ -28598,7 +28738,7 @@
 	};
 	
 	module.exports = ReactMultiChild;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 183 */
@@ -28617,9 +28757,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var injected = false;
 	
@@ -28649,7 +28789,7 @@
 	};
 	
 	module.exports = ReactComponentEnvironment;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 184 */
@@ -28724,10 +28864,10 @@
 	var ReactReconciler = __webpack_require__(124);
 	
 	var instantiateReactComponent = __webpack_require__(186);
-	var KeyEscapeUtils = __webpack_require__(69);
+	var KeyEscapeUtils = __webpack_require__(70);
 	var shouldUpdateReactComponent = __webpack_require__(190);
-	var traverseAllChildren = __webpack_require__(67);
-	var warning = __webpack_require__(64);
+	var traverseAllChildren = __webpack_require__(68);
+	var warning = __webpack_require__(65);
 	
 	var ReactComponentTreeHook;
 	
@@ -28737,7 +28877,7 @@
 	  // https://github.com/facebook/react/issues/7240
 	  // Remove the inline requires when we don't need them anymore:
 	  // https://github.com/facebook/react/pull/7178
-	  ReactComponentTreeHook = __webpack_require__(81);
+	  ReactComponentTreeHook = __webpack_require__(82);
 	}
 	
 	function instantiateChild(childInstances, child, name, selfDebugID) {
@@ -28745,7 +28885,7 @@
 	  var keyUnique = childInstances[name] === undefined;
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (!ReactComponentTreeHook) {
-	      ReactComponentTreeHook = __webpack_require__(81);
+	      ReactComponentTreeHook = __webpack_require__(82);
 	    }
 	    if (!keyUnique) {
 	      process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -28862,7 +29002,7 @@
 	};
 	
 	module.exports = ReactChildReconciler;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 186 */
@@ -28881,15 +29021,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
 	var ReactCompositeComponent = __webpack_require__(187);
 	var ReactEmptyComponent = __webpack_require__(191);
 	var ReactHostComponent = __webpack_require__(192);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	// To avoid a cyclic dependency, we create the final class in this module
 	var ReactCompositeComponentWrapper = function (element) {
@@ -28987,7 +29127,7 @@
 	}
 	
 	module.exports = instantiateReactComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 187 */
@@ -29006,25 +29146,25 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
 	var ReactComponentEnvironment = __webpack_require__(183);
-	var ReactCurrentOwner = __webpack_require__(63);
-	var ReactElement = __webpack_require__(62);
+	var ReactCurrentOwner = __webpack_require__(64);
+	var ReactElement = __webpack_require__(63);
 	var ReactErrorUtils = __webpack_require__(111);
 	var ReactInstanceMap = __webpack_require__(184);
 	var ReactInstrumentation = __webpack_require__(127);
 	var ReactNodeTypes = __webpack_require__(188);
-	var ReactPropTypeLocations = __webpack_require__(75);
+	var ReactPropTypeLocations = __webpack_require__(76);
 	var ReactReconciler = __webpack_require__(124);
 	
-	var checkReactTypeSpec = __webpack_require__(82);
-	var emptyObject = __webpack_require__(72);
-	var invariant = __webpack_require__(61);
+	var checkReactTypeSpec = __webpack_require__(83);
+	var emptyObject = __webpack_require__(73);
+	var invariant = __webpack_require__(62);
 	var shallowEqual = __webpack_require__(189);
 	var shouldUpdateReactComponent = __webpack_require__(190);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var CompositeTypes = {
 	  ImpureClass: 0,
@@ -29897,7 +30037,7 @@
 	};
 	
 	module.exports = ReactCompositeComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 188 */
@@ -29917,11 +30057,11 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactElement = __webpack_require__(62);
+	var ReactElement = __webpack_require__(63);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var ReactNodeTypes = {
 	  HOST: 0,
@@ -29943,7 +30083,7 @@
 	};
 	
 	module.exports = ReactNodeTypes;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 189 */
@@ -30115,10 +30255,10 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var genericComponentClass = null;
 	// This registry keeps track of wrapper classes around host tags.
@@ -30178,7 +30318,7 @@
 	};
 	
 	module.exports = ReactHostComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 193 */
@@ -30198,9 +30338,9 @@
 	
 	'use strict';
 	
-	var KeyEscapeUtils = __webpack_require__(69);
-	var traverseAllChildren = __webpack_require__(67);
-	var warning = __webpack_require__(64);
+	var KeyEscapeUtils = __webpack_require__(70);
+	var traverseAllChildren = __webpack_require__(68);
+	var warning = __webpack_require__(65);
 	
 	var ReactComponentTreeHook;
 	
@@ -30210,7 +30350,7 @@
 	  // https://github.com/facebook/react/issues/7240
 	  // Remove the inline requires when we don't need them anymore:
 	  // https://github.com/facebook/react/pull/7178
-	  ReactComponentTreeHook = __webpack_require__(81);
+	  ReactComponentTreeHook = __webpack_require__(82);
 	}
 	
 	/**
@@ -30226,7 +30366,7 @@
 	    var keyUnique = result[name] === undefined;
 	    if (process.env.NODE_ENV !== 'production') {
 	      if (!ReactComponentTreeHook) {
-	        ReactComponentTreeHook = __webpack_require__(81);
+	        ReactComponentTreeHook = __webpack_require__(82);
 	      }
 	      if (!keyUnique) {
 	        process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -30260,7 +30400,7 @@
 	}
 	
 	module.exports = flattenChildren;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 194 */
@@ -30281,7 +30421,7 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var PooledClass = __webpack_require__(59);
+	var PooledClass = __webpack_require__(60);
 	var Transaction = __webpack_require__(134);
 	var ReactInstrumentation = __webpack_require__(127);
 	var ReactServerUpdateQueue = __webpack_require__(195);
@@ -30356,7 +30496,7 @@
 	PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 	
 	module.exports = ReactServerRenderingTransaction;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 195 */
@@ -30380,7 +30520,7 @@
 	
 	var ReactUpdateQueue = __webpack_require__(196);
 	var Transaction = __webpack_require__(134);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	function warnNoop(publicInstance, callerName) {
 	  if (process.env.NODE_ENV !== 'production') {
@@ -30503,7 +30643,7 @@
 	}();
 	
 	module.exports = ReactServerUpdateQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 196 */
@@ -30522,15 +30662,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactCurrentOwner = __webpack_require__(63);
+	var ReactCurrentOwner = __webpack_require__(64);
 	var ReactInstanceMap = __webpack_require__(184);
 	var ReactInstrumentation = __webpack_require__(127);
 	var ReactUpdates = __webpack_require__(121);
 	
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	function enqueueUpdate(internalInstance) {
 	  ReactUpdates.enqueueUpdate(internalInstance);
@@ -30735,7 +30875,7 @@
 	};
 	
 	module.exports = ReactUpdateQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 197 */
@@ -30756,8 +30896,8 @@
 	
 	var _assign = __webpack_require__(28);
 	
-	var emptyFunction = __webpack_require__(65);
-	var warning = __webpack_require__(64);
+	var emptyFunction = __webpack_require__(66);
+	var warning = __webpack_require__(65);
 	
 	var validateDOMNesting = emptyFunction;
 	
@@ -31123,7 +31263,7 @@
 	}
 	
 	module.exports = validateDOMNesting;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 198 */
@@ -31207,9 +31347,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Return the lowest common ancestor of A and B, or null if they are in
@@ -31330,7 +31470,7 @@
 	  traverseTwoPhase: traverseTwoPhase,
 	  traverseEnterLeave: traverseEnterLeave
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 200 */
@@ -31349,7 +31489,7 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60),
+	var _prodInvariant = __webpack_require__(61),
 	    _assign = __webpack_require__(28);
 	
 	var DOMChildrenOperations = __webpack_require__(146);
@@ -31357,7 +31497,7 @@
 	var ReactDOMComponentTree = __webpack_require__(101);
 	
 	var escapeTextContentForBrowser = __webpack_require__(152);
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	var validateDOMNesting = __webpack_require__(197);
 	
 	/**
@@ -31500,7 +31640,7 @@
 	});
 	
 	module.exports = ReactDOMTextComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 201 */
@@ -31524,7 +31664,7 @@
 	var ReactUpdates = __webpack_require__(121);
 	var Transaction = __webpack_require__(134);
 	
-	var emptyFunction = __webpack_require__(65);
+	var emptyFunction = __webpack_require__(66);
 	
 	var RESET_BATCHED_UPDATES = {
 	  initialize: emptyFunction,
@@ -31596,7 +31736,7 @@
 	
 	var EventListener = __webpack_require__(203);
 	var ExecutionEnvironment = __webpack_require__(114);
-	var PooledClass = __webpack_require__(59);
+	var PooledClass = __webpack_require__(60);
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var ReactUpdates = __webpack_require__(121);
 	
@@ -31761,7 +31901,7 @@
 	 * @typechecks
 	 */
 	
-	var emptyFunction = __webpack_require__(65);
+	var emptyFunction = __webpack_require__(66);
 	
 	/**
 	 * Upstream version of event listener. Does not take into account specific
@@ -31824,7 +31964,7 @@
 	};
 	
 	module.exports = EventListener;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 204 */
@@ -31890,7 +32030,7 @@
 	var EventPluginHub = __webpack_require__(108);
 	var EventPluginUtils = __webpack_require__(110);
 	var ReactComponentEnvironment = __webpack_require__(183);
-	var ReactClass = __webpack_require__(74);
+	var ReactClass = __webpack_require__(75);
 	var ReactEmptyComponent = __webpack_require__(191);
 	var ReactBrowserEventEmitter = __webpack_require__(172);
 	var ReactHostComponent = __webpack_require__(192);
@@ -31930,7 +32070,7 @@
 	var _assign = __webpack_require__(28);
 	
 	var CallbackQueue = __webpack_require__(122);
-	var PooledClass = __webpack_require__(59);
+	var PooledClass = __webpack_require__(60);
 	var ReactBrowserEventEmitter = __webpack_require__(172);
 	var ReactInputSelection = __webpack_require__(207);
 	var ReactInstrumentation = __webpack_require__(127);
@@ -32092,7 +32232,7 @@
 	PooledClass.addPoolingTo(ReactReconcileTransaction);
 	
 	module.exports = ReactReconcileTransaction;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 207 */
@@ -32991,7 +33131,7 @@
 	
 	var getActiveElement = __webpack_require__(213);
 	var isTextInputElement = __webpack_require__(137);
-	var keyOf = __webpack_require__(78);
+	var keyOf = __webpack_require__(79);
 	var shallowEqual = __webpack_require__(189);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -33183,7 +33323,7 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
 	var EventConstants = __webpack_require__(106);
 	var EventListener = __webpack_require__(203);
@@ -33201,10 +33341,10 @@
 	var SyntheticUIEvent = __webpack_require__(141);
 	var SyntheticWheelEvent = __webpack_require__(226);
 	
-	var emptyFunction = __webpack_require__(65);
+	var emptyFunction = __webpack_require__(66);
 	var getEventCharCode = __webpack_require__(221);
-	var invariant = __webpack_require__(61);
-	var keyOf = __webpack_require__(78);
+	var invariant = __webpack_require__(62);
+	var keyOf = __webpack_require__(79);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -33805,7 +33945,7 @@
 	};
 	
 	module.exports = SimpleEventPlugin;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 217 */
@@ -34397,16 +34537,16 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
 	var DOMLazyTree = __webpack_require__(147);
 	var DOMProperty = __webpack_require__(102);
 	var ReactBrowserEventEmitter = __webpack_require__(172);
-	var ReactCurrentOwner = __webpack_require__(63);
+	var ReactCurrentOwner = __webpack_require__(64);
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var ReactDOMContainerInfo = __webpack_require__(228);
 	var ReactDOMFeatureFlags = __webpack_require__(229);
-	var ReactElement = __webpack_require__(62);
+	var ReactElement = __webpack_require__(63);
 	var ReactFeatureFlags = __webpack_require__(123);
 	var ReactInstanceMap = __webpack_require__(184);
 	var ReactInstrumentation = __webpack_require__(127);
@@ -34415,12 +34555,12 @@
 	var ReactUpdateQueue = __webpack_require__(196);
 	var ReactUpdates = __webpack_require__(121);
 	
-	var emptyObject = __webpack_require__(72);
+	var emptyObject = __webpack_require__(73);
 	var instantiateReactComponent = __webpack_require__(186);
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	var setInnerHTML = __webpack_require__(149);
 	var shouldUpdateReactComponent = __webpack_require__(190);
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
 	var ROOT_ATTR_NAME = DOMProperty.ROOT_ATTRIBUTE_NAME;
@@ -34918,7 +35058,7 @@
 	};
 	
 	module.exports = ReactMount;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 228 */
@@ -34957,7 +35097,7 @@
 	}
 	
 	module.exports = ReactDOMContainerInfo;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 229 */
@@ -35103,15 +35243,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(60);
+	var _prodInvariant = __webpack_require__(61);
 	
-	var ReactCurrentOwner = __webpack_require__(63);
+	var ReactCurrentOwner = __webpack_require__(64);
 	var ReactDOMComponentTree = __webpack_require__(101);
 	var ReactInstanceMap = __webpack_require__(184);
 	
 	var getHostComponentFromComposite = __webpack_require__(233);
-	var invariant = __webpack_require__(61);
-	var warning = __webpack_require__(64);
+	var invariant = __webpack_require__(62);
+	var warning = __webpack_require__(65);
 	
 	/**
 	 * Returns the DOM node rendered by this element.
@@ -35150,7 +35290,7 @@
 	}
 	
 	module.exports = findDOMNode;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 233 */
@@ -35227,9 +35367,9 @@
 	
 	var DOMProperty = __webpack_require__(102);
 	var EventPluginRegistry = __webpack_require__(109);
-	var ReactComponentTreeHook = __webpack_require__(81);
+	var ReactComponentTreeHook = __webpack_require__(82);
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	if (process.env.NODE_ENV !== 'production') {
 	  var reactProps = {
@@ -35324,7 +35464,7 @@
 	};
 	
 	module.exports = ReactDOMUnknownPropertyHook;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 236 */
@@ -35343,9 +35483,9 @@
 	
 	'use strict';
 	
-	var ReactComponentTreeHook = __webpack_require__(81);
+	var ReactComponentTreeHook = __webpack_require__(82);
 	
-	var warning = __webpack_require__(64);
+	var warning = __webpack_require__(65);
 	
 	var didWarnValueNull = false;
 	
@@ -35373,7 +35513,7 @@
 	};
 	
 	module.exports = ReactDOMNullInputValuePropHook;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
 /* 237 */
@@ -35387,33 +35527,975 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _Email = __webpack_require__(238);
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var OpenerCloser = function (_React$Component) {
+	  _inherits(OpenerCloser, _React$Component);
+	
+	  function OpenerCloser() {
+	    _classCallCheck(this, OpenerCloser);
+	
+	    var _this = _possibleConstructorReturn(this, (OpenerCloser.__proto__ || Object.getPrototypeOf(OpenerCloser)).call(this));
+	
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(OpenerCloser, [{
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      this.props.onOpenClose();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'a',
+	        { className: 'opener-closer', href: '#', onClick: this._handleClick },
+	        '\\>_',
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'blinker' },
+	          '▌'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return OpenerCloser;
+	}(_react2.default.Component);
+	
+	exports.default = OpenerCloser;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Vocabulary = __webpack_require__(239);
+	
+	var _Vocabulary2 = _interopRequireDefault(_Vocabulary);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Vocabularies = function (_React$Component) {
+	  _inherits(Vocabularies, _React$Component);
+	
+	  function Vocabularies() {
+	    _classCallCheck(this, Vocabularies);
+	
+	    var _this = _possibleConstructorReturn(this, (Vocabularies.__proto__ || Object.getPrototypeOf(Vocabularies)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Vocabularies, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      if (!this.props.isVisible) {
+	        return null;
+	      }
+	      var vocabularies = this.props.vocabularies.map(function (v) {
+	        return _react2.default.createElement(_Vocabulary2.default, { key: v.get('name'),
+	          toggleAppliedFilter: _this2.props.toggleAppliedFilter,
+	          toggleVocabulary: _this2.props.toggleVocabulary,
+	          vocabulary: v });
+	      }).toArray();
+	      return _react2.default.createElement(
+	        'ul',
+	        { className: 'vocabularies' },
+	        vocabularies
+	      );
+	    }
+	  }]);
+	
+	  return Vocabularies;
+	}(_react2.default.Component);
+	
+	exports.default = Vocabularies;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _Prompt = __webpack_require__(240);
+	
+	var _Prompt2 = _interopRequireDefault(_Prompt);
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Terms = __webpack_require__(241);
+	
+	var _Terms2 = _interopRequireDefault(_Terms);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Vocabulary = function (_React$Component) {
+	  _inherits(Vocabulary, _React$Component);
+	
+	  function Vocabulary() {
+	    _classCallCheck(this, Vocabulary);
+	
+	    var _this = _possibleConstructorReturn(this, (Vocabulary.__proto__ || Object.getPrototypeOf(Vocabulary)).call(this));
+	
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this._handleDragStart = _this._handleDragStart.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Vocabulary, [{
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      event.stopPropagation();
+	      this.props.toggleVocabulary(this.props.vocabulary.get('name'));
+	    }
+	  }, {
+	    key: '_handleDragStart',
+	    value: function _handleDragStart(event) {
+	      event.preventDefault();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'li',
+	        { className: 'vocabulary ' + this.props.vocabulary.get('name').toLowerCase() },
+	        _react2.default.createElement(
+	          'a',
+	          { href: '#',
+	            onClick: this._handleClick,
+	            onDragStart: this._handleDragStart },
+	          this.props.vocabulary.get('name'),
+	          _react2.default.createElement(_Prompt2.default, { isOpen: this.props.vocabulary.get('isOpen') })
+	        ),
+	        _react2.default.createElement(_Terms2.default, { applied: this.props.vocabulary.get('applied'),
+	          isOpen: this.props.vocabulary.get('isOpen'),
+	          slug: this.props.vocabulary.get('slug'),
+	          terms: this.props.vocabulary.get('terms'),
+	          toggleAppliedFilter: this.props.toggleAppliedFilter })
+	      );
+	    }
+	  }]);
+	
+	  return Vocabulary;
+	}(_react2.default.Component);
+	
+	exports.default = Vocabulary;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Prompt = function (_React$Component) {
+	  _inherits(Prompt, _React$Component);
+	
+	  function Prompt() {
+	    _classCallCheck(this, Prompt);
+	
+	    var _this = _possibleConstructorReturn(this, (Prompt.__proto__ || Object.getPrototypeOf(Prompt)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Prompt, [{
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.isOpen) {
+	        return null;
+	      }
+	      return _react2.default.createElement(
+	        'span',
+	        { className: 'prompt' },
+	        ':\\>'
+	      );
+	    }
+	  }]);
+	
+	  return Prompt;
+	}(_react2.default.Component);
+	
+	exports.default = Prompt;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Term = __webpack_require__(242);
+	
+	var _Term2 = _interopRequireDefault(_Term);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Terms = function (_React$Component) {
+	  _inherits(Terms, _React$Component);
+	
+	  function Terms() {
+	    _classCallCheck(this, Terms);
+	
+	    var _this = _possibleConstructorReturn(this, (Terms.__proto__ || Object.getPrototypeOf(Terms)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Terms, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      if (!this.props.isOpen) {
+	        return null;
+	      }
+	      var terms = this.props.terms.map(function (t) {
+	        if (_this2.props.applied.includes(t)) {
+	          return _react2.default.createElement(_Term2.default, { isApplied: true,
+	            key: t,
+	            name: t,
+	            slug: _this2.props.slug,
+	            toggleAppliedFilter: _this2.props.toggleAppliedFilter });
+	        }
+	        return _react2.default.createElement(_Term2.default, { isApplied: false,
+	          key: t,
+	          name: t,
+	          slug: _this2.props.slug,
+	          toggleAppliedFilter: _this2.props.toggleAppliedFilter });
+	      }).toArray();
+	      return _react2.default.createElement(
+	        'ul',
+	        { className: 'terms' },
+	        terms
+	      );
+	    }
+	  }]);
+	
+	  return Terms;
+	}(_react2.default.Component);
+	
+	exports.default = Terms;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Term = function (_React$Component) {
+	  _inherits(Term, _React$Component);
+	
+	  function Term() {
+	    _classCallCheck(this, Term);
+	
+	    var _this = _possibleConstructorReturn(this, (Term.__proto__ || Object.getPrototypeOf(Term)).call(this));
+	
+	    _this.state = {
+	      randomColor: '#' + Math.random().toString(16).slice(2, 8).toUpperCase()
+	    };
+	    _this._getClassName = _this._getClassName.bind(_this);
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this._handleDragStart = _this._handleDragStart.bind(_this);
+	    _this._handleMouseOut = _this._handleMouseOut.bind(_this);
+	    _this._handleMouseOver = _this._handleMouseOver.bind(_this);
+	    _this._highlight = _this._highlight.bind(_this);
+	    _this._unHighlight = _this._unHighlight.bind(_this);
+	    _this.componentWillMount = _this.componentWillMount.bind(_this);
+	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Term, [{
+	    key: '_getClassName',
+	    value: function _getClassName() {
+	      var className = 'term';
+	      if (this.props.isApplied) {
+	        className += ' is-applied';
+	      }
+	      return className;
+	    }
+	  }, {
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      this.props.toggleAppliedFilter(this.props.slug, this.props.name);
+	    }
+	  }, {
+	    key: '_handleDragStart',
+	    value: function _handleDragStart(event) {
+	      event.preventDefault();
+	    }
+	  }, {
+	    key: '_handleMouseOut',
+	    value: function _handleMouseOut(event) {
+	      if (!this.props.isApplied) {
+	        this._unHighlight();
+	      }
+	    }
+	  }, {
+	    key: '_handleMouseOver',
+	    value: function _handleMouseOver(event) {
+	      this._highlight();
+	    }
+	  }, {
+	    key: '_highlight',
+	    value: function _highlight() {
+	      this.setState({
+	        style: {
+	          color: this.state.randomColor
+	        }
+	      });
+	    }
+	  }, {
+	    key: '_unHighlight',
+	    value: function _unHighlight() {
+	      this.setState({
+	        style: {
+	          color: 'white'
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      if (this.props.isApplied) {
+	        this._highlight();
+	      } else {
+	        this._unHighlight();
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.isApplied) {
+	        this._highlight();
+	      } else {
+	        this._unHighlight();
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'li',
+	        { className: this._getClassName() },
+	        _react2.default.createElement(
+	          'a',
+	          { href: '#',
+	            onClick: this._handleClick,
+	            onDragStart: this._handleDragStart,
+	            onMouseOut: this._handleMouseOut,
+	            onMouseOver: this._handleMouseOver,
+	            style: this.state.style },
+	          this.props.name
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Term;
+	}(_react2.default.Component);
+	
+	exports.default = Term;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reselect = __webpack_require__(244);
+	
+	exports.default = (0, _reselect.createSelector)(function (state) {
+	  return state.getIn(['filter', 'isInFilterMode']);
+	}, function (state) {
+	  return state.getIn(['page', 'items']);
+	}, function (state) {
+	  return state.getIn(['filter', 'filteredItems']);
+	}, function (state) {
+	  return state.getIn(['page', 'width']);
+	}, function (isInFilterMode, items, filteredItems, width) {
+	  var leftmostItem = items.minBy(function (item) {
+	    return item.get('x');
+	  });
+	  if (isInFilterMode) {
+	    leftmostItem = filteredItems.minBy(function (item) {
+	      return item.get('x');
+	    });
+	  }
+	  if (leftmostItem === undefined) {
+	    return 0;
+	  }
+	  var x = leftmostItem.get('x');
+	  if (x > 0) {
+	    return width - x;
+	  }
+	  return Math.abs(x) + width;
+	}); /*
+	     * Copyright (C) 2016 Mark P. Lindsay
+	     * 
+	     * This file is part of mysteriousobjectsatnoon.
+	     *
+	     * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+	     * it under the terms of the GNU General Public License as published by
+	     * the Free Software Foundation, either version 3 of the License, or
+	     * (at your option) any later version.
+	     *
+	     * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	     * GNU General Public License for more details.
+	     * 
+	     * You should have received a copy of the GNU General Public License
+	     * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	     */
+
+/***/ },
+/* 244 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.defaultMemoize = defaultMemoize;
+	exports.createSelectorCreator = createSelectorCreator;
+	exports.createStructuredSelector = createStructuredSelector;
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function defaultEqualityCheck(a, b) {
+	  return a === b;
+	}
+	
+	function defaultMemoize(func) {
+	  var equalityCheck = arguments.length <= 1 || arguments[1] === undefined ? defaultEqualityCheck : arguments[1];
+	
+	  var lastArgs = null;
+	  var lastResult = null;
+	  return function () {
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    if (lastArgs === null || lastArgs.length !== args.length || !args.every(function (value, index) {
+	      return equalityCheck(value, lastArgs[index]);
+	    })) {
+	      lastResult = func.apply(undefined, args);
+	    }
+	    lastArgs = args;
+	    return lastResult;
+	  };
+	}
+	
+	function getDependencies(funcs) {
+	  var dependencies = Array.isArray(funcs[0]) ? funcs[0] : funcs;
+	
+	  if (!dependencies.every(function (dep) {
+	    return typeof dep === 'function';
+	  })) {
+	    var dependencyTypes = dependencies.map(function (dep) {
+	      return typeof dep;
+	    }).join(', ');
+	    throw new Error('Selector creators expect all input-selectors to be functions, ' + ('instead received the following types: [' + dependencyTypes + ']'));
+	  }
+	
+	  return dependencies;
+	}
+	
+	function createSelectorCreator(memoize) {
+	  for (var _len2 = arguments.length, memoizeOptions = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	    memoizeOptions[_key2 - 1] = arguments[_key2];
+	  }
+	
+	  return function () {
+	    for (var _len3 = arguments.length, funcs = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+	      funcs[_key3] = arguments[_key3];
+	    }
+	
+	    var recomputations = 0;
+	    var resultFunc = funcs.pop();
+	    var dependencies = getDependencies(funcs);
+	
+	    var memoizedResultFunc = memoize.apply(undefined, [function () {
+	      recomputations++;
+	      return resultFunc.apply(undefined, arguments);
+	    }].concat(memoizeOptions));
+	
+	    var selector = function selector(state, props) {
+	      for (var _len4 = arguments.length, args = Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
+	        args[_key4 - 2] = arguments[_key4];
+	      }
+	
+	      var params = dependencies.map(function (dependency) {
+	        return dependency.apply(undefined, [state, props].concat(args));
+	      });
+	      return memoizedResultFunc.apply(undefined, _toConsumableArray(params));
+	    };
+	
+	    selector.resultFunc = resultFunc;
+	    selector.recomputations = function () {
+	      return recomputations;
+	    };
+	    selector.resetRecomputations = function () {
+	      return recomputations = 0;
+	    };
+	    return selector;
+	  };
+	}
+	
+	var createSelector = exports.createSelector = createSelectorCreator(defaultMemoize);
+	
+	function createStructuredSelector(selectors) {
+	  var selectorCreator = arguments.length <= 1 || arguments[1] === undefined ? createSelector : arguments[1];
+	
+	  if (typeof selectors !== 'object') {
+	    throw new Error('createStructuredSelector expects first argument to be an object ' + ('where each property is a selector, instead received a ' + typeof selectors));
+	  }
+	  var objectKeys = Object.keys(selectors);
+	  return selectorCreator(objectKeys.map(function (key) {
+	    return selectors[key];
+	  }), function () {
+	    for (var _len5 = arguments.length, values = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+	      values[_key5] = arguments[_key5];
+	    }
+	
+	    return values.reduce(function (composition, value, index) {
+	      composition[objectKeys[index]] = value;
+	      return composition;
+	    }, {});
+	  });
+	}
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _reactDraggable = __webpack_require__(98);
+	
+	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(99);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2017 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Bubble = function (_React$Component) {
+	  _inherits(Bubble, _React$Component);
+	
+	  function Bubble() {
+	    _classCallCheck(this, Bubble);
+	
+	    var _this = _possibleConstructorReturn(this, (Bubble.__proto__ || Object.getPrototypeOf(Bubble)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Bubble, [{
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.isOpen) {
+	        return null;
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'bubble', onClick: this.props.onClick },
+	        'See something you like? Click it to see where it takes you.'
+	      );
+	    }
+	  }]);
+	
+	  return Bubble;
+	}(_react2.default.Component);
+	
+	var Control = function (_React$Component2) {
+	  _inherits(Control, _React$Component2);
+	
+	  function Control() {
+	    _classCallCheck(this, Control);
+	
+	    var _this2 = _possibleConstructorReturn(this, (Control.__proto__ || Object.getPrototypeOf(Control)).call(this));
+	
+	    _this2.state = {
+	      height: 0,
+	      isOpen: false,
+	      width: 0
+	    };
+	    _this2._handleClick = _this2._handleClick.bind(_this2);
+	    _this2._handleDragStart = _this2._handleDragStart.bind(_this2);
+	    _this2.componentDidUpdate = _this2.componentDidUpdate.bind(_this2);
+	    _this2.componentWillReceiveProps = _this2.componentWillReceiveProps.bind(_this2);
+	    _this2.render = _this2.render.bind(_this2);
+	    return _this2;
+	  }
+	
+	  _createClass(Control, [{
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      if (!this.props.user.isEmpty()) {
+	        this.props.toggleLinkingMode();
+	      } else {
+	        this.setState(function (previousState) {
+	          return { isOpen: !previousState.isOpen };
+	        });
+	      }
+	    }
+	  }, {
+	    key: '_handleDragStart',
+	    value: function _handleDragStart(event) {
+	      event.preventDefault();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      var el = _reactDom2.default.findDOMNode(this);
+	      if (el !== null && this.state.height === 0 && this.state.width === 0) {
+	        this.setState({
+	          height: el.offsetHeight,
+	          width: el.offsetWidth
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      // Close the bubble if a user logs in.
+	      if (this.props.user.isEmpty() && !nextProps.user.isEmpty()) {
+	        this.setState({
+	          isOpen: false
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
+	        return null;
+	      }
+	      var bounds = {
+	        top: 0,
+	        right: this.props.windowWidth - this.state.width,
+	        bottom: this.props.windowHeight - this.state.height,
+	        left: 0
+	      };
+	      var defaultPosition = {
+	        x: this.props.windowWidth * 0.45,
+	        y: this.props.windowHeight * 0.75
+	      };
+	      return _react2.default.createElement(
+	        _reactDraggable2.default,
+	        { bounds: bounds, defaultPosition: defaultPosition },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'control app-control' },
+	          _react2.default.createElement(
+	            'a',
+	            { href: '#',
+	              onClick: this._handleClick,
+	              onDragStart: this._handleDragStart },
+	            _react2.default.createElement('img', { src: '/static/plane.gif', alt: 'Link' })
+	          ),
+	          _react2.default.createElement(Bubble, { isOpen: this.state.isOpen,
+	            onClick: this._handleClick })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Control;
+	}(_react2.default.Component);
+	
+	exports.default = Control;
+
+/***/ },
+/* 246 */,
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _Email = __webpack_require__(248);
 	
 	var _Email2 = _interopRequireDefault(_Email);
 	
-	var _reactRouter = __webpack_require__(239);
+	var _reactRouter = __webpack_require__(249);
 	
-	var _LoggingIn = __webpack_require__(299);
+	var _LoggingIn = __webpack_require__(309);
 	
 	var _LoggingIn2 = _interopRequireDefault(_LoggingIn);
 	
-	var _LoginFailed = __webpack_require__(300);
+	var _LoginFailed = __webpack_require__(310);
 	
 	var _LoginFailed2 = _interopRequireDefault(_LoginFailed);
 	
-	var _Logout = __webpack_require__(301);
+	var _Logout = __webpack_require__(311);
 	
 	var _Logout2 = _interopRequireDefault(_Logout);
 	
-	var _Opener = __webpack_require__(302);
+	var _Opener = __webpack_require__(312);
 	
 	var _Opener2 = _interopRequireDefault(_Opener);
 	
-	var _Password = __webpack_require__(303);
+	var _Password = __webpack_require__(313);
 	
 	var _Password2 = _interopRequireDefault(_Password);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -35638,7 +36720,7 @@
 	exports.default = Login;
 
 /***/ },
-/* 238 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35649,7 +36731,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -35720,7 +36802,7 @@
 	exports.default = Email;
 
 /***/ },
-/* 239 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35728,7 +36810,7 @@
 	exports.__esModule = true;
 	exports.createMemoryHistory = exports.hashHistory = exports.browserHistory = exports.applyRouterMiddleware = exports.formatPattern = exports.useRouterHistory = exports.match = exports.routerShape = exports.locationShape = exports.PropTypes = exports.RoutingContext = exports.RouterContext = exports.createRoutes = exports.useRoutes = exports.RouteContext = exports.Lifecycle = exports.History = exports.Route = exports.Redirect = exports.IndexRoute = exports.IndexRedirect = exports.withRouter = exports.IndexLink = exports.Link = exports.Router = undefined;
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
 	Object.defineProperty(exports, 'createRoutes', {
 	  enumerable: true,
@@ -35737,7 +36819,7 @@
 	  }
 	});
 	
-	var _PropTypes2 = __webpack_require__(241);
+	var _PropTypes2 = __webpack_require__(251);
 	
 	Object.defineProperty(exports, 'locationShape', {
 	  enumerable: true,
@@ -35752,7 +36834,7 @@
 	  }
 	});
 	
-	var _PatternUtils = __webpack_require__(246);
+	var _PatternUtils = __webpack_require__(256);
 	
 	Object.defineProperty(exports, 'formatPattern', {
 	  enumerable: true,
@@ -35761,85 +36843,85 @@
 	  }
 	});
 	
-	var _Router2 = __webpack_require__(247);
+	var _Router2 = __webpack_require__(257);
 	
 	var _Router3 = _interopRequireDefault(_Router2);
 	
-	var _Link2 = __webpack_require__(277);
+	var _Link2 = __webpack_require__(287);
 	
 	var _Link3 = _interopRequireDefault(_Link2);
 	
-	var _IndexLink2 = __webpack_require__(278);
+	var _IndexLink2 = __webpack_require__(288);
 	
 	var _IndexLink3 = _interopRequireDefault(_IndexLink2);
 	
-	var _withRouter2 = __webpack_require__(279);
+	var _withRouter2 = __webpack_require__(289);
 	
 	var _withRouter3 = _interopRequireDefault(_withRouter2);
 	
-	var _IndexRedirect2 = __webpack_require__(280);
+	var _IndexRedirect2 = __webpack_require__(290);
 	
 	var _IndexRedirect3 = _interopRequireDefault(_IndexRedirect2);
 	
-	var _IndexRoute2 = __webpack_require__(282);
+	var _IndexRoute2 = __webpack_require__(292);
 	
 	var _IndexRoute3 = _interopRequireDefault(_IndexRoute2);
 	
-	var _Redirect2 = __webpack_require__(281);
+	var _Redirect2 = __webpack_require__(291);
 	
 	var _Redirect3 = _interopRequireDefault(_Redirect2);
 	
-	var _Route2 = __webpack_require__(283);
+	var _Route2 = __webpack_require__(293);
 	
 	var _Route3 = _interopRequireDefault(_Route2);
 	
-	var _History2 = __webpack_require__(284);
+	var _History2 = __webpack_require__(294);
 	
 	var _History3 = _interopRequireDefault(_History2);
 	
-	var _Lifecycle2 = __webpack_require__(285);
+	var _Lifecycle2 = __webpack_require__(295);
 	
 	var _Lifecycle3 = _interopRequireDefault(_Lifecycle2);
 	
-	var _RouteContext2 = __webpack_require__(286);
+	var _RouteContext2 = __webpack_require__(296);
 	
 	var _RouteContext3 = _interopRequireDefault(_RouteContext2);
 	
-	var _useRoutes2 = __webpack_require__(287);
+	var _useRoutes2 = __webpack_require__(297);
 	
 	var _useRoutes3 = _interopRequireDefault(_useRoutes2);
 	
-	var _RouterContext2 = __webpack_require__(274);
+	var _RouterContext2 = __webpack_require__(284);
 	
 	var _RouterContext3 = _interopRequireDefault(_RouterContext2);
 	
-	var _RoutingContext2 = __webpack_require__(288);
+	var _RoutingContext2 = __webpack_require__(298);
 	
 	var _RoutingContext3 = _interopRequireDefault(_RoutingContext2);
 	
 	var _PropTypes3 = _interopRequireDefault(_PropTypes2);
 	
-	var _match2 = __webpack_require__(289);
+	var _match2 = __webpack_require__(299);
 	
 	var _match3 = _interopRequireDefault(_match2);
 	
-	var _useRouterHistory2 = __webpack_require__(293);
+	var _useRouterHistory2 = __webpack_require__(303);
 	
 	var _useRouterHistory3 = _interopRequireDefault(_useRouterHistory2);
 	
-	var _applyRouterMiddleware2 = __webpack_require__(294);
+	var _applyRouterMiddleware2 = __webpack_require__(304);
 	
 	var _applyRouterMiddleware3 = _interopRequireDefault(_applyRouterMiddleware2);
 	
-	var _browserHistory2 = __webpack_require__(295);
+	var _browserHistory2 = __webpack_require__(305);
 	
 	var _browserHistory3 = _interopRequireDefault(_browserHistory2);
 	
-	var _hashHistory2 = __webpack_require__(298);
+	var _hashHistory2 = __webpack_require__(308);
 	
 	var _hashHistory3 = _interopRequireDefault(_hashHistory2);
 	
-	var _createMemoryHistory2 = __webpack_require__(290);
+	var _createMemoryHistory2 = __webpack_require__(300);
 	
 	var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
 	
@@ -35881,7 +36963,7 @@
 	exports.createMemoryHistory = _createMemoryHistory3.default;
 
 /***/ },
-/* 240 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35895,7 +36977,7 @@
 	exports.createRoutesFromReactChildren = createRoutesFromReactChildren;
 	exports.createRoutes = createRoutes;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -35979,7 +37061,7 @@
 	}
 
 /***/ },
-/* 241 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -35987,17 +37069,17 @@
 	exports.__esModule = true;
 	exports.router = exports.routes = exports.route = exports.components = exports.component = exports.location = exports.history = exports.falsy = exports.locationShape = exports.routerShape = undefined;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
-	var _deprecateObjectProperties = __webpack_require__(242);
+	var _deprecateObjectProperties = __webpack_require__(252);
 	
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 	
-	var _InternalPropTypes = __webpack_require__(245);
+	var _InternalPropTypes = __webpack_require__(255);
 	
 	var InternalPropTypes = _interopRequireWildcard(_InternalPropTypes);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36083,10 +37165,10 @@
 	}
 	
 	exports.default = defaultExport;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 242 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -36094,7 +37176,7 @@
 	exports.__esModule = true;
 	exports.canUseMembrane = undefined;
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36164,10 +37246,10 @@
 	}
 	
 	exports.default = deprecateObjectProperties;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 243 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36176,7 +37258,7 @@
 	exports.default = routerWarning;
 	exports._resetWarned = _resetWarned;
 	
-	var _warning = __webpack_require__(244);
+	var _warning = __webpack_require__(254);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -36208,7 +37290,7 @@
 	}
 
 /***/ },
-/* 244 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -36272,10 +37354,10 @@
 	
 	module.exports = warning;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 245 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36284,7 +37366,7 @@
 	exports.routes = exports.route = exports.components = exports.component = exports.history = undefined;
 	exports.falsy = falsy;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var func = _react.PropTypes.func;
 	var object = _react.PropTypes.object;
@@ -36312,7 +37394,7 @@
 	var routes = exports.routes = oneOfType([route, arrayOf(route)]);
 
 /***/ },
-/* 246 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -36324,7 +37406,7 @@
 	exports.getParams = getParams;
 	exports.formatPattern = formatPattern;
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -36527,10 +37609,10 @@
 	
 	  return pathname.replace(/\/+/g, '/');
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 247 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -36539,37 +37621,37 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _createHashHistory = __webpack_require__(248);
+	var _createHashHistory = __webpack_require__(258);
 	
 	var _createHashHistory2 = _interopRequireDefault(_createHashHistory);
 	
-	var _useQueries = __webpack_require__(264);
+	var _useQueries = __webpack_require__(274);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _createTransitionManager = __webpack_require__(266);
+	var _createTransitionManager = __webpack_require__(276);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _InternalPropTypes = __webpack_require__(245);
+	var _InternalPropTypes = __webpack_require__(255);
 	
-	var _RouterContext = __webpack_require__(274);
+	var _RouterContext = __webpack_require__(284);
 	
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
-	var _RouterUtils = __webpack_require__(276);
+	var _RouterUtils = __webpack_require__(286);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36757,10 +37839,10 @@
 	
 	exports.default = Router;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 248 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -36771,25 +37853,25 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _Actions = __webpack_require__(250);
+	var _Actions = __webpack_require__(260);
 	
-	var _PathUtils = __webpack_require__(251);
+	var _PathUtils = __webpack_require__(261);
 	
-	var _ExecutionEnvironment = __webpack_require__(252);
+	var _ExecutionEnvironment = __webpack_require__(262);
 	
-	var _DOMUtils = __webpack_require__(253);
+	var _DOMUtils = __webpack_require__(263);
 	
-	var _DOMStateStorage = __webpack_require__(254);
+	var _DOMStateStorage = __webpack_require__(264);
 	
-	var _createDOMHistory = __webpack_require__(255);
+	var _createDOMHistory = __webpack_require__(265);
 	
 	var _createDOMHistory2 = _interopRequireDefault(_createDOMHistory);
 	
@@ -37009,10 +38091,10 @@
 	
 	exports['default'] = createHashHistory;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 249 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -37076,10 +38158,10 @@
 	
 	module.exports = warning;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 250 */
+/* 260 */
 /***/ function(module, exports) {
 
 	/**
@@ -37115,7 +38197,7 @@
 	};
 
 /***/ },
-/* 251 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -37126,7 +38208,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -37165,10 +38247,10 @@
 	    hash: hash
 	  };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 252 */
+/* 262 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37178,7 +38260,7 @@
 	exports.canUseDOM = canUseDOM;
 
 /***/ },
-/* 253 */
+/* 263 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37258,7 +38340,7 @@
 	}
 
 /***/ },
-/* 254 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/*eslint-disable no-empty */
@@ -37270,7 +38352,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -37334,10 +38416,10 @@
 	
 	  return null;
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 255 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -37348,15 +38430,15 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _ExecutionEnvironment = __webpack_require__(252);
+	var _ExecutionEnvironment = __webpack_require__(262);
 	
-	var _DOMUtils = __webpack_require__(253);
+	var _DOMUtils = __webpack_require__(263);
 	
-	var _createHistory = __webpack_require__(256);
+	var _createHistory = __webpack_require__(266);
 	
 	var _createHistory2 = _interopRequireDefault(_createHistory);
 	
@@ -37380,10 +38462,10 @@
 	
 	exports['default'] = createDOMHistory;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 256 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -37394,29 +38476,29 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _deepEqual = __webpack_require__(257);
+	var _deepEqual = __webpack_require__(267);
 	
 	var _deepEqual2 = _interopRequireDefault(_deepEqual);
 	
-	var _PathUtils = __webpack_require__(251);
+	var _PathUtils = __webpack_require__(261);
 	
-	var _AsyncUtils = __webpack_require__(260);
+	var _AsyncUtils = __webpack_require__(270);
 	
-	var _Actions = __webpack_require__(250);
+	var _Actions = __webpack_require__(260);
 	
-	var _createLocation2 = __webpack_require__(261);
+	var _createLocation2 = __webpack_require__(271);
 	
 	var _createLocation3 = _interopRequireDefault(_createLocation2);
 	
-	var _runTransitionHook = __webpack_require__(262);
+	var _runTransitionHook = __webpack_require__(272);
 	
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 	
-	var _deprecate = __webpack_require__(263);
+	var _deprecate = __webpack_require__(273);
 	
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 	
@@ -37674,15 +38756,15 @@
 	
 	exports['default'] = createHistory;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 257 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(258);
-	var isArguments = __webpack_require__(259);
+	var objectKeys = __webpack_require__(268);
+	var isArguments = __webpack_require__(269);
 	
 	var deepEqual = module.exports = function (actual, expected, opts) {
 	  if (!opts) opts = {};
@@ -37777,7 +38859,7 @@
 
 
 /***/ },
-/* 258 */
+/* 268 */
 /***/ function(module, exports) {
 
 	exports = module.exports = typeof Object.keys === 'function'
@@ -37792,7 +38874,7 @@
 
 
 /***/ },
-/* 259 */
+/* 269 */
 /***/ function(module, exports) {
 
 	var supportsArgumentsClass = (function(){
@@ -37818,7 +38900,7 @@
 
 
 /***/ },
-/* 260 */
+/* 270 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -37881,7 +38963,7 @@
 	}
 
 /***/ },
-/* 261 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -37892,13 +38974,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _Actions = __webpack_require__(250);
+	var _Actions = __webpack_require__(260);
 	
-	var _PathUtils = __webpack_require__(251);
+	var _PathUtils = __webpack_require__(261);
 	
 	function createLocation() {
 	  var location = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
@@ -37935,10 +39017,10 @@
 	
 	exports['default'] = createLocation;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 262 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -37947,7 +39029,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -37965,10 +39047,10 @@
 	
 	exports['default'] = runTransitionHook;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 263 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -37977,7 +39059,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -37990,10 +39072,10 @@
 	
 	exports['default'] = deprecate;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 264 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -38004,19 +39086,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _queryString = __webpack_require__(265);
+	var _queryString = __webpack_require__(275);
 	
-	var _runTransitionHook = __webpack_require__(262);
+	var _runTransitionHook = __webpack_require__(272);
 	
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 	
-	var _PathUtils = __webpack_require__(251);
+	var _PathUtils = __webpack_require__(261);
 	
-	var _deprecate = __webpack_require__(263);
+	var _deprecate = __webpack_require__(273);
 	
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 	
@@ -38172,10 +39254,10 @@
 	
 	exports['default'] = useQueries;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 265 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38247,7 +39329,7 @@
 
 
 /***/ },
-/* 266 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -38258,25 +39340,25 @@
 	
 	exports.default = createTransitionManager;
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _computeChangedRoutes2 = __webpack_require__(267);
+	var _computeChangedRoutes2 = __webpack_require__(277);
 	
 	var _computeChangedRoutes3 = _interopRequireDefault(_computeChangedRoutes2);
 	
-	var _TransitionUtils = __webpack_require__(268);
+	var _TransitionUtils = __webpack_require__(278);
 	
-	var _isActive2 = __webpack_require__(270);
+	var _isActive2 = __webpack_require__(280);
 	
 	var _isActive3 = _interopRequireDefault(_isActive2);
 	
-	var _getComponents = __webpack_require__(271);
+	var _getComponents = __webpack_require__(281);
 	
 	var _getComponents2 = _interopRequireDefault(_getComponents);
 	
-	var _matchRoutes = __webpack_require__(273);
+	var _matchRoutes = __webpack_require__(283);
 	
 	var _matchRoutes2 = _interopRequireDefault(_matchRoutes);
 	
@@ -38552,17 +39634,17 @@
 	//export default useRoutes
 	
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 267 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _PatternUtils = __webpack_require__(246);
+	var _PatternUtils = __webpack_require__(256);
 	
 	function routeParamsChanged(route, prevState, nextState) {
 	  if (!route.path) return false;
@@ -38637,7 +39719,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 268 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -38647,9 +39729,9 @@
 	exports.runChangeHooks = runChangeHooks;
 	exports.runLeaveHooks = runLeaveHooks;
 	
-	var _AsyncUtils = __webpack_require__(269);
+	var _AsyncUtils = __webpack_require__(279);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -38762,10 +39844,10 @@
 	    if (routes[i].onLeave) routes[i].onLeave.call(routes[i], prevState);
 	  }
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 269 */
+/* 279 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -38858,7 +39940,7 @@
 	}
 
 /***/ },
-/* 270 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38869,7 +39951,7 @@
 	
 	exports.default = isActive;
 	
-	var _PatternUtils = __webpack_require__(246);
+	var _PatternUtils = __webpack_require__(256);
 	
 	function deepEqual(a, b) {
 	  if (a == b) return true;
@@ -39015,16 +40097,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 271 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _AsyncUtils = __webpack_require__(269);
+	var _AsyncUtils = __webpack_require__(279);
 	
-	var _makeStateWithLocation = __webpack_require__(272);
+	var _makeStateWithLocation = __webpack_require__(282);
 	
 	var _makeStateWithLocation2 = _interopRequireDefault(_makeStateWithLocation);
 	
@@ -39066,7 +40148,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 272 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -39077,9 +40159,9 @@
 	
 	exports.default = makeStateWithLocation;
 	
-	var _deprecateObjectProperties = __webpack_require__(242);
+	var _deprecateObjectProperties = __webpack_require__(252);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -39118,10 +40200,10 @@
 	  return _extends({}, state, location);
 	}
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 273 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -39134,19 +40216,19 @@
 	
 	exports.default = matchRoutes;
 	
-	var _AsyncUtils = __webpack_require__(269);
+	var _AsyncUtils = __webpack_require__(279);
 	
-	var _makeStateWithLocation = __webpack_require__(272);
+	var _makeStateWithLocation = __webpack_require__(282);
 	
 	var _makeStateWithLocation2 = _interopRequireDefault(_makeStateWithLocation);
 	
-	var _PatternUtils = __webpack_require__(246);
+	var _PatternUtils = __webpack_require__(256);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39375,10 +40457,10 @@
 	  }, callback);
 	}
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 274 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -39389,25 +40471,25 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _deprecateObjectProperties = __webpack_require__(242);
+	var _deprecateObjectProperties = __webpack_require__(252);
 	
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 	
-	var _getRouteParams = __webpack_require__(275);
+	var _getRouteParams = __webpack_require__(285);
 	
 	var _getRouteParams2 = _interopRequireDefault(_getRouteParams);
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -39537,17 +40619,17 @@
 	
 	exports.default = RouterContext;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 275 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _PatternUtils = __webpack_require__(246);
+	var _PatternUtils = __webpack_require__(256);
 	
 	/**
 	 * Extracts an object of params the given route cares about from
@@ -39571,7 +40653,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 276 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -39583,7 +40665,7 @@
 	exports.createRouterObject = createRouterObject;
 	exports.createRoutingHistory = createRoutingHistory;
 	
-	var _deprecateObjectProperties = __webpack_require__(242);
+	var _deprecateObjectProperties = __webpack_require__(252);
 	
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 	
@@ -39606,10 +40688,10 @@
 	
 	  return history;
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 277 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -39618,19 +40700,19 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _PropTypes = __webpack_require__(241);
+	var _PropTypes = __webpack_require__(251);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39788,10 +40870,10 @@
 	
 	exports.default = Link;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 278 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39800,11 +40882,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Link = __webpack_require__(277);
+	var _Link = __webpack_require__(287);
 	
 	var _Link2 = _interopRequireDefault(_Link);
 	
@@ -39824,7 +40906,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 279 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -39835,19 +40917,19 @@
 	
 	exports.default = withRouter;
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _hoistNonReactStatics = __webpack_require__(92);
+	var _hoistNonReactStatics = __webpack_require__(93);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _PropTypes = __webpack_require__(241);
+	var _PropTypes = __webpack_require__(251);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39891,33 +40973,33 @@
 	  return (0, _hoistNonReactStatics2.default)(WithRouter, WrappedComponent);
 	}
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 280 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _Redirect = __webpack_require__(281);
+	var _Redirect = __webpack_require__(291);
 	
 	var _Redirect2 = _interopRequireDefault(_Redirect);
 	
-	var _InternalPropTypes = __webpack_require__(245);
+	var _InternalPropTypes = __webpack_require__(255);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39960,29 +41042,29 @@
 	
 	exports.default = IndexRedirect;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 281 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
-	var _PatternUtils = __webpack_require__(246);
+	var _PatternUtils = __webpack_require__(256);
 	
-	var _InternalPropTypes = __webpack_require__(245);
+	var _InternalPropTypes = __webpack_require__(255);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40068,31 +41150,31 @@
 	
 	exports.default = Redirect;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 282 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
-	var _InternalPropTypes = __webpack_require__(245);
+	var _InternalPropTypes = __webpack_require__(255);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40134,27 +41216,27 @@
 	
 	exports.default = IndexRoute;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 283 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
-	var _InternalPropTypes = __webpack_require__(245);
+	var _InternalPropTypes = __webpack_require__(255);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40197,21 +41279,21 @@
 	
 	exports.default = Route;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 284 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _InternalPropTypes = __webpack_require__(245);
+	var _InternalPropTypes = __webpack_require__(255);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40232,25 +41314,25 @@
 	
 	exports.default = History;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 285 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -40306,21 +41388,21 @@
 	
 	exports.default = Lifecycle;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 286 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -40357,10 +41439,10 @@
 	
 	exports.default = RouteContext;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 287 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -40369,15 +41451,15 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _useQueries = __webpack_require__(264);
+	var _useQueries = __webpack_require__(274);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
-	var _createTransitionManager = __webpack_require__(266);
+	var _createTransitionManager = __webpack_require__(276);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -40414,25 +41496,25 @@
 	
 	exports.default = useRoutes;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 288 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _RouterContext = __webpack_require__(274);
+	var _RouterContext = __webpack_require__(284);
 	
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -40450,10 +41532,10 @@
 	
 	exports.default = RoutingContext;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 289 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -40462,23 +41544,23 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _Actions = __webpack_require__(250);
+	var _Actions = __webpack_require__(260);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _createMemoryHistory = __webpack_require__(290);
+	var _createMemoryHistory = __webpack_require__(300);
 	
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 	
-	var _createTransitionManager = __webpack_require__(266);
+	var _createTransitionManager = __webpack_require__(276);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _RouteUtils = __webpack_require__(240);
+	var _RouteUtils = __webpack_require__(250);
 	
-	var _RouterUtils = __webpack_require__(276);
+	var _RouterUtils = __webpack_require__(286);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40539,10 +41621,10 @@
 	
 	exports.default = match;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 290 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40550,15 +41632,15 @@
 	exports.__esModule = true;
 	exports.default = createMemoryHistory;
 	
-	var _useQueries = __webpack_require__(264);
+	var _useQueries = __webpack_require__(274);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
-	var _useBasename = __webpack_require__(291);
+	var _useBasename = __webpack_require__(301);
 	
 	var _useBasename2 = _interopRequireDefault(_useBasename);
 	
-	var _createMemoryHistory = __webpack_require__(292);
+	var _createMemoryHistory = __webpack_require__(302);
 	
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 	
@@ -40579,7 +41661,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 291 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -40590,19 +41672,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _ExecutionEnvironment = __webpack_require__(252);
+	var _ExecutionEnvironment = __webpack_require__(262);
 	
-	var _PathUtils = __webpack_require__(251);
+	var _PathUtils = __webpack_require__(261);
 	
-	var _runTransitionHook = __webpack_require__(262);
+	var _runTransitionHook = __webpack_require__(272);
 	
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 	
-	var _deprecate = __webpack_require__(263);
+	var _deprecate = __webpack_require__(273);
 	
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 	
@@ -40740,10 +41822,10 @@
 	
 	exports['default'] = useBasename;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 292 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -40754,19 +41836,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(249);
+	var _warning = __webpack_require__(259);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _PathUtils = __webpack_require__(251);
+	var _PathUtils = __webpack_require__(261);
 	
-	var _Actions = __webpack_require__(250);
+	var _Actions = __webpack_require__(260);
 	
-	var _createHistory = __webpack_require__(256);
+	var _createHistory = __webpack_require__(266);
 	
 	var _createHistory2 = _interopRequireDefault(_createHistory);
 	
@@ -40900,10 +41982,10 @@
 	
 	exports['default'] = createMemoryHistory;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 293 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40911,11 +41993,11 @@
 	exports.__esModule = true;
 	exports.default = useRouterHistory;
 	
-	var _useQueries = __webpack_require__(264);
+	var _useQueries = __webpack_require__(274);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
-	var _useBasename = __webpack_require__(291);
+	var _useBasename = __webpack_require__(301);
 	
 	var _useBasename2 = _interopRequireDefault(_useBasename);
 	
@@ -40931,7 +42013,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 294 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -40940,15 +42022,15 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _RouterContext = __webpack_require__(274);
+	var _RouterContext = __webpack_require__(284);
 	
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 	
-	var _routerWarning = __webpack_require__(243);
+	var _routerWarning = __webpack_require__(253);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -40991,21 +42073,21 @@
 	};
 	
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 295 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _createBrowserHistory = __webpack_require__(296);
+	var _createBrowserHistory = __webpack_require__(306);
 	
 	var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 	
-	var _createRouterHistory = __webpack_require__(297);
+	var _createRouterHistory = __webpack_require__(307);
 	
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 	
@@ -41015,7 +42097,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 296 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41026,21 +42108,21 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _invariant = __webpack_require__(93);
+	var _invariant = __webpack_require__(94);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _Actions = __webpack_require__(250);
+	var _Actions = __webpack_require__(260);
 	
-	var _PathUtils = __webpack_require__(251);
+	var _PathUtils = __webpack_require__(261);
 	
-	var _ExecutionEnvironment = __webpack_require__(252);
+	var _ExecutionEnvironment = __webpack_require__(262);
 	
-	var _DOMUtils = __webpack_require__(253);
+	var _DOMUtils = __webpack_require__(263);
 	
-	var _DOMStateStorage = __webpack_require__(254);
+	var _DOMStateStorage = __webpack_require__(264);
 	
-	var _createDOMHistory = __webpack_require__(255);
+	var _createDOMHistory = __webpack_require__(265);
 	
 	var _createDOMHistory2 = _interopRequireDefault(_createDOMHistory);
 	
@@ -41198,10 +42280,10 @@
 	
 	exports['default'] = createBrowserHistory;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 297 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41214,7 +42296,7 @@
 	  return history;
 	};
 	
-	var _useRouterHistory = __webpack_require__(293);
+	var _useRouterHistory = __webpack_require__(303);
 	
 	var _useRouterHistory2 = _interopRequireDefault(_useRouterHistory);
 	
@@ -41225,18 +42307,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 298 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _createHashHistory = __webpack_require__(248);
+	var _createHashHistory = __webpack_require__(258);
 	
 	var _createHashHistory2 = _interopRequireDefault(_createHashHistory);
 	
-	var _createRouterHistory = __webpack_require__(297);
+	var _createRouterHistory = __webpack_require__(307);
 	
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 	
@@ -41246,7 +42328,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 299 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41257,7 +42339,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -41319,7 +42401,7 @@
 	exports.default = LoggingIn;
 
 /***/ },
-/* 300 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41330,7 +42412,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -41392,7 +42474,7 @@
 	exports.default = LoginFailed;
 
 /***/ },
-/* 301 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41403,7 +42485,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -41511,7 +42593,7 @@
 	exports.default = Logout;
 
 /***/ },
-/* 302 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41522,7 +42604,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -41588,7 +42670,7 @@
 	exports.default = Opener;
 
 /***/ },
-/* 303 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41599,7 +42681,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -41670,7 +42752,7 @@
 	exports.default = Password;
 
 /***/ },
-/* 304 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41681,37 +42763,17 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _actions = __webpack_require__(4);
-	
-	var _actions2 = _interopRequireDefault(_actions);
-	
-	var _redux = __webpack_require__(39);
-	
-	var _Clear = __webpack_require__(305);
-	
-	var _Clear2 = _interopRequireDefault(_Clear);
-	
-	var _reactRedux = __webpack_require__(54);
-	
 	var _reactDraggable = __webpack_require__(98);
 	
 	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
 	
-	var _OpenerCloser = __webpack_require__(306);
-	
-	var _OpenerCloser2 = _interopRequireDefault(_OpenerCloser);
-	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactDom = __webpack_require__(99);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _Vocabularies = __webpack_require__(307);
-	
-	var _Vocabularies2 = _interopRequireDefault(_Vocabularies);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -41720,12 +42782,12 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2017 Mark P. Lindsay
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
@@ -41735,35 +42797,43 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
-	var Filter = function (_React$Component) {
-	  _inherits(Filter, _React$Component);
+	var Control = function (_React$Component) {
+	  _inherits(Control, _React$Component);
 	
-	  function Filter() {
-	    _classCallCheck(this, Filter);
+	  function Control() {
+	    _classCallCheck(this, Control);
 	
-	    var _this = _possibleConstructorReturn(this, (Filter.__proto__ || Object.getPrototypeOf(Filter)).call(this));
+	    var _this = _possibleConstructorReturn(this, (Control.__proto__ || Object.getPrototypeOf(Control)).call(this));
 	
 	    _this.state = {
 	      height: 0,
-	      isVisible: false,
 	      width: 0
 	    };
-	    _this._handleOpenClose = _this._handleOpenClose.bind(_this);
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this._handleDragStart = _this._handleDragStart.bind(_this);
 	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
-	    _this.componentWillMount = _this.componentWillMount.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(Filter, [{
-	    key: '_handleOpenClose',
-	    value: function _handleOpenClose() {
-	      this.setState({
-	        isVisible: !this.state.isVisible
-	      });
+	  _createClass(Control, [{
+	    key: '_handleClick',
+	    value: function _handleClick(event) {
+	      event.preventDefault();
+	      if (!this.props.isShowingMetadata) {
+	        this.props.showMetadata();
+	      } else {
+	        this.props.hideMetadata();
+	      }
+	    }
+	  }, {
+	    key: '_handleDragStart',
+	    value: function _handleDragStart(event) {
+	      event.preventDefault();
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -41777,11 +42847,6 @@
 	      }
 	    }
 	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.listenToVocabularies();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
@@ -41793,721 +42858,35 @@
 	        bottom: this.props.windowHeight - this.state.height,
 	        left: 0
 	      };
-	      var defaultPosition = { x: 40, y: this.props.windowHeight * 0.5 };
+	      var defaultPosition = { x: 40, y: this.props.windowHeight * 0.10 };
+	      var className = 'metadata-control app-control';
+	      var img = _react2.default.createElement('img', { src: '/static/haumea.png', alt: 'Metadata' });
+	      if (!this.props.uploads.isEmpty()) {
+	        className += ' is-uploading';
+	        img = _react2.default.createElement('img', { src: '/static/haumea_uploading.gif', alt: 'Uploading...' });
+	      }
 	      return _react2.default.createElement(
 	        _reactDraggable2.default,
 	        { bounds: bounds, defaultPosition: defaultPosition },
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'filter' },
-	          _react2.default.createElement(_OpenerCloser2.default, { isVisible: this.state.isVisible,
-	            onOpenClose: this._handleOpenClose }),
-	          _react2.default.createElement(_Vocabularies2.default, { isVisible: this.state.isVisible,
-	            toggleAppliedFilter: this.props.toggleAppliedFilter,
-	            toggleVocabulary: this.props.toggleVocabulary,
-	            vocabularies: this.props.vocabularies }),
-	          _react2.default.createElement(_Clear2.default, { appliedFilters: this.props.appliedFilters,
-	            clearAppliedFilters: this.props.clearAppliedFilters,
-	            isVisible: this.state.isVisible })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Filter;
-	}(_react2.default.Component);
-	
-	function mapStateToProps(state) {
-	  return {
-	    appliedFilters: state.getIn(['filter', 'appliedFilters']),
-	    vocabularies: state.getIn(['filter', 'vocabularies']),
-	    windowHeight: state.getIn(['page', 'height']),
-	    windowWidth: state.getIn(['page', 'width'])
-	  };
-	}
-	
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    clearAppliedFilters: (0, _redux.bindActionCreators)(_actions2.default.clearAppliedFilters, dispatch),
-	    listenToVocabularies: (0, _redux.bindActionCreators)(_actions2.default.listenToVocabularies, dispatch),
-	    toggleAppliedFilter: (0, _redux.bindActionCreators)(_actions2.default.toggleAppliedFilter, dispatch),
-	    toggleVocabulary: (0, _redux.bindActionCreators)(_actions2.default.toggleVocabulary, dispatch)
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Filter);
-
-/***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(56);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var Clear = function (_React$Component) {
-	  _inherits(Clear, _React$Component);
-	
-	  function Clear() {
-	    _classCallCheck(this, Clear);
-	
-	    var _this = _possibleConstructorReturn(this, (Clear.__proto__ || Object.getPrototypeOf(Clear)).call(this));
-	
-	    _this._handleClick = _this._handleClick.bind(_this);
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Clear, [{
-	    key: '_handleClick',
-	    value: function _handleClick(event) {
-	      event.preventDefault();
-	      this.props.clearAppliedFilters();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (!this.props.isVisible || this.props.appliedFilters.isEmpty()) {
-	        return null;
-	      }
-	      return _react2.default.createElement(
-	        'a',
-	        { className: 'clear', href: '#', onClick: this._handleClick },
-	        'Clear'
-	      );
-	    }
-	  }]);
-	
-	  return Clear;
-	}(_react2.default.Component);
-	
-	exports.default = Clear;
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(56);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var OpenerCloser = function (_React$Component) {
-	  _inherits(OpenerCloser, _React$Component);
-	
-	  function OpenerCloser() {
-	    _classCallCheck(this, OpenerCloser);
-	
-	    var _this = _possibleConstructorReturn(this, (OpenerCloser.__proto__ || Object.getPrototypeOf(OpenerCloser)).call(this));
-	
-	    _this._handleClick = _this._handleClick.bind(_this);
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(OpenerCloser, [{
-	    key: '_handleClick',
-	    value: function _handleClick(event) {
-	      event.preventDefault();
-	      this.props.onOpenClose();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'a',
-	        { className: 'opener-closer', href: '#', onClick: this._handleClick },
-	        '\\>_',
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'blinker' },
-	          '▌'
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return OpenerCloser;
-	}(_react2.default.Component);
-	
-	exports.default = OpenerCloser;
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(56);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Vocabulary = __webpack_require__(308);
-	
-	var _Vocabulary2 = _interopRequireDefault(_Vocabulary);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var Vocabularies = function (_React$Component) {
-	  _inherits(Vocabularies, _React$Component);
-	
-	  function Vocabularies() {
-	    _classCallCheck(this, Vocabularies);
-	
-	    var _this = _possibleConstructorReturn(this, (Vocabularies.__proto__ || Object.getPrototypeOf(Vocabularies)).call(this));
-	
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Vocabularies, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      if (!this.props.isVisible) {
-	        return null;
-	      }
-	      var vocabularies = this.props.vocabularies.map(function (v) {
-	        return _react2.default.createElement(_Vocabulary2.default, { key: v.get('name'),
-	          toggleAppliedFilter: _this2.props.toggleAppliedFilter,
-	          toggleVocabulary: _this2.props.toggleVocabulary,
-	          vocabulary: v });
-	      }).toArray();
-	      return _react2.default.createElement(
-	        'ul',
-	        { className: 'vocabularies' },
-	        vocabularies
-	      );
-	    }
-	  }]);
-	
-	  return Vocabularies;
-	}(_react2.default.Component);
-	
-	exports.default = Vocabularies;
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _Prompt = __webpack_require__(309);
-	
-	var _Prompt2 = _interopRequireDefault(_Prompt);
-	
-	var _react = __webpack_require__(56);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Terms = __webpack_require__(310);
-	
-	var _Terms2 = _interopRequireDefault(_Terms);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var Vocabulary = function (_React$Component) {
-	  _inherits(Vocabulary, _React$Component);
-	
-	  function Vocabulary() {
-	    _classCallCheck(this, Vocabulary);
-	
-	    var _this = _possibleConstructorReturn(this, (Vocabulary.__proto__ || Object.getPrototypeOf(Vocabulary)).call(this));
-	
-	    _this._handleClick = _this._handleClick.bind(_this);
-	    _this._handleDragStart = _this._handleDragStart.bind(_this);
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Vocabulary, [{
-	    key: '_handleClick',
-	    value: function _handleClick(event) {
-	      event.preventDefault();
-	      event.stopPropagation();
-	      this.props.toggleVocabulary(this.props.vocabulary.get('name'));
-	    }
-	  }, {
-	    key: '_handleDragStart',
-	    value: function _handleDragStart(event) {
-	      event.preventDefault();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'li',
-	        { className: 'vocabulary ' + this.props.vocabulary.get('name').toLowerCase() },
-	        _react2.default.createElement(
 	          'a',
-	          { href: '#',
+	          { className: className,
+	            href: '#',
 	            onClick: this._handleClick,
 	            onDragStart: this._handleDragStart },
-	          this.props.vocabulary.get('name'),
-	          _react2.default.createElement(_Prompt2.default, { isOpen: this.props.vocabulary.get('isOpen') })
-	        ),
-	        _react2.default.createElement(_Terms2.default, { applied: this.props.vocabulary.get('applied'),
-	          isOpen: this.props.vocabulary.get('isOpen'),
-	          slug: this.props.vocabulary.get('slug'),
-	          terms: this.props.vocabulary.get('terms'),
-	          toggleAppliedFilter: this.props.toggleAppliedFilter })
-	      );
-	    }
-	  }]);
-	
-	  return Vocabulary;
-	}(_react2.default.Component);
-	
-	exports.default = Vocabulary;
-
-/***/ },
-/* 309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(56);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var Prompt = function (_React$Component) {
-	  _inherits(Prompt, _React$Component);
-	
-	  function Prompt() {
-	    _classCallCheck(this, Prompt);
-	
-	    var _this = _possibleConstructorReturn(this, (Prompt.__proto__ || Object.getPrototypeOf(Prompt)).call(this));
-	
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Prompt, [{
-	    key: 'render',
-	    value: function render() {
-	      if (!this.props.isOpen) {
-	        return null;
-	      }
-	      return _react2.default.createElement(
-	        'span',
-	        { className: 'prompt' },
-	        ':\\>'
-	      );
-	    }
-	  }]);
-	
-	  return Prompt;
-	}(_react2.default.Component);
-	
-	exports.default = Prompt;
-
-/***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(56);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Term = __webpack_require__(311);
-	
-	var _Term2 = _interopRequireDefault(_Term);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var Terms = function (_React$Component) {
-	  _inherits(Terms, _React$Component);
-	
-	  function Terms() {
-	    _classCallCheck(this, Terms);
-	
-	    var _this = _possibleConstructorReturn(this, (Terms.__proto__ || Object.getPrototypeOf(Terms)).call(this));
-	
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Terms, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      if (!this.props.isOpen) {
-	        return null;
-	      }
-	      var terms = this.props.terms.map(function (t) {
-	        if (_this2.props.applied.includes(t)) {
-	          return _react2.default.createElement(_Term2.default, { isApplied: true,
-	            key: t,
-	            name: t,
-	            slug: _this2.props.slug,
-	            toggleAppliedFilter: _this2.props.toggleAppliedFilter });
-	        }
-	        return _react2.default.createElement(_Term2.default, { isApplied: false,
-	          key: t,
-	          name: t,
-	          slug: _this2.props.slug,
-	          toggleAppliedFilter: _this2.props.toggleAppliedFilter });
-	      }).toArray();
-	      return _react2.default.createElement(
-	        'ul',
-	        { className: 'terms' },
-	        terms
-	      );
-	    }
-	  }]);
-	
-	  return Terms;
-	}(_react2.default.Component);
-	
-	exports.default = Terms;
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(56);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var Term = function (_React$Component) {
-	  _inherits(Term, _React$Component);
-	
-	  function Term() {
-	    _classCallCheck(this, Term);
-	
-	    var _this = _possibleConstructorReturn(this, (Term.__proto__ || Object.getPrototypeOf(Term)).call(this));
-	
-	    _this.state = {
-	      randomColor: '#' + Math.random().toString(16).slice(2, 8).toUpperCase()
-	    };
-	    _this._getClassName = _this._getClassName.bind(_this);
-	    _this._handleClick = _this._handleClick.bind(_this);
-	    _this._handleDragStart = _this._handleDragStart.bind(_this);
-	    _this._handleMouseOut = _this._handleMouseOut.bind(_this);
-	    _this._handleMouseOver = _this._handleMouseOver.bind(_this);
-	    _this._highlight = _this._highlight.bind(_this);
-	    _this._unHighlight = _this._unHighlight.bind(_this);
-	    _this.componentWillMount = _this.componentWillMount.bind(_this);
-	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Term, [{
-	    key: '_getClassName',
-	    value: function _getClassName() {
-	      var className = 'term';
-	      if (this.props.isApplied) {
-	        className += ' is-applied';
-	      }
-	      return className;
-	    }
-	  }, {
-	    key: '_handleClick',
-	    value: function _handleClick(event) {
-	      event.preventDefault();
-	      this.props.toggleAppliedFilter(this.props.slug, this.props.name);
-	    }
-	  }, {
-	    key: '_handleDragStart',
-	    value: function _handleDragStart(event) {
-	      event.preventDefault();
-	    }
-	  }, {
-	    key: '_handleMouseOut',
-	    value: function _handleMouseOut(event) {
-	      if (!this.props.isApplied) {
-	        this._unHighlight();
-	      }
-	    }
-	  }, {
-	    key: '_handleMouseOver',
-	    value: function _handleMouseOver(event) {
-	      this._highlight();
-	    }
-	  }, {
-	    key: '_highlight',
-	    value: function _highlight() {
-	      this.setState({
-	        style: {
-	          color: this.state.randomColor
-	        }
-	      });
-	    }
-	  }, {
-	    key: '_unHighlight',
-	    value: function _unHighlight() {
-	      this.setState({
-	        style: {
-	          color: 'white'
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      if (this.props.isApplied) {
-	        this._highlight();
-	      } else {
-	        this._unHighlight();
-	      }
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps.isApplied) {
-	        this._highlight();
-	      } else {
-	        this._unHighlight();
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'li',
-	        { className: this._getClassName() },
-	        _react2.default.createElement(
-	          'a',
-	          { href: '#',
-	            onClick: this._handleClick,
-	            onDragStart: this._handleDragStart,
-	            onMouseOut: this._handleMouseOut,
-	            onMouseOver: this._handleMouseOver,
-	            style: this.state.style },
-	          this.props.name
+	          img
 	        )
 	      );
 	    }
 	  }]);
 	
-	  return Term;
+	  return Control;
 	}(_react2.default.Component);
 	
-	exports.default = Term;
+	exports.default = Control;
 
 /***/ },
-/* 312 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42522,11 +42901,11 @@
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _redux = __webpack_require__(39);
+	var _redux = __webpack_require__(40);
 	
-	var _reactRedux = __webpack_require__(54);
+	var _reactRedux = __webpack_require__(55);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -42628,7 +43007,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Uploads);
 
 /***/ },
-/* 313 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42643,31 +43022,31 @@
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _redux = __webpack_require__(39);
+	var _redux = __webpack_require__(40);
 	
-	var _reactRedux = __webpack_require__(54);
+	var _reactRedux = __webpack_require__(55);
 	
-	var _getHalfway = __webpack_require__(314);
+	var _getHalfway = __webpack_require__(317);
 	
 	var _getHalfway2 = _interopRequireDefault(_getHalfway);
 	
-	var _getLeftEdgeOfViewport = __webpack_require__(315);
+	var _getLeftEdgeOfViewport = __webpack_require__(318);
 	
 	var _getLeftEdgeOfViewport2 = _interopRequireDefault(_getLeftEdgeOfViewport);
 	
-	var _getPaddingLeft = __webpack_require__(95);
+	var _getPaddingLeft = __webpack_require__(243);
 	
 	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
 	
-	var _getPaddingRight = __webpack_require__(316);
+	var _getPaddingRight = __webpack_require__(319);
 	
 	var _getPaddingRight2 = _interopRequireDefault(_getPaddingRight);
 	
-	var _getRightEdgeOfViewport = __webpack_require__(317);
+	var _getRightEdgeOfViewport = __webpack_require__(320);
 	
 	var _getRightEdgeOfViewport2 = _interopRequireDefault(_getRightEdgeOfViewport);
 	
-	var _getScrollDestination = __webpack_require__(318);
+	var _getScrollDestination = __webpack_require__(321);
 	
 	var _getScrollDestination2 = _interopRequireDefault(_getScrollDestination);
 	
@@ -42675,15 +43054,15 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TextItem = __webpack_require__(319);
+	var _TextItem = __webpack_require__(322);
 	
 	var _TextItem2 = _interopRequireDefault(_TextItem);
 	
-	var _VideoItem = __webpack_require__(478);
+	var _VideoItem = __webpack_require__(481);
 	
 	var _VideoItem2 = _interopRequireDefault(_VideoItem);
 	
@@ -42694,12 +43073,12 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2017 Mark P. Lindsay
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
@@ -42709,7 +43088,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var FilterPage = function (_React$Component) {
@@ -42782,7 +43162,14 @@
 	    value: function render() {
 	      var _this2 = this;
 	
-	      var filteredItems = this.props.filteredItems.map(function (filteredItem, key) {
+	      var filteredItems = this.props.filteredItems.filter(function (item) {
+	        // If there's a linking mode source item, omit it from the items displayed
+	        // on the page.
+	        if (_this2.props.linkSourceItem === null) {
+	          return true;
+	        }
+	        return _this2.props.linkSourceItem.get('id') !== item.get('id');
+	      }).map(function (filteredItem, key) {
 	        switch (filteredItem.get('type')) {
 	          case 'text':
 	            return _react2.default.createElement(_TextItem2.default, { baseUrl: _this2.props.baseUrl,
@@ -42790,7 +43177,6 @@
 	              featuredItemId: _this2.props.featuredItemId,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
-	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: filteredItem,
 	              itemClicked: _this2.props.itemClicked,
@@ -42807,7 +43193,6 @@
 	              height: _this2.props.height,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
-	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: filteredItem,
 	              itemClicked: _this2.props.itemClicked,
@@ -42841,10 +43226,10 @@
 	    baseUrl: state.getIn(['page', 'baseUrl']),
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
-	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    filteredItems: state.getIn(['filter', 'filteredItems']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
+	    linkSourceItem: state.getIn(['link', 'source', 'item']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    paddingRight: (0, _getPaddingRight2.default)(state),
 	    pageId: state.getIn(['page', 'pageId']),
@@ -42872,7 +43257,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FilterPage);
 
 /***/ },
-/* 314 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42881,7 +43266,7 @@
 	  value: true
 	});
 	
-	var _reselect = __webpack_require__(96);
+	var _reselect = __webpack_require__(244);
 	
 	exports.default = (0, _reselect.createSelector)(function (state) {
 	  return state.getIn(['page', 'width']);
@@ -42909,7 +43294,7 @@
 	     */
 
 /***/ },
-/* 315 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42918,7 +43303,7 @@
 	  value: true
 	});
 	
-	var _reselect = __webpack_require__(96);
+	var _reselect = __webpack_require__(244);
 	
 	exports.default = (0, _reselect.createSelector)(function (state) {
 	  return state.getIn(['page', 'scrollLeft']);
@@ -42946,7 +43331,7 @@
 	     */
 
 /***/ },
-/* 316 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42955,7 +43340,7 @@
 	  value: true
 	});
 	
-	var _reselect = __webpack_require__(96);
+	var _reselect = __webpack_require__(244);
 	
 	exports.default = (0, _reselect.createSelector)(function (state) {
 	  return state.getIn(['filter', 'isInFilterMode']);
@@ -42998,7 +43383,7 @@
 	     */
 
 /***/ },
-/* 317 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43007,7 +43392,7 @@
 	  value: true
 	});
 	
-	var _reselect = __webpack_require__(96);
+	var _reselect = __webpack_require__(244);
 	
 	exports.default = (0, _reselect.createSelector)(function (state) {
 	  return state.getIn(['page', 'scrollLeft']);
@@ -43035,7 +43420,7 @@
 	     */
 
 /***/ },
-/* 318 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43044,9 +43429,9 @@
 	  value: true
 	});
 	
-	var _reselect = __webpack_require__(96);
+	var _reselect = __webpack_require__(244);
 	
-	var _getPaddingLeft = __webpack_require__(95);
+	var _getPaddingLeft = __webpack_require__(243);
 	
 	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
 	
@@ -43102,7 +43487,7 @@
 	});
 
 /***/ },
-/* 319 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43117,21 +43502,21 @@
 	
 	var _reactDraggable = __webpack_require__(98);
 	
-	var _draftJs = __webpack_require__(320);
+	var _draftJs = __webpack_require__(323);
 	
-	var _reactRouter = __webpack_require__(239);
+	var _reactRouter = __webpack_require__(249);
 	
-	var _Metadata = __webpack_require__(446);
+	var _Metadata = __webpack_require__(449);
 	
 	var _Metadata2 = _interopRequireDefault(_Metadata);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactResizable = __webpack_require__(463);
+	var _reactResizable = __webpack_require__(466);
 	
-	var _draftJsExportHtml = __webpack_require__(467);
+	var _draftJsExportHtml = __webpack_require__(470);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -43471,7 +43856,7 @@
 	}
 
 /***/ },
-/* 320 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43487,30 +43872,30 @@
 	
 	'use strict';
 	
-	var AtomicBlockUtils = __webpack_require__(321);
-	var BlockMapBuilder = __webpack_require__(322);
-	var CharacterMetadata = __webpack_require__(323);
-	var CompositeDraftDecorator = __webpack_require__(354);
-	var ContentBlock = __webpack_require__(324);
-	var ContentState = __webpack_require__(346);
-	var DefaultDraftBlockRenderMap = __webpack_require__(355);
-	var DefaultDraftInlineStyle = __webpack_require__(357);
-	var DraftEditor = __webpack_require__(358);
-	var DraftEditorBlock = __webpack_require__(364);
-	var DraftModifier = __webpack_require__(326);
-	var DraftEntity = __webpack_require__(331);
-	var DraftEntityInstance = __webpack_require__(332);
-	var EditorState = __webpack_require__(344);
-	var KeyBindingUtil = __webpack_require__(403);
-	var RichTextEditorUtil = __webpack_require__(434);
-	var SelectionState = __webpack_require__(347);
+	var AtomicBlockUtils = __webpack_require__(324);
+	var BlockMapBuilder = __webpack_require__(325);
+	var CharacterMetadata = __webpack_require__(326);
+	var CompositeDraftDecorator = __webpack_require__(357);
+	var ContentBlock = __webpack_require__(327);
+	var ContentState = __webpack_require__(349);
+	var DefaultDraftBlockRenderMap = __webpack_require__(358);
+	var DefaultDraftInlineStyle = __webpack_require__(360);
+	var DraftEditor = __webpack_require__(361);
+	var DraftEditorBlock = __webpack_require__(367);
+	var DraftModifier = __webpack_require__(329);
+	var DraftEntity = __webpack_require__(334);
+	var DraftEntityInstance = __webpack_require__(335);
+	var EditorState = __webpack_require__(347);
+	var KeyBindingUtil = __webpack_require__(406);
+	var RichTextEditorUtil = __webpack_require__(437);
+	var SelectionState = __webpack_require__(350);
 	
-	var convertFromDraftStateToRaw = __webpack_require__(436);
-	var convertFromHTMLToContentBlocks = __webpack_require__(426);
-	var convertFromRawToDraftState = __webpack_require__(440);
-	var generateRandomKey = __webpack_require__(336);
-	var getDefaultKeyBinding = __webpack_require__(433);
-	var getVisibleSelectionRect = __webpack_require__(444);
+	var convertFromDraftStateToRaw = __webpack_require__(439);
+	var convertFromHTMLToContentBlocks = __webpack_require__(429);
+	var convertFromRawToDraftState = __webpack_require__(443);
+	var generateRandomKey = __webpack_require__(339);
+	var getDefaultKeyBinding = __webpack_require__(436);
+	var getVisibleSelectionRect = __webpack_require__(447);
 	
 	var DraftPublic = {
 	  Editor: DraftEditor,
@@ -43546,7 +43931,7 @@
 	module.exports = DraftPublic;
 
 /***/ },
-/* 321 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43564,14 +43949,14 @@
 	
 	'use strict';
 	
-	var BlockMapBuilder = __webpack_require__(322);
-	var CharacterMetadata = __webpack_require__(323);
-	var ContentBlock = __webpack_require__(324);
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
+	var BlockMapBuilder = __webpack_require__(325);
+	var CharacterMetadata = __webpack_require__(326);
+	var ContentBlock = __webpack_require__(327);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
 	var Immutable = __webpack_require__(13);
 	
-	var generateRandomKey = __webpack_require__(336);
+	var generateRandomKey = __webpack_require__(339);
 	
 	var List = Immutable.List;
 	var Repeat = Immutable.Repeat;
@@ -43619,7 +44004,7 @@
 	module.exports = AtomicBlockUtils;
 
 /***/ },
-/* 322 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43651,7 +44036,7 @@
 	module.exports = BlockMapBuilder;
 
 /***/ },
-/* 323 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43773,7 +44158,7 @@
 	module.exports = CharacterMetadata;
 
 /***/ },
-/* 324 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43801,7 +44186,7 @@
 	
 	var Immutable = __webpack_require__(13);
 	
-	var findRangesImmutable = __webpack_require__(325);
+	var findRangesImmutable = __webpack_require__(328);
 	
 	var List = Immutable.List;
 	var OrderedSet = Immutable.OrderedSet;
@@ -43904,7 +44289,7 @@
 	module.exports = ContentBlock;
 
 /***/ },
-/* 325 */
+/* 328 */
 /***/ function(module, exports) {
 
 	/**
@@ -43951,7 +44336,7 @@
 	module.exports = findRangesImmutable;
 
 /***/ },
-/* 326 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -43979,23 +44364,23 @@
 	 */
 	'use strict';
 	
-	var CharacterMetadata = __webpack_require__(323);
-	var ContentStateInlineStyle = __webpack_require__(327);
+	var CharacterMetadata = __webpack_require__(326);
+	var ContentStateInlineStyle = __webpack_require__(330);
 	
 	var _require = __webpack_require__(13);
 	
 	var OrderedSet = _require.OrderedSet;
 	
-	var applyEntityToContentState = __webpack_require__(328);
-	var getCharacterRemovalRange = __webpack_require__(330);
-	var getContentStateFragment = __webpack_require__(335);
-	var insertFragmentIntoContentState = __webpack_require__(338);
-	var insertTextIntoContentState = __webpack_require__(340);
-	var invariant = __webpack_require__(61);
-	var removeEntitiesAtEdges = __webpack_require__(337);
-	var removeRangeFromContentState = __webpack_require__(341);
-	var setBlockTypeForContentState = __webpack_require__(342);
-	var splitBlockInContentState = __webpack_require__(343);
+	var applyEntityToContentState = __webpack_require__(331);
+	var getCharacterRemovalRange = __webpack_require__(333);
+	var getContentStateFragment = __webpack_require__(338);
+	var insertFragmentIntoContentState = __webpack_require__(341);
+	var insertTextIntoContentState = __webpack_require__(343);
+	var invariant = __webpack_require__(62);
+	var removeEntitiesAtEdges = __webpack_require__(340);
+	var removeRangeFromContentState = __webpack_require__(344);
+	var setBlockTypeForContentState = __webpack_require__(345);
+	var splitBlockInContentState = __webpack_require__(346);
 	
 	var DraftModifier = {
 	  replaceText: function replaceText(contentState, rangeToReplace, text, inlineStyle, entityKey) {
@@ -44077,10 +44462,10 @@
 	};
 	
 	module.exports = DraftModifier;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 327 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44098,7 +44483,7 @@
 	
 	'use strict';
 	
-	var CharacterMetadata = __webpack_require__(323);
+	var CharacterMetadata = __webpack_require__(326);
 	
 	var _require = __webpack_require__(13);
 	
@@ -44158,7 +44543,7 @@
 	module.exports = ContentStateInlineStyle;
 
 /***/ },
-/* 328 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44178,7 +44563,7 @@
 	
 	var Immutable = __webpack_require__(13);
 	
-	var applyEntityToContentBlock = __webpack_require__(329);
+	var applyEntityToContentBlock = __webpack_require__(332);
 	
 	function applyEntityToContentState(contentState, selectionState, entityKey) {
 	  var blockMap = contentState.getBlockMap();
@@ -44207,7 +44592,7 @@
 	module.exports = applyEntityToContentState;
 
 /***/ },
-/* 329 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44225,7 +44610,7 @@
 	
 	'use strict';
 	
-	var CharacterMetadata = __webpack_require__(323);
+	var CharacterMetadata = __webpack_require__(326);
 	
 	function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
 	  var characterList = contentBlock.getCharacterList();
@@ -44239,7 +44624,7 @@
 	module.exports = applyEntityToContentBlock;
 
 /***/ },
-/* 330 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -44266,11 +44651,11 @@
 	 */
 	'use strict';
 	
-	var DraftEntity = __webpack_require__(331);
-	var DraftEntitySegments = __webpack_require__(333);
+	var DraftEntity = __webpack_require__(334);
+	var DraftEntitySegments = __webpack_require__(336);
 	
-	var getRangesForDraftEntity = __webpack_require__(334);
-	var invariant = __webpack_require__(61);
+	var getRangesForDraftEntity = __webpack_require__(337);
+	var invariant = __webpack_require__(62);
 	
 	function getCharacterRemovalRange(block, selectionState, direction) {
 	  var start = selectionState.getStartOffset();
@@ -44319,10 +44704,10 @@
 	}
 	
 	module.exports = getCharacterRemovalRange;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 331 */
+/* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -44342,10 +44727,10 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var DraftEntityInstance = __webpack_require__(332);
+	var DraftEntityInstance = __webpack_require__(335);
 	var Immutable = __webpack_require__(13);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var Map = Immutable.Map;
 	
@@ -44421,10 +44806,10 @@
 	};
 	
 	module.exports = DraftEntity;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 332 */
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44503,7 +44888,7 @@
 	module.exports = DraftEntityInstance;
 
 /***/ },
-/* 333 */
+/* 336 */
 /***/ function(module, exports) {
 
 	/**
@@ -44607,7 +44992,7 @@
 	module.exports = DraftEntitySegments;
 
 /***/ },
-/* 334 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -44633,7 +45018,7 @@
 	 */
 	'use strict';
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	function getRangesForDraftEntity(block, key) {
 	  var ranges = [];
@@ -44649,10 +45034,10 @@
 	}
 	
 	module.exports = getRangesForDraftEntity;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 335 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44670,8 +45055,8 @@
 	
 	'use strict';
 	
-	var generateRandomKey = __webpack_require__(336);
-	var removeEntitiesAtEdges = __webpack_require__(337);
+	var generateRandomKey = __webpack_require__(339);
+	var removeEntitiesAtEdges = __webpack_require__(340);
 	
 	function getContentStateFragment(contentState, selectionState) {
 	  var startKey = selectionState.getStartKey();
@@ -44728,7 +45113,7 @@
 	module.exports = getContentStateFragment;
 
 /***/ },
-/* 336 */
+/* 339 */
 /***/ function(module, exports) {
 
 	/**
@@ -44761,7 +45146,7 @@
 	module.exports = generateRandomKey;
 
 /***/ },
-/* 337 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -44778,11 +45163,11 @@
 	
 	'use strict';
 	
-	var CharacterMetadata = __webpack_require__(323);
-	var DraftEntity = __webpack_require__(331);
+	var CharacterMetadata = __webpack_require__(326);
+	var DraftEntity = __webpack_require__(334);
 	
-	var findRangesImmutable = __webpack_require__(325);
-	var invariant = __webpack_require__(61);
+	var findRangesImmutable = __webpack_require__(328);
+	var invariant = __webpack_require__(62);
 	
 	function removeEntitiesAtEdges(contentState, selectionState) {
 	  var blockMap = contentState.getBlockMap();
@@ -44865,10 +45250,10 @@
 	}
 	
 	module.exports = removeEntitiesAtEdges;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 338 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -44886,11 +45271,11 @@
 	
 	'use strict';
 	
-	var BlockMapBuilder = __webpack_require__(322);
+	var BlockMapBuilder = __webpack_require__(325);
 	
-	var generateRandomKey = __webpack_require__(336);
-	var insertIntoList = __webpack_require__(339);
-	var invariant = __webpack_require__(61);
+	var generateRandomKey = __webpack_require__(339);
+	var insertIntoList = __webpack_require__(342);
+	var invariant = __webpack_require__(62);
 	
 	function insertFragmentIntoContentState(contentState, selectionState, fragment) {
 	  !selectionState.isCollapsed() ? process.env.NODE_ENV !== 'production' ? invariant(false, '`insertFragment` should only be called with a collapsed selection state.') : invariant(false) : undefined;
@@ -44993,10 +45378,10 @@
 	}
 	
 	module.exports = insertFragmentIntoContentState;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 339 */
+/* 342 */
 /***/ function(module, exports) {
 
 	/**
@@ -45036,7 +45421,7 @@
 	module.exports = insertIntoList;
 
 /***/ },
-/* 340 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -45056,8 +45441,8 @@
 	
 	var Immutable = __webpack_require__(13);
 	
-	var insertIntoList = __webpack_require__(339);
-	var invariant = __webpack_require__(61);
+	var insertIntoList = __webpack_require__(342);
+	var invariant = __webpack_require__(62);
 	
 	var Repeat = Immutable.Repeat;
 	
@@ -45092,10 +45477,10 @@
 	}
 	
 	module.exports = insertTextIntoContentState;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 341 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45191,7 +45576,7 @@
 	module.exports = removeRangeFromContentState;
 
 /***/ },
-/* 342 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45233,7 +45618,7 @@
 	module.exports = setBlockTypeForContentState;
 
 /***/ },
-/* 343 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -45251,8 +45636,8 @@
 	
 	'use strict';
 	
-	var generateRandomKey = __webpack_require__(336);
-	var invariant = __webpack_require__(61);
+	var generateRandomKey = __webpack_require__(339);
+	var invariant = __webpack_require__(62);
 	
 	function splitBlockInContentState(contentState, selectionState) {
 	  !selectionState.isCollapsed() ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Selection range must be collapsed.') : invariant(false) : undefined;
@@ -45299,10 +45684,10 @@
 	}
 	
 	module.exports = splitBlockInContentState;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 344 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45325,11 +45710,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var BlockTree = __webpack_require__(345);
-	var ContentState = __webpack_require__(346);
-	var EditorBidiService = __webpack_require__(349);
+	var BlockTree = __webpack_require__(348);
+	var ContentState = __webpack_require__(349);
+	var EditorBidiService = __webpack_require__(352);
 	var Immutable = __webpack_require__(13);
-	var SelectionState = __webpack_require__(347);
+	var SelectionState = __webpack_require__(350);
 	
 	var OrderedSet = Immutable.OrderedSet;
 	var Record = Immutable.Record;
@@ -45889,7 +46274,7 @@
 	module.exports = EditorState;
 
 /***/ },
-/* 345 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45908,8 +46293,8 @@
 	
 	var Immutable = __webpack_require__(13);
 	
-	var emptyFunction = __webpack_require__(65);
-	var findRangesImmutable = __webpack_require__(325);
+	var emptyFunction = __webpack_require__(66);
+	var findRangesImmutable = __webpack_require__(328);
 	
 	var List = Immutable.List;
 	var Repeat = Immutable.Repeat;
@@ -46005,7 +46390,7 @@
 	module.exports = BlockTree;
 
 /***/ },
-/* 346 */
+/* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46031,14 +46416,14 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var BlockMapBuilder = __webpack_require__(322);
-	var CharacterMetadata = __webpack_require__(323);
-	var ContentBlock = __webpack_require__(324);
+	var BlockMapBuilder = __webpack_require__(325);
+	var CharacterMetadata = __webpack_require__(326);
+	var ContentBlock = __webpack_require__(327);
 	var Immutable = __webpack_require__(13);
-	var SelectionState = __webpack_require__(347);
+	var SelectionState = __webpack_require__(350);
 	
-	var generateRandomKey = __webpack_require__(336);
-	var sanitizeDraftText = __webpack_require__(348);
+	var generateRandomKey = __webpack_require__(339);
+	var sanitizeDraftText = __webpack_require__(351);
 	
 	var List = Immutable.List;
 	var Record = Immutable.Record;
@@ -46174,7 +46559,7 @@
 	module.exports = ContentState;
 
 /***/ },
-/* 347 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46329,7 +46714,7 @@
 	module.exports = SelectionState;
 
 /***/ },
-/* 348 */
+/* 351 */
 /***/ function(module, exports) {
 
 	/**
@@ -46355,7 +46740,7 @@
 	module.exports = sanitizeDraftText;
 
 /***/ },
-/* 349 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46374,9 +46759,9 @@
 	'use strict';
 	
 	var Immutable = __webpack_require__(13);
-	var UnicodeBidiService = __webpack_require__(350);
+	var UnicodeBidiService = __webpack_require__(353);
 	
-	var nullthrows = __webpack_require__(353);
+	var nullthrows = __webpack_require__(356);
 	
 	var OrderedMap = Immutable.OrderedMap;
 	
@@ -46407,7 +46792,7 @@
 	module.exports = EditorBidiService;
 
 /***/ },
-/* 350 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -46456,10 +46841,10 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var UnicodeBidi = __webpack_require__(351);
-	var UnicodeBidiDirection = __webpack_require__(352);
+	var UnicodeBidi = __webpack_require__(354);
+	var UnicodeBidiDirection = __webpack_require__(355);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var UnicodeBidiService = function () {
 	
@@ -46510,10 +46895,10 @@
 	}();
 	
 	module.exports = UnicodeBidiService;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 351 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -46538,9 +46923,9 @@
 	
 	'use strict';
 	
-	var UnicodeBidiDirection = __webpack_require__(352);
+	var UnicodeBidiDirection = __webpack_require__(355);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * RegExp ranges of characters with a *Strong* Bidi_Class value.
@@ -46672,10 +47057,10 @@
 	};
 	
 	module.exports = UnicodeBidi;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 352 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -46706,7 +47091,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var NEUTRAL = 'NEUTRAL'; // No strong direction
 	var LTR = 'LTR'; // Left-to-Right direction
@@ -46786,10 +47171,10 @@
 	};
 	
 	module.exports = UnicodeBidiDirection;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 353 */
+/* 356 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -46815,7 +47200,7 @@
 	module.exports = nullthrows;
 
 /***/ },
-/* 354 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46938,7 +47323,7 @@
 	module.exports = CompositeDraftDecorator;
 
 /***/ },
-/* 355 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46959,9 +47344,9 @@
 	
 	var Map = _require.Map;
 	
-	var React = __webpack_require__(56);
+	var React = __webpack_require__(57);
 	
-	var cx = __webpack_require__(356);
+	var cx = __webpack_require__(359);
 	
 	var UL_WRAP = React.createElement('ul', { className: cx('public/DraftStyleDefault/ul') });
 	var OL_WRAP = React.createElement('ol', { className: cx('public/DraftStyleDefault/ol') });
@@ -47010,7 +47395,7 @@
 	});
 
 /***/ },
-/* 356 */
+/* 359 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -47056,7 +47441,7 @@
 	module.exports = cx;
 
 /***/ },
-/* 357 */
+/* 360 */
 /***/ function(module, exports) {
 
 	/**
@@ -47097,7 +47482,7 @@
 	};
 
 /***/ },
-/* 358 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47125,26 +47510,26 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DefaultDraftBlockRenderMap = __webpack_require__(355);
-	var DefaultDraftInlineStyle = __webpack_require__(357);
-	var DraftEditorCompositionHandler = __webpack_require__(359);
-	var DraftEditorContents = __webpack_require__(363);
-	var DraftEditorDragHandler = __webpack_require__(384);
-	var DraftEditorEditHandler = __webpack_require__(391);
-	var DraftEditorPlaceholder = __webpack_require__(432);
-	var EditorState = __webpack_require__(344);
-	var React = __webpack_require__(56);
+	var DefaultDraftBlockRenderMap = __webpack_require__(358);
+	var DefaultDraftInlineStyle = __webpack_require__(360);
+	var DraftEditorCompositionHandler = __webpack_require__(362);
+	var DraftEditorContents = __webpack_require__(366);
+	var DraftEditorDragHandler = __webpack_require__(387);
+	var DraftEditorEditHandler = __webpack_require__(394);
+	var DraftEditorPlaceholder = __webpack_require__(435);
+	var EditorState = __webpack_require__(347);
+	var React = __webpack_require__(57);
 	var ReactDOM = __webpack_require__(99);
-	var Scroll = __webpack_require__(375);
-	var Style = __webpack_require__(376);
-	var UserAgent = __webpack_require__(367);
+	var Scroll = __webpack_require__(378);
+	var Style = __webpack_require__(379);
+	var UserAgent = __webpack_require__(370);
 	
-	var cx = __webpack_require__(356);
-	var emptyFunction = __webpack_require__(65);
-	var generateRandomKey = __webpack_require__(336);
-	var getDefaultKeyBinding = __webpack_require__(433);
-	var nullthrows = __webpack_require__(353);
-	var getScrollPosition = __webpack_require__(380);
+	var cx = __webpack_require__(359);
+	var emptyFunction = __webpack_require__(66);
+	var generateRandomKey = __webpack_require__(339);
+	var getDefaultKeyBinding = __webpack_require__(436);
+	var nullthrows = __webpack_require__(356);
+	var getScrollPosition = __webpack_require__(383);
 	
 	var isIE = UserAgent.isBrowser('IE');
 	
@@ -47565,7 +47950,7 @@
 	 */
 
 /***/ },
-/* 359 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47582,12 +47967,12 @@
 	
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
-	var Keys = __webpack_require__(360);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
+	var Keys = __webpack_require__(363);
 	
-	var getEntityKeyForSelection = __webpack_require__(361);
-	var isSelectionAtLeafStart = __webpack_require__(362);
+	var getEntityKeyForSelection = __webpack_require__(364);
+	var isSelectionAtLeafStart = __webpack_require__(365);
 	
 	/**
 	 * Millisecond delay to allow `compositionstart` to fire again upon
@@ -47733,7 +48118,7 @@
 	module.exports = DraftEditorCompositionHandler;
 
 /***/ },
-/* 360 */
+/* 363 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -47774,7 +48159,7 @@
 	};
 
 /***/ },
-/* 361 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47797,7 +48182,7 @@
 	 */
 	'use strict';
 	
-	var DraftEntity = __webpack_require__(331);
+	var DraftEntity = __webpack_require__(334);
 	
 	function getEntityKeyForSelection(contentState, targetSelection) {
 	  var entityKey;
@@ -47836,7 +48221,7 @@
 	module.exports = getEntityKeyForSelection;
 
 /***/ },
-/* 362 */
+/* 365 */
 /***/ function(module, exports) {
 
 	/**
@@ -47890,7 +48275,7 @@
 	module.exports = isSelectionAtLeafStart;
 
 /***/ },
-/* 363 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47918,14 +48303,14 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DraftEditorBlock = __webpack_require__(364);
-	var DraftOffsetKey = __webpack_require__(374);
-	var EditorState = __webpack_require__(344);
-	var React = __webpack_require__(56);
+	var DraftEditorBlock = __webpack_require__(367);
+	var DraftOffsetKey = __webpack_require__(377);
+	var EditorState = __webpack_require__(347);
+	var React = __webpack_require__(57);
 	
-	var cx = __webpack_require__(356);
-	var joinClasses = __webpack_require__(383);
-	var nullthrows = __webpack_require__(353);
+	var cx = __webpack_require__(359);
+	var joinClasses = __webpack_require__(386);
+	var nullthrows = __webpack_require__(356);
 	
 	/**
 	 * `DraftEditorContents` is the container component for all block components
@@ -48136,7 +48521,7 @@
 	module.exports = DraftEditorContents;
 
 /***/ },
-/* 364 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48164,22 +48549,22 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var ContentBlock = __webpack_require__(324);
-	var DraftEditorLeaf = __webpack_require__(365);
-	var DraftOffsetKey = __webpack_require__(374);
-	var React = __webpack_require__(56);
+	var ContentBlock = __webpack_require__(327);
+	var DraftEditorLeaf = __webpack_require__(368);
+	var DraftOffsetKey = __webpack_require__(377);
+	var React = __webpack_require__(57);
 	var ReactDOM = __webpack_require__(99);
-	var Scroll = __webpack_require__(375);
-	var SelectionState = __webpack_require__(347);
-	var Style = __webpack_require__(376);
-	var UnicodeBidi = __webpack_require__(351);
-	var UnicodeBidiDirection = __webpack_require__(352);
+	var Scroll = __webpack_require__(378);
+	var SelectionState = __webpack_require__(350);
+	var Style = __webpack_require__(379);
+	var UnicodeBidi = __webpack_require__(354);
+	var UnicodeBidiDirection = __webpack_require__(355);
 	
-	var cx = __webpack_require__(356);
-	var getElementPosition = __webpack_require__(378);
-	var getScrollPosition = __webpack_require__(380);
-	var getViewportDimensions = __webpack_require__(382);
-	var nullthrows = __webpack_require__(353);
+	var cx = __webpack_require__(359);
+	var getElementPosition = __webpack_require__(381);
+	var getScrollPosition = __webpack_require__(383);
+	var getViewportDimensions = __webpack_require__(385);
+	var nullthrows = __webpack_require__(356);
 	
 	var SCROLL_BUFFER = 10;
 	
@@ -48351,7 +48736,7 @@
 	module.exports = DraftEditorBlock;
 
 /***/ },
-/* 365 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48377,12 +48762,12 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DraftEditorTextNode = __webpack_require__(366);
-	var React = __webpack_require__(56);
+	var DraftEditorTextNode = __webpack_require__(369);
+	var React = __webpack_require__(57);
 	var ReactDOM = __webpack_require__(99);
-	var SelectionState = __webpack_require__(347);
+	var SelectionState = __webpack_require__(350);
 	
-	var setDraftEditorSelection = __webpack_require__(373);
+	var setDraftEditorSelection = __webpack_require__(376);
 	
 	/**
 	 * All leaf nodes in the editor are spans with single text nodes. Leaf
@@ -48532,7 +48917,7 @@
 	// The full text to be rendered within this node.
 
 /***/ },
-/* 366 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48558,9 +48943,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var React = __webpack_require__(56);
+	var React = __webpack_require__(57);
 	var ReactDOM = __webpack_require__(99);
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(370);
 	
 	// In IE, spans with <br> tags render as two newlines. By rendering a span
 	// with only a newline character, we can be sure to render a single line.
@@ -48651,7 +49036,7 @@
 	module.exports = DraftEditorTextNode;
 
 /***/ },
-/* 367 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48666,10 +49051,10 @@
 	
 	'use strict';
 	
-	var UserAgentData = __webpack_require__(368);
-	var VersionRange = __webpack_require__(371);
+	var UserAgentData = __webpack_require__(371);
+	var VersionRange = __webpack_require__(374);
 	
-	var mapObject = __webpack_require__(372);
+	var mapObject = __webpack_require__(375);
 	var memoizeStringOnly = __webpack_require__(169);
 	
 	/**
@@ -48897,7 +49282,7 @@
 	module.exports = mapObject(UserAgent, memoizeStringOnly);
 
 /***/ },
-/* 368 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48923,7 +49308,7 @@
 	
 	'use strict';
 	
-	var UAParser = __webpack_require__(369);
+	var UAParser = __webpack_require__(372);
 	
 	var UNKNOWN = 'Unknown';
 	
@@ -48984,7 +49369,7 @@
 	module.exports = uaData;
 
 /***/ },
-/* 369 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -49836,7 +50221,7 @@
 	        exports.UAParser = UAParser;
 	    } else {
 	        // requirejs env (optional)
-	        if ("function" === FUNC_TYPE && __webpack_require__(370)) {
+	        if ("function" === FUNC_TYPE && __webpack_require__(373)) {
 	            !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	                return UAParser;
 	            }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -49871,7 +50256,7 @@
 
 
 /***/ },
-/* 370 */
+/* 373 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -49879,7 +50264,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 371 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49894,7 +50279,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var componentRegex = /\./;
 	var orRegex = /\|\|/;
@@ -50267,10 +50652,10 @@
 	};
 	
 	module.exports = VersionRange;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 372 */
+/* 375 */
 /***/ function(module, exports) {
 
 	/**
@@ -50325,7 +50710,7 @@
 	module.exports = mapObject;
 
 /***/ },
-/* 373 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -50464,7 +50849,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 374 */
+/* 377 */
 /***/ function(module, exports) {
 
 	/**
@@ -50510,7 +50895,7 @@
 	module.exports = DraftOffsetKey;
 
 /***/ },
-/* 375 */
+/* 378 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -50600,7 +50985,7 @@
 	module.exports = Scroll;
 
 /***/ },
-/* 376 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50616,7 +51001,7 @@
 	 * @typechecks
 	 */
 	
-	var getStyleProperty = __webpack_require__(377);
+	var getStyleProperty = __webpack_require__(380);
 	
 	/**
 	 * @param {DOMNode} element [description]
@@ -50668,7 +51053,7 @@
 	module.exports = Style;
 
 /***/ },
-/* 377 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50726,7 +51111,7 @@
 	module.exports = getStyleProperty;
 
 /***/ },
-/* 378 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50742,7 +51127,7 @@
 	 * @typechecks
 	 */
 	
-	var getElementRect = __webpack_require__(379);
+	var getElementRect = __webpack_require__(382);
 	
 	/**
 	 * Gets an element's position in pixels relative to the viewport. The returned
@@ -50764,7 +51149,7 @@
 	module.exports = getElementPosition;
 
 /***/ },
-/* 379 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50819,7 +51204,7 @@
 	module.exports = getElementRect;
 
 /***/ },
-/* 380 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50835,7 +51220,7 @@
 	
 	'use strict';
 	
-	var getDocumentScrollElement = __webpack_require__(381);
+	var getDocumentScrollElement = __webpack_require__(384);
 	var getUnboundedScrollPosition = __webpack_require__(204);
 	
 	/**
@@ -50871,7 +51256,7 @@
 	module.exports = getScrollPosition;
 
 /***/ },
-/* 381 */
+/* 384 */
 /***/ function(module, exports) {
 
 	/**
@@ -50906,7 +51291,7 @@
 	module.exports = getDocumentScrollElement;
 
 /***/ },
-/* 382 */
+/* 385 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -50970,7 +51355,7 @@
 	module.exports = getViewportDimensions;
 
 /***/ },
-/* 383 */
+/* 386 */
 /***/ function(module, exports) {
 
 	/**
@@ -51014,7 +51399,7 @@
 	module.exports = joinClasses;
 
 /***/ },
-/* 384 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51035,14 +51420,14 @@
 	 */
 	'use strict';
 	
-	var DataTransfer = __webpack_require__(385);
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
+	var DataTransfer = __webpack_require__(388);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
 	
-	var findAncestorOffsetKey = __webpack_require__(387);
-	var getTextContentFromFiles = __webpack_require__(389);
-	var getUpdatedSelectionState = __webpack_require__(390);
-	var nullthrows = __webpack_require__(353);
+	var findAncestorOffsetKey = __webpack_require__(390);
+	var getTextContentFromFiles = __webpack_require__(392);
+	var getUpdatedSelectionState = __webpack_require__(393);
+	var nullthrows = __webpack_require__(356);
 	
 	function getSelectionForEvent(event, editorState) {
 	  var node = null;
@@ -51136,7 +51521,7 @@
 	module.exports = DraftEditorDragHandler;
 
 /***/ },
-/* 385 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51154,10 +51539,10 @@
 	 * @typechecks
 	 */
 	
-	var PhotosMimeType = __webpack_require__(386);
+	var PhotosMimeType = __webpack_require__(389);
 	
 	var createArrayFromMixed = __webpack_require__(155);
-	var emptyFunction = __webpack_require__(65);
+	var emptyFunction = __webpack_require__(66);
 	
 	var CR_LF_REGEX = new RegExp('\r\n', 'g');
 	var LF_ONLY = '\n';
@@ -51362,7 +51747,7 @@
 	module.exports = DataTransfer;
 
 /***/ },
-/* 386 */
+/* 389 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -51395,7 +51780,7 @@
 	module.exports = PhotosMimeType;
 
 /***/ },
-/* 387 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51413,7 +51798,7 @@
 	
 	'use strict';
 	
-	var getSelectionOffsetKeyForNode = __webpack_require__(388);
+	var getSelectionOffsetKeyForNode = __webpack_require__(391);
 	
 	/**
 	 * Get the key from the node's nearest offset-aware ancestor.
@@ -51432,7 +51817,7 @@
 	module.exports = findAncestorOffsetKey;
 
 /***/ },
-/* 388 */
+/* 391 */
 /***/ function(module, exports) {
 
 	/**
@@ -51460,7 +51845,7 @@
 	module.exports = getSelectionOffsetKeyForNode;
 
 /***/ },
-/* 389 */
+/* 392 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -51541,7 +51926,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 390 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -51558,9 +51943,9 @@
 	
 	'use strict';
 	
-	var DraftOffsetKey = __webpack_require__(374);
+	var DraftOffsetKey = __webpack_require__(377);
 	
-	var nullthrows = __webpack_require__(353);
+	var nullthrows = __webpack_require__(356);
 	
 	function getUpdatedSelectionState(editorState, anchorKey, anchorOffset, focusKey, focusOffset) {
 	  var selection = nullthrows(editorState.getSelection());
@@ -51619,10 +52004,10 @@
 	}
 	
 	module.exports = getUpdatedSelectionState;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 391 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51639,18 +52024,18 @@
 	
 	'use strict';
 	
-	var onBeforeInput = __webpack_require__(392);
-	var onBlur = __webpack_require__(393);
-	var onCompositionStart = __webpack_require__(394);
-	var onCopy = __webpack_require__(395);
-	var onCut = __webpack_require__(397);
-	var onDragOver = __webpack_require__(398);
-	var onDragStart = __webpack_require__(399);
-	var onFocus = __webpack_require__(400);
-	var onInput = __webpack_require__(401);
-	var onKeyDown = __webpack_require__(402);
-	var onPaste = __webpack_require__(424);
-	var onSelect = __webpack_require__(430);
+	var onBeforeInput = __webpack_require__(395);
+	var onBlur = __webpack_require__(396);
+	var onCompositionStart = __webpack_require__(397);
+	var onCopy = __webpack_require__(398);
+	var onCut = __webpack_require__(400);
+	var onDragOver = __webpack_require__(401);
+	var onDragStart = __webpack_require__(402);
+	var onFocus = __webpack_require__(403);
+	var onInput = __webpack_require__(404);
+	var onKeyDown = __webpack_require__(405);
+	var onPaste = __webpack_require__(427);
+	var onSelect = __webpack_require__(433);
 	
 	var DraftEditorEditHandler = {
 	  onBeforeInput: onBeforeInput,
@@ -51670,7 +52055,7 @@
 	module.exports = DraftEditorEditHandler;
 
 /***/ },
-/* 392 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51694,14 +52079,14 @@
 	// trigger quickfind.
 	'use strict';
 	
-	var BlockTree = __webpack_require__(345);
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
-	var UserAgent = __webpack_require__(367);
+	var BlockTree = __webpack_require__(348);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
+	var UserAgent = __webpack_require__(370);
 	
-	var getEntityKeyForSelection = __webpack_require__(361);
-	var isSelectionAtLeafStart = __webpack_require__(362);
-	var nullthrows = __webpack_require__(353);
+	var getEntityKeyForSelection = __webpack_require__(364);
+	var isSelectionAtLeafStart = __webpack_require__(365);
+	var nullthrows = __webpack_require__(356);
 	
 	var FF_QUICKFIND_CHAR = '\'';
 	var FF_QUICKFIND_LINK_CHAR = '\/';
@@ -51793,7 +52178,7 @@
 	module.exports = editOnBeforeInput;
 
 /***/ },
-/* 393 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -51810,8 +52195,8 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
-	var UserAgent = __webpack_require__(367);
+	var EditorState = __webpack_require__(347);
+	var UserAgent = __webpack_require__(370);
 	
 	var getActiveElement = __webpack_require__(213);
 	
@@ -51843,7 +52228,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 394 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51860,7 +52245,7 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
+	var EditorState = __webpack_require__(347);
 	
 	/**
 	 * The user has begun using an IME input system. Switching to `composite` mode
@@ -51875,7 +52260,7 @@
 	module.exports = editOnCompositionStart;
 
 /***/ },
-/* 395 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51892,7 +52277,7 @@
 	
 	'use strict';
 	
-	var getFragmentFromSelection = __webpack_require__(396);
+	var getFragmentFromSelection = __webpack_require__(399);
 	
 	/**
 	 * If we have a selection, create a ContentState fragment and store
@@ -51915,7 +52300,7 @@
 	module.exports = editOnCopy;
 
 /***/ },
-/* 396 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51932,7 +52317,7 @@
 	
 	'use strict';
 	
-	var getContentStateFragment = __webpack_require__(335);
+	var getContentStateFragment = __webpack_require__(338);
 	
 	function getFragmentFromSelection(editorState) {
 	  var selectionState = editorState.getSelection();
@@ -51944,7 +52329,7 @@
 	module.exports = getFragmentFromSelection;
 
 /***/ },
-/* 397 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51961,12 +52346,12 @@
 	
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
-	var Style = __webpack_require__(376);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
+	var Style = __webpack_require__(379);
 	
-	var getFragmentFromSelection = __webpack_require__(396);
-	var getScrollPosition = __webpack_require__(380);
+	var getFragmentFromSelection = __webpack_require__(399);
+	var getScrollPosition = __webpack_require__(383);
 	
 	/**
 	 * On `cut` events, native behavior is allowed to occur so that the system
@@ -52022,7 +52407,7 @@
 	module.exports = editOnCut;
 
 /***/ },
-/* 398 */
+/* 401 */
 /***/ function(module, exports) {
 
 	/**
@@ -52051,7 +52436,7 @@
 	module.exports = editOnDragOver;
 
 /***/ },
-/* 399 */
+/* 402 */
 /***/ function(module, exports) {
 
 	/**
@@ -52079,7 +52464,7 @@
 	module.exports = editOnDragStart;
 
 /***/ },
-/* 400 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52096,7 +52481,7 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
+	var EditorState = __webpack_require__(347);
 	
 	function editOnFocus(e) {
 	  var editorState = this.props.editorState;
@@ -52120,7 +52505,7 @@
 	module.exports = editOnFocus;
 
 /***/ },
-/* 401 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -52137,14 +52522,14 @@
 	
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
-	var DraftOffsetKey = __webpack_require__(374);
-	var EditorState = __webpack_require__(344);
-	var Entity = __webpack_require__(331);
-	var UserAgent = __webpack_require__(367);
+	var DraftModifier = __webpack_require__(329);
+	var DraftOffsetKey = __webpack_require__(377);
+	var EditorState = __webpack_require__(347);
+	var Entity = __webpack_require__(334);
+	var UserAgent = __webpack_require__(370);
 	
-	var findAncestorOffsetKey = __webpack_require__(387);
-	var nullthrows = __webpack_require__(353);
+	var findAncestorOffsetKey = __webpack_require__(390);
+	var nullthrows = __webpack_require__(356);
 	
 	var isGecko = UserAgent.isEngine('Gecko');
 	
@@ -52267,7 +52652,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 402 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52284,23 +52669,23 @@
 	
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
-	var KeyBindingUtil = __webpack_require__(403);
-	var Keys = __webpack_require__(360);
-	var SecondaryClipboard = __webpack_require__(404);
-	var UserAgent = __webpack_require__(367);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
+	var KeyBindingUtil = __webpack_require__(406);
+	var Keys = __webpack_require__(363);
+	var SecondaryClipboard = __webpack_require__(407);
+	var UserAgent = __webpack_require__(370);
 	
-	var keyCommandBackspaceToStartOfLine = __webpack_require__(405);
-	var keyCommandBackspaceWord = __webpack_require__(412);
-	var keyCommandDeleteWord = __webpack_require__(415);
-	var keyCommandInsertNewline = __webpack_require__(417);
-	var keyCommandPlainBackspace = __webpack_require__(418);
-	var keyCommandPlainDelete = __webpack_require__(419);
-	var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(420);
-	var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(421);
-	var keyCommandTransposeCharacters = __webpack_require__(422);
-	var keyCommandUndo = __webpack_require__(423);
+	var keyCommandBackspaceToStartOfLine = __webpack_require__(408);
+	var keyCommandBackspaceWord = __webpack_require__(415);
+	var keyCommandDeleteWord = __webpack_require__(418);
+	var keyCommandInsertNewline = __webpack_require__(420);
+	var keyCommandPlainBackspace = __webpack_require__(421);
+	var keyCommandPlainDelete = __webpack_require__(422);
+	var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(423);
+	var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(424);
+	var keyCommandTransposeCharacters = __webpack_require__(425);
+	var keyCommandUndo = __webpack_require__(426);
 	
 	var isOptionKeyCommand = KeyBindingUtil.isOptionKeyCommand;
 	
@@ -52418,7 +52803,7 @@
 	module.exports = editOnKeyDown;
 
 /***/ },
-/* 403 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52436,7 +52821,7 @@
 	
 	'use strict';
 	
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(370);
 	
 	var isOSX = UserAgent.isPlatform('Mac OS X');
 	
@@ -52462,7 +52847,7 @@
 	module.exports = KeyBindingUtil;
 
 /***/ },
-/* 404 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52479,11 +52864,11 @@
 	
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
 	
-	var getContentStateFragment = __webpack_require__(335);
-	var nullthrows = __webpack_require__(353);
+	var getContentStateFragment = __webpack_require__(338);
+	var nullthrows = __webpack_require__(356);
 	
 	var clipboard = null;
 	
@@ -52536,7 +52921,7 @@
 	module.exports = SecondaryClipboard;
 
 /***/ },
-/* 405 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -52553,12 +52938,12 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
+	var EditorState = __webpack_require__(347);
 	
-	var expandRangeToStartOfLine = __webpack_require__(406);
-	var getDraftEditorSelectionWithNodes = __webpack_require__(409);
-	var moveSelectionBackward = __webpack_require__(410);
-	var removeTextWithStrategy = __webpack_require__(411);
+	var expandRangeToStartOfLine = __webpack_require__(409);
+	var getDraftEditorSelectionWithNodes = __webpack_require__(412);
+	var moveSelectionBackward = __webpack_require__(413);
+	var removeTextWithStrategy = __webpack_require__(414);
 	
 	function keyCommandBackspaceToStartOfLine(editorState) {
 	  var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
@@ -52585,7 +52970,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 406 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -52603,10 +52988,10 @@
 	
 	'use strict';
 	
-	var UnicodeUtils = __webpack_require__(407);
+	var UnicodeUtils = __webpack_require__(410);
 	
-	var getRangeClientRects = __webpack_require__(408);
-	var invariant = __webpack_require__(61);
+	var getRangeClientRects = __webpack_require__(411);
+	var invariant = __webpack_require__(62);
 	
 	/**
 	 * Return the computed line height, in pixels, for the provided element.
@@ -52777,10 +53162,10 @@
 	}
 	
 	module.exports = expandRangeToStartOfLine;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 407 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -52807,7 +53192,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	// These two ranges are consecutive so anything in [HIGH_START, LOW_END] is a
 	// surrogate code unit.
@@ -52997,10 +53382,10 @@
 	};
 	
 	module.exports = UnicodeUtils;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 408 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -53018,9 +53403,9 @@
 	
 	'use strict';
 	
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(370);
 	
-	var invariant = __webpack_require__(61);
+	var invariant = __webpack_require__(62);
 	
 	var isChrome = UserAgent.isBrowser('Chrome');
 	
@@ -53064,10 +53449,10 @@
 	};
 	
 	module.exports = getRangeClientRects;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 409 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -53085,11 +53470,11 @@
 	
 	'use strict';
 	
-	var findAncestorOffsetKey = __webpack_require__(387);
-	var getSelectionOffsetKeyForNode = __webpack_require__(388);
-	var getUpdatedSelectionState = __webpack_require__(390);
-	var invariant = __webpack_require__(61);
-	var nullthrows = __webpack_require__(353);
+	var findAncestorOffsetKey = __webpack_require__(390);
+	var getSelectionOffsetKeyForNode = __webpack_require__(391);
+	var getUpdatedSelectionState = __webpack_require__(393);
+	var invariant = __webpack_require__(62);
+	var nullthrows = __webpack_require__(356);
 	
 	/**
 	 * Convert the current selection range to an anchor/focus pair of offset keys
@@ -53248,10 +53633,10 @@
 	}
 	
 	module.exports = getDraftEditorSelectionWithNodes;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 410 */
+/* 413 */
 /***/ function(module, exports) {
 
 	/**
@@ -53308,7 +53693,7 @@
 	module.exports = moveSelectionBackward;
 
 /***/ },
-/* 411 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53329,7 +53714,7 @@
 	 */
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
+	var DraftModifier = __webpack_require__(329);
 	
 	function removeTextWithStrategy(editorState, strategy, direction) {
 	  var selection = editorState.getSelection();
@@ -53355,7 +53740,7 @@
 	module.exports = removeTextWithStrategy;
 
 /***/ },
-/* 412 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53372,11 +53757,11 @@
 	
 	'use strict';
 	
-	var DraftRemovableWord = __webpack_require__(413);
-	var EditorState = __webpack_require__(344);
+	var DraftRemovableWord = __webpack_require__(416);
+	var EditorState = __webpack_require__(347);
 	
-	var moveSelectionBackward = __webpack_require__(410);
-	var removeTextWithStrategy = __webpack_require__(411);
+	var moveSelectionBackward = __webpack_require__(413);
+	var removeTextWithStrategy = __webpack_require__(414);
 	
 	/**
 	 * Delete the word that is left of the cursor, as well as any spaces or
@@ -53407,7 +53792,7 @@
 	module.exports = keyCommandBackspaceWord;
 
 /***/ },
-/* 413 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53425,7 +53810,7 @@
 	
 	'use strict';
 	
-	var TokenizeUtil = __webpack_require__(414);
+	var TokenizeUtil = __webpack_require__(417);
 	
 	var punctuation = TokenizeUtil.getPunctuation();
 	
@@ -53463,7 +53848,7 @@
 	module.exports = DraftRemovableWord;
 
 /***/ },
-/* 414 */
+/* 417 */
 /***/ function(module, exports) {
 
 	/**
@@ -53505,7 +53890,7 @@
 	};
 
 /***/ },
-/* 415 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53522,11 +53907,11 @@
 	
 	'use strict';
 	
-	var DraftRemovableWord = __webpack_require__(413);
-	var EditorState = __webpack_require__(344);
+	var DraftRemovableWord = __webpack_require__(416);
+	var EditorState = __webpack_require__(347);
 	
-	var moveSelectionForward = __webpack_require__(416);
-	var removeTextWithStrategy = __webpack_require__(411);
+	var moveSelectionForward = __webpack_require__(419);
+	var removeTextWithStrategy = __webpack_require__(414);
 	
 	/**
 	 * Delete the word that is right of the cursor, as well as any spaces or
@@ -53555,7 +53940,7 @@
 	module.exports = keyCommandDeleteWord;
 
 /***/ },
-/* 416 */
+/* 419 */
 /***/ function(module, exports) {
 
 	/**
@@ -53604,7 +53989,7 @@
 	module.exports = moveSelectionForward;
 
 /***/ },
-/* 417 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53621,8 +54006,8 @@
 	
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
 	
 	function keyCommandInsertNewline(editorState) {
 	  var contentState = DraftModifier.splitBlock(editorState.getCurrentContent(), editorState.getSelection());
@@ -53632,7 +54017,7 @@
 	module.exports = keyCommandInsertNewline;
 
 /***/ },
-/* 418 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53649,11 +54034,11 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
-	var UnicodeUtils = __webpack_require__(407);
+	var EditorState = __webpack_require__(347);
+	var UnicodeUtils = __webpack_require__(410);
 	
-	var moveSelectionBackward = __webpack_require__(410);
-	var removeTextWithStrategy = __webpack_require__(411);
+	var moveSelectionBackward = __webpack_require__(413);
+	var removeTextWithStrategy = __webpack_require__(414);
 	
 	/**
 	 * Remove the selected range. If the cursor is collapsed, remove the preceding
@@ -53681,7 +54066,7 @@
 	module.exports = keyCommandPlainBackspace;
 
 /***/ },
-/* 419 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53698,11 +54083,11 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
-	var UnicodeUtils = __webpack_require__(407);
+	var EditorState = __webpack_require__(347);
+	var UnicodeUtils = __webpack_require__(410);
 	
-	var moveSelectionForward = __webpack_require__(416);
-	var removeTextWithStrategy = __webpack_require__(411);
+	var moveSelectionForward = __webpack_require__(419);
+	var removeTextWithStrategy = __webpack_require__(414);
 	
 	/**
 	 * Remove the selected range. If the cursor is collapsed, remove the following
@@ -53731,7 +54116,7 @@
 	module.exports = keyCommandPlainDelete;
 
 /***/ },
-/* 420 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53748,7 +54133,7 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
+	var EditorState = __webpack_require__(347);
 	
 	/**
 	 * See comment for `moveSelectionToStartOfBlock`.
@@ -53773,7 +54158,7 @@
 	module.exports = keyCommandMoveSelectionToEndOfBlock;
 
 /***/ },
-/* 421 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53790,7 +54175,7 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
+	var EditorState = __webpack_require__(347);
 	
 	/**
 	 * Collapse selection at the start of the first selected block. This is used
@@ -53815,7 +54200,7 @@
 	module.exports = keyCommandMoveSelectionToStartOfBlock;
 
 /***/ },
-/* 422 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53832,10 +54217,10 @@
 	
 	'use strict';
 	
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
 	
-	var getContentStateFragment = __webpack_require__(335);
+	var getContentStateFragment = __webpack_require__(338);
 	
 	/**
 	 * Transpose the characters on either side of a collapsed cursor, or
@@ -53898,7 +54283,7 @@
 	module.exports = keyCommandTransposeCharacters;
 
 /***/ },
-/* 423 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53915,7 +54300,7 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
+	var EditorState = __webpack_require__(347);
 	
 	function keyCommandUndo(e, editorState, updateFn) {
 	  var undoneState = EditorState.undo(editorState);
@@ -53951,7 +54336,7 @@
 	module.exports = keyCommandUndo;
 
 /***/ },
-/* 424 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53971,16 +54356,16 @@
 	 */
 	'use strict';
 	
-	var BlockMapBuilder = __webpack_require__(322);
-	var CharacterMetadata = __webpack_require__(323);
-	var DataTransfer = __webpack_require__(385);
-	var DraftModifier = __webpack_require__(326);
-	var DraftPasteProcessor = __webpack_require__(425);
-	var EditorState = __webpack_require__(344);
+	var BlockMapBuilder = __webpack_require__(325);
+	var CharacterMetadata = __webpack_require__(326);
+	var DataTransfer = __webpack_require__(388);
+	var DraftModifier = __webpack_require__(329);
+	var DraftPasteProcessor = __webpack_require__(428);
+	var EditorState = __webpack_require__(347);
 	
-	var getEntityKeyForSelection = __webpack_require__(361);
-	var getTextContentFromFiles = __webpack_require__(389);
-	var splitTextIntoTextBlocks = __webpack_require__(429);
+	var getEntityKeyForSelection = __webpack_require__(364);
+	var getTextContentFromFiles = __webpack_require__(392);
+	var splitTextIntoTextBlocks = __webpack_require__(432);
 	
 	function editOnPaste(e) {
 	  var _this = this;
@@ -54097,7 +54482,7 @@
 	module.exports = editOnPaste;
 
 /***/ },
-/* 425 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54115,14 +54500,14 @@
 	
 	'use strict';
 	
-	var CharacterMetadata = __webpack_require__(323);
-	var ContentBlock = __webpack_require__(324);
+	var CharacterMetadata = __webpack_require__(326);
+	var ContentBlock = __webpack_require__(327);
 	var Immutable = __webpack_require__(13);
 	
-	var convertFromHTMLtoContentBlocks = __webpack_require__(426);
-	var generateRandomKey = __webpack_require__(336);
-	var getSafeBodyFromHTML = __webpack_require__(428);
-	var sanitizeDraftText = __webpack_require__(348);
+	var convertFromHTMLtoContentBlocks = __webpack_require__(429);
+	var generateRandomKey = __webpack_require__(339);
+	var getSafeBodyFromHTML = __webpack_require__(431);
+	var sanitizeDraftText = __webpack_require__(351);
 	
 	var List = Immutable.List;
 	var Repeat = Immutable.Repeat;
@@ -54148,7 +54533,7 @@
 	module.exports = DraftPasteProcessor;
 
 /***/ },
-/* 426 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -54166,18 +54551,18 @@
 	
 	'use strict';
 	
-	var CharacterMetadata = __webpack_require__(323);
-	var ContentBlock = __webpack_require__(324);
-	var DefaultDraftBlockRenderMap = __webpack_require__(355);
-	var DraftEntity = __webpack_require__(331);
+	var CharacterMetadata = __webpack_require__(326);
+	var ContentBlock = __webpack_require__(327);
+	var DefaultDraftBlockRenderMap = __webpack_require__(358);
+	var DraftEntity = __webpack_require__(334);
 	var Immutable = __webpack_require__(13);
-	var URI = __webpack_require__(427);
+	var URI = __webpack_require__(430);
 	
-	var generateRandomKey = __webpack_require__(336);
-	var getSafeBodyFromHTML = __webpack_require__(428);
-	var invariant = __webpack_require__(61);
-	var nullthrows = __webpack_require__(353);
-	var sanitizeDraftText = __webpack_require__(348);
+	var generateRandomKey = __webpack_require__(339);
+	var getSafeBodyFromHTML = __webpack_require__(431);
+	var invariant = __webpack_require__(62);
+	var nullthrows = __webpack_require__(356);
+	var sanitizeDraftText = __webpack_require__(351);
 	
 	var List = Immutable.List;
 	var OrderedSet = Immutable.OrderedSet;
@@ -54571,10 +54956,10 @@
 	}
 	
 	module.exports = convertFromHTMLtoContentBlocks;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 427 */
+/* 430 */
 /***/ function(module, exports) {
 
 	/**
@@ -54609,7 +54994,7 @@
 	module.exports = URI;
 
 /***/ },
-/* 428 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54626,7 +55011,7 @@
 	
 	'use strict';
 	
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(370);
 	
 	var isOldIE = UserAgent.isBrowser('IE <= 9');
 	
@@ -54649,7 +55034,7 @@
 	module.exports = getSafeBodyFromHTML;
 
 /***/ },
-/* 429 */
+/* 432 */
 /***/ function(module, exports) {
 
 	/**
@@ -54675,7 +55060,7 @@
 	module.exports = splitTextIntoTextBlocks;
 
 /***/ },
-/* 430 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54692,10 +55077,10 @@
 	
 	'use strict';
 	
-	var EditorState = __webpack_require__(344);
+	var EditorState = __webpack_require__(347);
 	var ReactDOM = __webpack_require__(99);
 	
-	var getDraftEditorSelection = __webpack_require__(431);
+	var getDraftEditorSelection = __webpack_require__(434);
 	
 	function editOnSelect() {
 	  if (this._blockSelectEvents) {
@@ -54719,7 +55104,7 @@
 	module.exports = editOnSelect;
 
 /***/ },
-/* 431 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -54741,7 +55126,7 @@
 	 */
 	'use strict';
 	
-	var getDraftEditorSelectionWithNodes = __webpack_require__(409);
+	var getDraftEditorSelectionWithNodes = __webpack_require__(412);
 	
 	function getDraftEditorSelection(editorState, root) {
 	  var selection = global.getSelection();
@@ -54761,7 +55146,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 432 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54787,9 +55172,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var React = __webpack_require__(56);
+	var React = __webpack_require__(57);
 	
-	var cx = __webpack_require__(356);
+	var cx = __webpack_require__(359);
 	
 	/**
 	 * This component is responsible for rendering placeholder text for the
@@ -54842,7 +55227,7 @@
 	module.exports = DraftEditorPlaceholder;
 
 /***/ },
-/* 433 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54860,9 +55245,9 @@
 	
 	'use strict';
 	
-	var KeyBindingUtil = __webpack_require__(403);
-	var Keys = __webpack_require__(360);
-	var UserAgent = __webpack_require__(367);
+	var KeyBindingUtil = __webpack_require__(406);
+	var Keys = __webpack_require__(363);
+	var UserAgent = __webpack_require__(370);
 	
 	var isOSX = UserAgent.isPlatform('Mac OS X');
 	var isWindows = UserAgent.isPlatform('Windows');
@@ -54969,7 +55354,7 @@
 	module.exports = getDefaultKeyBinding;
 
 /***/ },
-/* 434 */
+/* 437 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54987,13 +55372,13 @@
 	
 	'use strict';
 	
-	var DraftEntity = __webpack_require__(331);
-	var DraftModifier = __webpack_require__(326);
-	var EditorState = __webpack_require__(344);
-	var SelectionState = __webpack_require__(347);
+	var DraftEntity = __webpack_require__(334);
+	var DraftModifier = __webpack_require__(329);
+	var EditorState = __webpack_require__(347);
+	var SelectionState = __webpack_require__(350);
 	
-	var adjustBlockDepthForContentState = __webpack_require__(435);
-	var nullthrows = __webpack_require__(353);
+	var adjustBlockDepthForContentState = __webpack_require__(438);
+	var nullthrows = __webpack_require__(356);
 	
 	var RichTextEditorUtil = {
 	  currentBlockContainsLink: function currentBlockContainsLink(editorState) {
@@ -55281,7 +55666,7 @@
 	module.exports = RichTextEditorUtil;
 
 /***/ },
-/* 435 */
+/* 438 */
 /***/ function(module, exports) {
 
 	/**
@@ -55325,7 +55710,7 @@
 	module.exports = adjustBlockDepthForContentState;
 
 /***/ },
-/* 436 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55342,11 +55727,11 @@
 	
 	'use strict';
 	
-	var DraftEntity = __webpack_require__(331);
-	var DraftStringKey = __webpack_require__(437);
+	var DraftEntity = __webpack_require__(334);
+	var DraftStringKey = __webpack_require__(440);
 	
-	var encodeEntityRanges = __webpack_require__(438);
-	var encodeInlineStyleRanges = __webpack_require__(439);
+	var encodeEntityRanges = __webpack_require__(441);
+	var encodeInlineStyleRanges = __webpack_require__(442);
 	
 	function convertFromDraftStateToRaw(contentState) {
 	  var entityStorageKey = 0;
@@ -55401,7 +55786,7 @@
 	module.exports = convertFromDraftStateToRaw;
 
 /***/ },
-/* 437 */
+/* 440 */
 /***/ function(module, exports) {
 
 	/**
@@ -55432,7 +55817,7 @@
 	module.exports = DraftStringKey;
 
 /***/ },
-/* 438 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55450,8 +55835,8 @@
 	
 	'use strict';
 	
-	var DraftStringKey = __webpack_require__(437);
-	var UnicodeUtils = __webpack_require__(407);
+	var DraftStringKey = __webpack_require__(440);
+	var UnicodeUtils = __webpack_require__(410);
 	
 	var strlen = UnicodeUtils.strlen;
 	
@@ -55478,7 +55863,7 @@
 	module.exports = encodeEntityRanges;
 
 /***/ },
-/* 439 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55495,9 +55880,9 @@
 	
 	'use strict';
 	
-	var UnicodeUtils = __webpack_require__(407);
+	var UnicodeUtils = __webpack_require__(410);
 	
-	var findRangesImmutable = __webpack_require__(325);
+	var findRangesImmutable = __webpack_require__(328);
 	
 	var areEqual = function areEqual(a, b) {
 	  return a === b;
@@ -55551,7 +55936,7 @@
 	module.exports = encodeInlineStyleRanges;
 
 /***/ },
-/* 440 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55570,14 +55955,14 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var ContentBlock = __webpack_require__(324);
-	var ContentState = __webpack_require__(346);
-	var DraftEntity = __webpack_require__(331);
+	var ContentBlock = __webpack_require__(327);
+	var ContentState = __webpack_require__(349);
+	var DraftEntity = __webpack_require__(334);
 	
-	var createCharacterList = __webpack_require__(441);
-	var decodeEntityRanges = __webpack_require__(442);
-	var decodeInlineStyleRanges = __webpack_require__(443);
-	var generateRandomKey = __webpack_require__(336);
+	var createCharacterList = __webpack_require__(444);
+	var decodeEntityRanges = __webpack_require__(445);
+	var decodeInlineStyleRanges = __webpack_require__(446);
+	var generateRandomKey = __webpack_require__(339);
 	
 	function convertFromRawToDraftState(rawState) {
 	  var blocks = rawState.blocks;
@@ -55628,7 +56013,7 @@
 	module.exports = convertFromRawToDraftState;
 
 /***/ },
-/* 441 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55646,7 +56031,7 @@
 	
 	'use strict';
 	
-	var CharacterMetadata = __webpack_require__(323);
+	var CharacterMetadata = __webpack_require__(326);
 	var Immutable = __webpack_require__(13);
 	
 	var List = Immutable.List;
@@ -55662,7 +56047,7 @@
 	module.exports = createCharacterList;
 
 /***/ },
-/* 442 */
+/* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55680,7 +56065,7 @@
 	
 	'use strict';
 	
-	var UnicodeUtils = __webpack_require__(407);
+	var UnicodeUtils = __webpack_require__(410);
 	
 	var substr = UnicodeUtils.substr;
 	
@@ -55706,7 +56091,7 @@
 	module.exports = decodeEntityRanges;
 
 /***/ },
-/* 443 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55724,7 +56109,7 @@
 	
 	'use strict';
 	
-	var UnicodeUtils = __webpack_require__(407);
+	var UnicodeUtils = __webpack_require__(410);
 	
 	var _require = __webpack_require__(13);
 	
@@ -55754,7 +56139,7 @@
 	module.exports = decodeInlineStyleRanges;
 
 /***/ },
-/* 444 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55777,7 +56162,7 @@
 	 */
 	'use strict';
 	
-	var getRangeBoundingClientRect = __webpack_require__(445);
+	var getRangeBoundingClientRect = __webpack_require__(448);
 	
 	function getVisibleSelectionRect(global) {
 	  var selection = global.getSelection();
@@ -55805,7 +56190,7 @@
 	module.exports = getVisibleSelectionRect;
 
 /***/ },
-/* 445 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55826,7 +56211,7 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var getRangeClientRects = __webpack_require__(408);
+	var getRangeClientRects = __webpack_require__(411);
 	
 	/**
 	 * Like range.getBoundingClientRect() but normalizes for browser bugs.
@@ -55873,7 +56258,7 @@
 	module.exports = getRangeBoundingClientRect;
 
 /***/ },
-/* 446 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55884,15 +56269,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _DeleteControl = __webpack_require__(447);
+	var _DeleteControl = __webpack_require__(450);
 	
 	var _DeleteControl2 = _interopRequireDefault(_DeleteControl);
 	
-	var _Duration = __webpack_require__(448);
+	var _Duration = __webpack_require__(451);
 	
 	var _Duration2 = _interopRequireDefault(_Duration);
 	
-	var _Featured = __webpack_require__(450);
+	var _Featured = __webpack_require__(453);
 	
 	var _Featured2 = _interopRequireDefault(_Featured);
 	
@@ -55900,19 +56285,19 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _MetadataItem = __webpack_require__(451);
+	var _MetadataItem = __webpack_require__(454);
 	
 	var _MetadataItem2 = _interopRequireDefault(_MetadataItem);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _SaveControl = __webpack_require__(452);
+	var _SaveControl = __webpack_require__(455);
 	
 	var _SaveControl2 = _interopRequireDefault(_SaveControl);
 	
-	var _CopyUrl = __webpack_require__(453);
+	var _CopyUrl = __webpack_require__(456);
 	
 	var _CopyUrl2 = _interopRequireDefault(_CopyUrl);
 	
@@ -56139,7 +56524,7 @@
 	exports.default = Metadata;
 
 /***/ },
-/* 447 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56150,7 +56535,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -56260,7 +56645,7 @@
 	exports.default = DeleteControl;
 
 /***/ },
-/* 448 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56271,11 +56656,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _getStringFromSeconds = __webpack_require__(449);
+	var _getStringFromSeconds = __webpack_require__(452);
 	
 	var _getStringFromSeconds2 = _interopRequireDefault(_getStringFromSeconds);
 	
@@ -56347,7 +56732,7 @@
 	exports.default = Duration;
 
 /***/ },
-/* 449 */
+/* 452 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56416,7 +56801,7 @@
 	}
 
 /***/ },
-/* 450 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56427,7 +56812,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -56524,7 +56909,7 @@
 	exports.default = Featured;
 
 /***/ },
-/* 451 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56539,7 +56924,7 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -56653,7 +57038,7 @@
 	exports.default = MetadataItem;
 
 /***/ },
-/* 452 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56664,7 +57049,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -56735,7 +57120,7 @@
 	exports.default = SaveControl;
 
 /***/ },
-/* 453 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56746,19 +57131,19 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _clipboard = __webpack_require__(454);
+	var _clipboard = __webpack_require__(457);
 	
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 	
-	var _getPseudorandomId = __webpack_require__(462);
+	var _getPseudorandomId = __webpack_require__(465);
 	
 	var _getPseudorandomId2 = _interopRequireDefault(_getPseudorandomId);
 	
-	var _getStringFromSeconds = __webpack_require__(449);
+	var _getStringFromSeconds = __webpack_require__(452);
 	
 	var _getStringFromSeconds2 = _interopRequireDefault(_getStringFromSeconds);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -56849,12 +57234,12 @@
 	exports.default = CopyUrl;
 
 /***/ },
-/* 454 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(455), __webpack_require__(457), __webpack_require__(458)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(458), __webpack_require__(460), __webpack_require__(461)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -57039,12 +57424,12 @@
 	});
 
 /***/ },
-/* 455 */
+/* 458 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(456)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(459)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -57273,7 +57658,7 @@
 	});
 
 /***/ },
-/* 456 */
+/* 459 */
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -57312,7 +57697,7 @@
 
 
 /***/ },
-/* 457 */
+/* 460 */
 /***/ function(module, exports) {
 
 	function E () {
@@ -57384,11 +57769,11 @@
 
 
 /***/ },
-/* 458 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(459);
-	var delegate = __webpack_require__(460);
+	var is = __webpack_require__(462);
+	var delegate = __webpack_require__(463);
 	
 	/**
 	 * Validates all params and calls the right
@@ -57485,7 +57870,7 @@
 
 
 /***/ },
-/* 459 */
+/* 462 */
 /***/ function(module, exports) {
 
 	/**
@@ -57540,10 +57925,10 @@
 
 
 /***/ },
-/* 460 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(461);
+	var closest = __webpack_require__(464);
 	
 	/**
 	 * Delegates event to a selector.
@@ -57590,7 +57975,7 @@
 
 
 /***/ },
-/* 461 */
+/* 464 */
 /***/ function(module, exports) {
 
 	/**
@@ -57624,7 +58009,7 @@
 
 
 /***/ },
-/* 462 */
+/* 465 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -57664,7 +58049,7 @@
 	}
 
 /***/ },
-/* 463 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57672,12 +58057,12 @@
 	  throw new Error("Don't instantiate Resizable directly! Use require('react-resizable').Resizable");
 	};
 	
-	module.exports.Resizable = __webpack_require__(464).default;
-	module.exports.ResizableBox = __webpack_require__(466).default;
+	module.exports.Resizable = __webpack_require__(467).default;
+	module.exports.ResizableBox = __webpack_require__(469).default;
 
 
 /***/ },
-/* 464 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57686,13 +58071,13 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactDraggable = __webpack_require__(98);
 	
-	var _cloneElement = __webpack_require__(465);
+	var _cloneElement = __webpack_require__(468);
 	
 	var _cloneElement2 = _interopRequireDefault(_cloneElement);
 	
@@ -57939,14 +58324,14 @@
 	exports.default = Resizable;
 
 /***/ },
-/* 465 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -57964,7 +58349,7 @@
 	};
 
 /***/ },
-/* 466 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57973,11 +58358,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Resizable = __webpack_require__(464);
+	var _Resizable = __webpack_require__(467);
 	
 	var _Resizable2 = _interopRequireDefault(_Resizable);
 	
@@ -58074,7 +58459,7 @@
 	exports.default = ResizableBox;
 
 /***/ },
-/* 467 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58083,7 +58468,7 @@
 	  value: true
 	});
 	
-	var _stateToHTML = __webpack_require__(468);
+	var _stateToHTML = __webpack_require__(471);
 	
 	Object.defineProperty(exports, 'stateToHTML', {
 	  enumerable: true,
@@ -58095,7 +58480,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 468 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58114,21 +58499,21 @@
 	
 	exports.default = stateToHTML;
 	
-	var _combineOrderedStyles3 = __webpack_require__(469);
+	var _combineOrderedStyles3 = __webpack_require__(472);
 	
 	var _combineOrderedStyles4 = _interopRequireDefault(_combineOrderedStyles3);
 	
-	var _normalizeAttributes = __webpack_require__(470);
+	var _normalizeAttributes = __webpack_require__(473);
 	
 	var _normalizeAttributes2 = _interopRequireDefault(_normalizeAttributes);
 	
-	var _styleToCSS = __webpack_require__(471);
+	var _styleToCSS = __webpack_require__(474);
 	
 	var _styleToCSS2 = _interopRequireDefault(_styleToCSS);
 	
-	var _draftJs = __webpack_require__(320);
+	var _draftJs = __webpack_require__(323);
 	
-	var _draftJsUtils = __webpack_require__(472);
+	var _draftJsUtils = __webpack_require__(475);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -58633,7 +59018,7 @@
 	}
 
 /***/ },
-/* 469 */
+/* 472 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -58697,7 +59082,7 @@
 	exports.default = combineOrderedStyles;
 
 /***/ },
-/* 470 */
+/* 473 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58757,7 +59142,7 @@
 	exports.default = normalizeAttributes;
 
 /***/ },
-/* 471 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58804,7 +59189,7 @@
 	exports.default = styleToCSS;
 
 /***/ },
-/* 472 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58813,7 +59198,7 @@
 	  value: true
 	});
 	
-	var _Constants = __webpack_require__(473);
+	var _Constants = __webpack_require__(476);
 	
 	Object.keys(_Constants).forEach(function (key) {
 	  if (key === "default") return;
@@ -58831,7 +59216,7 @@
 	  }
 	});
 	
-	var _getEntityRanges = __webpack_require__(474);
+	var _getEntityRanges = __webpack_require__(477);
 	
 	Object.defineProperty(exports, 'getEntityRanges', {
 	  enumerable: true,
@@ -58840,7 +59225,7 @@
 	  }
 	});
 	
-	var _getSelectedBlocks = __webpack_require__(475);
+	var _getSelectedBlocks = __webpack_require__(478);
 	
 	Object.defineProperty(exports, 'getSelectedBlocks', {
 	  enumerable: true,
@@ -58849,7 +59234,7 @@
 	  }
 	});
 	
-	var _selectionContainsEntity = __webpack_require__(476);
+	var _selectionContainsEntity = __webpack_require__(479);
 	
 	Object.defineProperty(exports, 'selectionContainsEntity', {
 	  enumerable: true,
@@ -58858,7 +59243,7 @@
 	  }
 	});
 	
-	var _callModifierForSelectedBlocks = __webpack_require__(477);
+	var _callModifierForSelectedBlocks = __webpack_require__(480);
 	
 	Object.defineProperty(exports, 'callModifierForSelectedBlocks', {
 	  enumerable: true,
@@ -58870,7 +59255,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 473 */
+/* 476 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58915,7 +59300,7 @@
 	};
 
 /***/ },
-/* 474 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58967,7 +59352,7 @@
 	}
 
 /***/ },
-/* 475 */
+/* 478 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -59015,7 +59400,7 @@
 	};
 
 /***/ },
-/* 476 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59024,7 +59409,7 @@
 	  value: true
 	});
 	
-	var _getSelectedBlocks = __webpack_require__(475);
+	var _getSelectedBlocks = __webpack_require__(478);
 	
 	var _getSelectedBlocks2 = _interopRequireDefault(_getSelectedBlocks);
 	
@@ -59073,7 +59458,7 @@
 	};
 
 /***/ },
-/* 477 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59082,9 +59467,9 @@
 	  value: true
 	});
 	
-	var _draftJs = __webpack_require__(320);
+	var _draftJs = __webpack_require__(323);
 	
-	var _getSelectedBlocks = __webpack_require__(475);
+	var _getSelectedBlocks = __webpack_require__(478);
 	
 	var _getSelectedBlocks2 = _interopRequireDefault(_getSelectedBlocks);
 	
@@ -59155,7 +59540,7 @@
 	};
 
 /***/ },
-/* 478 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59170,33 +59555,33 @@
 	
 	var _reactDraggable = __webpack_require__(98);
 	
-	var _fadeIn = __webpack_require__(479);
+	var _fadeIn = __webpack_require__(482);
 	
 	var _fadeIn2 = _interopRequireDefault(_fadeIn);
 	
-	var _fadeOut = __webpack_require__(480);
+	var _fadeOut = __webpack_require__(483);
 	
 	var _fadeOut2 = _interopRequireDefault(_fadeOut);
 	
-	var _getCloudFrontUrl = __webpack_require__(481);
+	var _getCloudFrontUrl = __webpack_require__(484);
 	
 	var _getCloudFrontUrl2 = _interopRequireDefault(_getCloudFrontUrl);
 	
-	var _Metadata = __webpack_require__(446);
+	var _Metadata = __webpack_require__(449);
 	
 	var _Metadata2 = _interopRequireDefault(_Metadata);
 	
-	var _PosterImage = __webpack_require__(482);
+	var _PosterImage = __webpack_require__(485);
 	
 	var _PosterImage2 = _interopRequireDefault(_PosterImage);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactResizable = __webpack_require__(463);
+	var _reactResizable = __webpack_require__(466);
 	
-	var _reactHtml5video = __webpack_require__(483);
+	var _reactHtml5video = __webpack_require__(486);
 	
 	var _reactHtml5video2 = _interopRequireDefault(_reactHtml5video);
 	
@@ -59207,12 +59592,12 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2017 Mark P. Lindsay
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
@@ -59222,7 +59607,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var VideoItem = function (_React$Component) {
@@ -59235,7 +59621,6 @@
 	
 	    _this.state = {
 	      height: 0,
-	      isSourceItem: false,
 	      posterImageStyle: {},
 	      shouldBeRendered: false,
 	      style: {
@@ -59282,9 +59667,6 @@
 	      if (this._shouldAllowDragAndResize()) {
 	        className += ' should-allow-drag-and-resize';
 	      }
-	      if (this.state.isSourceItem) {
-	        className += ' is-source-item';
-	      }
 	      if (!this.state.shouldBeRendered) {
 	        className += ' should-show-placeholder';
 	      } else if (this.refs.video !== undefined && this.refs.video.state.loading) {
@@ -59298,7 +59680,12 @@
 	      if (this.state.wasDragged) {
 	        event.preventDefault();
 	      } else {
-	        this.props.itemClicked(this.props.item);
+	        // Get the BCR so we can fix the source video item's position correctly.
+	        var bcr = this.refs.item.getBoundingClientRect();
+	        // Also, let's start the source video item at the clicked video's current
+	        // time.
+	        var currentTime = this.refs.video.videoEl.currentTime;
+	        this.props.itemClicked(this.props.item, bcr.left, bcr.top, currentTime);
 	      }
 	    }
 	  }, {
@@ -59465,31 +59852,6 @@
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _this2 = this;
 	
-	      if (nextProps.sourceItem === nextProps.item) {
-	        this.setState(function (prevState, props) {
-	          var bcr = _this2.refs.item.getBoundingClientRect();
-	          return {
-	            isSourceItem: true,
-	            style: {
-	              height: prevState.style.height,
-	              left: bcr.left + 'px',
-	              top: bcr.top + 'px',
-	              width: prevState.style.width
-	            }
-	          };
-	        });
-	      } else if (this.state.isSourceItem) {
-	        this.setState(function (prevState, props) {
-	          return {
-	            isSourceItem: false,
-	            style: {
-	              height: prevState.style.height,
-	              width: prevState.style.width,
-	              transform: 'translate(' + prevState.x + 'px, ' + prevState.y + 'px)'
-	            }
-	          };
-	        });
-	      }
 	      if (nextProps.item.get('x') !== this.props.item.get('x')) {
 	        this.setState({
 	          style: {
@@ -59619,7 +59981,7 @@
 	exports.default = VideoItem;
 
 /***/ },
-/* 479 */
+/* 482 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -59666,7 +60028,7 @@
 	}
 
 /***/ },
-/* 480 */
+/* 483 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -59713,7 +60075,7 @@
 	}
 
 /***/ },
-/* 481 */
+/* 484 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -59746,7 +60108,7 @@
 	}
 
 /***/ },
-/* 482 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59757,11 +60119,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _getCloudFrontUrl = __webpack_require__(481);
+	var _getCloudFrontUrl = __webpack_require__(484);
 	
 	var _getCloudFrontUrl2 = _interopRequireDefault(_getCloudFrontUrl);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -59823,12 +60185,12 @@
 	exports.default = PosterImage;
 
 /***/ },
-/* 483 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
 		if(true)
-			module.exports = factory(__webpack_require__(56));
+			module.exports = factory(__webpack_require__(57));
 		else if(typeof define === 'function' && define.amd)
 			define(["react"], factory);
 		else if(typeof exports === 'object')
@@ -62186,7 +62548,7 @@
 	;
 
 /***/ },
-/* 484 */
+/* 487 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -62317,7 +62679,7 @@
 	}
 
 /***/ },
-/* 485 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62332,31 +62694,31 @@
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _redux = __webpack_require__(39);
+	var _redux = __webpack_require__(40);
 	
-	var _reactRedux = __webpack_require__(54);
+	var _reactRedux = __webpack_require__(55);
 	
-	var _getHalfway = __webpack_require__(314);
+	var _getHalfway = __webpack_require__(317);
 	
 	var _getHalfway2 = _interopRequireDefault(_getHalfway);
 	
-	var _getLeftEdgeOfViewport = __webpack_require__(315);
+	var _getLeftEdgeOfViewport = __webpack_require__(318);
 	
 	var _getLeftEdgeOfViewport2 = _interopRequireDefault(_getLeftEdgeOfViewport);
 	
-	var _getPaddingLeft = __webpack_require__(95);
+	var _getPaddingLeft = __webpack_require__(243);
 	
 	var _getPaddingLeft2 = _interopRequireDefault(_getPaddingLeft);
 	
-	var _getPaddingRight = __webpack_require__(316);
+	var _getPaddingRight = __webpack_require__(319);
 	
 	var _getPaddingRight2 = _interopRequireDefault(_getPaddingRight);
 	
-	var _getRightEdgeOfViewport = __webpack_require__(317);
+	var _getRightEdgeOfViewport = __webpack_require__(320);
 	
 	var _getRightEdgeOfViewport2 = _interopRequireDefault(_getRightEdgeOfViewport);
 	
-	var _getScrollDestination = __webpack_require__(318);
+	var _getScrollDestination = __webpack_require__(321);
 	
 	var _getScrollDestination2 = _interopRequireDefault(_getScrollDestination);
 	
@@ -62364,7 +62726,7 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -62372,11 +62734,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _TextItem = __webpack_require__(319);
+	var _TextItem = __webpack_require__(322);
 	
 	var _TextItem2 = _interopRequireDefault(_TextItem);
 	
-	var _VideoItem = __webpack_require__(478);
+	var _VideoItem = __webpack_require__(481);
 	
 	var _VideoItem2 = _interopRequireDefault(_VideoItem);
 	
@@ -62391,8 +62753,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
@@ -62402,7 +62764,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
 	var Page = function (_React$Component) {
@@ -62484,7 +62847,14 @@
 	    value: function render() {
 	      var _this2 = this;
 	
-	      var items = this.props.items.map(function (item, key) {
+	      var items = this.props.items.filter(function (item) {
+	        // If there's a linking mode source item, omit it from the items displayed
+	        // on the page.
+	        if (_this2.props.linkSourceItem === null) {
+	          return true;
+	        }
+	        return _this2.props.linkSourceItem.get('id') !== item.get('id');
+	      }).map(function (item, key) {
 	        switch (item.get('type')) {
 	          case 'text':
 	            return _react2.default.createElement(_TextItem2.default, { baseUrl: _this2.props.baseUrl,
@@ -62492,7 +62862,6 @@
 	              featuredItemId: _this2.props.featuredItemId,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
-	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: item,
 	              itemClicked: _this2.props.itemClicked,
@@ -62502,7 +62871,6 @@
 	              setItemSize: _this2.props.setItemSize,
 	              setTextItemRawState: _this2.props.setTextItemRawState,
 	              setItemMetadata: _this2.props.setItemMetadata,
-	              sourceItem: _this2.props.sourceItem,
 	              user: _this2.props.user });
 	          case 'video':
 	            return _react2.default.createElement(_VideoItem2.default, { baseUrl: _this2.props.baseUrl,
@@ -62512,7 +62880,6 @@
 	              height: _this2.props.height,
 	              hideMetadata: _this2.props.hideMetadata,
 	              id: key,
-	              isInLinkingMode: _this2.props.isInLinkingMode,
 	              isShowingMetadata: _this2.props.isShowingMetadata,
 	              item: item,
 	              itemClicked: _this2.props.itemClicked,
@@ -62524,7 +62891,6 @@
 	              setItemPosition: _this2.props.setItemPosition,
 	              setItemSize: _this2.props.setItemSize,
 	              setItemMetadata: _this2.props.setItemMetadata,
-	              sourceItem: _this2.props.sourceItem,
 	              user: _this2.props.user });
 	          default:
 	            return null;
@@ -62552,17 +62918,16 @@
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
 	    featuredItemId: state.getIn(['page', 'featuredItemId']),
-	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    items: state.getIn(['page', 'items']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
+	    linkSourceItem: state.getIn(['link', 'source', 'item']),
 	    paddingLeft: (0, _getPaddingLeft2.default)(state),
 	    paddingRight: (0, _getPaddingRight2.default)(state),
 	    pageId: state.getIn(['page', 'pageId']),
 	    rightEdgeOfViewport: (0, _getRightEdgeOfViewport2.default)(state),
 	    scrollDestination: (0, _getScrollDestination2.default)(state),
 	    scrollLeft: state.getIn(['page', 'scrollLeft']),
-	    sourceItem: state.getIn(['link', 'sourceItem']),
 	    user: state.getIn(['app', 'user']),
 	    width: state.getIn(['page', 'width'])
 	  };
@@ -62588,7 +62953,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Page);
 
 /***/ },
-/* 486 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62597,29 +62962,29 @@
 	  value: true
 	});
 	
-	var _reduxImmutable = __webpack_require__(487);
+	var _reduxImmutable = __webpack_require__(490);
 	
-	var _app = __webpack_require__(493);
+	var _app = __webpack_require__(496);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _filter = __webpack_require__(494);
+	var _filter = __webpack_require__(497);
 	
 	var _filter2 = _interopRequireDefault(_filter);
 	
-	var _link = __webpack_require__(501);
+	var _link = __webpack_require__(498);
 	
 	var _link2 = _interopRequireDefault(_link);
 	
-	var _page = __webpack_require__(495);
+	var _page = __webpack_require__(499);
 	
 	var _page2 = _interopRequireDefault(_page);
 	
-	var _router = __webpack_require__(496);
+	var _router = __webpack_require__(500);
 	
 	var _router2 = _interopRequireDefault(_router);
 	
-	var _upload = __webpack_require__(497);
+	var _upload = __webpack_require__(501);
 	
 	var _upload2 = _interopRequireDefault(_upload);
 	
@@ -62652,7 +63017,7 @@
 	     */
 
 /***/ },
-/* 487 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62662,7 +63027,7 @@
 	});
 	exports.combineReducers = undefined;
 	
-	var _combineReducers2 = __webpack_require__(488);
+	var _combineReducers2 = __webpack_require__(491);
 	
 	var _combineReducers3 = _interopRequireDefault(_combineReducers2);
 	
@@ -62671,7 +63036,7 @@
 	exports.combineReducers = _combineReducers3.default;
 
 /***/ },
-/* 488 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -62684,7 +63049,7 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _utilities = __webpack_require__(489);
+	var _utilities = __webpack_require__(492);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -62721,10 +63086,10 @@
 	};
 	
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ },
-/* 489 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62735,15 +63100,15 @@
 	});
 	exports.validateNextState = exports.getUnexpectedInvocationParameterMessage = exports.getStateName = undefined;
 	
-	var _getStateName2 = __webpack_require__(490);
+	var _getStateName2 = __webpack_require__(493);
 	
 	var _getStateName3 = _interopRequireDefault(_getStateName2);
 	
-	var _getUnexpectedInvocationParameterMessage2 = __webpack_require__(491);
+	var _getUnexpectedInvocationParameterMessage2 = __webpack_require__(494);
 	
 	var _getUnexpectedInvocationParameterMessage3 = _interopRequireDefault(_getUnexpectedInvocationParameterMessage2);
 	
-	var _validateNextState2 = __webpack_require__(492);
+	var _validateNextState2 = __webpack_require__(495);
 	
 	var _validateNextState3 = _interopRequireDefault(_validateNextState2);
 	
@@ -62754,7 +63119,7 @@
 	exports.validateNextState = _validateNextState3.default;
 
 /***/ },
-/* 490 */
+/* 493 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62770,7 +63135,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 491 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62783,7 +63148,7 @@
 	
 	var _immutable2 = _interopRequireDefault(_immutable);
 	
-	var _getStateName = __webpack_require__(490);
+	var _getStateName = __webpack_require__(493);
 	
 	var _getStateName2 = _interopRequireDefault(_getStateName);
 	
@@ -62818,7 +63183,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 492 */
+/* 495 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -62839,7 +63204,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 493 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62922,7 +63287,7 @@
 	}
 
 /***/ },
-/* 494 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63112,7 +63477,116 @@
 	}
 
 /***/ },
-/* 495 */
+/* 498 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = appReducer;
+	
+	var _constants = __webpack_require__(6);
+	
+	var _immutable = __webpack_require__(13);
+	
+	var _immutable2 = _interopRequireDefault(_immutable);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*/*
+	 * Copyright (C) 2017 Mark P. Lindsay
+	 * 
+	 * This file is part of mysteriousobjectsatnoon.
+	 *
+	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	 * modify it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU General Public License
+	 * along with mysteriousobjectsatnoon.  If not, see 
+	 * <http://www.gnu.org/licenses/>.
+	 */
+	
+	var initialState = _immutable2.default.Map({
+	  isInLinkingMode: false,
+	  source: _immutable2.default.Map({
+	    currentTime: 0,
+	    item: null,
+	    left: 0,
+	    top: 0
+	  })
+	});
+	
+	function appReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	
+	    case _constants.A.ITEM_CLICKED:
+	      if (state.get('isInLinkingMode')) {
+	        return state.merge({
+	          source: _immutable2.default.Map({
+	            currentTime: action.payload.get('currentTime'),
+	            item: action.payload.get('item'),
+	            left: action.payload.get('left'),
+	            top: action.payload.get('top')
+	          })
+	        });
+	      }
+	      return state;
+	
+	    case _constants.A.PAGE_CLICKED:
+	      if (state.get('isInLinkingMode')) {
+	        return state.merge({
+	          isInLinkingMode: false,
+	          source: _immutable2.default.Map({
+	            currentTime: 0,
+	            item: null,
+	            left: 0,
+	            top: 0
+	          })
+	        });
+	      }
+	      return state;
+	
+	    case _constants.A.SHOW_METADATA:
+	      return state.merge({
+	        isInLinkingMode: false,
+	        source: _immutable2.default.Map({
+	          currentTime: 0,
+	          item: null,
+	          left: 0,
+	          top: 0
+	        })
+	      });
+	
+	    case _constants.A.TOGGLE_LINKING_MODE:
+	      return state.merge({
+	        isInLinkingMode: !state.get('isInLinkingMode'),
+	        source: _immutable2.default.Map({
+	          currentTime: 0,
+	          item: null,
+	          left: 0,
+	          top: 0
+	        })
+	      });
+	
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63210,7 +63684,7 @@
 	}
 
 /***/ },
-/* 496 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63264,7 +63738,7 @@
 	}
 
 /***/ },
-/* 497 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63322,7 +63796,7 @@
 	}
 
 /***/ },
-/* 498 */
+/* 502 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -63350,7 +63824,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 499 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63361,17 +63835,33 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _actions = __webpack_require__(4);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _redux = __webpack_require__(40);
+	
+	var _reactRedux = __webpack_require__(55);
+	
+	var _Control = __webpack_require__(245);
+	
+	var _Control2 = _interopRequireDefault(_Control);
+	
 	var _reactDraggable = __webpack_require__(98);
 	
 	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
 	
-	var _react = __webpack_require__(56);
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactDom = __webpack_require__(99);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _SourceItem = __webpack_require__(504);
+	
+	var _SourceItem2 = _interopRequireDefault(_SourceItem);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -63384,8 +63874,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
@@ -63395,140 +63885,63 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
-	var Bubble = function (_React$Component) {
-	  _inherits(Bubble, _React$Component);
+	var Link = function (_React$Component) {
+	  _inherits(Link, _React$Component);
 	
-	  function Bubble() {
-	    _classCallCheck(this, Bubble);
+	  function Link() {
+	    _classCallCheck(this, Link);
 	
-	    var _this = _possibleConstructorReturn(this, (Bubble.__proto__ || Object.getPrototypeOf(Bubble)).call(this));
+	    var _this = _possibleConstructorReturn(this, (Link.__proto__ || Object.getPrototypeOf(Link)).call(this));
 	
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(Bubble, [{
+	  _createClass(Link, [{
 	    key: 'render',
 	    value: function render() {
-	      if (!this.props.isOpen) {
-	        return null;
-	      }
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'bubble', onClick: this.props.onClick },
-	        'See something you like? Click it to see where it takes you.'
+	        { className: 'link' },
+	        _react2.default.createElement(_Control2.default, { toggleLinkingMode: this.props.toggleLinkingMode,
+	          user: this.props.user,
+	          windowHeight: this.props.windowHeight,
+	          windowWidth: this.props.windowWidth }),
+	        _react2.default.createElement(_SourceItem2.default, { currentTime: this.props.source.get('currentTime'),
+	          item: this.props.source.get('item'),
+	          left: this.props.source.get('left'),
+	          top: this.props.source.get('top') })
 	      );
 	    }
 	  }]);
 	
-	  return Bubble;
+	  return Link;
 	}(_react2.default.Component);
 	
-	var LinkControl = function (_React$Component2) {
-	  _inherits(LinkControl, _React$Component2);
+	function mapStateToProps(state) {
+	  return {
+	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
+	    source: state.getIn(['link', 'source']),
+	    user: state.getIn(['app', 'user']),
+	    windowHeight: state.getIn(['page', 'height']),
+	    windowWidth: state.getIn(['page', 'width'])
+	  };
+	}
 	
-	  function LinkControl() {
-	    _classCallCheck(this, LinkControl);
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    toggleLinkingMode: (0, _redux.bindActionCreators)(_actions2.default.toggleLinkingMode, dispatch)
+	  };
+	}
 	
-	    var _this2 = _possibleConstructorReturn(this, (LinkControl.__proto__ || Object.getPrototypeOf(LinkControl)).call(this));
-	
-	    _this2.state = {
-	      height: 0,
-	      isOpen: false,
-	      width: 0
-	    };
-	    _this2._handleClick = _this2._handleClick.bind(_this2);
-	    _this2._handleDragStart = _this2._handleDragStart.bind(_this2);
-	    _this2.componentDidUpdate = _this2.componentDidUpdate.bind(_this2);
-	    _this2.componentWillReceiveProps = _this2.componentWillReceiveProps.bind(_this2);
-	    _this2.render = _this2.render.bind(_this2);
-	    return _this2;
-	  }
-	
-	  _createClass(LinkControl, [{
-	    key: '_handleClick',
-	    value: function _handleClick(event) {
-	      event.preventDefault();
-	      if (!this.props.user.isEmpty()) {
-	        this.props.toggleLinkingMode();
-	      } else {
-	        this.setState(function (previousState) {
-	          return { isOpen: !previousState.isOpen };
-	        });
-	      }
-	    }
-	  }, {
-	    key: '_handleDragStart',
-	    value: function _handleDragStart(event) {
-	      event.preventDefault();
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      var el = _reactDom2.default.findDOMNode(this);
-	      if (el !== null && this.state.height === 0 && this.state.width === 0) {
-	        this.setState({
-	          height: el.offsetHeight,
-	          width: el.offsetWidth
-	        });
-	      }
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      // Close the bubble if a user logs in.
-	      if (this.props.user.isEmpty() && !nextProps.user.isEmpty()) {
-	        this.setState({
-	          isOpen: false
-	        });
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
-	        return null;
-	      }
-	      var bounds = {
-	        top: 0,
-	        right: this.props.windowWidth - this.state.width,
-	        bottom: this.props.windowHeight - this.state.height,
-	        left: 0
-	      };
-	      var defaultPosition = {
-	        x: this.props.windowWidth * 0.45,
-	        y: this.props.windowHeight * 0.75
-	      };
-	      return _react2.default.createElement(
-	        _reactDraggable2.default,
-	        { bounds: bounds, defaultPosition: defaultPosition },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'link-control app-control' },
-	          _react2.default.createElement(
-	            'a',
-	            { href: '#',
-	              onClick: this._handleClick,
-	              onDragStart: this._handleDragStart },
-	            _react2.default.createElement('img', { src: '/static/plane.gif', alt: 'Link' })
-	          ),
-	          _react2.default.createElement(Bubble, { isOpen: this.state.isOpen,
-	            onClick: this._handleClick })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return LinkControl;
-	}(_react2.default.Component);
-	
-	exports.default = LinkControl;
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Link);
 
 /***/ },
-/* 500 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63539,17 +63952,23 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _reactDraggable = __webpack_require__(98);
+	var _constants = __webpack_require__(6);
 	
-	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
+	var _getCloudFrontUrl = __webpack_require__(484);
 	
-	var _react = __webpack_require__(56);
+	var _getCloudFrontUrl2 = _interopRequireDefault(_getCloudFrontUrl);
+	
+	var _PosterImage = __webpack_require__(485);
+	
+	var _PosterImage2 = _interopRequireDefault(_PosterImage);
+	
+	var _react = __webpack_require__(57);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(99);
+	var _reactHtml5video = __webpack_require__(486);
 	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var _reactHtml5video2 = _interopRequireDefault(_reactHtml5video);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -63562,8 +63981,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
@@ -63573,236 +63992,80 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
-	var MetadataControl = function (_React$Component) {
-	  _inherits(MetadataControl, _React$Component);
+	var SourceItem = function (_React$Component) {
+	  _inherits(SourceItem, _React$Component);
 	
-	  function MetadataControl() {
-	    _classCallCheck(this, MetadataControl);
+	  function SourceItem() {
+	    _classCallCheck(this, SourceItem);
 	
-	    var _this = _possibleConstructorReturn(this, (MetadataControl.__proto__ || Object.getPrototypeOf(MetadataControl)).call(this));
+	    var _this = _possibleConstructorReturn(this, (SourceItem.__proto__ || Object.getPrototypeOf(SourceItem)).call(this));
 	
-	    _this.state = {
-	      height: 0,
-	      width: 0
-	    };
-	    _this._handleClick = _this._handleClick.bind(_this);
-	    _this._handleDragStart = _this._handleDragStart.bind(_this);
+	    _this._handleCanPlayThrough = _this._handleCanPlayThrough.bind(_this);
 	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
 	    _this.render = _this.render.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(MetadataControl, [{
-	    key: '_handleClick',
-	    value: function _handleClick(event) {
-	      event.preventDefault();
-	      if (!this.props.isShowingMetadata) {
-	        this.props.showMetadata();
-	      } else {
-	        this.props.hideMetadata();
-	      }
-	    }
-	  }, {
-	    key: '_handleDragStart',
-	    value: function _handleDragStart(event) {
-	      event.preventDefault();
+	  _createClass(SourceItem, [{
+	    key: '_handleCanPlayThrough',
+	    value: function _handleCanPlayThrough(event) {
+	      // http://stackoverflow.com/questions/16137381/html5-video-element-request-stay-pending-forever-on-chrome
+	      event.target.play();
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      var el = _reactDom2.default.findDOMNode(this);
-	      if (el !== null && this.state.height === 0 && this.state.width === 0) {
-	        this.setState({
-	          height: el.offsetHeight,
-	          width: el.offsetWidth
-	        });
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      if (this.refs.video !== undefined) {
+	        // Fast-forward to the playback position of the clicked video.
+	        this.refs.video.seek(this.props.currentTime);
+	        // All link source video items are muted.
+	        this.refs.video.mute();
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.props.windowHeight === 0 && this.props.windowWidth === 0) {
+	      if (this.props.item === null) {
 	        return null;
 	      }
-	      var bounds = {
-	        top: 0,
-	        right: this.props.windowWidth - this.state.width,
-	        bottom: this.props.windowHeight - this.state.height,
-	        left: 0
-	      };
-	      var defaultPosition = { x: 40, y: this.props.windowHeight * 0.10 };
-	      var className = 'metadata-control app-control';
-	      var img = _react2.default.createElement('img', { src: '/static/haumea.png', alt: 'Metadata' });
-	      if (!this.props.uploads.isEmpty()) {
-	        className += ' is-uploading';
-	        img = _react2.default.createElement('img', { src: '/static/haumea_uploading.gif', alt: 'Uploading...' });
+	      if (this.props.item.get('type') !== 'video') {
+	        return null;
 	      }
+	      var style = {
+	        height: this.props.item.get('height') + 'px',
+	        left: this.props.left + 'px',
+	        top: this.props.top + 'px',
+	        width: this.props.item.get('width') + 'px'
+	      };
 	      return _react2.default.createElement(
-	        _reactDraggable2.default,
-	        { bounds: bounds, defaultPosition: defaultPosition },
+	        'div',
+	        { className: 'video-item is-source-item',
+	          ref: 'item',
+	          style: style },
 	        _react2.default.createElement(
-	          'a',
-	          { className: className,
-	            href: '#',
-	            onClick: this._handleClick,
-	            onDragStart: this._handleDragStart },
-	          img
-	        )
+	          _reactHtml5video2.default,
+	          { loop: true,
+	            onCanPlayThrough: this._handleCanPlayThrough,
+	            ref: 'video'
+	          },
+	          _react2.default.createElement('source', { src: (0, _getCloudFrontUrl2.default)(this.props.item.getIn(['results', 'encode', 'ssl_url'])), type: 'video/mp4' })
+	        ),
+	        _react2.default.createElement('div', { className: 'obstructor' }),
+	        _react2.default.createElement(_PosterImage2.default, { item: this.props.item })
 	      );
 	    }
 	  }]);
 	
-	  return MetadataControl;
+	  return SourceItem;
 	}(_react2.default.Component);
 	
-	exports.default = MetadataControl;
-
-/***/ },
-/* 501 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = appReducer;
-	
-	var _constants = __webpack_require__(6);
-	
-	var _immutable = __webpack_require__(13);
-	
-	var _immutable2 = _interopRequireDefault(_immutable);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	 * Copyright (C) 2017 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
-	
-	var initialState = _immutable2.default.Map({
-	  isInLinkingMode: false,
-	  sourceItem: null
-	});
-	
-	function appReducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	
-	    case _constants.A.ITEM_CLICKED:
-	      if (state.get('isInLinkingMode')) {
-	        return state.set('sourceItem', action.payload.get('item'));
-	      }
-	      return state;
-	
-	    case _constants.A.PAGE_CLICKED:
-	      if (state.get('isInLinkingMode')) {
-	        return state.merge({
-	          isInLinkingMode: false,
-	          sourceItem: null
-	        });
-	      }
-	      return state;
-	
-	    case _constants.A.SHOW_METADATA:
-	      return state.merge({
-	        isInLinkingMode: false,
-	        sourceItem: null
-	      });
-	
-	    case _constants.A.TOGGLE_LINKING_MODE:
-	      return state.merge({
-	        isInLinkingMode: !state.get('isInLinkingMode'),
-	        sourceItem: null
-	      });
-	
-	    default:
-	      return state;
-	  }
-	}
-
-/***/ },
-/* 502 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _constants = __webpack_require__(6);
-	
-	var _firebase = __webpack_require__(7);
-	
-	var _firebase2 = _interopRequireDefault(_firebase);
-	
-	var _immutable = __webpack_require__(13);
-	
-	var _immutable2 = _interopRequireDefault(_immutable);
-	
-	var _reactRouterRedux = __webpack_require__(21);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	 * Copyright (C) 2017 Mark P. Lindsay
-	 * 
-	 * This file is part of mysteriousobjectsatnoon.
-	 *
-	 * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
-	 */
-	
-	exports.default = {
-	
-	  itemClicked: function itemClicked(item) {
-	    return {
-	      type: _constants.A.ITEM_CLICKED,
-	      payload: _immutable2.default.Map({
-	        item: item
-	      })
-	    };
-	  },
-	
-	  toggleLinkingMode: function toggleLinkingMode() {
-	    return {
-	      type: _constants.A.TOGGLE_LINKING_MODE
-	    };
-	  }
-	
-	};
+	exports.default = SourceItem;
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map
