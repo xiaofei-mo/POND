@@ -1,2 +1,890 @@
-/*! normalize.css v4.0.0 | MIT License | github.com/necolas/normalize.css */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,select,textarea{font:inherit}optgroup{font-weight:700}button,input,select{overflow:visible}button,input,select,textarea{margin:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{cursor:pointer}[disabled]{cursor:default}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}button:-moz-focusring,input:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}.metadata label:after,.upload-item:after{content:"";display:table;clear:both}html{box-sizing:border-box;height:100%;overflow:hidden}*,:after,:before{box-sizing:inherit}:focus{outline:0}.hidden{visibility:hidden}ul{margin:0;padding:0}li{list-style-type:none}body{font-size:14px;line-height:18px;height:100%;overflow:hidden;background-color:#000}a,body{color:#fff}a{text-decoration:none}.error{color:red}.blinker{animation:blinker steps(1) 1s infinite alternate}.app,.dropzone{overflow-y:hidden;z-index:1}.app,.dropzone,.veil{width:100%;height:100%;position:fixed}.veil{display:none;top:0;left:0}.dropzone-veil{z-index:10}.is-logged-in .dropzone-active .dropzone-veil{display:block}.dropzone-veil>div{height:80%;top:10%;left:10%;width:80%;position:absolute;border:4px dashed #fff;background-color:rgba(0,0,0,.2)}.dropzone-veil>div>div{color:#fff;text-align:center;position:absolute;top:50%;left:0;width:100%;margin-top:-18px;height:54px;font-size:48px}.page{position:relative;z-index:2;height:100%}.should-allow-drag-and-resize .react-resizable-handle{display:block;background-color:#fff;width:10px;height:10px;position:absolute;z-index:5;cursor:nwse-resize}.is-showing-metadata .should-allow-drag-and-resize .react-resizable-handle{display:none}.metadata{background-color:rgba(0,0,0,.75);position:absolute;top:0;left:0;z-index:5;width:100%;height:100%;padding:10px;will-change:transform;overflow-y:scroll}.metadata,.metadata li{display:block}.metadata label{color:#5540e2;display:block;width:100%}.metadata label span{display:block;float:left;width:20%;height:20px;line-height:20px}.metadata input[type=text]{color:#fff;background-color:transparent;border:none;display:block;float:left;width:80%;padding:0}.metadata .copy-url{position:relative;height:20px;display:block}.metadata .copy-url .target{position:absolute;top:0;left:0;z-index:1;opacity:0}.metadata .copy-url a{position:absolute;top:0;left:0;color:#5540e2;z-index:2}.metadata .controls{font-size:20px;line-height:24px;margin-top:20px}.metadata .controls a{display:inline-block;color:#5540e2;margin-left:20px}.metadata .controls a:first-child{margin-left:0}.metadata .controls .are-you-sure{display:inline-block;margin-left:20px;font-size:14px;line-height:18px}.metadata .controls .are-you-sure a{margin-left:10px}.app-control{font-size:28px;position:fixed;color:#fff;z-index:7}.info-and-edit-control{width:112px;height:75px;top:0;left:0;overflow:hidden}.info-and-edit-control img{margin:-13px 0 0 -19px;width:150px;height:100px;display:block}.filter{font-family:monospace;position:fixed;top:0;left:0;z-index:6;color:#fff;font-size:14px;line-height:18px;display:none}.filter.react-draggable{display:block}.filter .opener-closer span{animation:blinker steps(1) 1s infinite alternate;margin-left:3px}@keyframes blinker{0%{visibility:visible}50%{visibility:hidden}to{visibility:visible}}.filter .vocabulary>a{color:#949598}.filter .clear{color:#000;background-color:#949598}.filter .prompt{margin-right:8px}.filter .term,.filter .terms{display:inline-block}.filter .term:after{content:',';color:#949598!important;margin-right:8px}.filter .term:last-child:after{content:'';margin-right:0}.filter .vocabulary.things .term.is-applied a,.filter .vocabulary.things .term a:hover{background-color:green}.filter .vocabulary.textures .term.is-applied a,.filter .vocabulary.textures .term a:hover{background-color:red}.filter .vocabulary.forms .term.is-applied a,.filter .vocabulary.forms .term a:hover{background-color:purple}.filter .vocabulary.movements .term.is-applied a,.filter .vocabulary.movements .term a:hover{background-color:blue}.filter .vocabulary.emotions .term.is-applied a,.filter .vocabulary.emotions .term a:hover{background-color:pink}.filter .vocabulary.concepts .term.is-applied a,.filter .vocabulary.concepts .term a:hover{background-color:brown}.filter .vocabulary.source .term.is-applied a,.filter .vocabulary.source .term a:hover{background-color:orange}.filter .vocabulary.other .term.is-applied a,.filter .vocabulary.other .term a:hover{background-color:cyan}.login{bottom:40px;right:40px;font-family:monospace;position:fixed;z-index:6;color:#fff;font-size:14px;line-height:18px;border-bottom:1px solid #fff;width:125px;padding-bottom:3px}.login a{display:block}.login input[type=password],.login input[type=text]{width:100%;background-color:transparent;border:0;padding:0;color:#949598}.login .logging-in{text-transform:lowercase;color:#949598}.login .login-failed{text-transform:lowercase;position:absolute;bottom:-19px;left:0}.login .logout{color:#949598}.login .logout-confirm{text-transform:lowercase;color:#949598}.login .logout-confirm span{margin-right:3px}.login .logout-confirm span.question{margin-right:6px}.login .logout-confirm a{display:inline;margin-right:4px}.text-item{font-size:14px;line-height:18px;position:absolute;display:block;z-index:3;padding:10px;border:1px dotted #fff;background-color:#000}.text-item.most-recently-touched{z-index:4}.text-item .react-resizable-handle{bottom:-10px;right:-3px}.text-item .text-item-content{display:block;width:100%;height:100%}.text-item .DraftEditor-editorContainer,.text-item .DraftEditor-root{width:100%;height:100%}.text-item .public-DraftEditor-content,.text-item .text-item-content{overflow-y:scroll;padding-right:15px}.text-item .dangerous p{margin:0}.uploads{position:fixed;top:0;right:0;height:auto;display:block;z-index:5}.upload-item{font-size:12px;line-height:16px;display:block;padding:10px 20px 10px 32px;position:relative}.upload-item .cancel{font-size:16px;position:absolute;top:6px;left:12px;display:block}.upload-item .progress-bar{height:3px;position:relative;margin-bottom:4px}.upload-item .progress-bar .progress{position:absolute;height:3px;top:0;left:0;transition:width .1s}.upload-item .name{float:left;max-width:129px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.upload-item .size{float:left}.upload-item .save,.upload-item .status{clear:both;text-transform:lowercase}.upload-item .save,.video-item{display:block}.video-item{position:absolute;z-index:3}.video-item.most-recently-touched{z-index:4}.video-item.should-show-placeholder{background-color:#505a6a}.video-item.is-showing-metadata{background-color:transparent}.video-item .video{z-index:3;position:relative}.video-item .react-resizable-handle{bottom:0;right:0}.video-item .obstructor,.video-item .poster-image{display:block;width:100%;height:100%;position:absolute;top:0;left:0;z-index:4}.video-item .poster-image{background-size:cover;z-index:2}video{width:100%;height:100%}
+/*
+ * Copyright (C) 2017 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/*! normalize.css v4.0.0 | MIT License | github.com/necolas/normalize.css */
+/**
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ * 2. Add the correct display in IE.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  /* 1 */
+  display: block; }
+
+/**
+ * Add the correct display in IE 9-.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; }
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline; }
+
+/**
+ * Add the correct display in IE 10-.
+ * 1. Add the correct display in IE.
+ */
+template,
+[hidden] {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+a:active,
+a:hover {
+  outline-width: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */ }
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+b,
+strong {
+  font-weight: inherit; }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder; }
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+mark {
+  background-color: #ff0;
+  color: #000; }
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+img {
+  border-style: none; }
+
+/**
+ * Hide the overflow in IE.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/**
+ * Add the correct margin in IE 8.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */ }
+
+/* Forms
+   ========================================================================== */
+/**
+ * Change font properties to `inherit` in all browsers (opinionated).
+ */
+button,
+input,
+select,
+textarea {
+  font: inherit; }
+
+/**
+ * Restore the font weight unset by the previous rule.
+ */
+optgroup {
+  font-weight: bold; }
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ * 2. Show the overflow in Edge, Firefox, and IE.
+ */
+button,
+input,
+select {
+  /* 2 */
+  overflow: visible; }
+
+/**
+ * Remove the margin in Safari.
+ * 1. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+select,
+textarea {
+  /* 1 */
+  margin: 0; }
+
+/**
+ * Remove the inheritence of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritence of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none; }
+
+/**
+ * Change the cursor in all browsers (opinionated).
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer; }
+
+/**
+ * Restore the default cursor to disabled elements unset by the previous rule.
+ */
+[disabled] {
+  cursor: default; }
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *    controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS.
+ */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */ }
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+input:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+/**
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ }
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * Correct the odd appearance of search inputs in Chrome and Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield; }
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome on OS X and
+ * Safari on OS X.
+ */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+.metadata label:after, .upload-item:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+*:focus {
+  outline: 0; }
+
+.hidden {
+  visibility: hidden; }
+
+ul {
+  margin: 0;
+  padding: 0; }
+
+li {
+  list-style-type: none; }
+
+body {
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000000; }
+
+a {
+  text-decoration: none;
+  color: #ffffff; }
+
+.error {
+  color: red; }
+
+.blinker {
+  animation: blinker steps(1) 1s infinite alternate; }
+
+@keyframes blinker {
+  0% {
+    visibility: visible; }
+  50% {
+    visibility: hidden; }
+  100% {
+    visibility: visible; } }
+
+.dropzone,
+.app {
+  overflow-y: hidden;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1; }
+
+.veil {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0; }
+
+.dropzone-veil {
+  z-index: 10; }
+  .is-logged-in .dropzone-active .dropzone-veil {
+    display: block; }
+  .dropzone-veil > div {
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    position: absolute;
+    border: 4px dashed #ffffff;
+    background-color: rgba(0, 0, 0, 0.2); }
+    .dropzone-veil > div > div {
+      color: #ffffff;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      margin-top: -18px;
+      height: 54px;
+      font-size: 48px; }
+
+.page {
+  position: relative;
+  z-index: 2;
+  height: 100%; }
+
+.should-allow-drag-and-resize .react-resizable-handle {
+  display: block;
+  background-color: #ffffff;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  z-index: 5;
+  cursor: nwse-resize; }
+  .is-showing-metadata .should-allow-drag-and-resize .react-resizable-handle {
+    display: none; }
+
+.metadata {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: block;
+  will-change: transform;
+  overflow-y: scroll; }
+  .metadata li {
+    display: block; }
+  .metadata label {
+    color: #5540e2;
+    display: block;
+    width: 100%; }
+    .metadata label span {
+      display: block;
+      float: left;
+      width: 20%;
+      height: 20px;
+      line-height: 20px; }
+  .metadata input[type='text'] {
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    display: block;
+    float: left;
+    width: 80%;
+    padding: 0; }
+  .metadata .copy-url {
+    position: relative;
+    height: 20px;
+    display: block; }
+    .metadata .copy-url .target {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      opacity: 0; }
+    .metadata .copy-url a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #5540e2;
+      z-index: 2; }
+  .metadata .controls {
+    font-size: 20px;
+    line-height: 24px;
+    margin-top: 20px; }
+    .metadata .controls a {
+      display: inline-block;
+      color: #5540e2;
+      margin-left: 20px; }
+      .metadata .controls a:first-child {
+        margin-left: 0; }
+    .metadata .controls .are-you-sure {
+      display: inline-block;
+      margin-left: 20px;
+      font-size: 14px;
+      line-height: 18px; }
+      .metadata .controls .are-you-sure a {
+        margin-left: 10px; }
+
+/*
+ * Copyright (C) 2017 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+.app-control {
+  font-size: 28px;
+  position: fixed;
+  color: #ffffff;
+  z-index: 7;
+  display: block; }
+
+.metadata-control {
+  width: 112px;
+  height: 75px;
+  top: 0;
+  left: 0;
+  overflow: hidden; }
+  .metadata-control img {
+    margin: -13px 0 0 -19px;
+    width: 150px;
+    height: 100px;
+    display: block; }
+
+.link-control {
+  width: 110px;
+  height: 115px;
+  top: 0;
+  left: 0;
+  overflow: hidden; }
+  .link-control img {
+    margin: -5px 0 0 -5px;
+    width: 156px;
+    height: 120px;
+    display: block; }
+
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+.filter {
+  font-family: monospace;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 18px;
+  display: none; }
+  .filter.react-draggable {
+    display: block; }
+  .filter .opener-closer span {
+    animation: blinker steps(1) 1s infinite alternate;
+    margin-left: 3px; }
+
+@keyframes blinker {
+  0% {
+    visibility: visible; }
+  50% {
+    visibility: hidden; }
+  100% {
+    visibility: visible; } }
+  .filter .vocabulary > a {
+    color: #949598; }
+  .filter .clear {
+    color: #000000;
+    background-color: #949598; }
+  .filter .prompt {
+    margin-right: 8px; }
+  .filter .terms {
+    display: inline-block; }
+  .filter .term {
+    display: inline-block; }
+    .filter .term:after {
+      content: ',';
+      color: #949598 !important;
+      margin-right: 8px; }
+  .filter .term:last-child:after {
+    content: '';
+    margin-right: 0; }
+  .filter .vocabulary.things .term a:hover,
+  .filter .vocabulary.things .term.is-applied a {
+    background-color: green; }
+  .filter .vocabulary.textures .term a:hover,
+  .filter .vocabulary.textures .term.is-applied a {
+    background-color: red; }
+  .filter .vocabulary.forms .term a:hover,
+  .filter .vocabulary.forms .term.is-applied a {
+    background-color: purple; }
+  .filter .vocabulary.movements .term a:hover,
+  .filter .vocabulary.movements .term.is-applied a {
+    background-color: blue; }
+  .filter .vocabulary.emotions .term a:hover,
+  .filter .vocabulary.emotions .term.is-applied a {
+    background-color: pink; }
+  .filter .vocabulary.concepts .term a:hover,
+  .filter .vocabulary.concepts .term.is-applied a {
+    background-color: brown; }
+  .filter .vocabulary.source .term a:hover,
+  .filter .vocabulary.source .term.is-applied a {
+    background-color: orange; }
+  .filter .vocabulary.other .term a:hover,
+  .filter .vocabulary.other .term.is-applied a {
+    background-color: cyan; }
+
+.login {
+  bottom: 40px;
+  right: 40px;
+  font-family: monospace;
+  position: fixed;
+  z-index: 6;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 18px;
+  border-bottom: 1px solid #ffffff;
+  width: 125px;
+  padding-bottom: 3px; }
+  .login a {
+    display: block; }
+  .login input[type='password'],
+  .login input[type='text'] {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    color: #949598; }
+  .login .logging-in {
+    text-transform: lowercase;
+    color: #949598; }
+  .login .login-failed {
+    text-transform: lowercase;
+    position: absolute;
+    bottom: -19px;
+    left: 0; }
+  .login .logout {
+    color: #949598; }
+  .login .logout-confirm {
+    text-transform: lowercase;
+    color: #949598; }
+    .login .logout-confirm span {
+      margin-right: 3px; }
+      .login .logout-confirm span.question {
+        margin-right: 6px; }
+    .login .logout-confirm a {
+      display: inline;
+      margin-right: 4px; }
+
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+.text-item {
+  font-size: 14px;
+  line-height: 18px;
+  position: absolute;
+  display: block;
+  z-index: 3;
+  padding: 10px;
+  border: 1px dotted #ffffff;
+  background-color: #000000; }
+  .text-item.most-recently-touched {
+    z-index: 4; }
+  .text-item .react-resizable-handle {
+    bottom: -10px;
+    right: -3px; }
+  .text-item .text-item-content {
+    display: block;
+    width: 100%;
+    height: 100%; }
+  .text-item .DraftEditor-root,
+  .text-item .DraftEditor-editorContainer {
+    width: 100%;
+    height: 100%; }
+  .text-item .text-item-content,
+  .text-item .public-DraftEditor-content {
+    overflow-y: scroll;
+    padding-right: 15px; }
+  .text-item .dangerous p {
+    margin: 0; }
+
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+.uploads {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: auto;
+  display: block;
+  z-index: 5; }
+
+.upload-item {
+  font-size: 12px;
+  line-height: 16px;
+  display: block;
+  padding: 10px 20px 10px 32px;
+  position: relative; }
+  .upload-item .cancel {
+    font-size: 16px;
+    position: absolute;
+    top: 6px;
+    left: 12px;
+    display: block; }
+  .upload-item .progress-bar {
+    height: 3px;
+    position: relative;
+    margin-bottom: 4px; }
+    .upload-item .progress-bar .progress {
+      position: absolute;
+      height: 3px;
+      top: 0;
+      left: 0;
+      transition: width 100ms; }
+  .upload-item .name {
+    float: left;
+    max-width: 129px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .upload-item .size {
+    float: left; }
+  .upload-item .status,
+  .upload-item .save {
+    clear: both;
+    text-transform: lowercase; }
+  .upload-item .save {
+    display: block; }
+
+/*
+ * Copyright (C) 2016 Mark P. Lindsay
+ * 
+ * This file is part of mysteriousobjectsatnoon.
+ *
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+.video-item {
+  position: absolute;
+  display: block;
+  z-index: 3; }
+  .video-item.most-recently-touched {
+    z-index: 4; }
+  .video-item.should-show-placeholder {
+    background-color: #505a6a; }
+  .video-item.is-showing-metadata {
+    background-color: transparent; }
+  .video-item .video {
+    z-index: 3;
+    position: relative; }
+  .video-item .react-resizable-handle {
+    bottom: 0;
+    right: 0; }
+  .video-item .obstructor,
+  .video-item .poster-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4; }
+  .video-item .poster-image {
+    background-size: cover;
+    z-index: 2; }
+
+video {
+  width: 100%;
+  height: 100%; }
+
 /*# sourceMappingURL=style.css.map*/

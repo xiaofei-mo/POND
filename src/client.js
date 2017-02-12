@@ -73,4 +73,4 @@ function castRay (timestamp) {
   document.body.style.backgroundColor = backgroundColor
   window.requestAnimationFrame(castRay)
 }
-window.requestAnimationFrame(castRay)
+// window.requestAnimationFrame(castRay)

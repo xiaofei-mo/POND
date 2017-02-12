@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
@@ -21,11 +21,12 @@ import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
-import getPaddingLeft from '../selectors/getPaddingLeft'
-import InfoAndEditControl from '../components/app-control/InfoAndEditControl'
-import Login from '../components/login/Login'
-import React from 'react'
 import Filter from './Filter'
+import getPaddingLeft from '../selectors/getPaddingLeft'
+import LinkControl from '../components/app-control/LinkControl'
+import Login from '../components/login/Login'
+import MetadataControl from '../components/app-control/MetadataControl'
+import React from 'react'
 import Uploads from './Uploads'
 
 class App extends React.Component {
@@ -91,12 +92,15 @@ class App extends React.Component {
                  params={this.props.params} 
                  user={this.props.user} 
                  userIsLoaded={this.props.userIsLoaded} />
-          <InfoAndEditControl hideMetadata={this.props.hideMetadata}
-                              isShowingMetadata={this.props.isShowingMetadata}
-                              showMetadata={this.props.showMetadata} 
-                              uploads={this.props.uploads}
-                              windowHeight={this.props.windowHeight}
-                              windowWidth={this.props.windowWidth} />
+          <MetadataControl hideMetadata={this.props.hideMetadata}
+                           isShowingMetadata={this.props.isShowingMetadata}
+                           showMetadata={this.props.showMetadata} 
+                           uploads={this.props.uploads}
+                           windowHeight={this.props.windowHeight}
+                           windowWidth={this.props.windowWidth} />
+          <LinkControl user={this.props.user} 
+                       windowHeight={this.props.windowHeight} 
+                       windowWidth={this.props.windowWidth} />
           <Filter />
           <div className='dropzone-veil veil'>
             <div>

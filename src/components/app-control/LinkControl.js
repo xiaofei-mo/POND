@@ -21,7 +21,7 @@ import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-export default class InfoAndEditControl extends React.Component {
+export default class LinkControl extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -35,12 +35,7 @@ export default class InfoAndEditControl extends React.Component {
   }
   _handleClick (event) {
     event.preventDefault()
-    if (!this.props.isShowingMetadata) {
-      this.props.showMetadata()
-    }
-    else {
-      this.props.hideMetadata()
-    }
+    console.log('click')
   }
   _handleDragStart (event) {
     event.preventDefault()
@@ -64,20 +59,17 @@ export default class InfoAndEditControl extends React.Component {
       bottom: this.props.windowHeight - this.state.height,
       left: 0
     }
-    const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.10) }
-    let className = 'info-and-edit-control app-control'
-    let img = <img src='/static/haumea.png' alt='Info &amp Edit' />
-    if (!this.props.uploads.isEmpty()) {
-      className += ' is-uploading'
-      img = <img src='/static/haumea_uploading.gif' alt='Uploading...' />
+    const defaultPosition = { 
+      x: (this.props.windowWidth * 0.45),
+      y: (this.props.windowHeight * 0.75) 
     }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
-        <a className={className}
+        <a className='link-control app-control'
            href='#' 
            onClick={this._handleClick}
            onDragStart={this._handleDragStart}>
-          {img}
+          <img src='/static/plane.gif' alt='Link' />
         </a>
       </Draggable>
     )

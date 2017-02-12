@@ -158,6 +158,16 @@ export default class Metadata extends React.Component {
           {_getMetadataItem('Concepts', 'concepts')}
           {_getMetadataItem('Source', 'source')}
           {_getMetadataItem('Other', 'other')}
+          <li>
+            <label>
+              <span>ID</span>
+              <input disabled
+                     readOnly 
+                     ref='input'
+                     type='text' 
+                     value={this.props.item.get('id')} />
+            </label>
+          </li>
           <Featured featuredItemId={this.state.featuredItemId} 
                     item={this.props.item} 
                     updateFeaturedItemId={this._updateFeaturedItemId} 
