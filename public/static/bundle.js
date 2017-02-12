@@ -63518,7 +63518,11 @@
 	 */
 	
 	var initialState = _immutable2.default.Map({
+	  destination: _immutable2.default.Map({
+	    item: null
+	  }),
 	  isInLinkingMode: false,
+	  isInLinkingTransition: false,
 	  source: _immutable2.default.Map({
 	    currentTime: 0,
 	    item: null,
@@ -63535,20 +63539,35 @@
 	
 	    case _constants.A.ITEM_CLICKED:
 	      if (state.get('isInLinkingMode')) {
-	        return state.merge({
-	          source: _immutable2.default.Map({
-	            currentTime: action.payload.get('currentTime'),
-	            item: action.payload.get('item'),
-	            left: action.payload.get('left'),
-	            top: action.payload.get('top')
-	          })
-	        });
+	        // First click is the source item.
+	        if (state.getIn(['source', 'item']) === null) {
+	          return state.merge({
+	            source: _immutable2.default.Map({
+	              currentTime: action.payload.get('currentTime'),
+	              item: action.payload.get('item'),
+	              left: action.payload.get('left'),
+	              top: action.payload.get('top')
+	            })
+	          });
+	        }
+	        // Second click is the destination item.
+	        else {
+	            return state.merge({
+	              destination: _immutable2.default.Map({
+	                item: action.payload.get('item')
+	              }),
+	              isInLinkingTransition: true
+	            });
+	          }
 	      }
 	      return state;
 	
 	    case _constants.A.PAGE_CLICKED:
 	      if (state.get('isInLinkingMode')) {
 	        return state.merge({
+	          destination: _immutable2.default.Map({
+	            item: null
+	          }),
 	          isInLinkingMode: false,
 	          source: _immutable2.default.Map({
 	            currentTime: 0,
@@ -63562,6 +63581,9 @@
 	
 	    case _constants.A.SHOW_METADATA:
 	      return state.merge({
+	        destination: _immutable2.default.Map({
+	          item: null
+	        }),
 	        isInLinkingMode: false,
 	        source: _immutable2.default.Map({
 	          currentTime: 0,
@@ -63573,6 +63595,9 @@
 	
 	    case _constants.A.TOGGLE_LINKING_MODE:
 	      return state.merge({
+	        destination: _immutable2.default.Map({
+	          item: null
+	        }),
 	        isInLinkingMode: !state.get('isInLinkingMode'),
 	        source: _immutable2.default.Map({
 	          currentTime: 0,
