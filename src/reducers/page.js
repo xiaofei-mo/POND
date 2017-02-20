@@ -53,14 +53,6 @@ export default function pageReducer (state = initialState, action) {
       }
       return state
 
-    case A.LOCATION_CHANGED:
-      console.log('A.LOCATION_CHANGED, action.payload.pathname = ', action.payload.pathname)
-      return state.merge({
-        destinationItem: Immutable.Map(),
-        items: Immutable.Map(),
-        pageId: null
-      })
-
     case A.PAGE_SCROLLED:
       return state.set('scrollLeft', action.payload.get('scrollLeft'))
 

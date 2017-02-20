@@ -26,6 +26,27 @@ export default class Bubble extends React.Component {
     this.render = this.render.bind(this)
   }
   render() {
+    if (this.props.isInLinkingMode) {
+      if (this.props.isInLinkingTransition) {
+        return (
+          <div className='bubble' onClick={this.props.onClick}>
+            Making link...
+          </div>
+        )
+      }
+      if (this.props.source.get('item') === null) {
+        return (
+          <div className='bubble' onClick={this.props.onClick}>
+            You're in linking mode. Click on one of your source items.
+          </div>
+        )
+      }
+      return (
+          <div className='bubble' onClick={this.props.onClick}>
+            Click on any destination item.
+          </div>
+      )
+    }
     if (!this.props.isOpen) {
       return null
     }

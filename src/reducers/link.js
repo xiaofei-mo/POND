@@ -1,4 +1,4 @@
-/*/*
+/*
  * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
@@ -31,6 +31,7 @@ const initialState = Immutable.Map({
   isInLinkingMode: false,
   isInLinkingTransition: false,
   isInLinkingTransitionStage2: false,
+  pathnameAtSourceClickTime: null,
   source: Immutable.Map({
     currentTime: 0,
     item: null,
@@ -46,8 +47,11 @@ export default function appReducer (state = initialState, action) {
       if (state.get('isInLinkingMode')) {
         // First click is the source item.
         if (state.getIn(['source', 'item']) === null) {
-          console.log('source item clicked')
           return state.merge({
+            // Make a note of the pathname at this point. This is so we can 
+            // navigate back here at the conclusion of the linking process if 
+            // the user ends up using filters to go to a new pathname.
+            pathnameAtSourceClickTime: state.get('pathname'),
             source: Immutable.Map({
               currentTime: action.payload.get('currentTime'),
               item: action.payload.get('item'),
@@ -60,7 +64,6 @@ export default function appReducer (state = initialState, action) {
         // link actions, along with setting the timer to end the linking 
         // transition.
         else {
-          console.log('destination item clicked')
           return state.merge({
             destination: Immutable.Map({
               currentTime: action.payload.get('currentTime'),
@@ -75,12 +78,13 @@ export default function appReducer (state = initialState, action) {
       return state
 
     case A.LINKING_TRANSITION_FINISHED:
-      console.log('linking transition stage 2 finished')
       return state.merge(initialState)
 
     case A.LINKING_TRANSITION_STAGE_1_FINISHED:
-      console.log('linking transition stage 1 finished')
       return state.set('isInLinkingTransitionStage2', true)
+
+    case A.LOCATION_CHANGED:
+      return state.set('pathname', action.payload.pathname)
 
     case A.PAGE_CLICKED:
       if (state.get('isInLinkingMode')) {
@@ -89,13 +93,13 @@ export default function appReducer (state = initialState, action) {
       return state
 
     case A.PLANE_CLICKED:
-      console.log('plane clicked')
       return state.merge({
         destination: Immutable.Map({
           item: null
         }),
         isInLinkingMode: !state.get('isInLinkingMode'),
         isInLinkingTransition: false,
+        pathnameAtSourceClickTime: null,
         source: Immutable.Map({
           currentTime: 0,
           item: null,

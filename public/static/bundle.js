@@ -7617,12 +7617,12 @@
 	  }
 	
 	}; /*
-	    * Copyright (C) 2016 Mark P. Lindsay
+	    * Copyright (C) 2017 Mark P. Lindsay
 	    * 
 	    * This file is part of mysteriousobjectsatnoon.
 	    *
-	    * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	    * it under the terms of the GNU General Public License as published by
+	    * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	    * modify it under the terms of the GNU General Public License as published by
 	    * the Free Software Foundation, either version 3 of the License, or
 	    * (at your option) any later version.
 	    *
@@ -7632,7 +7632,8 @@
 	    * GNU General Public License for more details.
 	    * 
 	    * You should have received a copy of the GNU General Public License
-	    * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	    * along with mysteriousobjectsatnoon.  If not, see 
+	    * <http://www.gnu.org/licenses/>.
 	    */
 
 /***/ },
@@ -8251,7 +8252,6 @@
 	  itemClicked: function itemClicked(item, left, top, currentTime) {
 	    return function (dispatch, getState) {
 	      var state = getState();
-	      // const pathname = state.getIn(['routing', 'locationBeforeTransitions', 'pathname'])
 	      if (state.getIn(['link', 'source', 'item']) !== null) {
 	        (function () {
 	          // If we have a source item, it means that this is a click on the 
@@ -8269,6 +8269,11 @@
 	          // Start the timer for stage 2 of the linking transition. Stage 2 starts
 	          // 4 seconds in.
 	          setTimeout(function () {
+	            // If the current pathname is not the same as the pathname at the time 
+	            // the source was clicked, navigate back to the original page. 
+	            if (state.getIn(['link', 'pathname']) !== state.getIn(['link', 'pathnameAtSourceClickTime'])) {
+	              dispatch((0, _reactRouterRedux.push)(state.getIn(['link', 'pathnameAtSourceClickTime'])));
+	            }
 	            dispatch({
 	              type: _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED
 	            });
@@ -8282,13 +8287,13 @@
 	          }, 7000);
 	        })();
 	      }
+	
 	      dispatch({
 	        type: _constants.A.ITEM_CLICKED,
 	        payload: _immutable2.default.Map({
 	          currentTime: currentTime,
 	          item: item,
 	          left: left,
-	          // pathname: pathname,
 	          top: top
 	        })
 	      });
@@ -36475,8 +36480,12 @@
 	              onDragStart: this._handleDragStart },
 	            _react2.default.createElement('img', { src: '/static/plane.gif', alt: 'Link' })
 	          ),
-	          _react2.default.createElement(_Bubble2.default, { isOpen: this.state.isOpen,
-	            onClick: this._handleClick })
+	          _react2.default.createElement(_Bubble2.default, { destination: this.props.destination,
+	            isInLinkingMode: this.props.isInLinkingMode,
+	            isInLinkingTransition: this.props.isInLinkingTransition,
+	            isOpen: this.state.isOpen,
+	            onClick: this._handleClick,
+	            source: this.props.source })
 	        )
 	      );
 	    }
@@ -63555,7 +63564,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/*/*
+	/*
 	 * Copyright (C) 2017 Mark P. Lindsay
 	 * 
 	 * This file is part of mysteriousobjectsatnoon.
@@ -63585,6 +63594,7 @@
 	  isInLinkingMode: false,
 	  isInLinkingTransition: false,
 	  isInLinkingTransitionStage2: false,
+	  pathnameAtSourceClickTime: null,
 	  source: _immutable2.default.Map({
 	    currentTime: 0,
 	    item: null,
@@ -63603,8 +63613,11 @@
 	      if (state.get('isInLinkingMode')) {
 	        // First click is the source item.
 	        if (state.getIn(['source', 'item']) === null) {
-	          console.log('source item clicked');
 	          return state.merge({
+	            // Make a note of the pathname at this point. This is so we can 
+	            // navigate back here at the conclusion of the linking process if 
+	            // the user ends up using filters to go to a new pathname.
+	            pathnameAtSourceClickTime: state.get('pathname'),
 	            source: _immutable2.default.Map({
 	              currentTime: action.payload.get('currentTime'),
 	              item: action.payload.get('item'),
@@ -63617,7 +63630,6 @@
 	        // link actions, along with setting the timer to end the linking 
 	        // transition.
 	        else {
-	            console.log('destination item clicked');
 	            return state.merge({
 	              destination: _immutable2.default.Map({
 	                currentTime: action.payload.get('currentTime'),
@@ -63632,12 +63644,13 @@
 	      return state;
 	
 	    case _constants.A.LINKING_TRANSITION_FINISHED:
-	      console.log('linking transition stage 2 finished');
 	      return state.merge(initialState);
 	
 	    case _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED:
-	      console.log('linking transition stage 1 finished');
 	      return state.set('isInLinkingTransitionStage2', true);
+	
+	    case _constants.A.LOCATION_CHANGED:
+	      return state.set('pathname', action.payload.pathname);
 	
 	    case _constants.A.PAGE_CLICKED:
 	      if (state.get('isInLinkingMode')) {
@@ -63646,13 +63659,13 @@
 	      return state;
 	
 	    case _constants.A.PLANE_CLICKED:
-	      console.log('plane clicked');
 	      return state.merge({
 	        destination: _immutable2.default.Map({
 	          item: null
 	        }),
 	        isInLinkingMode: !state.get('isInLinkingMode'),
 	        isInLinkingTransition: false,
+	        pathnameAtSourceClickTime: null,
 	        source: _immutable2.default.Map({
 	          currentTime: 0,
 	          item: null,
@@ -63741,14 +63754,6 @@
 	        return restoredState;
 	      }
 	      return state;
-	
-	    case _constants.A.LOCATION_CHANGED:
-	      console.log('A.LOCATION_CHANGED, action.payload.pathname = ', action.payload.pathname);
-	      return state.merge({
-	        destinationItem: _immutable2.default.Map(),
-	        items: _immutable2.default.Map(),
-	        pageId: null
-	      });
 	
 	    case _constants.A.PAGE_SCROLLED:
 	      return state.set('scrollLeft', action.payload.get('scrollLeft'));
@@ -64017,7 +64022,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'link' },
-	        _react2.default.createElement(_Control2.default, { planeClicked: this.props.planeClicked,
+	        _react2.default.createElement(_Control2.default, { destination: this.props.destination,
+	          isInLinkingMode: this.props.isInLinkingMode,
+	          isInLinkingTransition: this.props.isInLinkingTransition,
+	          planeClicked: this.props.planeClicked,
+	          source: this.props.source,
 	          user: this.props.user,
 	          windowHeight: this.props.windowHeight,
 	          windowWidth: this.props.windowWidth }),
@@ -64040,6 +64049,7 @@
 	  return {
 	    destination: state.getIn(['link', 'destination']),
 	    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
+	    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
 	    source: state.getIn(['link', 'source']),
 	    user: state.getIn(['app', 'user']),
 	    windowHeight: state.getIn(['page', 'height']),
@@ -64358,6 +64368,27 @@
 	  _createClass(Bubble, [{
 	    key: 'render',
 	    value: function render() {
+	      if (this.props.isInLinkingMode) {
+	        if (this.props.isInLinkingTransition) {
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'bubble', onClick: this.props.onClick },
+	            'Making link...'
+	          );
+	        }
+	        if (this.props.source.get('item') === null) {
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'bubble', onClick: this.props.onClick },
+	            'You\'re in linking mode. Click on one of your source items.'
+	          );
+	        }
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'bubble', onClick: this.props.onClick },
+	          'Click on any destination item.'
+	        );
+	      }
 	      if (!this.props.isOpen) {
 	        return null;
 	      }

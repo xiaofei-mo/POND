@@ -36,7 +36,11 @@ class Link extends React.Component {
   render() {
     return (
       <div className='link'>
-        <Control planeClicked={this.props.planeClicked}
+        <Control destination={this.props.destination}
+                 isInLinkingMode={this.props.isInLinkingMode}
+                 isInLinkingTransition={this.props.isInLinkingTransition}
+                 planeClicked={this.props.planeClicked}
+                 source={this.props.source}
                  user={this.props.user} 
                  windowHeight={this.props.windowHeight} 
                  windowWidth={this.props.windowWidth} />
@@ -57,6 +61,7 @@ function mapStateToProps (state) {
   return {
     destination: state.getIn(['link', 'destination']),
     isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
+    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
     source: state.getIn(['link', 'source']),
     user: state.getIn(['app', 'user']),
     windowHeight: state.getIn(['page', 'height']),

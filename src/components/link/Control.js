@@ -91,8 +91,12 @@ export default class Control extends React.Component {
              onDragStart={this._handleDragStart}>
             <img src='/static/plane.gif' alt='Link' />
           </a>
-          <Bubble isOpen={this.state.isOpen} 
-                  onClick={this._handleClick}/>
+          <Bubble destination={this.props.destination}
+                  isInLinkingMode={this.props.isInLinkingMode}
+                  isInLinkingTransition={this.props.isInLinkingTransition}
+                  isOpen={this.state.isOpen} 
+                  onClick={this._handleClick} 
+                  source={this.props.source} />
         </div>
       </Draggable>
     )
