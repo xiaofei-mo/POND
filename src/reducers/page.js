@@ -36,16 +36,12 @@ export default function pageReducer (state = initialState, action) {
   switch (action.type) {
     
     case A.ITEM_CLICKED:
-      // If we're NOT on a filter page,
-      if (state.get('pageId') !== null) {
-        // And this is a click on a source item,
-        if (state.get('stateOnLinkSourceClick') === null) {
-          // take a snapshot of the current state and store it for redisplay at
-          // the end of the linking transition.
-          const stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick')
-          console.log('stateOnLinkSourceClick.get(scrollLeft) = ', stateOnLinkSourceClick.get('scrollLeft'))
-          return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick)
-        }
+      // If this is a click on a source item,
+      if (state.get('stateOnLinkSourceClick') === null) {
+        // take a snapshot of the current state and store it for redisplay at
+        // the end of the linking transition.
+        const stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick')
+        return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick)
       }
       return state
 
@@ -53,12 +49,12 @@ export default function pageReducer (state = initialState, action) {
       if (state.get('stateOnLinkSourceClick') !== null) {
         const restoredState = state.get('stateOnLinkSourceClick')
                               .set('stateOnLinkSourceClick', null)
-        console.log('restoredState.get(scrollLeft) = ', restoredState.get('scrollLeft'))
         return restoredState
       }
       return state
 
     case A.LOCATION_CHANGED:
+      console.log('A.LOCATION_CHANGED, action.payload.pathname = ', action.payload.pathname)
       return state.merge({
         destinationItem: Immutable.Map(),
         items: Immutable.Map(),

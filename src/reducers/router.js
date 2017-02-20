@@ -27,12 +27,10 @@ const initialState = Immutable.Map({
 
 export default function routerReducer(state = initialState, action) {
   switch (action.type) {
-
     case A.LOCATION_CHANGED:
       return state.merge({
         locationBeforeTransitions: Immutable.fromJS(action.payload)
       })
-
     default: 
       return state
   }

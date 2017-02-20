@@ -75,6 +75,13 @@ class FilterPage extends React.Component {
     }
   } 
   componentWillReceiveProps(nextProps) {
+    if (!this.props.isInLinkingTransitionStage2 && 
+        nextProps.isInLinkingTransitionStage2) {
+      // When we transition into linking transition stage 2, we want to reset
+      // the scroll position of the page to what it was when the source item 
+      // was clicked.
+      this.scrollerNode.scrollLeft = nextProps.scrollLeft
+    }
     if (this.props.appliedFilters !== nextProps.appliedFilters) {
       this.setState({
         wasInitiallyScrolled: false
@@ -153,6 +160,8 @@ function mapStateToProps (state) {
     baseUrl: state.getIn(['page', 'baseUrl']),
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
+    isInLinkingTransitionStage2: state.getIn(['link', 
+                                              'isInLinkingTransitionStage2']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     filteredItems: state.getIn(['filter', 'filteredItems']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),

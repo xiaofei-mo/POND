@@ -28,6 +28,7 @@ export default {
   itemClicked: (item, left, top, currentTime) => {
     return (dispatch, getState) => {
       const state = getState()
+      // const pathname = state.getIn(['routing', 'locationBeforeTransitions', 'pathname'])
       if (state.getIn(['link', 'source', 'item']) !== null) {
         // If we have a source item, it means that this is a click on the 
         // destination item. So, let's form a link from the source item to the
@@ -63,6 +64,7 @@ export default {
           currentTime: currentTime,
           item: item,
           left: left,
+          // pathname: pathname,
           top: top
         })
       })

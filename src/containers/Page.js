@@ -180,7 +180,6 @@ function mapStateToProps (state) {
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     featuredItemId: state.getIn(['page', 'featuredItemId']),
-    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
     isInLinkingTransitionStage2: state.getIn(['link', 
                                               'isInLinkingTransitionStage2']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),

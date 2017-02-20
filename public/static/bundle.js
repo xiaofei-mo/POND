@@ -8251,6 +8251,7 @@
 	  itemClicked: function itemClicked(item, left, top, currentTime) {
 	    return function (dispatch, getState) {
 	      var state = getState();
+	      // const pathname = state.getIn(['routing', 'locationBeforeTransitions', 'pathname'])
 	      if (state.getIn(['link', 'source', 'item']) !== null) {
 	        (function () {
 	          // If we have a source item, it means that this is a click on the 
@@ -8287,6 +8288,7 @@
 	          currentTime: currentTime,
 	          item: item,
 	          left: left,
+	          // pathname: pathname,
 	          top: top
 	        })
 	      });
@@ -43179,6 +43181,12 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
+	      if (!this.props.isInLinkingTransitionStage2 && nextProps.isInLinkingTransitionStage2) {
+	        // When we transition into linking transition stage 2, we want to reset
+	        // the scroll position of the page to what it was when the source item 
+	        // was clicked.
+	        this.scrollerNode.scrollLeft = nextProps.scrollLeft;
+	      }
 	      if (this.props.appliedFilters !== nextProps.appliedFilters) {
 	        this.setState({
 	          wasInitiallyScrolled: false
@@ -43262,6 +43270,7 @@
 	    baseUrl: state.getIn(['page', 'baseUrl']),
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
+	    isInLinkingTransitionStage2: state.getIn(['link', 'isInLinkingTransitionStage2']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    filteredItems: state.getIn(['filter', 'filteredItems']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
@@ -62966,7 +62975,6 @@
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
 	    featuredItemId: state.getIn(['page', 'featuredItemId']),
-	    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
 	    isInLinkingTransitionStage2: state.getIn(['link', 'isInLinkingTransitionStage2']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    items: state.getIn(['page', 'items']),
@@ -63348,12 +63356,12 @@
 	});
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /*
-	                                                                                                                                                                                                                                                   * Copyright (C) 2016 Mark P. Lindsay
+	                                                                                                                                                                                                                                                   * Copyright (C) 2017 Mark P. Lindsay
 	                                                                                                                                                                                                                                                   * 
 	                                                                                                                                                                                                                                                   * This file is part of mysteriousobjectsatnoon.
 	                                                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                                                   * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-	                                                                                                                                                                                                                                                   * it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                   * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                   * modify it under the terms of the GNU General Public License as published by
 	                                                                                                                                                                                                                                                   * the Free Software Foundation, either version 3 of the License, or
 	                                                                                                                                                                                                                                                   * (at your option) any later version.
 	                                                                                                                                                                                                                                                   *
@@ -63363,7 +63371,8 @@
 	                                                                                                                                                                                                                                                   * GNU General Public License for more details.
 	                                                                                                                                                                                                                                                   * 
 	                                                                                                                                                                                                                                                   * You should have received a copy of the GNU General Public License
-	                                                                                                                                                                                                                                                   * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                   * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                   * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                   */
 	
 	exports.default = filterReducer;
@@ -63717,28 +63726,24 @@
 	  switch (action.type) {
 	
 	    case _constants.A.ITEM_CLICKED:
-	      // If we're NOT on a filter page,
-	      if (state.get('pageId') !== null) {
-	        // And this is a click on a source item,
-	        if (state.get('stateOnLinkSourceClick') === null) {
-	          // take a snapshot of the current state and store it for redisplay at
-	          // the end of the linking transition.
-	          var stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick');
-	          console.log('stateOnLinkSourceClick.get(scrollLeft) = ', stateOnLinkSourceClick.get('scrollLeft'));
-	          return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick);
-	        }
+	      // If this is a click on a source item,
+	      if (state.get('stateOnLinkSourceClick') === null) {
+	        // take a snapshot of the current state and store it for redisplay at
+	        // the end of the linking transition.
+	        var stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick');
+	        return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick);
 	      }
 	      return state;
 	
 	    case _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED:
 	      if (state.get('stateOnLinkSourceClick') !== null) {
 	        var restoredState = state.get('stateOnLinkSourceClick').set('stateOnLinkSourceClick', null);
-	        console.log('restoredState.get(scrollLeft) = ', restoredState.get('scrollLeft'));
 	        return restoredState;
 	      }
 	      return state;
 	
 	    case _constants.A.LOCATION_CHANGED:
+	      console.log('A.LOCATION_CHANGED, action.payload.pathname = ', action.payload.pathname);
 	      return state.merge({
 	        destinationItem: _immutable2.default.Map(),
 	        items: _immutable2.default.Map(),
@@ -63829,12 +63834,10 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
-	
 	    case _constants.A.LOCATION_CHANGED:
 	      return state.merge({
 	        locationBeforeTransitions: _immutable2.default.fromJS(action.payload)
 	      });
-	
 	    default:
 	      return state;
 	  }
