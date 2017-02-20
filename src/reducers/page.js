@@ -43,6 +43,7 @@ export default function pageReducer (state = initialState, action) {
           // take a snapshot of the current state and store it for redisplay at
           // the end of the linking transition.
           const stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick')
+          console.log('stateOnLinkSourceClick.get(scrollLeft) = ', stateOnLinkSourceClick.get('scrollLeft'))
           return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick)
         }
       }
@@ -52,6 +53,7 @@ export default function pageReducer (state = initialState, action) {
       if (state.get('stateOnLinkSourceClick') !== null) {
         const restoredState = state.get('stateOnLinkSourceClick')
                               .set('stateOnLinkSourceClick', null)
+        console.log('restoredState.get(scrollLeft) = ', restoredState.get('scrollLeft'))
         return restoredState
       }
       return state

@@ -62872,6 +62872,12 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
+	      if (!this.props.isInLinkingTransitionStage2 && nextProps.isInLinkingTransitionStage2) {
+	        // When we transition into linking transition stage 2, we want to reset
+	        // the scroll position of the page to what it was when the source item 
+	        // was clicked.
+	        this.scrollerNode.scrollLeft = nextProps.scrollLeft;
+	      }
 	      if (this.props.params.timingOrUsername !== nextProps.params.timingOrUsername) {
 	        this.setState({
 	          wasInitiallyScrolled: false
@@ -62960,6 +62966,8 @@
 	    halfway: (0, _getHalfway2.default)(state),
 	    height: state.getIn(['page', 'height']),
 	    featuredItemId: state.getIn(['page', 'featuredItemId']),
+	    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
+	    isInLinkingTransitionStage2: state.getIn(['link', 'isInLinkingTransitionStage2']),
 	    isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
 	    items: state.getIn(['page', 'items']),
 	    leftEdgeOfViewport: (0, _getLeftEdgeOfViewport2.default)(state),
@@ -63616,13 +63624,11 @@
 	
 	    case _constants.A.LINKING_TRANSITION_FINISHED:
 	      console.log('linking transition stage 2 finished');
-	      return state;
-	    // return state.merge(initialState)
+	      return state.merge(initialState);
 	
 	    case _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED:
 	      console.log('linking transition stage 1 finished');
-	      return state;
-	    // return state.set('isInLinkingTransitionStage2', true)
+	      return state.set('isInLinkingTransitionStage2', true);
 	
 	    case _constants.A.PAGE_CLICKED:
 	      if (state.get('isInLinkingMode')) {
@@ -63718,6 +63724,7 @@
 	          // take a snapshot of the current state and store it for redisplay at
 	          // the end of the linking transition.
 	          var stateOnLinkSourceClick = state.delete('stateOnLinkSourceClick');
+	          console.log('stateOnLinkSourceClick.get(scrollLeft) = ', stateOnLinkSourceClick.get('scrollLeft'));
 	          return state.set('stateOnLinkSourceClick', stateOnLinkSourceClick);
 	        }
 	      }
@@ -63726,6 +63733,7 @@
 	    case _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED:
 	      if (state.get('stateOnLinkSourceClick') !== null) {
 	        var restoredState = state.get('stateOnLinkSourceClick').set('stateOnLinkSourceClick', null);
+	        console.log('restoredState.get(scrollLeft) = ', restoredState.get('scrollLeft'));
 	        return restoredState;
 	      }
 	      return state;
@@ -63821,10 +63829,12 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
+	
 	    case _constants.A.LOCATION_CHANGED:
 	      return state.merge({
 	        locationBeforeTransitions: _immutable2.default.fromJS(action.payload)
 	      });
+	
 	    default:
 	      return state;
 	  }
@@ -64236,9 +64246,18 @@
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate(prevProps, prevState) {
+	      var _this2 = this;
+	
 	      if (this.refs.video !== undefined) {
 	        // Fast-forward to the playback position of the clicked video.
 	        this.refs.video.seek(this.props.currentTime);
+	
+	        // Fade in obstructor to 0.5, thus making the video look dimmed 50%.
+	        this.refs.obstructor.style.opacity = 0;
+	        window.requestAnimationFrame(function () {
+	          _this2.refs.obstructor.style.transition = 'opacity 3s';
+	          _this2.refs.obstructor.style.opacity = 0.5;
+	        });
 	      }
 	    }
 	  }, {
@@ -64268,7 +64287,7 @@
 	          { loop: true, onCanPlayThrough: this._handleCanPlayThrough, ref: 'video' },
 	          _react2.default.createElement('source', { src: src, type: 'video/mp4' })
 	        ),
-	        _react2.default.createElement('div', { className: 'obstructor' }),
+	        _react2.default.createElement('div', { className: 'obstructor', ref: 'obstructor' }),
 	        _react2.default.createElement(_PosterImage2.default, { item: this.props.item })
 	      );
 	    }
@@ -64354,5 +64373,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

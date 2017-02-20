@@ -39,6 +39,13 @@ export default class DestinationItem extends React.Component {
     if (this.refs.video !== undefined) {
       // Fast-forward to the playback position of the clicked video.
       this.refs.video.seek(this.props.currentTime)
+
+      // Fade in obstructor to 0.5, thus making the video look dimmed 50%.
+      this.refs.obstructor.style.opacity = 0
+      window.requestAnimationFrame(() => {
+        this.refs.obstructor.style.transition = 'opacity 3s'
+        this.refs.obstructor.style.opacity = 0.5
+      })
     }
   }
   render() {
@@ -63,7 +70,7 @@ export default class DestinationItem extends React.Component {
         <Video loop onCanPlayThrough={this._handleCanPlayThrough} ref='video'>
           <source src={src} type='video/mp4' />
         </Video>
-        <div className='obstructor'></div>
+        <div className='obstructor' ref='obstructor'></div>
         <PosterImage item={this.props.item} />
       </div>
     )

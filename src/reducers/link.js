@@ -76,13 +76,11 @@ export default function appReducer (state = initialState, action) {
 
     case A.LINKING_TRANSITION_FINISHED:
       console.log('linking transition stage 2 finished')
-      return state
-      // return state.merge(initialState)
+      return state.merge(initialState)
 
     case A.LINKING_TRANSITION_STAGE_1_FINISHED:
       console.log('linking transition stage 1 finished')
-      return state
-      // return state.set('isInLinkingTransitionStage2', true)
+      return state.set('isInLinkingTransitionStage2', true)
 
     case A.PAGE_CLICKED:
       if (state.get('isInLinkingMode')) {

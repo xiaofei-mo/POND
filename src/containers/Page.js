@@ -89,6 +89,13 @@ class Page extends React.Component {
     }
   } 
   componentWillReceiveProps(nextProps) {
+    if (!this.props.isInLinkingTransitionStage2 && 
+        nextProps.isInLinkingTransitionStage2) {
+      // When we transition into linking transition stage 2, we want to reset
+      // the scroll position of the page to what it was when the source item 
+      // was clicked.
+      this.scrollerNode.scrollLeft = nextProps.scrollLeft
+    }
     if (this.props.params.timingOrUsername !== 
         nextProps.params.timingOrUsername) {
       this.setState({
@@ -173,6 +180,9 @@ function mapStateToProps (state) {
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     featuredItemId: state.getIn(['page', 'featuredItemId']),
+    isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
+    isInLinkingTransitionStage2: state.getIn(['link', 
+                                              'isInLinkingTransitionStage2']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),

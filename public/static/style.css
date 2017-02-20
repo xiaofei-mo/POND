@@ -972,12 +972,13 @@ video {
 
 .is-in-linking-transition .video-item.is-destination-item {
   opacity: 1; }
-  .is-in-linking-transition .video-item.is-destination-item .obstructor {
-    transition: opacity 3s;
-    opacity: 0.5; }
 
 .is-in-linking-transition .video-item.is-source-item {
   transition: opacity 3s 4s;
+  opacity: 1; }
+
+.is-in-linking-transition.stage-2 .video-item {
+  transition: opacity 3s;
   opacity: 1; }
 
 .is-in-linking-transition.stage-2 .video-item.is-destination-item {
