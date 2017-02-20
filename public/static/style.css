@@ -950,7 +950,10 @@ video {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 4; }
+    z-index: 4;
+    transition: opacity 3s;
+    opacity: 0;
+    background-color: #000000; }
   .video-item .poster-image {
     background-size: cover;
     z-index: 2; }
@@ -968,8 +971,10 @@ video {
   opacity: 0; }
 
 .is-in-linking-transition .video-item.is-destination-item {
-  transition: opacity 3s;
-  opacity: 0.5; }
+  opacity: 1; }
+  .is-in-linking-transition .video-item.is-destination-item .obstructor {
+    transition: opacity 3s;
+    opacity: 0.5; }
 
 .is-in-linking-transition .video-item.is-source-item {
   transition: opacity 3s 4s;

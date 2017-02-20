@@ -46,6 +46,7 @@ export default function appReducer (state = initialState, action) {
       if (state.get('isInLinkingMode')) {
         // First click is the source item.
         if (state.getIn(['source', 'item']) === null) {
+          console.log('source item clicked')
           return state.merge({
             source: Immutable.Map({
               currentTime: action.payload.get('currentTime'),
@@ -59,6 +60,7 @@ export default function appReducer (state = initialState, action) {
         // link actions, along with setting the timer to end the linking 
         // transition.
         else {
+          console.log('destination item clicked')
           return state.merge({
             destination: Immutable.Map({
               currentTime: action.payload.get('currentTime'),
@@ -73,10 +75,14 @@ export default function appReducer (state = initialState, action) {
       return state
 
     case A.LINKING_TRANSITION_FINISHED:
-      return state.merge(initialState)
+      console.log('linking transition stage 2 finished')
+      return state
+      // return state.merge(initialState)
 
     case A.LINKING_TRANSITION_STAGE_1_FINISHED:
-      return state.set('isInLinkingTransitionStage2', true)
+      console.log('linking transition stage 1 finished')
+      return state
+      // return state.set('isInLinkingTransitionStage2', true)
 
     case A.PAGE_CLICKED:
       if (state.get('isInLinkingMode')) {
@@ -84,10 +90,8 @@ export default function appReducer (state = initialState, action) {
       }
       return state
 
-    case A.SHOW_METADATA:
-      return state.merge(initialState)
-
-    case A.TOGGLE_LINKING_MODE:
+    case A.PLANE_CLICKED:
+      console.log('plane clicked')
       return state.merge({
         destination: Immutable.Map({
           item: null
@@ -101,6 +105,9 @@ export default function appReducer (state = initialState, action) {
           top: 0
         })
       })
+
+    case A.SHOW_METADATA:
+      return state.merge(initialState)
 
     default:
       return state

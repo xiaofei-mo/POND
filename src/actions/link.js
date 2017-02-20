@@ -69,9 +69,9 @@ export default {
     }
   },
 
-  toggleLinkingMode: () => {
+  planeClicked: () => {
     return {
-      type: A.TOGGLE_LINKING_MODE
+      type: A.PLANE_CLICKED
     }
   }
 

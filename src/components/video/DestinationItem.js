@@ -63,6 +63,7 @@ export default class DestinationItem extends React.Component {
         <Video loop onCanPlayThrough={this._handleCanPlayThrough} ref='video'>
           <source src={src} type='video/mp4' />
         </Video>
+        <div className='obstructor'></div>
         <PosterImage item={this.props.item} />
       </div>
     )

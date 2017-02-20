@@ -58,6 +58,7 @@ export default class SourceItem extends React.Component {
         <Video loop ref='video'>
           <source src={src} type='video/mp4' />
         </Video>
+        <div className='obstructor'></div>
         <PosterImage item={this.props.item} />
       </div>
     )

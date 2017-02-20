@@ -372,6 +372,7 @@
 	  METADATA_WAS_SET: 'METADATA_WAS_SET',
 	  PAGE_CLICKED: 'PAGE_CLICKED',
 	  PAGE_SCROLLED: 'PAGE_SCROLLED',
+	  PLANE_CLICKED: 'PLANE_CLICKED',
 	  RECEIVED_BASE_URL: 'RECEIVED_BASE_URL',
 	  RECEIVED_FEATURED_ITEM_ID: 'RECEIVED_FEATURED_ITEM_ID',
 	  RECEIVED_FILTERED_ITEMS: 'RECEIVED_FILTERED_ITEMS',
@@ -384,7 +385,6 @@
 	  STARTED_POLLING_UPLOAD: 'STARTED_POLLING_UPLOAD',
 	  STOPPED_LISTENING_TO_UPLOADS: 'STOPPED_LISTENING_TO_UPLOADS',
 	  TEXT_ITEM_CREATED: 'TEXT_ITEM_CREATED',
-	  TOGGLE_LINKING_MODE: 'TOGGLE_LINKING_MODE',
 	  TOGGLE_VOCABULARY: 'TOGGLE_VOCABULARY',
 	  WINDOW_CHANGED_SIZE: 'WINDOW_CHANGED_SIZE'
 	};
@@ -8293,9 +8293,9 @@
 	    };
 	  },
 	
-	  toggleLinkingMode: function toggleLinkingMode() {
+	  planeClicked: function planeClicked() {
 	    return {
-	      type: _constants.A.TOGGLE_LINKING_MODE
+	      type: _constants.A.PLANE_CLICKED
 	    };
 	  }
 	
@@ -36343,6 +36343,10 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _Bubble = __webpack_require__(506);
+	
+	var _Bubble2 = _interopRequireDefault(_Bubble);
+	
 	var _reactDraggable = __webpack_require__(98);
 	
 	var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
@@ -36381,54 +36385,25 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
-	var Bubble = function (_React$Component) {
-	  _inherits(Bubble, _React$Component);
-	
-	  function Bubble() {
-	    _classCallCheck(this, Bubble);
-	
-	    var _this = _possibleConstructorReturn(this, (Bubble.__proto__ || Object.getPrototypeOf(Bubble)).call(this));
-	
-	    _this.render = _this.render.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Bubble, [{
-	    key: 'render',
-	    value: function render() {
-	      if (!this.props.isOpen) {
-	        return null;
-	      }
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'bubble', onClick: this.props.onClick },
-	        'See something you like? Click it to see where it takes you.'
-	      );
-	    }
-	  }]);
-	
-	  return Bubble;
-	}(_react2.default.Component);
-	
-	var Control = function (_React$Component2) {
-	  _inherits(Control, _React$Component2);
+	var Control = function (_React$Component) {
+	  _inherits(Control, _React$Component);
 	
 	  function Control() {
 	    _classCallCheck(this, Control);
 	
-	    var _this2 = _possibleConstructorReturn(this, (Control.__proto__ || Object.getPrototypeOf(Control)).call(this));
+	    var _this = _possibleConstructorReturn(this, (Control.__proto__ || Object.getPrototypeOf(Control)).call(this));
 	
-	    _this2.state = {
+	    _this.state = {
 	      height: 0,
 	      isOpen: false,
 	      width: 0
 	    };
-	    _this2._handleClick = _this2._handleClick.bind(_this2);
-	    _this2._handleDragStart = _this2._handleDragStart.bind(_this2);
-	    _this2.componentDidUpdate = _this2.componentDidUpdate.bind(_this2);
-	    _this2.componentWillReceiveProps = _this2.componentWillReceiveProps.bind(_this2);
-	    _this2.render = _this2.render.bind(_this2);
-	    return _this2;
+	    _this._handleClick = _this._handleClick.bind(_this);
+	    _this._handleDragStart = _this._handleDragStart.bind(_this);
+	    _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
+	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
+	    _this.render = _this.render.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(Control, [{
@@ -36436,7 +36411,7 @@
 	    value: function _handleClick(event) {
 	      event.preventDefault();
 	      if (!this.props.user.isEmpty()) {
-	        this.props.toggleLinkingMode();
+	        this.props.planeClicked();
 	      } else {
 	        this.setState(function (previousState) {
 	          return { isOpen: !previousState.isOpen };
@@ -36498,7 +36473,7 @@
 	              onDragStart: this._handleDragStart },
 	            _react2.default.createElement('img', { src: '/static/plane.gif', alt: 'Link' })
 	          ),
-	          _react2.default.createElement(Bubble, { isOpen: this.state.isOpen,
+	          _react2.default.createElement(_Bubble2.default, { isOpen: this.state.isOpen,
 	            onClick: this._handleClick })
 	        )
 	      );
@@ -63611,6 +63586,7 @@
 	      if (state.get('isInLinkingMode')) {
 	        // First click is the source item.
 	        if (state.getIn(['source', 'item']) === null) {
+	          console.log('source item clicked');
 	          return state.merge({
 	            source: _immutable2.default.Map({
 	              currentTime: action.payload.get('currentTime'),
@@ -63624,6 +63600,7 @@
 	        // link actions, along with setting the timer to end the linking 
 	        // transition.
 	        else {
+	            console.log('destination item clicked');
 	            return state.merge({
 	              destination: _immutable2.default.Map({
 	                currentTime: action.payload.get('currentTime'),
@@ -63638,10 +63615,14 @@
 	      return state;
 	
 	    case _constants.A.LINKING_TRANSITION_FINISHED:
-	      return state.merge(initialState);
+	      console.log('linking transition stage 2 finished');
+	      return state;
+	    // return state.merge(initialState)
 	
 	    case _constants.A.LINKING_TRANSITION_STAGE_1_FINISHED:
-	      return state.set('isInLinkingTransitionStage2', true);
+	      console.log('linking transition stage 1 finished');
+	      return state;
+	    // return state.set('isInLinkingTransitionStage2', true)
 	
 	    case _constants.A.PAGE_CLICKED:
 	      if (state.get('isInLinkingMode')) {
@@ -63649,10 +63630,8 @@
 	      }
 	      return state;
 	
-	    case _constants.A.SHOW_METADATA:
-	      return state.merge(initialState);
-	
-	    case _constants.A.TOGGLE_LINKING_MODE:
+	    case _constants.A.PLANE_CLICKED:
+	      console.log('plane clicked');
 	      return state.merge({
 	        destination: _immutable2.default.Map({
 	          item: null
@@ -63666,6 +63645,9 @@
 	          top: 0
 	        })
 	      });
+	
+	    case _constants.A.SHOW_METADATA:
+	      return state.merge(initialState);
 	
 	    default:
 	      return state;
@@ -64022,7 +64004,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'link' },
-	        _react2.default.createElement(_Control2.default, { toggleLinkingMode: this.props.toggleLinkingMode,
+	        _react2.default.createElement(_Control2.default, { planeClicked: this.props.planeClicked,
 	          user: this.props.user,
 	          windowHeight: this.props.windowHeight,
 	          windowWidth: this.props.windowWidth }),
@@ -64054,7 +64036,7 @@
 	
 	function mapDispatchToProps(dispatch) {
 	  return {
-	    toggleLinkingMode: (0, _redux.bindActionCreators)(_actions2.default.toggleLinkingMode, dispatch)
+	    planeClicked: (0, _redux.bindActionCreators)(_actions2.default.planeClicked, dispatch)
 	  };
 	}
 	
@@ -64164,6 +64146,7 @@
 	          { loop: true, ref: 'video' },
 	          _react2.default.createElement('source', { src: src, type: 'video/mp4' })
 	        ),
+	        _react2.default.createElement('div', { className: 'obstructor' }),
 	        _react2.default.createElement(_PosterImage2.default, { item: this.props.item })
 	      );
 	    }
@@ -64285,6 +64268,7 @@
 	          { loop: true, onCanPlayThrough: this._handleCanPlayThrough, ref: 'video' },
 	          _react2.default.createElement('source', { src: src, type: 'video/mp4' })
 	        ),
+	        _react2.default.createElement('div', { className: 'obstructor' }),
 	        _react2.default.createElement(_PosterImage2.default, { item: this.props.item })
 	      );
 	    }
@@ -64295,6 +64279,80 @@
 	
 	exports.default = DestinationItem;
 
+/***/ },
+/* 506 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(57);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2017 Mark P. Lindsay
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This file is part of mysteriousobjectsatnoon.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modify it under the terms of the GNU General Public License as published by
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Free Software Foundation, either version 3 of the License, or
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * (at your option) any later version.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * mysteriousobjectsatnoon is distributed in the hope that it will be useful,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * GNU General Public License for more details.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * You should have received a copy of the GNU General Public License
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * along with mysteriousobjectsatnoon.  If not, see 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * <http://www.gnu.org/licenses/>.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Bubble = function (_React$Component) {
+	  _inherits(Bubble, _React$Component);
+	
+	  function Bubble() {
+	    _classCallCheck(this, Bubble);
+	
+	    var _this = _possibleConstructorReturn(this, (Bubble.__proto__ || Object.getPrototypeOf(Bubble)).call(this));
+	
+	    _this.render = _this.render.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Bubble, [{
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.isOpen) {
+	        return null;
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'bubble', onClick: this.props.onClick },
+	        'See something you like? Click it to see where it takes you.'
+	      );
+	    }
+	  }]);
+	
+	  return Bubble;
+	}(_react2.default.Component);
+	
+	exports.default = Bubble;
+
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
 //# sourceMappingURL=bundle.js.map

@@ -18,26 +18,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+import Bubble from './Bubble'
 import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
-
-class Bubble extends React.Component {
-  constructor() {
-    super()
-    this.render = this.render.bind(this)
-  }
-  render() {
-    if (!this.props.isOpen) {
-      return null
-    }
-    return (
-      <div className='bubble' onClick={this.props.onClick}>
-        See something you like? Click it to see where it takes you.
-      </div>
-    )
-  }
-}
 
 export default class Control extends React.Component {
   constructor () {
@@ -56,7 +40,7 @@ export default class Control extends React.Component {
   _handleClick (event) {
     event.preventDefault()
     if (!this.props.user.isEmpty()) {
-      this.props.toggleLinkingMode()
+      this.props.planeClicked()
     }
     else {
       this.setState(previousState => {

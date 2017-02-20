@@ -36,7 +36,7 @@ class Link extends React.Component {
   render() {
     return (
       <div className='link'>
-        <Control toggleLinkingMode={this.props.toggleLinkingMode}
+        <Control planeClicked={this.props.planeClicked}
                  user={this.props.user} 
                  windowHeight={this.props.windowHeight} 
                  windowWidth={this.props.windowWidth} />
@@ -66,7 +66,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    toggleLinkingMode: bindActionCreators(actions.toggleLinkingMode, dispatch)
+    planeClicked: bindActionCreators(actions.planeClicked, dispatch)
   }
 }
 
