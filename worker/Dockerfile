@@ -16,8 +16,18 @@
 # along with mysteriousobjectsatnoon.  If not, see 
 # <http://www.gnu.org/licenses/>.
 
-node_modules/
-.env
-coverage/
-__pycache__
-production-task-definition.json
+FROM python:latest
+
+# Create app directory.
+RUN mkdir -p /app
+WORKDIR /app
+
+# Install app dependencies.
+COPY requirements.txt /app
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Bundle app source.
+COPY . /app
+
+# Start the app.
+CMD ["python", "application.py"]

@@ -6,11 +6,12 @@ import os
 import pytz
 import uuid
 
+import boto3
 from flask import Flask, jsonify, render_template
 import pyrebase
 
 
-app = Flask('mysteriousobjectsatnoon')
+app = Flask('web')
 
 
 firebase = pyrebase.initialize_app({
@@ -32,6 +33,15 @@ firebase = pyrebase.initialize_app({
     },
     'storageBucket': ''
 })
+
+
+sqs_resource = boto3.resource(
+    'sqs', 
+    aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+    aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+    region_name=['AWS_DEFAULT_REGION']
+)
+sqs_queue = resource.get_queue_by_name(QueueName=os.environ['SQS_QUEUE'])
 
 
 @app.route('/get-upload-values')
@@ -67,6 +77,14 @@ def index():
     return render_template('index.html', 
         config=config
     )
+
+
+@app.route('/upload')
+def upload():
+    payload = {
+        'hi': 'there'
+    }
+    sqs_queue.send_message(MessageBody=json.dumps(payload))
 
 
 def _calculate_signature(params):

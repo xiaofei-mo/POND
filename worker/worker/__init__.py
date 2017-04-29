@@ -16,8 +16,32 @@
 # along with mysteriousobjectsatnoon.  If not, see 
 # <http://www.gnu.org/licenses/>.
 
-node_modules/
-.env
-coverage/
-__pycache__
-production-task-definition.json
+import os
+
+from worker.sqs import SQS
+
+
+class Worker(object):
+    def __init__(self):
+        self.sqs = self._obtain_sqs()
+
+    def work(self):
+        while True:
+            self.sqs.read(self._handle)
+
+    def _handle(self, messages):
+        if not messages:
+            return False
+        for message in messages:
+            body = json.loads(message.body)
+            print(message.md5_of_body)
+            print(body)
+        return True
+
+    def _obtain_sqs(self):
+        return SQS(
+            aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+            aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+            region_name=os.environ['AWS_DEFAULT_REGION'],
+            queue_name=os.environ['SQS_QUEUE']
+        )

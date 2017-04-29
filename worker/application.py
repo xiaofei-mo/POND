@@ -16,8 +16,6 @@
 # along with mysteriousobjectsatnoon.  If not, see 
 # <http://www.gnu.org/licenses/>.
 
-node_modules/
-.env
-coverage/
-__pycache__
-production-task-definition.json
+from worker import Worker
+
+Worker().work()

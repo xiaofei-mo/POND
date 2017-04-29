@@ -18,12 +18,18 @@
 
 version: '2'
 services:
-  mysteriousobjectsatnoon:
-    build: .
+  web:
+    build: ./web
     command: flask run --host=0.0.0.0
     env_file:
-      - .env
+      - ./web/.env
     ports:
       - '5000:5000'
     volumes: 
-      - ./:/app
+      - ./web/:/app
+  worker:
+    build: ./worker
+    env_file:
+      - ./worker/.env
+    volumes: 
+      - ./worker/:/app
