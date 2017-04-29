@@ -1,9 +1,9 @@
-# Copyright (C) 2016 Mark P. Lindsay
+# Copyright (C) 2017 Mark P. Lindsay
 # 
 # This file is part of mysteriousobjectsatnoon.
 #
-# mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+# modify it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
@@ -13,23 +13,24 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+# along with mysteriousobjectsatnoon.  If not, see 
+# <http://www.gnu.org/licenses/>.
 
-FROM node:latest
+FROM python:latest
 
 # Create app directory.
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /app
+WORKDIR /app
 
 # Install app dependencies.
-COPY package.json /usr/src/app/
-RUN npm install --silent --progress=false -g nodemon
-RUN npm install --silent --progress=false
+COPY requirements.txt /app
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Bundle app source.
-COPY . /usr/src/app
+COPY . /app
 
 # Open up port 5000.
 EXPOSE 5000
 
-CMD ["node", "src/mysteriousobjectsatnoon.js"]
+# Start the app.
+CMD ["gunicorn", "--bind=0.0.0.0:5000", "--reload", "application"]

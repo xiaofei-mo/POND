@@ -1,0 +1,4 @@
+Flask==0.12.1
+gunicorn==19.7.1
+Pyrebase==3.0.27
+pytz==2017.2
