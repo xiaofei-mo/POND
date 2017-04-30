@@ -28,6 +28,8 @@
 }
 
 .upload-item {
+  background-color: $placeholder-purple-gray;
+  opacity: 0.5;
   @extend %clearfix;
   @include font-12;
   display: block;
@@ -66,15 +68,11 @@
 
   .size {
     float: left;
+    margin-left: 6px;
   }
 
-  .status,
-  .save {
+  .status {
     clear: both;
     text-transform: lowercase;
-  }
-
-  .save {
-    display: block;
   }
 }

@@ -16,7 +16,6 @@
 # along with mysteriousobjectsatnoon.  If not, see 
 # <http://www.gnu.org/licenses/>.
 
-boto3==1.4.4
 Flask==0.12.1
 gunicorn==19.7.1
 Pyrebase==3.0.27

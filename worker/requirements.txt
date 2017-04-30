@@ -16,4 +16,6 @@
 # along with mysteriousobjectsatnoon.  If not, see 
 # <http://www.gnu.org/licenses/>.
 
-boto3==1.4.4
+Pyrebase==3.0.27
+requests==2.13.0
+schedule==0.4.2

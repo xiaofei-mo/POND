@@ -1,10 +1,10 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,13 +14,12 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 import React from 'react'
-import ProgressBar from './ProgressBar'
 import Cancel from './Cancel'
-import Save from './Save'
 import Status from './Status'
 import filesize from 'filesize'
 
@@ -30,20 +29,16 @@ export default class UploadItem extends React.Component {
     this.render = this.render.bind(this)
   }
   render() {
-    const size = filesize(this.props.upload.get('size'), {
+    const size = filesize(this.props.upload.get('size', ''), {
       spacer: ''
     }).toLowerCase()
     return (
       <li className='upload-item'>
-        <Cancel uploadId={this.props.uploadId} 
+        <Cancel upload={this.props.upload} 
                 cancelUpload={this.props.cancelUpload} />
-        <ProgressBar percent={this.props.upload.get('percent')} />
-        <div className="name">{this.props.upload.get('originalName')}</div>
-        <div className="size">({size})</div>
+        <div className="name">{this.props.upload.get('name')}</div>
+        <div className="size"> ({size})</div>
         <Status upload={this.props.upload} />
-        <Save upload={this.props.upload} 
-              uploadId={this.props.uploadId} 
-              saveUpload={this.props.saveUpload} />
       </li>
     )
   }

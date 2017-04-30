@@ -1,10 +1,10 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,13 +14,15 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 import actions from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import React from 'react'
+import UploadItem from '../components/upload/UploadItem'
 
 class Uploads extends React.Component {
   constructor() {
@@ -52,14 +54,28 @@ class Uploads extends React.Component {
     }
   }
   render() {
-    if (!this.state.shouldPlaySound) {
-      return null
+    if (this.state.shouldPlaySound) {
+      return (
+        <div className='uploads'>
+          <audio src='static/upload_done.mp3' autoPlay />
+        </div>
+      )
     }
-    return (
-      <div className='uploads'>
-        <audio src='static/upload_done.mp3' autoPlay />
-      </div>
-    )
+    if (!this.props.uploads.isEmpty()) {
+      const uploads = this.props.uploads.map((upload) => {
+        return <UploadItem cancelUpload={this.props.cancelUpload}
+                           key={upload.get('assemblyId')} 
+                           upload={upload} />
+      }).toArray()
+      return (
+        <div className='uploads'>
+          <ul>
+            {uploads}
+          </ul>
+        </div>
+      )
+    }
+    return null
   }
 }
 
@@ -72,6 +88,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    cancelUpload: bindActionCreators(actions.cancelUpload, dispatch),
     listenToUploads: bindActionCreators(actions.listenToUploads, dispatch),
     stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch)
   }

@@ -6,8 +6,7 @@ import os
 import pytz
 import uuid
 
-import boto3
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 import pyrebase
 
 
@@ -35,15 +34,6 @@ firebase = pyrebase.initialize_app({
 })
 
 
-sqs_resource = boto3.resource(
-    'sqs', 
-    aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
-    aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
-    region_name=['AWS_DEFAULT_REGION']
-)
-sqs_queue = resource.get_queue_by_name(QueueName=os.environ['SQS_QUEUE'])
-
-
 @app.route('/get-upload-values')
 def get_upload_values():
     params = json.dumps({
@@ -65,7 +55,8 @@ def get_upload_values():
 
 
 @app.route('/')
-def index():
+@app.route('/<path:path>')
+def index(path=None):
     config = {
         'CLOUDFRONT_HOSTNAME': os.environ['CLOUDFRONT_HOSTNAME'],
         'FIREBASE_API_KEY': os.environ['FIREBASE_API_KEY'],
@@ -77,14 +68,6 @@ def index():
     return render_template('index.html', 
         config=config
     )
-
-
-@app.route('/upload')
-def upload():
-    payload = {
-        'hi': 'there'
-    }
-    sqs_queue.send_message(MessageBody=json.dumps(payload))
 
 
 def _calculate_signature(params):

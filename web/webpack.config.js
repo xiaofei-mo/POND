@@ -1,10 +1,10 @@
 /*
- * Copyright (C) 2016 Mark P. Lindsay
+ * Copyright (C) 2017 Mark P. Lindsay
  * 
  * This file is part of mysteriousobjectsatnoon.
  *
- * mysteriousobjectsatnoon is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * mysteriousobjectsatnoon is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -14,7 +14,8 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
+ * along with mysteriousobjectsatnoon.  If not, see 
+ * <http://www.gnu.org/licenses/>.
  */
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -24,7 +25,7 @@ var shouldMinimize = process.argv.indexOf('--minimize') !== -1
 var sassLoader = {
   outputStyle: 'nested'
 }
-var plugins = [ new ExtractTextPlugin('./public/static/style.css') ]
+var plugins = [ new ExtractTextPlugin('./web/static/style.css') ]
 if (shouldMinimize) {
   plugins.push(
     new webpack.DefinePlugin({
@@ -64,7 +65,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: './public/static/bundle.js',
+    filename: './web/static/bundle.js',
   },
   plugins: plugins,
   sassLoader: sassLoader
