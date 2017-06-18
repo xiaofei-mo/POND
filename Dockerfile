@@ -30,6 +30,6 @@ RUN npm install --silent --progress=false
 COPY . /usr/src/app
 
 # Open up port 5000.
-EXPOSE 5000
+#EXPOSE 5000 5001
 
-CMD ["node", "src/mysteriousobjectsatnoon.js"]
+#CMD ["node", "src/mysteriousobjectsatnoon.js"]

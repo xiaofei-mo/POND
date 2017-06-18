@@ -52,7 +52,7 @@ class App extends React.Component {
     }
     return className
   }
-  _handleDroppedFiles(files, event) {
+  _handleDroppedFiles(files, rejFiles, event) {
     if (!this.props.user.isEmpty()) {
       const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
       this.props.handleDroppedFiles(
