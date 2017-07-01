@@ -19,4 +19,5 @@
  */
 
 require('babel-core/register');
+require('./setEnv.js');
 require("./server.js");

@@ -18,6 +18,8 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+import './sass/style.scss'
+
 import actions from './actions'
 import App from './containers/App'
 import { applyMiddleware, createStore } from 'redux'
