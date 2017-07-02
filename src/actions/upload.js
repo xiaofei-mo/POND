@@ -60,15 +60,20 @@ export default {
 
   listenToUploads: (userId) => {
     return (dispatch, getState) => {
+      // request.get(`/init-upload/${userId}`).end((err, res) => {
       const ref = firebase.database().ref()
-      const uploadsRef = ref.child('uploads').orderByChild('userId').equalTo(userId)
-      uploadsRef.on('value', (snapshot) => {
+      const uploadsQuery = ref.child('uploads').orderByChild('userId').equalTo(userId)
+      uploadsQuery.on('value', (snapshot) => {
+        const snapshotVal = snapshot.val()
         let uploads = Immutable.Map()
         if (snapshot.val() !== null) {
-          uploads = Immutable.fromJS(snapshot.val())
+          Object.keys(snapshotVal).forEach((key) => {
+            if (snapshotVal[key].status !== 'uploading') delete snapshotVal[key]
+          })
+          uploads = Immutable.fromJS(snapshotVal)
         }
         dispatch({
-          type: A.RECEIVED_UPLOADS, 
+          type: A.RECEIVED_UPLOADS,
           payload: Immutable.Map({
             uploads: uploads
           })

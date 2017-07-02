@@ -62,7 +62,7 @@ const config = {
 }
 
 app.get('*', (req, res, next) => {
-  debugger;
+  // debugger;
   res.send(tsml`
     <!DOCTYPE html>
     <html>
