@@ -19,12 +19,11 @@ version: '2'
 services:
   mysteriousobjectsatnoon:
     build: .
-    command: nodemon --inspect=0.0.0.0:9229 src/mysteriousobjectsatnoon.js
+    command:  pm2 start ecosystem.config.js --no-daemon
     env_file:
       - .env
     ports:
       - '5000:5000'
-      - '9229:9229'
     volumes: 
       - ./public:/usr/src/app/public
       - ./src:/usr/src/app/src

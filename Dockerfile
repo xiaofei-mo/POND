@@ -23,7 +23,7 @@ WORKDIR /usr/src/app
 
 # Install app dependencies.
 COPY package.json /usr/src/app/
-RUN npm install --silent --progress=false -g nodemon
+RUN npm install --silent --progress=false -g pm2
 RUN npm install --silent --progress=false
 
 # Bundle app source.
