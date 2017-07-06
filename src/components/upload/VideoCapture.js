@@ -20,7 +20,7 @@ class VideoCapture extends React.PureComponent {
 
   onVideoLoaded() {
     const { videoWidth, videoHeight } = this.videoRef;
-    const width = videoWidth > 480 ? 480 : videoWidth;
+    const width = videoWidth > window.innerWidth ? window.innerWidth : videoWidth;
     const height = width * videoHeight / videoWidth;
     this.setState({
       width,

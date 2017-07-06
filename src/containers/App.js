@@ -28,7 +28,6 @@ import Link from './Link'
 import Login from '../components/login/Login'
 import MetadataControl from '../components/metadata/Control'
 import React from 'react'
-import Uploads from './Uploads'
 
 class App extends React.Component {
   constructor() {
@@ -125,7 +124,6 @@ class App extends React.Component {
           <div className='linking-transition-veil veil'>
           </div>
         </Dropzone>
-        <Uploads />
       </div>
     )
   }

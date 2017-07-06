@@ -32,6 +32,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TextItem from '../components/text/TextItem'
 import VideoItem from '../components/video/VideoItem'
+import Uploads from './Uploads'
 
 class Page extends React.Component {
   constructor() {
@@ -169,6 +170,7 @@ class Page extends React.Component {
            style={this._getStyle()}
       >
         {items}
+        <Uploads />
       </div>
     )
   }

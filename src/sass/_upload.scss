@@ -19,10 +19,11 @@
  */
 
 .uploads {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
-  height: auto;
+  width: 0;
+  height: 0;
   display: block;
   z-index: 5;
 }
