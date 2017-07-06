@@ -32,6 +32,9 @@ export default function uploadReducer (state = initialState, action) {
     case A.STOPPED_LISTENING_TO_UPLOADS:
       return state.set('uploads', Immutable.Map())
 
+    case A.PROGRESS_UPDATED:
+      return state.set('uploads', state.get('uploads').mergeDeep(action.payload))
+
     default:
       return state
   }

@@ -22,6 +22,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import React from 'react'
 
+import VideoUploadItem from '../components/upload/VideoUploadItem'
+
 class Uploads extends React.Component {
   constructor() {
     super()
@@ -52,28 +54,41 @@ class Uploads extends React.Component {
     }
   }
   render() {
-    if (!this.state.shouldPlaySound) {
-      return null
-    }
+    const audioToPlay = this.state.shouldPlaySound ?
+      <audio src='static/upload_done.mp3' autoPlay /> :
+      null;
+
+    const videos = this.props.uploads.filter(upload => upload.get('type') === 'video');
+
+    
     return (
       <div className='uploads'>
-        <audio src='static/upload_done.mp3' autoPlay />
+        {videos.entrySeq().map(seq => (
+          <VideoUploadItem
+            key={seq[0]}
+            upload={seq[1]}
+            uploadId={seq[0]}
+            cancelUpload={this.props.cancelUpload}
+          />
+        ))}
+        {audioToPlay}
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     uploads: state.getIn(['upload', 'uploads']),
     user: state.getIn(['app', 'user'])
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     listenToUploads: bindActionCreators(actions.listenToUploads, dispatch),
-    stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch)
+    stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch),
+    cancelUpload: bindActionCreators(actions.cancelUpload, dispatch)
   }
 }
 

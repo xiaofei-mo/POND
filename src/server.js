@@ -153,12 +153,21 @@ const _createItem = (uploadId) => {
   })
 }
 
+const _abortUpload = (uploadId) => {
+  const uploadRef = ref.child('uploads').child(uploadId)
+  console.log('aborted', uploadRef)
+  uploadRef.remove()
+}
+
 ref.child('uploads').on('child_changed', snapshot => {
   const upload = snapshot.val()
   if (upload === null) {
     return
   }
   switch (upload.status) {
+    case 'aborted':
+      _abortUpload(upload.id)
+      break
     case 'done':
       _createItem(upload.id)
       break

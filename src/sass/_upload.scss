@@ -21,7 +21,7 @@
 .uploads {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   height: auto;
   display: block;
   z-index: 5;
@@ -31,28 +31,31 @@
   @extend %clearfix;
   @include font-12;
   display: block;
-  padding: 10px 20px 10px 32px;
-  position: relative;
+  padding: 0;
+  position: absolute;
 
   .cancel {
     font-size: 16px;
     position: absolute;
     top: 6px;
-    left: 12px;
+    right: 12px;
     display: block;
+    color: #0F0;
   }
 
   .progress-bar {
-    height: 3px;
-    position: relative;
-    margin-bottom: 4px;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 0;
 
     .progress {
       position: absolute;
-      height: 3px;
+      height: 2px;
       top: 0;
       left: 0;
       transition: width 100ms;
+      background-color: #0F0;
     }
   }
 
@@ -76,5 +79,9 @@
 
   .save {
     display: block;
+  }
+
+  .video-capture {
+    opacity: .5;
   }
 }
