@@ -31,11 +31,42 @@ export default {
       })
       const auth = firebase.auth()
       auth.signInWithEmailAndPassword(email, password).catch((err) => {
-        dispatch({
-          type: A.LOGIN_FAILED
-        })
+        switch (err.code) {
+          case 'auth/wrong-password':
+            dispatch({
+              type: A.LOGIN_WITH_WRONG_PWD,
+              payload: email
+            })
+            break
+
+          case 'auth/user-not-found':
+            // TODO: SIGN UP
+            console.log('TODO: SING UP')
+
+          default:
+            dispatch({
+              type: A.LOGIN_FAILED
+            })
+        }
       })
     }
+  },
+
+  requestResetPassword: email => (dispatch, getState) => {
+    dispatch({
+      type: A.REQUEST_RESET_PWD
+    })
+    const auth = firebase.auth()
+    auth.sendPasswordResetEmail(email)
+      .then(() => {
+        dispatch({
+          type: A.RESET_EMAIL_SENT
+        })
+      }, (err) => {
+        dispatch({
+          type: A.INVALID_EMAIL_ADDR
+        })
+      })
   },
 
   hideMetadata: () => {
@@ -43,7 +74,7 @@ export default {
       type: A.HIDE_METADATA
     }
   },
-  
+
   listenToAuth: () => {
     return (dispatch, getState) => {
       const auth = firebase.auth()

@@ -155,7 +155,6 @@ const _createItem = (uploadId) => {
 
 const _abortUpload = (uploadId) => {
   const uploadRef = ref.child('uploads').child(uploadId)
-  console.log('aborted', uploadRef)
   uploadRef.remove()
 }
 

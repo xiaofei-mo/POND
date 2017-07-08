@@ -24,10 +24,13 @@ const initialState = Immutable.Map({
   isShowingMetadata: false,
   loginFailed: false,
   user: Immutable.Map(),
-  userIsLoaded: false
+  userIsLoaded: false,
+  shouldResetPassword: false,
+  sendEmailFailed: false,
+  attemptedEmail: null
 })
 
-export default function appReducer (state = initialState, action) {
+export default function appReducer(state = initialState, action) {
   switch (action.type) {
 
     case A.HIDE_METADATA:
@@ -39,7 +42,31 @@ export default function appReducer (state = initialState, action) {
       return state.set('loginFailed', false)
 
     case A.LOGIN_FAILED:
-      return state.set('loginFailed', true)
+      return state.withMutations((map) => {
+        map.set('loginFailed', true)
+          .set('attemptedEmail', null)
+      })
+
+    case A.LOGIN_WITH_WRONG_PWD:
+      if (state.get('attemptedEmail') === action.payload) {
+        return state.withMutations((map) => {
+          map.set('shouldResetPassword', true)
+            .set('attemptedEmail', null)
+        })
+      }
+      return state.withMutations((map) => {
+        map.set('attemptedEmail', action.payload)
+          .set('loginFailed', true)
+      })
+    case A.REQUEST_RESET_PWD:
+      return state.set('sendEmailFailed', false)
+    case A.RESET_EMAIL_SENT:
+      return state.withMutations((map) => {
+        map.set('shouldResetPassword', false)
+          .set('sendEmailFailed', false)
+      })
+    case A.INVALID_EMAIL_ADDR:
+      return state.set('sendEmailFailed', true)
 
     case A.PAGE_CLICKED:
       if (state.get('isShowingMetadata')) {

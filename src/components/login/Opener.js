@@ -21,14 +21,19 @@
 import React from 'react'
 
 export default class Opener extends React.Component {
-  constructor () {
+  constructor() {
     super()
     this.render = this.render.bind(this)
   }
-  render () {
-    if (this.props.isLoggingIn || 
-        this.props.isAcceptingPassword || 
-        this.props.isAcceptingEmail) {
+  render() {
+    if (
+      this.props.isLoggingIn ||
+      this.props.isAcceptingPassword ||
+      this.props.isAcceptingEmail ||
+      this.props.isResettingPassword ||
+      this.props.isSendingEmail || 
+      this.props.emailSent
+    ) {
       return null
     }
     return (

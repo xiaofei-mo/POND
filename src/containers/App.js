@@ -55,9 +55,9 @@ class App extends React.Component {
     if (!this.props.user.isEmpty()) {
       const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
       this.props.handleDroppedFiles(
-        files, 
-        x, 
-        event.clientY, 
+        files,
+        x,
+        event.clientY,
         this.props.user,
         this.props.pageId
       )
@@ -91,29 +91,38 @@ class App extends React.Component {
   render() {
     return (
       <div className={this._getClassName()}>
-        <Dropzone accept='video/*'
-                  activeClassName='dropzone-active'
-                  className='dropzone' 
-                  disableClick={true} 
-                  id='scroller'
-                  multiple={false} 
-                  onDrop={this._handleDroppedFiles}
-                  onScroll={this._handleScroll}
-                  onWheel={this._handleWheel}
-                  ref='scroller'>
+        <Dropzone
+          accept='video/*'
+          activeClassName='dropzone-active'
+          className='dropzone'
+          disableClick={true}
+          id='scroller'
+          multiple={false}
+          onDrop={this._handleDroppedFiles}
+          onScroll={this._handleScroll}
+          onWheel={this._handleWheel}
+          ref='scroller'
+        >
           {this.props.children}
-          <Login attemptLogin={this.props.attemptLogin}
-                 loginFailed={this.props.loginFailed}
-                 logout={this.props.logout}
-                 params={this.props.params} 
-                 user={this.props.user} 
-                 userIsLoaded={this.props.userIsLoaded} />
-          <MetadataControl hideMetadata={this.props.hideMetadata}
-                           isShowingMetadata={this.props.isShowingMetadata}
-                           showMetadata={this.props.showMetadata} 
-                           uploads={this.props.uploads}
-                           windowHeight={this.props.windowHeight}
-                           windowWidth={this.props.windowWidth} />
+          <Login
+            attemptLogin={this.props.attemptLogin}
+            loginFailed={this.props.loginFailed}
+            logout={this.props.logout}
+            params={this.props.params}
+            user={this.props.user}
+            userIsLoaded={this.props.userIsLoaded}
+            shouldResetPassword={this.props.shouldResetPassword}
+            requestResetPassword={this.props.requestResetPassword}
+            sendEmailFailed={this.props.sendEmailFailed}
+          />
+          <MetadataControl
+            hideMetadata={this.props.hideMetadata}
+            isShowingMetadata={this.props.isShowingMetadata}
+            showMetadata={this.props.showMetadata}
+            uploads={this.props.uploads}
+            windowHeight={this.props.windowHeight}
+            windowWidth={this.props.windowWidth}
+          />
           <Filter />
           <Link />
           <div className='dropzone-veil veil'>
@@ -129,13 +138,15 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
-    isInLinkingTransitionStage2: state.getIn(['link', 
-                                              'isInLinkingTransitionStage2']),
+    isInLinkingTransitionStage2: state.getIn(['link',
+      'isInLinkingTransitionStage2']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     loginFailed: state.getIn(['app', 'loginFailed']),
+    shouldResetPassword: state.getIn(['app', 'shouldResetPassword']),
+    sendEmailFailed: state.getIn(['app', 'sendEmailFailed']),
     paddingLeft: getPaddingLeft(state),
     pageId: state.getIn(['page', 'pageId']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
@@ -147,9 +158,10 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     attemptLogin: bindActionCreators(actions.attemptLogin, dispatch),
+    requestResetPassword: bindActionCreators(actions.requestResetPassword, dispatch),
     handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
