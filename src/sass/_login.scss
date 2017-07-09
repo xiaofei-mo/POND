@@ -44,13 +44,15 @@
   }
 
   .logging-in,
-  .sending-email {
+  .sending-email,
+  .signing-up {
     text-transform: lowercase;
     color: $gray;
   }
   
   .login-failed,
-  .send-email-failed {
+  .send-email-failed,
+  .sign-up-failed {
     text-transform: lowercase;
     position: absolute;
     bottom: -19px;

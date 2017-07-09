@@ -20,10 +20,15 @@
 import { A } from '../constants'
 import firebase from '../utils/firebase'
 import Immutable from 'immutable'
+import request from 'superagent'
 import url from 'url'
 
 export default {
-
+  resetLogin: () => (dispatch, getState) => {
+    dispatch({
+      type: A.RESET_LOGIN_STATE
+    })
+  },
   attemptLogin: (email, password) => {
     return (dispatch, getState) => {
       dispatch({
@@ -40,8 +45,10 @@ export default {
             break
 
           case 'auth/user-not-found':
-            // TODO: SIGN UP
-            console.log('TODO: SING UP')
+            dispatch({
+              type: A.MEET_NEW_USER
+            })
+            break
 
           default:
             dispatch({
@@ -65,6 +72,25 @@ export default {
       }, (err) => {
         dispatch({
           type: A.INVALID_EMAIL_ADDR
+        })
+      })
+  },
+
+  signUp: (email, password, username) => (dispatch, getState) => {
+    dispatch({
+      type: A.REQUEST_SIGN_UP
+    })
+    request.post('/sign-up')
+      .send({ email, password, username })
+      .end((err, res) => {
+        if (err) {
+          dispatch({
+            type: A.INVALID_USERNAME
+          })
+          return
+        }
+        dispatch({
+          type: A.SIGNED_UP
         })
       })
   },

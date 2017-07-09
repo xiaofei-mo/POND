@@ -17,6 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see 
  * <http://www.gnu.org/licenses/>.
  */
+import React from 'react'
 
 import Email from './Email'
 import { Link } from 'react-router'
@@ -29,7 +30,9 @@ import ResetPassword from './ResetPassword'
 import SendEmailFailed from './SendEmailFailed'
 import SendingEmail from './SendingEmail'
 import CheckYourEmail from './CheckYourEmail'
-import React from 'react'
+import Username from './Username'
+import SigningUp from './SigningUp'
+import SignUpFailed from './SignUpFailed'
 
 const initialState = {
   email: '',
@@ -37,12 +40,16 @@ const initialState = {
   isAcceptingPassword: false,
   isConfirmingLogout: false,
   isLoggingIn: false,
+  isSigningUp: false,
   isResettingPassword: false,
   isSendingEmail: false,
   loginFailed: false,
   sendEmailFailed: false,
+  signUpFailed: false,
   emailSent: false,
-  password: ''
+  isAcceptingUsername: false,
+  password: '',
+  username: ''
 }
 
 export default class Login extends React.Component {
@@ -52,7 +59,9 @@ export default class Login extends React.Component {
 
     this._handleOpenerClick = this._handleOpenerClick.bind(this)
     this._handlePasswordChange = this._handlePasswordChange.bind(this)
+    this._handleUsernameChange = this._handleUsernameChange.bind(this)
     this._handlePasswordKeyUp = this._handlePasswordKeyUp.bind(this)
+    this._handleUsernameKeyUp = this._handleUsernameKeyUp.bind(this)
     this._handleEmailChange = this._handleEmailChange.bind(this)
     this._handleEmailKeyUp = this._handleEmailKeyUp.bind(this)
     this._handleResetPasswordKeyUp = this._handleResetPasswordKeyUp.bind(this)
@@ -84,11 +93,7 @@ export default class Login extends React.Component {
         break
       case 27:
         event.preventDefault()
-        this.setState({
-          email: '',
-          isAcceptingEmail: false,
-          password: ''
-        })
+        this._onRequestReset()
         break
     }
   }
@@ -133,6 +138,11 @@ export default class Login extends React.Component {
       password: event.target.value
     })
   }
+  _handleUsernameChange(event) {
+    this.setState({
+      username: event.target.value
+    })
+  }
   _handlePasswordKeyUp(event) {
     switch (event.which) {
       case 13:
@@ -158,8 +168,31 @@ export default class Login extends React.Component {
         break
     }
   }
+  _handleUsernameKeyUp(event) {
+    this.setState({
+      signUpFailed: false
+    })
+    switch (event.which) {
+      case 13:
+        event.preventDefault()
+        if (this.state.username === '') {
+          return
+        }
+        this.setState({
+          isAcceptingUsername: false,
+          isSigningUp: true
+        })
+        this.props.signUp(this.state.email, this.state.password, this.state.username);
+        break
+      case 27:
+        event.preventDefault()
+        this._onRequestReset()
+        break
+    }
+  }
   _onRequestReset() {
     // Reset login status
+    this.props.resetLogin()
     this.setState(initialState)
   }
   componentWillReceiveProps(nextProps) {
@@ -173,6 +206,12 @@ export default class Login extends React.Component {
         isResettingPassword: true,
         password: ''
       })
+    } else if (!this.props.shouldSignUp && nextProps.shouldSignUp) {
+      // Display username prompt for signing up
+      this.setState({
+        isAcceptingUsername: true,
+        isLoggingIn: false,
+      })
     } else if (!this.props.loginFailed && nextProps.loginFailed) {
       // Reset component and display email prompt.
       this.setState({
@@ -183,6 +222,16 @@ export default class Login extends React.Component {
         password: ''
       })
     }
+    if (!this.props.signedUp && nextProps.signedUp) {
+      // Login immediately after signed up
+      this.setState({
+        isSigningUp: false,
+        isAcceptingEmail: false,
+        isAcceptingPassword: false,
+        isLoggingIn: true
+      })
+      this.props.attemptLogin(this.state.email, this.state.password)
+    }
     if (!this.props.sendEmailFailed && nextProps.sendEmailFailed) {
       this.setState({
         sendEmailFailed: true,
@@ -190,7 +239,14 @@ export default class Login extends React.Component {
         isResettingPassword: true,
       })
     }
-    if (this.props.shouldResetPassword && !nextProps.shouldResetPassword) {
+    if (!this.props.signUpFailed && nextProps.signUpFailed) {
+      this.setState({
+        isSigningUp: false,
+        isAcceptingUsername: true,
+        signUpFailed: true,
+      })
+    }
+    if (!this.props.emailSent && nextProps.emailSent) {
       this.setState({
         emailSent: true,
         isSendingEmail: false
@@ -240,9 +296,11 @@ export default class Login extends React.Component {
         <LoggingIn
           isLoggingIn={this.state.isLoggingIn}
         />
+        <SigningUp
+          isSigningUp={this.state.isSigningUp}
+        />
         <SendingEmail
           isSendingEmail={this.state.isSendingEmail}
-          shouldResetPassword={this.state.shouldResetPassword}
         />
         <Opener
           isAcceptingEmail={this.state.isAcceptingEmail}
@@ -251,7 +309,9 @@ export default class Login extends React.Component {
           isResettingPassword={this.state.isResettingPassword}
           isSendingEmail={this.state.isSendingEmail}
           emailSent={this.state.emailSent}
+          isAcceptingUsername={this.state.isAcceptingUsername}
           onClick={this._handleOpenerClick}
+          isSigningUp={this.state.isSigningUp}
         />
         <Email
           email={this.state.email}
@@ -274,8 +334,15 @@ export default class Login extends React.Component {
           emailSent={this.state.emailSent}
           onRequestReset={this._onRequestReset}
         />
+        <Username
+          username={this.state.username}
+          isAcceptingUsername={this.state.isAcceptingUsername}
+          onKeyUp={this._handleUsernameKeyUp}
+          onChange={this._handleUsernameChange}
+        />
         <SendEmailFailed sendEmailFailed={this.state.sendEmailFailed} />
         <LoginFailed loginFailed={this.state.loginFailed} />
+        <SignUpFailed signUpFailed={this.state.signUpFailed} />
       </div>
     )
   }

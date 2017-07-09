@@ -32,7 +32,9 @@ export default class Opener extends React.Component {
       this.props.isAcceptingEmail ||
       this.props.isResettingPassword ||
       this.props.isSendingEmail || 
-      this.props.emailSent
+      this.props.emailSent || 
+      this.props.isAcceptingUsername ||
+      this.props.isSigningUp
     ) {
       return null
     }

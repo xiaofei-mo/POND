@@ -106,6 +106,7 @@ class App extends React.Component {
           {this.props.children}
           <Login
             attemptLogin={this.props.attemptLogin}
+            signUp={this.props.signUp}
             loginFailed={this.props.loginFailed}
             logout={this.props.logout}
             params={this.props.params}
@@ -113,7 +114,12 @@ class App extends React.Component {
             userIsLoaded={this.props.userIsLoaded}
             shouldResetPassword={this.props.shouldResetPassword}
             requestResetPassword={this.props.requestResetPassword}
+            emailSent={this.props.emailSent}
             sendEmailFailed={this.props.sendEmailFailed}
+            shouldSignUp={this.props.shouldSignUp}
+            signedUp={this.props.signedUp}
+            signUpFailed={this.props.signUpFailed}
+            resetLogin={this.props.resetLogin}
           />
           <MetadataControl
             hideMetadata={this.props.hideMetadata}
@@ -147,6 +153,10 @@ function mapStateToProps(state) {
     loginFailed: state.getIn(['app', 'loginFailed']),
     shouldResetPassword: state.getIn(['app', 'shouldResetPassword']),
     sendEmailFailed: state.getIn(['app', 'sendEmailFailed']),
+    emailSent: state.getIn(['app', 'emailSent']),
+    shouldSignUp: state.getIn(['app', 'shouldSignUp']),
+    signedUp: state.getIn(['app', 'signedUp']),
+    signUpFailed: state.getIn(['app', 'signUpFailed']),
     paddingLeft: getPaddingLeft(state),
     pageId: state.getIn(['page', 'pageId']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
@@ -160,8 +170,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    resetLogin: bindActionCreators(actions.resetLogin, dispatch),
     attemptLogin: bindActionCreators(actions.attemptLogin, dispatch),
     requestResetPassword: bindActionCreators(actions.requestResetPassword, dispatch),
+    signUp: bindActionCreators(actions.signUp, dispatch),
     handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
