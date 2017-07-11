@@ -40,7 +40,7 @@ export default class Opener extends React.Component {
     }
     return (
       <a className='opener' href='#' onClick={this.props.onClick}>
-        <span className='blinker'>▌</span>
+        <span>click here to login or sign up </span><span className='blinker'>▌</span>
       </a>
     )
   }

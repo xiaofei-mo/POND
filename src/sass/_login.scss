@@ -20,14 +20,14 @@
 
 .login {
   bottom: 40px;
-  right: 40px;
+  left: 40px;
   font-family: monospace;
   position: fixed;
   z-index: 6;
   color: $white;
   @include font-14;
   border-bottom: 1px solid $white;
-  width: 200px;
+  width: 240px;
   padding-bottom: 3px;
 
   a {

@@ -22,6 +22,7 @@ import firebase from '../utils/firebase'
 import Immutable from 'immutable'
 import request from 'superagent'
 import url from 'url'
+import { push } from 'react-router-redux'
 
 export default {
   resetLogin: () => (dispatch, getState) => {
@@ -35,27 +36,32 @@ export default {
         type: A.LOGIN_ATTEMPTED
       })
       const auth = firebase.auth()
-      auth.signInWithEmailAndPassword(email, password).catch((err) => {
-        switch (err.code) {
-          case 'auth/wrong-password':
-            dispatch({
-              type: A.LOGIN_WITH_WRONG_PWD,
-              payload: email
-            })
-            break
+      auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          // Bring user to personal page
+          dispatch(push(`/${user.displayName}`))
+        })
+        .catch((err) => {
+          switch (err.code) {
+            case 'auth/wrong-password':
+              dispatch({
+                type: A.LOGIN_WITH_WRONG_PWD,
+                payload: email
+              })
+              break
 
-          case 'auth/user-not-found':
-            dispatch({
-              type: A.MEET_NEW_USER
-            })
-            break
+            case 'auth/user-not-found':
+              dispatch({
+                type: A.MEET_NEW_USER
+              })
+              break
 
-          default:
-            dispatch({
-              type: A.LOGIN_FAILED
-            })
-        }
-      })
+            default:
+              dispatch({
+                type: A.LOGIN_FAILED
+              })
+          }
+        })
     }
   },
 
