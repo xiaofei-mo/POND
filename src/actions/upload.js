@@ -42,7 +42,7 @@ export default {
         type,
         objUrl
       })
-      request.get('/get-upload-values').end((err, res) => {
+      request.get(`/get-upload-values/${type}`).end((err, res) => {
         uploadRef.update({
           assemblyId: res.body.assemblyId,
           id: uploadRef.key,

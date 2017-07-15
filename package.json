@@ -50,7 +50,8 @@
     "reselect": "^2.5.3",
     "superagent": "^1.8.3",
     "transloadit": "^1.5.3",
-    "tsml": "^1.0.1"
+    "tsml": "^1.0.1",
+    "wavesurfer.js": "^2.0.0-beta01"
   },
   "scripts": {
     "build": "webpack -p --progress",

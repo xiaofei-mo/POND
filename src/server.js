@@ -41,6 +41,13 @@ const config = {
   S3_HOSTNAME: process.env.S3_HOSTNAME
 }
 
+const templateIds = {
+  video: process.env.TRANSLOADIT_VIDEO_TEMPLATE_ID,
+  audio: process.env.TRANSLOADIT_AUDIO_TEMPLATE_ID
+}
+
+console.log(templateIds)
+
 const credential = admin.credential.cert({
   clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
   privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
@@ -55,13 +62,16 @@ const ref = admin.database().ref()
 
 app.use(express.static(__dirname + '/../public'))
 
-app.get('/get-upload-values', (req, res, next) => {
+app.get('/get-upload-values/:type', (req, res, next) => {
+  console.log(req.params.type)
+  let templateId = templateIds[req.params.type]
+
   const paramsObj = {
     auth: {
       key: process.env.TRANSLOADIT_AUTH_KEY,
       expires: getExpiresDate()
     },
-    template_id: process.env.TRANSLOADIT_TEMPLATE_ID
+    template_id: templateId || process.env.TRANSLOADIT_VIDEO_TEMPLATE_ID
   }
   const params = JSON.stringify(paramsObj)
   const signature = calculateSignature(params)
@@ -166,26 +176,54 @@ const _createItem = (uploadId) => {
   const uploadRef = ref.child('uploads').child(uploadId)
   uploadRef.once('value', (uploadSnapshot) => {
     const upload = uploadSnapshot.val()
-    _determineTiming(upload.results.encode).then((timingRef) => {
-      const timing = timingRef.snapshot.val()
-      const initialDimensions = _getInitialDimensions(upload.results.encode)
-      const itemRef = itemsRef.push({
-        height: initialDimensions.height,
-        pageId: upload.pageId,
-        results: upload.results,
-        timing: timing,
-        type: 'video',
-        uploadId: upload.id,
-        userId: upload.userId,
-        width: initialDimensions.width,
-        x: upload.x,
-        y: upload.y
-      })
-      itemRef.once('value', (itemSnapshot) => {
-        itemRef.child('id').set(itemSnapshot.key)
-      })
-      uploadRef.remove()
-    })
+
+    switch (upload.type) {
+      case 'audio':
+        _determineTiming(upload.results.encode).then((timingRef) => {
+          const timing = timingRef.snapshot.val()
+          const itemRef = itemsRef.push({
+            height: 100,
+            pageId: upload.pageId,
+            results: upload.results,
+            timing: timing,
+            type: 'audio',
+            uploadId: upload.id,
+            userId: upload.userId,
+            width: 320,
+            x: upload.x,
+            y: upload.y
+          })
+          itemRef.once('value', (itemSnapshot) => {
+            itemRef.child('id').set(itemSnapshot.key)
+          })
+          uploadRef.remove()
+        })
+        break
+
+      case 'video':
+      default:
+        _determineTiming(upload.results.encode).then((timingRef) => {
+          const timing = timingRef.snapshot.val()
+          const initialDimensions = _getInitialDimensions(upload.results.encode)
+          const itemRef = itemsRef.push({
+            height: initialDimensions.height,
+            pageId: upload.pageId,
+            results: upload.results,
+            timing: timing,
+            type: 'video',
+            uploadId: upload.id,
+            userId: upload.userId,
+            width: initialDimensions.width,
+            x: upload.x,
+            y: upload.y
+          })
+          itemRef.once('value', (itemSnapshot) => {
+            itemRef.child('id').set(itemSnapshot.key)
+          })
+          uploadRef.remove()
+        })
+        break
+    }
   })
 }
 
@@ -229,14 +267,29 @@ const _pollTransloadit = (uploadId, uri) => {
         uploadRef.once('value', snapshot => {
           const upload = snapshot.val()
           if (upload !== null) {
-            uploadRef.update({
-              results: {
-                encode: body.results.encode[0],
-                original: body.results[':original'][0],
-                posterImage: body.results.poster_image[0]
-              },
-              status: 'done'
-            })
+            switch (body.uploads[0].type) {
+              case 'audio':
+                uploadRef.update({
+                  results: {
+                    encode: body.results.encode[0],
+                    original: body.results[':original'][0],
+                    waveform: body.results.waveform[0]
+                  },
+                  status: 'done'
+                })
+                break
+              case 'video':
+              default:
+                uploadRef.update({
+                  results: {
+                    encode: body.results.encode[0],
+                    original: body.results[':original'][0],
+                    posterImage: body.results.poster_image[0]
+                  },
+                  status: 'done'
+                })
+                break
+            }
           }
         })
         break
