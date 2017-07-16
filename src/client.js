@@ -18,9 +18,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+import './sass/style.scss'
+
 import actions from './actions'
 import App from './containers/App'
-import { applyMiddleware, createStore } from 'redux'
+import { applyMiddleware, createStore, compose } from 'redux'
 import { browserHistory, IndexRoute, Route, Router } from 'react-router'
 import FilterPage from './containers/FilterPage'
 import getNoise from './utils/getNoise'
@@ -32,12 +34,18 @@ import reducer from './reducers';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import thunk from 'redux-thunk'
 
-let store = applyMiddleware(
-  thunk, 
-  routerMiddleware(browserHistory)
-)(createStore)(reducer)
+// for redux-devtools extension
+const composeEnhancers =
+  process.env.NODE_ENV !== 'production' && typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ :
+    compose
 
-const history = syncHistoryWithStore(browserHistory, store, { 
+let store = createStore(reducer, composeEnhancers(applyMiddleware(
+  thunk,
+  routerMiddleware(browserHistory)
+)))
+
+const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: function (state) {
     return state.get('routing').toJS()
   }
@@ -67,7 +75,7 @@ window.dispatchEvent(new Event('resize'))
 // "Xiaofei's Rays"
 var inc = 0.005
 var xoff = 0.0
-function castRay (timestamp) {
+function castRay(timestamp) {
   xoff += inc
   let alpha = getNoise(xoff)
   let backgroundColor = 'rgba(0, 0, 0, ' + alpha.toString() + ')'

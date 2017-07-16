@@ -22,6 +22,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import React from 'react'
 
+import VideoUploadItem from '../components/upload/VideoUploadItem'
+import AudioUploadItem from '../components/upload/AudioUploadItem'
+import ImageUploadItem from '../components/upload/ImageUploadItem'
+
 class Uploads extends React.Component {
   constructor() {
     super()
@@ -52,28 +56,76 @@ class Uploads extends React.Component {
     }
   }
   render() {
-    if (!this.state.shouldPlaySound) {
-      return null
-    }
+    const audioToPlay = this.state.shouldPlaySound ?
+      <audio src='static/upload_done.mp3' autoPlay /> :
+      null;
+
+    // const videos = this.props.uploads.filter(upload => upload.get('type') === 'video');
+
+    const uploadItems = this.props.uploads.entrySeq().map(([key, item]) => {
+      switch (item.get('type')) {
+        case 'video':
+          return (
+            <VideoUploadItem
+              key={key}
+              upload={item}
+              uploadId={key}
+              cancelUpload={this.props.cancelUpload}
+            />
+          );
+        case 'audio':
+          return (
+            <AudioUploadItem
+              key={key}
+              upload={item}
+              uploadId={key}
+              cancelUpload={this.props.cancelUpload}
+            />
+          );
+        case 'image':
+          return (
+            <ImageUploadItem
+              key={key}
+              upload={item}
+              uploadId={key}
+              cancelUpload={this.props.cancelUpload}
+            />
+          );
+
+        default:
+          return null;
+      }
+    })
+
     return (
       <div className='uploads'>
-        <audio src='static/upload_done.mp3' autoPlay />
+        {/* {videos.entrySeq().map(seq => (
+          <VideoUploadItem
+            key={seq[0]}
+            upload={seq[1]}
+            uploadId={seq[0]}
+            cancelUpload={this.props.cancelUpload}
+          />
+        ))} */}
+        {uploadItems}
+        {audioToPlay}
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     uploads: state.getIn(['upload', 'uploads']),
     user: state.getIn(['app', 'user'])
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     listenToUploads: bindActionCreators(actions.listenToUploads, dispatch),
-    stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch)
+    stopListeningToUploads: bindActionCreators(actions.stopListeningToUploads, dispatch),
+    cancelUpload: bindActionCreators(actions.cancelUpload, dispatch)
   }
 }
 

@@ -22,12 +22,15 @@ import firebase from '../utils/firebase'
 import request from 'superagent'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
+import throttle from 'lodash.throttle'
 
 export default {
 
   handleDroppedFiles: (files, x, y, user, pageId) => {
     return (dispatch, getState) => {
       const file = files[0]
+      const type = file.type.match(/(\w+)\/.+/)[1]
+      const objUrl = window.URL.createObjectURL(file);
       const ref = firebase.database().ref()
       const uploadsRef = ref.child('uploads')
       const uploadRef = uploadsRef.push({
@@ -35,9 +38,11 @@ export default {
         userId: user.get('uid'),
         status: 'dropped',
         x: x,
-        y: y
+        y: y,
+        type,
+        objUrl
       })
-      request.get('/get-upload-values').end((err, res) => {
+      request.get(`/get-upload-values/${type}`).end((err, res) => {
         uploadRef.update({
           assemblyId: res.body.assemblyId,
           id: uploadRef.key,
@@ -49,7 +54,20 @@ export default {
         formData.append('params', res.body.params)
         formData.append('signature', res.body.signature)
         formData.append('uploadId', uploadRef.key)
-        request.post(res.body.uri).send(formData).end((err, res) => {
+
+        const uploadReq = request.post(res.body.uri).send(formData)
+        .on('progress', throttle((ev) => {
+          dispatch({
+            type: A.PROGRESS_UPDATED,
+            payload: Immutable.Map([[uploadRef.key, Immutable.Map({ progress: ev.percent })]]),
+          })
+        }, 1e3, { leading: true }))
+        .end((err, res) => {
+          window.URL.revokeObjectURL(objUrl)
+          if (err) {
+            uploadRef.update({ status: 'aborted' })
+            return
+          }
           uploadRef.update({
             status: 'uploaded'
           })
@@ -61,14 +79,18 @@ export default {
   listenToUploads: (userId) => {
     return (dispatch, getState) => {
       const ref = firebase.database().ref()
-      const uploadsRef = ref.child('uploads').orderByChild('userId').equalTo(userId)
-      uploadsRef.on('value', (snapshot) => {
+      const uploadsQuery = ref.child('uploads').orderByChild('userId').equalTo(userId)
+      uploadsQuery.on('value', (snapshot) => {
+        const snapshotVal = snapshot.val()
         let uploads = Immutable.Map()
         if (snapshot.val() !== null) {
-          uploads = Immutable.fromJS(snapshot.val())
+          // Object.keys(snapshotVal).forEach((key) => {
+          //   if (snapshotVal[key].status !== 'uploading') delete snapshotVal[key]
+          // })
+          uploads = Immutable.fromJS(snapshotVal)
         }
         dispatch({
-          type: A.RECEIVED_UPLOADS, 
+          type: A.RECEIVED_UPLOADS,
           payload: Immutable.Map({
             uploads: uploads
           })
@@ -84,6 +106,17 @@ export default {
       uploadsRef.off('value')
       dispatch({
         type: A.STOPPED_LISTENING_TO_UPLOADS
+      })
+    }
+  },
+
+  cancelUpload: (uploadId) => {
+    return (dispatch, getState) => {
+      const ref = firebase.database().ref()
+      const uploadsRef = ref.child('uploads')
+      const uploadRef = uploadsRef.child(uploadId)
+      uploadRef.update({
+        status: 'aborted'
       })
     }
   }

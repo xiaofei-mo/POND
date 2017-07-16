@@ -19,13 +19,15 @@
  */
 
 .text-item {
-  @include font-14;
+  // @include font-14;
+  font-size: 22px;
+  line-height: 35px;
   position: absolute;
   display: block;
   z-index: 3;
   padding: 10px;
-  border: 1px dotted $white;
-  background-color: $black;
+  // border: 1px dotted $white;
+  background-color: transparent;
   
   &.most-recently-touched {
     z-index: 4;
@@ -50,7 +52,7 @@
 
   .text-item-content,
   .public-DraftEditor-content {
-    overflow-y: scroll;
+    overflow-y: hidden;
     padding-right: 15px;
   }
 

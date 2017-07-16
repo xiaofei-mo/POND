@@ -28,7 +28,6 @@ import Link from './Link'
 import Login from '../components/login/Login'
 import MetadataControl from '../components/metadata/Control'
 import React from 'react'
-import Uploads from './Uploads'
 
 class App extends React.Component {
   constructor() {
@@ -56,9 +55,9 @@ class App extends React.Component {
     if (!this.props.user.isEmpty()) {
       const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
       this.props.handleDroppedFiles(
-        files, 
-        x, 
-        event.clientY, 
+        files,
+        x,
+        event.clientY,
         this.props.user,
         this.props.pageId
       )
@@ -92,29 +91,44 @@ class App extends React.Component {
   render() {
     return (
       <div className={this._getClassName()}>
-        <Dropzone accept='video/*'
-                  activeClassName='dropzone-active'
-                  className='dropzone' 
-                  disableClick={true} 
-                  id='scroller'
-                  multiple={false} 
-                  onDrop={this._handleDroppedFiles}
-                  onScroll={this._handleScroll}
-                  onWheel={this._handleWheel}
-                  ref='scroller'>
+        <Dropzone
+          accept='video/*,audio/*,image/*'
+          activeClassName='dropzone-active'
+          className='dropzone'
+          disableClick={true}
+          id='scroller'
+          multiple={false}
+          onDrop={this._handleDroppedFiles}
+          onScroll={this._handleScroll}
+          onWheel={this._handleWheel}
+          ref='scroller'
+        >
           {this.props.children}
-          <Login attemptLogin={this.props.attemptLogin}
-                 loginFailed={this.props.loginFailed}
-                 logout={this.props.logout}
-                 params={this.props.params} 
-                 user={this.props.user} 
-                 userIsLoaded={this.props.userIsLoaded} />
-          <MetadataControl hideMetadata={this.props.hideMetadata}
-                           isShowingMetadata={this.props.isShowingMetadata}
-                           showMetadata={this.props.showMetadata} 
-                           uploads={this.props.uploads}
-                           windowHeight={this.props.windowHeight}
-                           windowWidth={this.props.windowWidth} />
+          <Login
+            attemptLogin={this.props.attemptLogin}
+            signUp={this.props.signUp}
+            loginFailed={this.props.loginFailed}
+            logout={this.props.logout}
+            params={this.props.params}
+            user={this.props.user}
+            userIsLoaded={this.props.userIsLoaded}
+            shouldResetPassword={this.props.shouldResetPassword}
+            requestResetPassword={this.props.requestResetPassword}
+            emailSent={this.props.emailSent}
+            sendEmailFailed={this.props.sendEmailFailed}
+            shouldSignUp={this.props.shouldSignUp}
+            signedUp={this.props.signedUp}
+            signUpFailed={this.props.signUpFailed}
+            resetLogin={this.props.resetLogin}
+          />
+          <MetadataControl
+            hideMetadata={this.props.hideMetadata}
+            isShowingMetadata={this.props.isShowingMetadata}
+            showMetadata={this.props.showMetadata}
+            uploads={this.props.uploads}
+            windowHeight={this.props.windowHeight}
+            windowWidth={this.props.windowWidth}
+          />
           <Filter />
           <Link />
           <div className='dropzone-veil veil'>
@@ -125,19 +139,24 @@ class App extends React.Component {
           <div className='linking-transition-veil veil'>
           </div>
         </Dropzone>
-        <Uploads />
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     isInLinkingTransition: state.getIn(['link', 'isInLinkingTransition']),
-    isInLinkingTransitionStage2: state.getIn(['link', 
-                                              'isInLinkingTransitionStage2']),
+    isInLinkingTransitionStage2: state.getIn(['link',
+      'isInLinkingTransitionStage2']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     loginFailed: state.getIn(['app', 'loginFailed']),
+    shouldResetPassword: state.getIn(['app', 'shouldResetPassword']),
+    sendEmailFailed: state.getIn(['app', 'sendEmailFailed']),
+    emailSent: state.getIn(['app', 'emailSent']),
+    shouldSignUp: state.getIn(['app', 'shouldSignUp']),
+    signedUp: state.getIn(['app', 'signedUp']),
+    signUpFailed: state.getIn(['app', 'signUpFailed']),
     paddingLeft: getPaddingLeft(state),
     pageId: state.getIn(['page', 'pageId']),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
@@ -149,9 +168,12 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
+    resetLogin: bindActionCreators(actions.resetLogin, dispatch),
     attemptLogin: bindActionCreators(actions.attemptLogin, dispatch),
+    requestResetPassword: bindActionCreators(actions.requestResetPassword, dispatch),
+    signUp: bindActionCreators(actions.signUp, dispatch),
     handleDroppedFiles: bindActionCreators(actions.handleDroppedFiles, dispatch),
     handleScroll: bindActionCreators(actions.handleScroll, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),

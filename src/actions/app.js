@@ -20,22 +20,85 @@
 import { A } from '../constants'
 import firebase from '../utils/firebase'
 import Immutable from 'immutable'
+import request from 'superagent'
 import url from 'url'
+import { push } from 'react-router-redux'
 
 export default {
-
+  resetLogin: () => (dispatch, getState) => {
+    dispatch({
+      type: A.RESET_LOGIN_STATE
+    })
+  },
   attemptLogin: (email, password) => {
     return (dispatch, getState) => {
       dispatch({
         type: A.LOGIN_ATTEMPTED
       })
       const auth = firebase.auth()
-      auth.signInWithEmailAndPassword(email, password).catch((err) => {
+      auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          // Bring user to personal page
+          dispatch(push(`/${user.displayName}`))
+        })
+        .catch((err) => {
+          switch (err.code) {
+            case 'auth/wrong-password':
+              dispatch({
+                type: A.LOGIN_WITH_WRONG_PWD,
+                payload: email
+              })
+              break
+
+            case 'auth/user-not-found':
+              dispatch({
+                type: A.MEET_NEW_USER
+              })
+              break
+
+            default:
+              dispatch({
+                type: A.LOGIN_FAILED
+              })
+          }
+        })
+    }
+  },
+
+  requestResetPassword: email => (dispatch, getState) => {
+    dispatch({
+      type: A.REQUEST_RESET_PWD
+    })
+    const auth = firebase.auth()
+    auth.sendPasswordResetEmail(email)
+      .then(() => {
         dispatch({
-          type: A.LOGIN_FAILED
+          type: A.RESET_EMAIL_SENT
+        })
+      }, (err) => {
+        dispatch({
+          type: A.INVALID_EMAIL_ADDR
         })
       })
-    }
+  },
+
+  signUp: (email, password, username) => (dispatch, getState) => {
+    dispatch({
+      type: A.REQUEST_SIGN_UP
+    })
+    request.post('/sign-up')
+      .send({ email, password, username })
+      .end((err, res) => {
+        if (err) {
+          dispatch({
+            type: A.INVALID_USERNAME
+          })
+          return
+        }
+        dispatch({
+          type: A.SIGNED_UP
+        })
+      })
   },
 
   hideMetadata: () => {
@@ -43,7 +106,7 @@ export default {
       type: A.HIDE_METADATA
     }
   },
-  
+
   listenToAuth: () => {
     return (dispatch, getState) => {
       const auth = firebase.auth()

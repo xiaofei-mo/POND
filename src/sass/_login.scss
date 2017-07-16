@@ -20,14 +20,14 @@
 
 .login {
   bottom: 40px;
-  right: 40px;
+  left: 40px;
   font-family: monospace;
   position: fixed;
   z-index: 6;
   color: $white;
   @include font-14;
   border-bottom: 1px solid $white;
-  width: 125px;
+  width: 240px;
   padding-bottom: 3px;
 
   a {
@@ -43,12 +43,16 @@
     color: $gray;
   }
 
-  .logging-in {
+  .logging-in,
+  .sending-email,
+  .signing-up {
     text-transform: lowercase;
     color: $gray;
   }
   
-  .login-failed {
+  .login-failed,
+  .send-email-failed,
+  .sign-up-failed {
     text-transform: lowercase;
     position: absolute;
     bottom: -19px;

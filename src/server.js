@@ -27,18 +27,51 @@ import Immutable from 'immutable'
 import request from 'superagent'
 import tsml from 'tsml'
 import uuid from 'node-uuid'
+import bodyParser from 'body-parser'
 
 const app = express()
+const jsonParser = bodyParser.json()
+
+const config = {
+  CLOUDFRONT_HOSTNAME: process.env.CLOUDFRONT_HOSTNAME,
+  FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
+  FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
+  NODE_ENV: process.env.NODE_ENV,
+  S3_HOSTNAME: process.env.S3_HOSTNAME
+}
+
+const templateIds = {
+  video: process.env.TRANSLOADIT_VIDEO_TEMPLATE_ID,
+  audio: process.env.TRANSLOADIT_AUDIO_TEMPLATE_ID,
+  image: process.env.TRANSLOADIT_IMAGE_TEMPLATE_ID
+}
+
+console.log(templateIds)
+
+const credential = admin.credential.cert({
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  projectId: process.env.FIREBASE_PROJECT_ID
+})
+admin.initializeApp({
+  credential: credential,
+  databaseURL: process.env.FIREBASE_DATABASE_URL
+})
+
+const ref = admin.database().ref()
 
 app.use(express.static(__dirname + '/../public'))
 
-app.get('/get-upload-values', (req, res, next) => {
+app.get('/get-upload-values/:type', (req, res, next) => {
+  let templateId = templateIds[req.params.type]
+
   const paramsObj = {
     auth: {
       key: process.env.TRANSLOADIT_AUTH_KEY,
       expires: getExpiresDate()
     },
-    template_id: process.env.TRANSLOADIT_TEMPLATE_ID
+    template_id: templateId || process.env.TRANSLOADIT_VIDEO_TEMPLATE_ID
   }
   const params = JSON.stringify(paramsObj)
   const signature = calculateSignature(params)
@@ -52,17 +85,42 @@ app.get('/get-upload-values', (req, res, next) => {
   })
 })
 
-const config = {
-  CLOUDFRONT_HOSTNAME: process.env.CLOUDFRONT_HOSTNAME,
-  FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
-  FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
-  FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
-  NODE_ENV: process.env.NODE_ENV,
-  S3_HOSTNAME: process.env.S3_HOSTNAME
-}
+app.post('/sign-up', jsonParser, (req, res, next) => {
+  const { email, username, password } = req.body;
+  if (!(email && username && password)) res.sendStatus(400);
+  const auth = admin.auth();
+  const usersRef = ref.child('users');
+  const userQuery = usersRef.orderByChild('username').equalTo(username);
+
+  userQuery.once('value')
+    .then((userSnapshot) => {
+      if (userSnapshot.exists()) return Promise.reject(new Error('USERNAME_EXISTS'));
+      return auth.createUser({
+        email,
+        password,
+        displayName: username,
+      });
+    })
+    .then((userRecord) => {
+      return usersRef.child(userRecord.uid).set({
+        username,
+      });
+    })
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      res.status(400);
+      res.json({
+        error,
+        code: 400,
+        message: error.message || '',
+      });
+    });
+});
 
 app.get('*', (req, res, next) => {
-  debugger;
+  // debugger;
   res.send(tsml`
     <!DOCTYPE html>
     <html>
@@ -91,24 +149,12 @@ app.listen(5000, function (err) {
   console.log('listening on 5000')
 })
 
-const credential = admin.credential.cert({
-  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-  privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-  projectId: process.env.FIREBASE_PROJECT_ID
-})
-admin.initializeApp({
-  credential: credential,
-  databaseURL: process.env.FIREBASE_DATABASE_URL
-})
-
-const ref = admin.database().ref()
-
 const _determineTiming = (encode) => {
   return ref.child('lastTiming').transaction((lastTiming) => {
     if (lastTiming === null) {
       return 0
     }
-    return Math.ceil(lastTiming) + Math.ceil(encode.meta.duration) + 1
+    return Math.ceil(lastTiming) + Math.ceil(encode.meta.duration || 0) + 1
   })
 }
 
@@ -127,30 +173,86 @@ const _getInitialDimensions = (encode) => {
 
 const _createItem = (uploadId) => {
   const itemsRef = ref.child('items')
-  const uploadRef = ref.child('uploads').child(uploadId)  
+  const uploadRef = ref.child('uploads').child(uploadId)
   uploadRef.once('value', (uploadSnapshot) => {
     const upload = uploadSnapshot.val()
-    _determineTiming(upload.results.encode).then((timingRef) => {
-      const timing = timingRef.snapshot.val()
-      const initialDimensions = _getInitialDimensions(upload.results.encode)
-      const itemRef = itemsRef.push({
-        height: initialDimensions.height,
-        pageId: upload.pageId,
-        results: upload.results,
-        timing: timing,
-        type: 'video',
-        uploadId: upload.id,
-        userId: upload.userId,
-        width: initialDimensions.width,
-        x: upload.x,
-        y: upload.y
-      })
-      itemRef.once('value', (itemSnapshot) => {
-        itemRef.child('id').set(itemSnapshot.key)
-      })
-      uploadRef.remove()
-    })
+
+    switch (upload.type) {
+      case 'audio':
+        _determineTiming(upload.results.encode).then((timingRef) => {
+          const timing = timingRef.snapshot.val()
+          const itemRef = itemsRef.push({
+            height: 100,
+            pageId: upload.pageId,
+            results: upload.results,
+            timing: timing,
+            type: 'audio',
+            uploadId: upload.id,
+            userId: upload.userId,
+            width: 320,
+            x: upload.x,
+            y: upload.y
+          })
+          itemRef.once('value', (itemSnapshot) => {
+            itemRef.child('id').set(itemSnapshot.key)
+          })
+          uploadRef.remove()
+        })
+        break
+
+      case 'image':
+        _determineTiming(upload.results.encode).then((timingRef) => {
+          const timing = timingRef.snapshot.val()
+          const initialDimensions = _getInitialDimensions(upload.results.encode)
+          const itemRef = itemsRef.push({
+            height: initialDimensions.height,
+            pageId: upload.pageId,
+            results: upload.results,
+            timing: timing,
+            type: 'image',
+            uploadId: upload.id,
+            userId: upload.userId,
+            width: initialDimensions.width,
+            x: upload.x,
+            y: upload.y
+          })
+          itemRef.once('value', (itemSnapshot) => {
+            itemRef.child('id').set(itemSnapshot.key)
+          })
+          uploadRef.remove()
+        })
+        break
+
+      case 'video':
+      default:
+        _determineTiming(upload.results.encode).then((timingRef) => {
+          const timing = timingRef.snapshot.val()
+          const initialDimensions = _getInitialDimensions(upload.results.encode)
+          const itemRef = itemsRef.push({
+            height: initialDimensions.height,
+            pageId: upload.pageId,
+            results: upload.results,
+            timing: timing,
+            type: 'video',
+            uploadId: upload.id,
+            userId: upload.userId,
+            width: initialDimensions.width,
+            x: upload.x,
+            y: upload.y
+          })
+          itemRef.once('value', (itemSnapshot) => {
+            itemRef.child('id').set(itemSnapshot.key)
+          })
+          uploadRef.remove()
+        })
+        break
+    }
   })
+}
+
+const _abortUpload = (uploadId) => {
+  const uploadRef = ref.child('uploads').child(uploadId)
+  uploadRef.remove()
 }
 
 ref.child('uploads').on('child_changed', snapshot => {
@@ -159,6 +261,9 @@ ref.child('uploads').on('child_changed', snapshot => {
     return
   }
   switch (upload.status) {
+    case 'aborted':
+      _abortUpload(upload.id)
+      break
     case 'done':
       _createItem(upload.id)
       break
@@ -185,14 +290,40 @@ const _pollTransloadit = (uploadId, uri) => {
         uploadRef.once('value', snapshot => {
           const upload = snapshot.val()
           if (upload !== null) {
-            uploadRef.update({
-              results: {
-                encode: body.results.encode[0],
-                original: body.results[':original'][0],
-                posterImage: body.results.poster_image[0]
-              },
-              status: 'done'
-            })
+            switch (body.uploads[0].type) {
+              case 'audio':
+                uploadRef.update({
+                  results: {
+                    encode: body.results.encode[0],
+                    original: body.results[':original'][0],
+                    waveform: body.results.waveform[0]
+                  },
+                  status: 'done'
+                })
+                break
+
+              case 'image':
+                uploadRef.update({
+                  results: {
+                    encode: body.results.encode[0],
+                    original: body.results[':original'][0]
+                  },
+                  status: 'done'
+                })
+                break
+
+              case 'video':
+              default:
+                uploadRef.update({
+                  results: {
+                    encode: body.results.encode[0],
+                    original: body.results[':original'][0],
+                    posterImage: body.results.poster_image[0]
+                  },
+                  status: 'done'
+                })
+                break
+            }
           }
         })
         break

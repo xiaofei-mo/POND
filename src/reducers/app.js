@@ -24,10 +24,17 @@ const initialState = Immutable.Map({
   isShowingMetadata: false,
   loginFailed: false,
   user: Immutable.Map(),
-  userIsLoaded: false
+  userIsLoaded: false,
+  shouldResetPassword: false,
+  sendEmailFailed: false,
+  attemptedEmail: null,
+  emailSent: false,
+  shouldSignUp: false,
+  signedUp: false,
+  signUpFailed: false,
 })
 
-export default function appReducer (state = initialState, action) {
+export default function appReducer(state = initialState, action) {
   switch (action.type) {
 
     case A.HIDE_METADATA:
@@ -35,11 +42,66 @@ export default function appReducer (state = initialState, action) {
     case A.TOGGLE_LINKING_MODE:
       return state.set('isShowingMetadata', false)
 
+    case A.RESET_LOGIN_STATE:
+      return state.withMutations((map) => {
+        map.set('loginFailed', false)
+          .set('shouldResetPassword', false)
+          .set('sendEmailFailed', false)
+          .set('attemptedEmail', null)
+          .set('emailSent', false)
+          .set('shouldSignUp', false)
+          .set('signedUp', false)
+          .set('signUpFailed', false)
+      })
+
     case A.LOGIN_ATTEMPTED:
       return state.set('loginFailed', false)
 
     case A.LOGIN_FAILED:
-      return state.set('loginFailed', true)
+      return state.withMutations((map) => {
+        map.set('loginFailed', true)
+          .set('attemptedEmail', null)
+      })
+
+    case A.LOGIN_WITH_WRONG_PWD:
+      if (state.get('attemptedEmail') === action.payload) {
+        return state.withMutations((map) => {
+          map.set('shouldResetPassword', true)
+            .set('attemptedEmail', null)
+        })
+      }
+      return state.withMutations((map) => {
+        map.set('attemptedEmail', action.payload)
+          .set('loginFailed', true)
+      })
+    case A.REQUEST_RESET_PWD:
+      return state.withMutations((map) => {
+        map.set('sendEmailFailed', false)
+          .set('emailSent', false)
+      })
+    case A.RESET_EMAIL_SENT:
+      return state.withMutations((map) => {
+        map.set('shouldResetPassword', false)
+          .set('sendEmailFailed', false)
+          .set('emailSent', true)
+      })
+    case A.INVALID_EMAIL_ADDR:
+      return state.set('sendEmailFailed', true)
+
+    case A.MEET_NEW_USER:
+      return state.withMutations((map) => {
+        map.set('shouldSignUp', true)
+          .set('signedUp', false)
+      })
+    case A.SIGNED_UP:
+      return state.withMutations((map) => {
+        map.set('shouldSignUp', false)
+          .set('signedUp', true)
+      })
+    case A.REQUEST_SIGN_UP:
+      return state.set('signUpFailed', false)
+    case A.INVALID_USERNAME:
+      return state.set('signUpFailed', true)
 
     case A.PAGE_CLICKED:
       if (state.get('isShowingMetadata')) {
