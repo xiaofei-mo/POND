@@ -43,7 +43,8 @@ const config = {
 
 const templateIds = {
   video: process.env.TRANSLOADIT_VIDEO_TEMPLATE_ID,
-  audio: process.env.TRANSLOADIT_AUDIO_TEMPLATE_ID
+  audio: process.env.TRANSLOADIT_AUDIO_TEMPLATE_ID,
+  image: process.env.TRANSLOADIT_IMAGE_TEMPLATE_ID
 }
 
 console.log(templateIds)
@@ -63,7 +64,6 @@ const ref = admin.database().ref()
 app.use(express.static(__dirname + '/../public'))
 
 app.get('/get-upload-values/:type', (req, res, next) => {
-  console.log(req.params.type)
   let templateId = templateIds[req.params.type]
 
   const paramsObj = {
@@ -154,7 +154,7 @@ const _determineTiming = (encode) => {
     if (lastTiming === null) {
       return 0
     }
-    return Math.ceil(lastTiming) + Math.ceil(encode.meta.duration) + 1
+    return Math.ceil(lastTiming) + Math.ceil(encode.meta.duration || 0) + 1
   })
 }
 
@@ -190,6 +190,29 @@ const _createItem = (uploadId) => {
             uploadId: upload.id,
             userId: upload.userId,
             width: 320,
+            x: upload.x,
+            y: upload.y
+          })
+          itemRef.once('value', (itemSnapshot) => {
+            itemRef.child('id').set(itemSnapshot.key)
+          })
+          uploadRef.remove()
+        })
+        break
+
+      case 'image':
+        _determineTiming(upload.results.encode).then((timingRef) => {
+          const timing = timingRef.snapshot.val()
+          const initialDimensions = _getInitialDimensions(upload.results.encode)
+          const itemRef = itemsRef.push({
+            height: initialDimensions.height,
+            pageId: upload.pageId,
+            results: upload.results,
+            timing: timing,
+            type: 'image',
+            uploadId: upload.id,
+            userId: upload.userId,
+            width: initialDimensions.width,
             x: upload.x,
             y: upload.y
           })
@@ -278,6 +301,17 @@ const _pollTransloadit = (uploadId, uri) => {
                   status: 'done'
                 })
                 break
+
+              case 'image':
+                uploadRef.update({
+                  results: {
+                    encode: body.results.encode[0],
+                    original: body.results[':original'][0]
+                  },
+                  status: 'done'
+                })
+                break
+
               case 'video':
               default:
                 uploadRef.update({

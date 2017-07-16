@@ -1,0 +1,94 @@
+.image-item {
+  position: absolute;
+  display: block;
+  z-index: 3;
+
+  &.most-recently-touched {
+    z-index: 4;
+  }
+
+  &.should-show-placeholder {
+    background-color: $placeholder-purple-gray;
+  }
+
+  &.is-showing-metadata {
+    background-color: transparent;
+  }
+
+  img {
+    width: 100%;
+    height: 100%; 
+    // position: absolute;
+    // bottom: 0;
+  }
+  
+  .react-resizable-handle {
+    bottom: 0;
+    right: 0;
+  }
+
+  .obstructor {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    // The starting opacity of the destination item's obstructor is 0 -- it is
+    // transparent.
+    transition: opacity 3s;
+    opacity: 0;
+    background-color: $black;
+  }
+}
+
+.image-item.is-source-item {
+  // On source item click, image itself becomes 0.5 opaque because it is against
+  // the background at z-index 1.
+  z-index: 1;
+  position: fixed;
+  opacity: 0.5;
+}
+
+.image-item.is-destination-item {
+  position: fixed;
+}
+
+.is-in-linking-transition {
+
+  .image-item {
+    // Once destination item is clicked, all unrelated image items fade away.
+    transition: opacity 3s;
+    opacity: 0;
+  }
+
+  .image-item.is-destination-item {
+    // Except the destination item. We're going to dim it via its obstructor's 
+    // opacity in the component code.
+    opacity: 1;
+  }
+
+  .image-item.is-source-item {
+    // Delay fading the source item back in by 4s. But at the 4s mark, fade it 
+    // back in over 3s.
+    transition: opacity 3s 4s;
+    opacity: 1;
+  }
+}
+
+.is-in-linking-transition.stage-2 {
+  // In linking transition stage 2 (after 4s),
+
+  .image-item {
+    // fade all image items back in.
+    transition: opacity 3s;
+    opacity: 1;
+  }
+
+  .image-item.is-destination-item {
+    // Except the destination item -- fade it out to invisibility.
+    transition: opacity 3s;
+    opacity: 0;
+  }
+}

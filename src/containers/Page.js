@@ -33,6 +33,8 @@ import ReactDOM from 'react-dom'
 import TextItem from '../components/text/TextItem'
 import VideoItem from '../components/video/VideoItem'
 import Uploads from './Uploads'
+import AudioItem from '../components/audio/AudioItem'
+import ImageItem from '../components/image/ImageItem'
 
 class Page extends React.Component {
   constructor() {
@@ -60,9 +62,9 @@ class Page extends React.Component {
       if (event.metaKey && !this.props.user.isEmpty()) {
         const x = event.clientX + this.props.scrollLeft - this.props.paddingLeft
         this.props.createTextItem(
-          x, 
-          event.clientY, 
-          this.props.user, 
+          x,
+          event.clientY,
+          this.props.user,
           this.props.pageId
         )
       }
@@ -88,17 +90,17 @@ class Page extends React.Component {
     else if (scrollAdjustment !== 0) {
       this.scrollerNode.scrollLeft -= scrollAdjustment
     }
-  } 
+  }
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isInLinkingTransitionStage2 && 
-        nextProps.isInLinkingTransitionStage2) {
+    if (!this.props.isInLinkingTransitionStage2 &&
+      nextProps.isInLinkingTransitionStage2) {
       // When we transition into linking transition stage 2, we want to reset
       // the scroll position of the page to what it was when the source item 
       // was clicked.
       this.scrollerNode.scrollLeft = nextProps.scrollLeft
     }
-    if (this.props.params.timingOrUsername !== 
-        nextProps.params.timingOrUsername) {
+    if (this.props.params.timingOrUsername !==
+      nextProps.params.timingOrUsername) {
       this.setState({
         wasInitiallyScrolled: false
       })
@@ -109,12 +111,12 @@ class Page extends React.Component {
     const items = this.props.items.filter(item => {
       // If there's a linking mode source or destination item, omit them from 
       // the items displayed on the page.
-      if (this.props.linkSourceItem !== null && 
-          this.props.linkSourceItem.get('id') === item.get('id')) {
+      if (this.props.linkSourceItem !== null &&
+        this.props.linkSourceItem.get('id') === item.get('id')) {
         return false
       }
       if (this.props.linkDestinationItem !== null &&
-          this.props.linkDestinationItem.get('id') === item.get('id')) {
+        this.props.linkDestinationItem.get('id') === item.get('id')) {
         return false
       }
       return true
@@ -122,68 +124,112 @@ class Page extends React.Component {
       switch (item.get('type')) {
         case 'text':
           return <TextItem baseUrl={this.props.baseUrl}
-                           deleteItem={this.props.deleteItem}
-                           featuredItemId={this.props.featuredItemId}
-                           hideMetadata={this.props.hideMetadata}
-                           id={key} 
-                           isShowingMetadata={this.props.isShowingMetadata}
-                           item={item} 
-                           itemClicked={this.props.itemClicked}
-                           key={key} 
-                           linkDestinationItem={this.props.linkDestinationItem}
-                           setFeaturedItemId={this.props.setFeaturedItemId}
-                           setItemPosition={this.props.setItemPosition} 
-                           setItemSize={this.props.setItemSize}
-                           setTextItemRawState={this.props.setTextItemRawState} 
-                           setItemMetadata={this.props.setItemMetadata}
-                           user={this.props.user} />
+            deleteItem={this.props.deleteItem}
+            featuredItemId={this.props.featuredItemId}
+            hideMetadata={this.props.hideMetadata}
+            id={key}
+            isShowingMetadata={this.props.isShowingMetadata}
+            item={item}
+            itemClicked={this.props.itemClicked}
+            key={key}
+            linkDestinationItem={this.props.linkDestinationItem}
+            setFeaturedItemId={this.props.setFeaturedItemId}
+            setItemPosition={this.props.setItemPosition}
+            setItemSize={this.props.setItemSize}
+            setTextItemRawState={this.props.setTextItemRawState}
+            setItemMetadata={this.props.setItemMetadata}
+            user={this.props.user} />
         case 'video':
           return <VideoItem baseUrl={this.props.baseUrl}
-                            deleteItem={this.props.deleteItem}
-                            featuredItemId={this.props.featuredItemId}
-                            halfway={this.props.halfway}
-                            height={this.props.height}
-                            hideMetadata={this.props.hideMetadata}
-                            id={key}
-                            isShowingMetadata={this.props.isShowingMetadata}
-                            item={item}
-                            itemClicked={this.props.itemClicked}
-                            key={key}
-                            leftEdgeOfViewport={this.props.leftEdgeOfViewport}
-                            linkDestinationItem={this.props.linkDestinationItem}
-                            paddingLeft={this.props.paddingLeft}
-                            rightEdgeOfViewport={this.props.rightEdgeOfViewport}
-                            setFeaturedItemId={this.props.setFeaturedItemId}
-                            setItemPosition={this.props.setItemPosition}
-                            setItemSize={this.props.setItemSize} 
-                            setItemMetadata={this.props.setItemMetadata}
-                            user={this.props.user} />
+            deleteItem={this.props.deleteItem}
+            featuredItemId={this.props.featuredItemId}
+            halfway={this.props.halfway}
+            height={this.props.height}
+            hideMetadata={this.props.hideMetadata}
+            id={key}
+            isShowingMetadata={this.props.isShowingMetadata}
+            item={item}
+            itemClicked={this.props.itemClicked}
+            key={key}
+            leftEdgeOfViewport={this.props.leftEdgeOfViewport}
+            linkDestinationItem={this.props.linkDestinationItem}
+            paddingLeft={this.props.paddingLeft}
+            rightEdgeOfViewport={this.props.rightEdgeOfViewport}
+            setFeaturedItemId={this.props.setFeaturedItemId}
+            setItemPosition={this.props.setItemPosition}
+            setItemSize={this.props.setItemSize}
+            setItemMetadata={this.props.setItemMetadata}
+            user={this.props.user} />
+
+        case 'audio':
+          return <AudioItem baseUrl={this.props.baseUrl}
+            deleteItem={this.props.deleteItem}
+            featuredItemId={this.props.featuredItemId}
+            halfway={this.props.halfway}
+            height={this.props.height}
+            hideMetadata={this.props.hideMetadata}
+            id={key}
+            isShowingMetadata={this.props.isShowingMetadata}
+            item={item}
+            itemClicked={this.props.itemClicked}
+            key={key}
+            leftEdgeOfViewport={this.props.leftEdgeOfViewport}
+            linkDestinationItem={this.props.linkDestinationItem}
+            paddingLeft={this.props.paddingLeft}
+            rightEdgeOfViewport={this.props.rightEdgeOfViewport}
+            setFeaturedItemId={this.props.setFeaturedItemId}
+            setItemPosition={this.props.setItemPosition}
+            setItemSize={this.props.setItemSize}
+            setItemMetadata={this.props.setItemMetadata}
+            user={this.props.user} />
+
+        case 'image':
+          return <ImageItem baseUrl={this.props.baseUrl}
+            deleteItem={this.props.deleteItem}
+            featuredItemId={this.props.featuredItemId}
+            halfway={this.props.halfway}
+            height={this.props.height}
+            hideMetadata={this.props.hideMetadata}
+            id={key}
+            isShowingMetadata={this.props.isShowingMetadata}
+            item={item}
+            itemClicked={this.props.itemClicked}
+            key={key}
+            leftEdgeOfViewport={this.props.leftEdgeOfViewport}
+            linkDestinationItem={this.props.linkDestinationItem}
+            paddingLeft={this.props.paddingLeft}
+            rightEdgeOfViewport={this.props.rightEdgeOfViewport}
+            setFeaturedItemId={this.props.setFeaturedItemId}
+            setItemPosition={this.props.setItemPosition}
+            setItemSize={this.props.setItemSize}
+            setItemMetadata={this.props.setItemMetadata}
+            user={this.props.user} />
         default:
           return null
       }
     }).toArray()
     return (
-      <div className='page' 
-           id='page' 
-           onClick={this._handleClick} 
-           ref='page'
-           style={this._getStyle()}
+      <div className='page'
+        id='page'
+        onClick={this._handleClick}
+        ref='page'
+        style={this._getStyle()}
       >
-        {items}
+          {items}
         <Uploads />
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     baseUrl: state.getIn(['page', 'baseUrl']),
     halfway: getHalfway(state),
     height: state.getIn(['page', 'height']),
     featuredItemId: state.getIn(['page', 'featuredItemId']),
-    isInLinkingTransitionStage2: state.getIn(['link', 
-                                              'isInLinkingTransitionStage2']),
+    isInLinkingTransitionStage2: state.getIn(['link',
+      'isInLinkingTransitionStage2']),
     isShowingMetadata: state.getIn(['app', 'isShowingMetadata']),
     items: state.getIn(['page', 'items']),
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
@@ -200,22 +246,22 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     createTextItem: bindActionCreators(actions.createTextItem, dispatch),
     deleteItem: bindActionCreators(actions.deleteItem, dispatch),
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     itemClicked: bindActionCreators(actions.itemClicked, dispatch),
-    listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId, 
-                            dispatch),
+    listenToFeaturedItemId: bindActionCreators(actions.listenToFeaturedItemId,
+      dispatch),
     listenToItems: bindActionCreators(actions.listenToItems, dispatch),
     pageClicked: bindActionCreators(actions.pageClicked, dispatch),
     setFeaturedItemId: bindActionCreators(actions.setFeaturedItemId, dispatch),
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
-    setTextItemRawState: bindActionCreators(actions.setTextItemRawState, 
-                         dispatch)
+    setTextItemRawState: bindActionCreators(actions.setTextItemRawState,
+      dispatch)
   }
 }
 

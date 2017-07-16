@@ -92,7 +92,7 @@ class App extends React.Component {
     return (
       <div className={this._getClassName()}>
         <Dropzone
-          accept='video/*,audio/*'
+          accept='video/*,audio/*,image/*'
           activeClassName='dropzone-active'
           className='dropzone'
           disableClick={true}
