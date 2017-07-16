@@ -44,6 +44,15 @@
     color: #0F0;
   }
 
+  .processing {
+    font-size: 14px;
+    position: absolute;
+    top: 6px;
+    right: 0;
+    display: block;
+    color: #0F0;
+  }
+
   .progress-bar {
     width: 100%;
     height: 2px;
@@ -84,5 +93,20 @@
 
   .video-capture {
     opacity: .5;
+  }
+
+  .waveform {
+    width: 320px;
+    height: 100px;
+    background-image: url("/static/waveform.png");
+    background-size: cover;
+  }
+
+  .img-preview {
+    width: 512px;
+    height: 320px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

@@ -4,6 +4,7 @@ import filesize from 'filesize';
 import ProgressBar from './ProgressBar';
 import Cancel from './Cancel';
 import VideoCapture from './VideoCapture';
+import Processing from './Processing';
 
 const propTypes = {
   x: PropTypes.number.isRequired,
@@ -24,6 +25,7 @@ export default class VideoUploadItem extends React.Component {
     // }).toLowerCase()
     const status = this.props.upload.get('status');
     const cancelable = status === 'dropped' || status === 'uploading';
+    const processing = status === 'uploaded' || status === 'processing';
     return (
       <li
         className="upload-item"
@@ -40,7 +42,9 @@ export default class VideoUploadItem extends React.Component {
             cancelUpload={this.props.cancelUpload}
           />
         ) : null}
-        {this.props.upload.get('status') === 'dropped'}
+        {processing ? (
+          <Processing />
+        ) : null}
         <ProgressBar percent={this.props.upload.get('progress')} />
         {/*<div className="name">{this.props.upload.get('originalName')}</div>*/}
         {/*<div className="size">({size})</div>*/}

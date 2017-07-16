@@ -53,7 +53,7 @@ export default class TextItem extends React.Component {
     this._handleMouseDown = this._handleMouseDown.bind(this)
     this._handleResize = this._handleResize.bind(this)
     this._handleResizeStop = this._handleResizeStop.bind(this)
-    this._handleWheel = this._handleWheel.bind(this)
+    // this._handleWheel = this._handleWheel.bind(this)
     this._shouldAllowDragAndResize = this._shouldAllowDragAndResize.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
@@ -155,19 +155,15 @@ export default class TextItem extends React.Component {
     if (height < C.MINIMUM_ITEM_HEIGHT) {
       height = C.MINIMUM_ITEM_HEIGHT
     }
-    let width = ui.size.width
-    if (width < C.MINIMUM_ITEM_WIDTH) {
-      width = C.MINIMUM_ITEM_WIDTH
-    }
     this.setState({
       height: height,
       style: {
         height: height + 'px',
-        width: width + 'px',
+        width: C.TEXT_ITEM_ROW_WIDTH + 'px',
         transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
       },
       wasDragged: this.state.wasDragged,
-      width: width,
+      width: C.TEXT_ITEM_ROW_WIDTH,
       x: this.state.x,
       y: this.state.y
     })
@@ -177,9 +173,9 @@ export default class TextItem extends React.Component {
       this.props.setItemSize(this.props.id, this.state.height, this.state.width)
     }
   }
-  _handleWheel(event) {
-    event.stopPropagation()
-  }
+  // _handleWheel(event) {
+  //   event.stopPropagation()
+  // }
   _shouldAllowDragAndResize() {
     return this.props.user.get('uid') === this.props.item.get('userId') && 
            !this.props.isShowingMetadata &&
@@ -261,8 +257,7 @@ export default class TextItem extends React.Component {
           <div className={this._getClassName()} 
                ref='textItem'
                style={this.state.style}>
-            <div className='text-item-content' 
-                 onWheel={this._handleWheel}
+            <div className='text-item-content'
                  ref='textItemContent'>
               {content}
             </div>
