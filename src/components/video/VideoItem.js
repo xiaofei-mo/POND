@@ -28,6 +28,7 @@ import PosterImage from './PosterImage'
 import React from 'react'
 import { Resizable } from 'react-resizable'
 import Video from 'react-html5video'
+import Unlink from '../link/Unlink'
 
 export default class VideoItem extends React.Component {
   constructor() {
@@ -177,12 +178,12 @@ export default class VideoItem extends React.Component {
     }
   }
   _shouldAllowDragAndResize() {
-    if (this.props.setItemPosition === undefined || 
-        this.props.setItemSize === undefined) {
+    if (this.props.setItemPosition === undefined ||
+      this.props.setItemSize === undefined) {
       return false
     }
-    return this.props.user.get('uid') === this.props.item.get('userId') && 
-           !this.props.isShowingMetadata
+    return this.props.user.get('uid') === this.props.item.get('userId') &&
+      !this.props.isShowingMetadata
   }
   _shouldBeMuted(props) {
     const zoneLeft = props.item.get('x') + props.paddingLeft
@@ -310,10 +311,10 @@ export default class VideoItem extends React.Component {
     let video = null
     if (this.state.shouldBeRendered) {
       video = (
-        <Video loop 
-               onCanPlayThrough={this._handleCanPlayThrough}
-               preload='none'
-               ref='video'
+        <Video loop
+          onCanPlayThrough={this._handleCanPlayThrough}
+          preload='none'
+          ref='video'
         >
           <source src={getCloudFrontUrl(this.props.item.getIn(['results', 'encode', 'ssl_url']))} type='video/mp4' />
         </Video>
@@ -321,31 +322,32 @@ export default class VideoItem extends React.Component {
     }
     return (
       <DraggableCore cancel='.react-resizable-handle'
-                     onDrag={this._handleDrag} 
-                     onMouseDown={this._handleMouseDown} 
-                     onStop={this._handleDragStop}>
-        <Resizable height={this.state.height} 
-                   lockAspectRatio={true}
-                   onResize={this._handleResize}
-                   onResizeStop={this._handleResizeStop}
-                   width={this.state.width}>
-            <div className={this._getClassName()} 
-                 onClick={this._handleClick} 
-                 ref='item'
-                 style={this.state.style}>
-              {video}
-              <div className='obstructor'></div>
-              <PosterImage item={this.props.item} />
-              <Metadata baseUrl={this.props.baseUrl}
-                        deleteItem={this.props.deleteItem}
-                        featuredItemId={this.props.featuredItemId}
-                        hideMetadata={this.props.hideMetadata}
-                        isShowingMetadata={this.props.isShowingMetadata} 
-                        item={this.props.item} 
-                        setFeaturedItemId={this.props.setFeaturedItemId}
-                        setItemMetadata={this.props.setItemMetadata}
-                        user={this.props.user} />
-            </div>
+        onDrag={this._handleDrag}
+        onMouseDown={this._handleMouseDown}
+        onStop={this._handleDragStop}>
+        <Resizable height={this.state.height}
+          lockAspectRatio={true}
+          onResize={this._handleResize}
+          onResizeStop={this._handleResizeStop}
+          width={this.state.width}>
+          <div className={this._getClassName()}
+            onClick={this._handleClick}
+            ref='item'
+            style={this.state.style}>
+            {video}
+            <div className='obstructor'></div>
+            <PosterImage item={this.props.item} />
+            <Metadata baseUrl={this.props.baseUrl}
+              deleteItem={this.props.deleteItem}
+              featuredItemId={this.props.featuredItemId}
+              hideMetadata={this.props.hideMetadata}
+              isShowingMetadata={this.props.isShowingMetadata}
+              item={this.props.item}
+              setFeaturedItemId={this.props.setFeaturedItemId}
+              setItemMetadata={this.props.setItemMetadata}
+              user={this.props.user} />
+            <Unlink itemId={this.props.item.get('id')} />
+          </div>
         </Resizable>
       </DraggableCore>
     )

@@ -27,6 +27,8 @@ import Draggable from 'react-draggable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import SourceVideoItem from '../components/video/SourceItem'
+import SourceAudioItem from '../components/audio/SourceAudioItem'
+import SourceImageItem from '../components/image/SourceImageItem'
 
 class Link extends React.Component {
   constructor() {
@@ -37,27 +39,35 @@ class Link extends React.Component {
     return (
       <div className='link'>
         <Control destination={this.props.destination}
-                 isInLinkingMode={this.props.isInLinkingMode}
-                 isInLinkingTransition={this.props.isInLinkingTransition}
-                 planeClicked={this.props.planeClicked}
-                 source={this.props.source}
-                 user={this.props.user} 
-                 windowHeight={this.props.windowHeight} 
-                 windowWidth={this.props.windowWidth} />
+          isInLinkingMode={this.props.isInLinkingMode}
+          isInLinkingTransition={this.props.isInLinkingTransition}
+          planeClicked={this.props.planeClicked}
+          source={this.props.source}
+          user={this.props.user}
+          windowHeight={this.props.windowHeight}
+          windowWidth={this.props.windowWidth} />
         <DestinationVideoItem currentTime={this.props.destination.get('currentTime')}
-                              item={this.props.destination.get('item')}
-                              left={this.props.destination.get('left')}
-                              top={this.props.destination.get('top')} />
+          item={this.props.destination.get('item')}
+          left={this.props.destination.get('left')}
+          top={this.props.destination.get('top')} />
         <SourceVideoItem currentTime={this.props.source.get('currentTime')}
-                         item={this.props.source.get('item')}
-                         left={this.props.source.get('left')}
-                         top={this.props.source.get('top')} />
+          item={this.props.source.get('item')}
+          left={this.props.source.get('left')}
+          top={this.props.source.get('top')} />
+        <SourceAudioItem currentTime={this.props.source.get('currentTime')}
+          item={this.props.source.get('item')}
+          left={this.props.source.get('left')}
+          top={this.props.source.get('top')} />
+        <SourceImageItem currentTime={this.props.source.get('currentTime')}
+          item={this.props.source.get('item')}
+          left={this.props.source.get('left')}
+          top={this.props.source.get('top')} />
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     destination: state.getIn(['link', 'destination']),
     isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
@@ -69,7 +79,7 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     planeClicked: bindActionCreators(actions.planeClicked, dispatch)
   }

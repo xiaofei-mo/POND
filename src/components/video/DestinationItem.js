@@ -24,7 +24,7 @@ import PosterImage from './PosterImage'
 import React from 'react'
 import Video from 'react-html5video'
 
-export default class DestinationItem extends React.Component {
+export default class DestinationVideoItem extends React.Component {
   constructor() {
     super()
     this._handleCanPlayThrough = this._handleCanPlayThrough.bind(this)

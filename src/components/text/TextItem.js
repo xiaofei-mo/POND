@@ -25,6 +25,7 @@ import Metadata from '../metadata/Metadata'
 import React from 'react'
 import { Resizable } from 'react-resizable'
 import { stateToHTML } from 'draft-js-export-html'
+import Unlink from '../link/Unlink';
 
 export default class TextItem extends React.Component {
   constructor() {
@@ -118,7 +119,7 @@ export default class TextItem extends React.Component {
   _handleEditorBlur(event) {
     const rawState = convertToRaw(this.state.editorState.getCurrentContent())
     this.props.setTextItemRawState(
-      this.props.item.get('id'), 
+      this.props.item.get('id'),
       rawState
     )
     this.setState({
@@ -169,7 +170,7 @@ export default class TextItem extends React.Component {
     })
   }
   _handleResizeStop(event, ui) {
-    if(this._shouldAllowDragAndResize()) {
+    if (this._shouldAllowDragAndResize()) {
       this.props.setItemSize(this.props.id, this.state.height, this.state.width)
     }
   }
@@ -177,9 +178,9 @@ export default class TextItem extends React.Component {
   //   event.stopPropagation()
   // }
   _shouldAllowDragAndResize() {
-    return this.props.user.get('uid') === this.props.item.get('userId') && 
-           !this.props.isShowingMetadata &&
-           !this.state.editorIsFocused
+    return this.props.user.get('uid') === this.props.item.get('userId') &&
+      !this.props.isShowingMetadata &&
+      !this.state.editorIsFocused
   }
   componentDidUpdate(prevProps) {
     if (this.props.item.get('isFocused', false)) {
@@ -232,44 +233,45 @@ export default class TextItem extends React.Component {
       const dangerousInnerHtml = {
         __html: stateToHTML(contentState)
       }
-      content = <div className='dangerous' 
-                     dangerouslySetInnerHTML={dangerousInnerHtml} />
+      content = <div className='dangerous'
+        dangerouslySetInnerHTML={dangerousInnerHtml} />
     }
     if (!this.props.user.isEmpty()) {
       if (this.props.item.get('userId') === this.props.user.get('uid')) {
-        content = <Editor editorState={this.state.editorState} 
-                          onBlur={this._handleEditorBlur}
-                          onChange={this._handleEditorChange} 
-                          onFocus={this._handleEditorFocus} 
-                          ref='editor' />
+        content = <Editor editorState={this.state.editorState}
+          onBlur={this._handleEditorBlur}
+          onChange={this._handleEditorChange}
+          onFocus={this._handleEditorFocus}
+          ref='editor' />
       }
     }
     return (
       <DraggableCore cancel='.react-resizable-handle'
-                     onDrag={this._handleDrag} 
-                     onStop={this._handleDragStop} 
-                     onMouseDown={this._handleMouseDown}>
-        <Resizable height={this.state.height} 
-                   onClick={this._handleClick}
-                   onResize={this._handleResize}
-                   onResizeStop={this._handleResizeStop}
-                   width={this.state.width}>
-          <div className={this._getClassName()} 
-               ref='textItem'
-               style={this.state.style}>
+        onDrag={this._handleDrag}
+        onStop={this._handleDragStop}
+        onMouseDown={this._handleMouseDown}>
+        <Resizable height={this.state.height}
+          onClick={this._handleClick}
+          onResize={this._handleResize}
+          onResizeStop={this._handleResizeStop}
+          width={this.state.width}>
+          <div className={this._getClassName()}
+            ref='textItem'
+            style={this.state.style}>
             <div className='text-item-content'
-                 ref='textItemContent'>
+              ref='textItemContent'>
               {content}
             </div>
             <Metadata baseUrl={this.props.baseUrl}
-                      deleteItem={this.props.deleteItem}
-                      featuredItemId={this.props.featuredItemId}
-                      hideMetadata={this.props.hideMetadata}
-                      isShowingMetadata={this.props.isShowingMetadata} 
-                      item={this.props.item} 
-                      setFeaturedItemId={this.props.setFeaturedItemId}
-                      setItemMetadata={this.props.setItemMetadata}
-                      user={this.props.user} />
+              deleteItem={this.props.deleteItem}
+              featuredItemId={this.props.featuredItemId}
+              hideMetadata={this.props.hideMetadata}
+              isShowingMetadata={this.props.isShowingMetadata}
+              item={this.props.item}
+              setFeaturedItemId={this.props.setFeaturedItemId}
+              setItemMetadata={this.props.setItemMetadata}
+              user={this.props.user} />
+            <Unlink itemId={this.props.item.get('id')} />
           </div>
         </Resizable>
       </DraggableCore>

@@ -4,7 +4,7 @@ import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
 import Metadata from '../metadata/Metadata'
 import React from 'react'
 import { Resizable } from 'react-resizable'
-import Video from 'react-html5video'
+import Unlink from '../link/Unlink'
 
 export default class VideoItem extends React.Component {
   constructor() {
@@ -219,6 +219,7 @@ export default class VideoItem extends React.Component {
               setFeaturedItemId={this.props.setFeaturedItemId}
               setItemMetadata={this.props.setItemMetadata}
               user={this.props.user} />
+            <Unlink itemId={this.props.item.get('id')} />
           </div>
         </Resizable>
       </DraggableCore>

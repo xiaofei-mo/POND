@@ -23,6 +23,9 @@ import firebase from '../utils/firebase'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
 
+import getTimingOrUsernameFromPath from '../utils/getTimingOrUsernameFromPath';
+import pageActions from './page'
+
 export default {
 
   itemClicked: (item, left, top, currentTime) => {
@@ -39,7 +42,12 @@ export default {
         sourceRef.child('linkedTo').once('value', snapshot => {
           const linkedTo = Immutable.fromJS(snapshot.val())
           if (linkedTo === null || !linkedTo.includes(destinationId)) {
-            sourceRef.child('linkedTo').push(destinationId)
+            // Add new link to source item
+            // Just use destinationId as the key instead of using auto-generated id
+            sourceRef.child(`linkedTo/${destinationId}`).set(destinationId)
+          } else {
+            // Remove existed link from source item
+            sourceRef.child(`linkedTo/${destinationId}`).remove()
           }
         })
         // Start the timer for stage 2 of the linking transition. Stage 2 starts
@@ -58,6 +66,13 @@ export default {
         // Also, start the timer for completely ending the linking transition 
         // after 7 seconds.
         setTimeout(() => {
+          // Update links
+          const path = getTimingOrUsernameFromPath(
+            state.getIn(['link', 'pathnameAtSourceClickTime'])
+          )
+          console.log('listenToItems', path);
+          dispatch(pageActions.listenToItems(path))
+
           dispatch({
             type: A.LINKING_TRANSITION_FINISHED
           })
