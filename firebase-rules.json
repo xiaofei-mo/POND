@@ -17,6 +17,9 @@
         // ".validate": "newData.child('userId').val() === auth.uid && newData.hasChildren(['userId'])"  
         "linkedTo": {
           ".write": "auth !== null"
+        },
+        "linkedFrom": {
+          ".write": "auth !== null"
         }
       },
       ".indexOn": ["pageId", "timing"]

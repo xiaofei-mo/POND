@@ -37,17 +37,21 @@ export default {
         // destination item in Firebase.
         const sourceId = state.getIn(['link', 'source', 'item', 'id'])
         const destinationId = item.get('id')
-        const sourceRef = firebase.database().ref().child('items')
-                          .child(sourceId)
+        const itemsRef = firebase.database().ref().child('items')
+        const sourceRef = itemsRef.child(sourceId)
+        const destRef = itemsRef.child(destinationId)
+
         sourceRef.child('linkedTo').once('value', snapshot => {
           const linkedTo = Immutable.fromJS(snapshot.val())
           if (linkedTo === null || !linkedTo.includes(destinationId)) {
             // Add new link to source item
             // Just use destinationId as the key instead of using auto-generated id
             sourceRef.child(`linkedTo/${destinationId}`).set(destinationId)
+            destRef.child(`linkedFrom/${sourceId}`).set(sourceId)
           } else {
             // Remove existed link from source item
             sourceRef.child(`linkedTo/${destinationId}`).remove()
+            destRef.child(`linkedFrom/${sourceId}`).remove()
           }
         })
         // Start the timer for stage 2 of the linking transition. Stage 2 starts
@@ -55,8 +59,8 @@ export default {
         setTimeout(() => {
           // If the current pathname is not the same as the pathname at the time 
           // the source was clicked, navigate back to the original page. 
-          if (state.getIn(['link', 'pathname']) !== 
-              state.getIn(['link', 'pathnameAtSourceClickTime'])) {
+          if (state.getIn(['link', 'pathname']) !==
+            state.getIn(['link', 'pathnameAtSourceClickTime'])) {
             dispatch(push(state.getIn(['link', 'pathnameAtSourceClickTime'])))
           }
           dispatch({

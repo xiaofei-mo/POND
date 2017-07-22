@@ -52,22 +52,41 @@ export default {
         itemRef.once('value', (itemSnapshot) => {
           itemRef.child('id').set(itemSnapshot.key)
           dispatch({
-            type: A.TEXT_ITEM_CREATED, 
+            type: A.TEXT_ITEM_CREATED,
             payload: Immutable.Map({
               id: itemSnapshot.key
             })
           })
-        })        
+        })
       })
     }
   },
 
   deleteItem: (id) => {
     return (dispatch, getState) => {
-      firebase.database().ref().child('items').child(id).remove()
+      const itemsRef = firebase.database().ref().child('items')
+      const itemRef = itemsRef.child(id)
+
+      itemRef.once('value').then((itemSnapshot) => {
+        // Destroy links to item
+        // TODO: Consider using Promise.all instead
+        const item = itemSnapshot.val();
+        if (itemSnapshot.hasChild('linkedFrom')) {
+          Object.keys(item.linkedFrom).forEach((sourceId) => {
+            itemsRef.child(`${sourceId}/linkedTo/${id}`).remove()
+          })
+        }
+        if (itemSnapshot.hasChild('linkedTo')) {
+          Object.keys(item.linkedTo).forEach((destId) => {
+            itemsRef.child(`${destId}/linkedFrom/${id}`).remove()
+          })
+        }
+
+        itemsRef.child(id).remove()
+      })
     }
   },
-  
+
   handleScroll: (scrollLeft) => {
     return {
       type: A.PAGE_SCROLLED,
@@ -83,7 +102,7 @@ export default {
       featuredItemIdRef.on('value', (featuredItemIdSnapshot) => {
         const featuredItemId = featuredItemIdSnapshot.val()
         dispatch({
-          type: A.RECEIVED_FEATURED_ITEM_ID, 
+          type: A.RECEIVED_FEATURED_ITEM_ID,
           payload: Immutable.Map({
             featuredItemId: featuredItemId
           })
@@ -164,7 +183,7 @@ export default {
       })
     }
   },
-  
+
   setWindowSize: (width, height) => {
     return {
       type: A.WINDOW_CHANGED_SIZE,
@@ -179,14 +198,14 @@ export default {
 const _listenToFeatured = (dispatch, getState) => {
   const ref = firebase.database().ref()
   let itemsRef = ref.child('items')
-  
+
   const _handleDestinationItem = (destinationItem) => {
     const pageId = destinationItem['pageId']
     itemsRef = itemsRef.orderByChild('pageId').equalTo(pageId)
     itemsRef.on('value', (itemsSnapshot) => {
       let items = Immutable.fromJS(itemsSnapshot.val())
       dispatch({
-        type: A.RECEIVED_ITEMS, 
+        type: A.RECEIVED_ITEMS,
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem),
           items: items,
@@ -238,7 +257,7 @@ const _listenToTimingSeconds = (timingSeconds, dispatch) => {
     itemsRef.on('value', (itemsSnapshot) => {
       let items = Immutable.fromJS(itemsSnapshot.val())
       dispatch({
-        type: A.RECEIVED_ITEMS, 
+        type: A.RECEIVED_ITEMS,
         payload: Immutable.Map({
           destinationItem: Immutable.fromJS(destinationItem[itemId]),
           items: items,
@@ -267,7 +286,7 @@ const _listenToUsername = (username, dispatch) => {
         items = Immutable.Map()
       }
       dispatch({
-        type: A.RECEIVED_ITEMS, 
+        type: A.RECEIVED_ITEMS,
         payload: Immutable.Map({
           destinationItem: Immutable.Map(),
           items: items,

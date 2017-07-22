@@ -6,7 +6,7 @@ import React from 'react'
 import { Resizable } from 'react-resizable'
 import Unlink from '../link/Unlink'
 
-export default class VideoItem extends React.Component {
+export default class ImageItem extends React.Component {
   constructor() {
     super()
     this.state = {
