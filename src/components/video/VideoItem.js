@@ -29,6 +29,7 @@ import React from 'react'
 import { Resizable } from 'react-resizable'
 import Video from 'react-html5video'
 import Unlink from '../link/Unlink'
+import LinkStills from '../link/LinkStills'
 
 export default class VideoItem extends React.Component {
   constructor() {
@@ -347,6 +348,7 @@ export default class VideoItem extends React.Component {
               setItemMetadata={this.props.setItemMetadata}
               user={this.props.user} />
             <Unlink itemId={this.props.item.get('id')} />
+            <LinkStills item={this.props.item} />
           </div>
         </Resizable>
       </DraggableCore>

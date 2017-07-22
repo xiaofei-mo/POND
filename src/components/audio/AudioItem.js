@@ -8,6 +8,7 @@ import Waveform from './Waveform';
 import React from 'react';
 import { Resizable } from 'react-resizable';
 import Unlink from '../link/Unlink';
+import LinkStills from '../link/LinkStills';
 
 export default class AudioItem extends React.Component {
   constructor() {
@@ -323,6 +324,7 @@ export default class AudioItem extends React.Component {
               setItemMetadata={this.props.setItemMetadata}
               user={this.props.user} />
             <Unlink itemId={this.props.item.get('id')} />
+            <LinkStills item={this.props.item} />
           </div>
         </Resizable>
       </DraggableCore>

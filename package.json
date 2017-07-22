@@ -31,6 +31,7 @@
     "firebase": "^3.2.1",
     "firebase-admin": "^4.0.1",
     "immutable": "^3.7.6",
+    "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "node-uuid": "^1.4.7",
     "prop-types": "^15.5.10",

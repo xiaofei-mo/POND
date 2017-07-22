@@ -37,10 +37,11 @@ const initialState = Immutable.Map({
     item: null,
     left: 0,
     top: 0
-  })
+  }),
+  linkStills: null,
 })
 
-export default function appReducer (state = initialState, action) {
+export default function appReducer(state = initialState, action) {
   switch (action.type) {
 
     case A.ITEM_CLICKED:
@@ -110,6 +111,12 @@ export default function appReducer (state = initialState, action) {
 
     case A.SHOW_METADATA:
       return state.merge(initialState)
+
+    case A.REQUEST_STILLS:
+      return state.set('linkStills', null)
+
+    case A.STILLS_PREPARED:
+      return state.set('linkStills', action.payload)
 
     default:
       return state

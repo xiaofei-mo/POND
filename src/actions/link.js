@@ -22,7 +22,9 @@ import { A } from '../constants'
 import firebase from '../utils/firebase'
 import Immutable from 'immutable'
 import { push } from 'react-router-redux'
+import { convertFromRaw } from 'draft-js'
 
+import getCloudFrontUrl from '../utils/getCloudFrontUrl';
 import getTimingOrUsernameFromPath from '../utils/getTimingOrUsernameFromPath';
 import pageActions from './page'
 
@@ -74,7 +76,6 @@ export default {
           const path = getTimingOrUsernameFromPath(
             state.getIn(['link', 'pathnameAtSourceClickTime'])
           )
-          console.log('listenToItems', path);
           dispatch(pageActions.listenToItems(path))
 
           dispatch({
@@ -99,6 +100,54 @@ export default {
     return {
       type: A.PLANE_CLICKED
     }
-  }
+  },
 
+  requestStills: (item) => (dispatch) => {
+    dispatch({
+      type: A.REQUEST_STILLS,
+    });
+
+    const itemsRef = firebase.database().ref().child('items');
+    const links = item.get('linkedTo');
+
+    Promise.all(
+      links.map(itemId => itemsRef.child(itemId).once('value')).values()
+    ).then((linkedItemSnapshots) => {
+      const stills = new Immutable.Map(linkedItemSnapshots.map((snapshot) => {
+        const destItem = snapshot.val();
+        // Choose the still for different item types
+        switch (destItem.type) {
+          case 'video':
+            return [
+              destItem.id,
+              getCloudFrontUrl(destItem.results.posterImage.ssl_url),
+            ];
+
+          case 'audio':
+            return [
+              destItem.id,
+              getCloudFrontUrl(destItem.results.waveform.ssl_url),
+            ];
+
+          case 'image':
+            return [
+              destItem.id,
+              getCloudFrontUrl(destItem.results.encode.ssl_url),
+            ];
+
+          case 'text':
+            // TODO: plainText => svg dataUrl
+            // const textContent = convertFromRaw(item.rawState).getPlainText();
+            const testSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M224%20387.814V512L32 320l192-192v126.912C447.375 260.152 437.794 103.016 380.93 0 521.287 151.707 491.48 394.785 224 387.814z'/%3E%3C/svg%3E`;
+            return [destItem.id, testSVG];
+          default: return null;
+        }
+      }));
+
+      dispatch({
+        type: A.STILLS_PREPARED,
+        payload: stills,
+      });
+    });
+  }
 }
