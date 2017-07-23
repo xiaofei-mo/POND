@@ -63,6 +63,12 @@ export default class AudioItem extends React.Component {
     else if (this.audioRef && this.audioRef.readyState < 4) {
       className += ' should-show-placeholder'
     }
+    if (this.props.navigationSource === this.props.item.get('id')) {
+      className += ' navigation-source'
+    }
+    if (this.props.navigationDestination === this.props.item.get('id')) {
+      className += ' navigation-destination'
+    }
     return className
   }
   _handleClick(event) {

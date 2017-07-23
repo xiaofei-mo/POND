@@ -69,6 +69,12 @@ export default class TextItem extends React.Component {
     if (this._shouldAllowDragAndResize()) {
       className += ' should-allow-drag-and-resize'
     }
+    if (this.props.navigationSource === this.props.item.get('id')) {
+      className += ' navigation-source'
+    }
+    if (this.props.navigationDestination === this.props.item.get('id')) {
+      className += ' navigation-destination'
+    }
     return className
   }
   _handleClick(event) {

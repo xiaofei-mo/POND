@@ -51,6 +51,12 @@ export default class ImageItem extends React.Component {
     if (!this.state.shouldBeRendered) {
       className += ' should-show-placeholder'
     }
+    if (this.props.navigationSource === this.props.item.get('id')) {
+      className += ' navigation-source'
+    }
+    if (this.props.navigationDestination === this.props.item.get('id')) {
+      className += ' navigation-destination'
+    }
     return className
   }
   _handleClick(event) {

@@ -39,6 +39,8 @@ const initialState = Immutable.Map({
     top: 0
   }),
   linkStills: null,
+  navigationSource: null,
+  navigationDestination: null,
 })
 
 export default function appReducer(state = initialState, action) {
@@ -78,10 +80,17 @@ export default function appReducer(state = initialState, action) {
       }
       return state
 
+    case A.LINK_CLICKED:
+      return state.withMutations(
+        map => map.merge(action.payload).set('isInLinkingTransition', true)
+      );
+
     case A.LINKING_TRANSITION_FINISHED:
+    case A.NAVIGATION_TRANSITION_FINISHED:
       return state.merge(initialState)
 
     case A.LINKING_TRANSITION_STAGE_1_FINISHED:
+    case A.NAVIGATION_TRANSITION_STAGE_1_FINISHED:
       return state.set('isInLinkingTransitionStage2', true)
 
     case A.LOCATION_CHANGED:

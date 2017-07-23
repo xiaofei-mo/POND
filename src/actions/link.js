@@ -24,8 +24,10 @@ import Immutable from 'immutable'
 import { push } from 'react-router-redux'
 import { convertFromRaw } from 'draft-js'
 
-import getCloudFrontUrl from '../utils/getCloudFrontUrl';
-import getTimingOrUsernameFromPath from '../utils/getTimingOrUsernameFromPath';
+import getStringFromSeconds from '../utils/getStringFromSeconds'
+import getCloudFrontUrl from '../utils/getCloudFrontUrl'
+import getTimingOrUsernameFromPath from '../utils/getTimingOrUsernameFromPath'
+import getSvgDataUrlFromText from '../utils/getSvgDataUrlFromText'
 import pageActions from './page'
 
 export default {
@@ -120,26 +122,41 @@ export default {
           case 'video':
             return [
               destItem.id,
-              getCloudFrontUrl(destItem.results.posterImage.ssl_url),
+              new Immutable.Map({
+                still: getCloudFrontUrl(destItem.results.posterImage.ssl_url),
+                timing: destItem.timing,
+              }),
             ];
 
           case 'audio':
             return [
               destItem.id,
-              getCloudFrontUrl(destItem.results.waveform.ssl_url),
+              new Immutable.Map({
+                still: getCloudFrontUrl(destItem.results.waveform.ssl_url),
+                timing: destItem.timing,
+              }),
             ];
 
           case 'image':
             return [
               destItem.id,
-              getCloudFrontUrl(destItem.results.encode.ssl_url),
+              new Immutable.Map({
+                still: getCloudFrontUrl(destItem.results.encode.ssl_url),
+                timing: destItem.timing,
+              }),
             ];
 
           case 'text':
-            // TODO: plainText => svg dataUrl
-            // const textContent = convertFromRaw(item.rawState).getPlainText();
-            const testSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M224%20387.814V512L32 320l192-192v126.912C447.375 260.152 437.794 103.016 380.93 0 521.287 151.707 491.48 394.785 224 387.814z'/%3E%3C/svg%3E`;
-            return [destItem.id, testSVG];
+            // TODO: get text of text item
+            // const textContent = convertFromRaw(destItem.rawState).getPlainText();
+            const textContent = 'TEXT CONTENT';
+            return [
+              destItem.id,
+              new Immutable.Map({
+                still: getSvgDataUrlFromText(textContent),
+                timing: destItem.timing,
+              }),
+            ];
           default: return null;
         }
       }));
@@ -149,5 +166,30 @@ export default {
         payload: stills,
       });
     });
+  },
+
+  navigateLink: (sourceId, destId, destTiming) => (dispatch, getState) => {
+    dispatch({
+      type: A.LINK_CLICKED,
+      payload: new Immutable.Map({
+        navigationSource: sourceId,
+        navigationDestination: destId,
+      }),
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: A.NAVIGATION_TRANSITION_STAGE_1_FINISHED,
+      });
+      const pathname = `/${getStringFromSeconds(destTiming)}`;
+      dispatch(push(pathname));
+    }, 4e3);
+
+    setTimeout(() => {
+      dispatch({
+        type: A.NAVIGATION_TRANSITION_FINISHED,
+      });
+    }, 7e3);
+
   }
 }

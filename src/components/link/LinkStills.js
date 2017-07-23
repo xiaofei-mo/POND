@@ -19,7 +19,8 @@ class LinkStills extends React.PureComponent {
       isShowingStills: false,
     };
 
-    // this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
+    this.componentWillUnmount = this.componentWillUnmount.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.nextStill = this.nextStill.bind(this);
     this.startSwapStills = this.startSwapStills.bind(this);
     this.stopSwapStills = this.stopSwapStills.bind(this);
@@ -33,6 +34,19 @@ class LinkStills extends React.PureComponent {
   //   // linkStills
   //   if (nextProps.linkStills !== this.props.linkStills) return true;
   // }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
+
+  handleClick() {
+    if (!this.state.isShowingStills) return;
+    const { linkStills } = this.props;
+    const validIndex = this.state.currentStill % linkStills.size;
+    const [destId, still] = linkStills.entrySeq().get(validIndex);
+    const currentLinkTiming = still.get('timing');
+    this.props.navigateLink(this.props.item.get('id'), destId, currentLinkTiming);
+  }
 
   nextStill() {
     if (this.state.isShowingStills) {
@@ -83,7 +97,7 @@ class LinkStills extends React.PureComponent {
   }
 
   render() {
-    if (!this.props.item.get('linkedTo')) return null;
+    if (!this.props.item.get('linkedTo') || this.props.isInLinkingMode) return null;
 
     const { linkStills } = this.props;
     // let stills = null;
@@ -104,7 +118,7 @@ class LinkStills extends React.PureComponent {
     let src = null;
     if (linkStills && this.state.isShowingStills) {
       const validIndex = this.state.currentStill % linkStills.size;
-      src = linkStills.toIndexedSeq().get(validIndex);
+      src = linkStills.toIndexedSeq().get(validIndex).get('still');
     }
 
     return (
@@ -112,8 +126,10 @@ class LinkStills extends React.PureComponent {
         className="link-stills"
         onMouseOver={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
+        onClick={this.handleClick}
         style={{
           backgroundImage: src ? `url("${src}")` : null,
+          cursor: src ? 'pointer' : null,
         }}
       />
     );
@@ -125,12 +141,14 @@ LinkStills.propTypes = propTypes;
 function mapStateToProps(state) {
   return {
     linkStills: state.getIn(['link', 'linkStills']),
+    isInLinkingMode: state.getIn(['link', 'isInLinkingMode']),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     requestStills: bindActionCreators(actions.requestStills, dispatch),
+    navigateLink: bindActionCreators(actions.navigateLink, dispatch),
   };
 }
 

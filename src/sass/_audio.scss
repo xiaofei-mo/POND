@@ -79,6 +79,10 @@
     transition: opacity 3s 4s;
     opacity: 1;
   }
+
+  .audio-item.navigation-source {
+    opacity: .5;
+  }
 }
 
 .is-in-linking-transition.stage-2 {
@@ -94,5 +98,10 @@
     // Except the destination item -- fade it out to invisibility.
     transition: opacity 3s;
     opacity: 0;
+  }
+
+  .audio-item.navigation-destination {
+    transition: opacity 1s;
+    opacity: 1;
   }
 }

@@ -84,6 +84,12 @@ export default class VideoItem extends React.Component {
     else if (this.refs.video !== undefined && this.refs.video.state.loading) {
       className += ' should-show-placeholder'
     }
+    if (this.props.navigationSource === this.props.item.get('id')) {
+      className += ' navigation-source'
+    }
+    if (this.props.navigationDestination === this.props.item.get('id')) {
+      className += ' navigation-destination'
+    }
     return className
   }
   _handleClick(event) {

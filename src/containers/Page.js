@@ -138,6 +138,8 @@ class Page extends React.Component {
             setItemSize={this.props.setItemSize}
             setTextItemRawState={this.props.setTextItemRawState}
             setItemMetadata={this.props.setItemMetadata}
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
         case 'video':
           return <VideoItem baseUrl={this.props.baseUrl}
@@ -159,6 +161,8 @@ class Page extends React.Component {
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
             setItemMetadata={this.props.setItemMetadata}
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
 
         case 'audio':
@@ -181,6 +185,8 @@ class Page extends React.Component {
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
             setItemMetadata={this.props.setItemMetadata}
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
 
         case 'image':
@@ -203,6 +209,8 @@ class Page extends React.Component {
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
             setItemMetadata={this.props.setItemMetadata}
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
         default:
           return null
@@ -235,6 +243,8 @@ function mapStateToProps(state) {
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
     linkDestinationItem: state.getIn(['link', 'destination', 'item']),
     linkSourceItem: state.getIn(['link', 'source', 'item']),
+    navigationSource: state.getIn(['link', 'navigationSource']),
+    navigationDestination: state.getIn(['link', 'navigationDestination']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),
