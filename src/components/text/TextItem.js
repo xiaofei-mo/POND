@@ -252,6 +252,10 @@ export default class TextItem extends React.Component {
           ref='editor' />
       }
     }
+
+    let linkStills = null;
+    if (!this.state.editorIsFocused) linkStills = <LinkStills item={this.props.item} />
+    
     return (
       <DraggableCore cancel='.react-resizable-handle'
         onDrag={this._handleDrag}
@@ -279,7 +283,7 @@ export default class TextItem extends React.Component {
               setItemMetadata={this.props.setItemMetadata}
               user={this.props.user} />
             <Unlink itemId={this.props.item.get('id')} />
-            <LinkStills item={this.props.item} />
+            {linkStills}
           </div>
         </Resizable>
       </DraggableCore>

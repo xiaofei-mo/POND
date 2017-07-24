@@ -7,6 +7,7 @@ import actions from '../../actions';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
 };
 
 class LinkStills extends React.PureComponent {
@@ -24,6 +25,7 @@ class LinkStills extends React.PureComponent {
     this.nextStill = this.nextStill.bind(this);
     this.startSwapStills = this.startSwapStills.bind(this);
     this.stopSwapStills = this.stopSwapStills.bind(this);
+    // TODO: debounce function being invoked after unmouting cause a no-op
     this.requestStills = debounce(this.requestStills.bind(this), 1e3);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
@@ -97,7 +99,11 @@ class LinkStills extends React.PureComponent {
   }
 
   render() {
-    if (!this.props.item.get('linkedTo') || this.props.isInLinkingMode) return null;
+    if (
+      this.props.disabled ||
+      !this.props.item.get('linkedTo') ||
+      this.props.isInLinkingMode
+    ) return null;
 
     const { linkStills } = this.props;
     // let stills = null;
@@ -126,7 +132,7 @@ class LinkStills extends React.PureComponent {
         className="link-stills"
         onMouseOver={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
-        onClick={this.handleClick}
+        onMouseDown={this.handleClick}
         style={{
           backgroundImage: src ? `url("${src}")` : null,
           cursor: src ? 'pointer' : null,

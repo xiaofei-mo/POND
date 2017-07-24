@@ -147,9 +147,12 @@ export default {
             ];
 
           case 'text':
-            // TODO: get text of text item
-            // const textContent = convertFromRaw(destItem.rawState).getPlainText();
-            const textContent = 'TEXT CONTENT';
+            // https://stackoverflow.com/questions/39548380/react-draft-js-convertfromraw-not-working
+            const { rawState } = destItem;
+            if (!rawState.entityMap) rawState.entityMap = {};
+
+            const textContent = convertFromRaw(rawState).getPlainText();
+
             return [
               destItem.id,
               new Immutable.Map({
