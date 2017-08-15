@@ -52,7 +52,7 @@
 
   .text-item-content,
   .public-DraftEditor-content {
-    overflow-y: hidden;
+    overflow-y: visible;
     padding-right: 15px;
   }
 
@@ -108,4 +108,27 @@
     transition: opacity 1s;
     opacity: 1;
   }
+}
+
+.multiple-column-text {
+  &.placeholder {
+    opacity: .6;
+    font-size: 80%;
+  }
+
+  white-space: pre-wrap;
+  column-width: 350px;
+  width: 350px;
+  overflow: visible;
+  height: 40vh;
+}
+
+.text-item-editor {
+  height: 40vh;
+  border: none;
+  padding: 0;
+  color: #fff;
+  background: transparent;
+  width: 350px;
+  resize: none;
 }

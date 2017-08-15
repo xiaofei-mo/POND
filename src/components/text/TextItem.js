@@ -19,7 +19,7 @@
 
 import { C } from '../../constants'
 import { DraggableCore } from 'react-draggable'
-import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 import { Link } from 'react-router'
 import Metadata from '../metadata/Metadata'
 import React from 'react'
@@ -27,6 +27,8 @@ import { Resizable } from 'react-resizable'
 import { stateToHTML } from 'draft-js-export-html'
 import Unlink from '../link/Unlink'
 import LinkStills from '../link/LinkStills'
+import MultipleColumnText from './MultipleColumnText'
+import Editor from './Editor'
 
 export default class TextItem extends React.Component {
   constructor() {
@@ -34,14 +36,15 @@ export default class TextItem extends React.Component {
     this.state = {
       editorIsFocused: false,
       editorState: EditorState.createEmpty(),
+      content: '',
       height: 0,
       style: {
-        width: '0px',
-        height: '0px',
+        // width: '0px',
+        // height: '0px',
         transform: 'translate(0px, 0px)'
       },
       wasDragged: false,
-      width: 0,
+      // width: 0,
       x: 0,
       y: 0
     }
@@ -53,9 +56,10 @@ export default class TextItem extends React.Component {
     this._handleEditorChange = this._handleEditorChange.bind(this)
     this._handleEditorFocus = this._handleEditorFocus.bind(this)
     this._handleMouseDown = this._handleMouseDown.bind(this)
-    this._handleResize = this._handleResize.bind(this)
-    this._handleResizeStop = this._handleResizeStop.bind(this)
-    // this._handleWheel = this._handleWheel.bind(this)
+    // this._handleResize = this._handleResize.bind(this)
+    // this._handleResizeStop = this._handleResizeStop.bind(this)
+    this._handleWheel = this._handleWheel.bind(this)
+    this._handleChange = this._handleChange.bind(this)
     this._shouldAllowDragAndResize = this._shouldAllowDragAndResize.bind(this)
     this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
@@ -66,9 +70,9 @@ export default class TextItem extends React.Component {
     if (this.props.isShowingMetadata) {
       className += ' is-showing-metadata'
     }
-    if (this._shouldAllowDragAndResize()) {
-      className += ' should-allow-drag-and-resize'
-    }
+    // if (this._shouldAllowDragAndResize()) {
+    //   className += ' should-allow-drag-and-resize'
+    // }
     if (this.props.navigationSource === this.props.item.get('id')) {
       className += ' navigation-source'
     }
@@ -100,12 +104,12 @@ export default class TextItem extends React.Component {
     this.setState({
       height: this.state.height,
       style: {
-        height: this.state.style.height,
-        width: this.state.style.width,
+        // height: this.state.style.height,
+        // width: this.state.style.width,
         transform: 'translate(' + x + 'px, ' + y + 'px)'
       },
       wasDragged: true,
-      width: this.state.width,
+      // width: this.state.width,
       x: x,
       y: y,
     })
@@ -116,7 +120,7 @@ export default class TextItem extends React.Component {
         this.props.setItemPosition(this.props.id, this.state.x, this.state.y)
       }
       else {
-        this.refs.editor.focus()
+        // this.refs.editor.focus()
         this.setState({
           editorIsFocused: true
         })
@@ -124,10 +128,9 @@ export default class TextItem extends React.Component {
     }
   }
   _handleEditorBlur(event) {
-    const rawState = convertToRaw(this.state.editorState.getCurrentContent())
-    this.props.setTextItemRawState(
+    this.props.setTextItemContent(
       this.props.item.get('id'),
-      rawState
+      this.state.content
     )
     this.setState({
       editorIsFocused: false
@@ -155,39 +158,44 @@ export default class TextItem extends React.Component {
     state['wasDragged'] = false
     this.setState(state)
   }
-  _handleResize(event, ui) {
-    if (!this._shouldAllowDragAndResize()) {
-      return false
-    }
-    let height = ui.size.height
-    if (height < C.MINIMUM_ITEM_HEIGHT) {
-      height = C.MINIMUM_ITEM_HEIGHT
-    }
-    this.setState({
-      height: height,
-      style: {
-        height: height + 'px',
-        width: C.TEXT_ITEM_ROW_WIDTH + 'px',
-        transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
-      },
-      wasDragged: this.state.wasDragged,
-      width: C.TEXT_ITEM_ROW_WIDTH,
-      x: this.state.x,
-      y: this.state.y
-    })
-  }
-  _handleResizeStop(event, ui) {
-    if (this._shouldAllowDragAndResize()) {
-      this.props.setItemSize(this.props.id, this.state.height, this.state.width)
-    }
-  }
-  // _handleWheel(event) {
-  //   event.stopPropagation()
+  // _handleResize(event, ui) {
+  //   if (!this._shouldAllowDragAndResize()) {
+  //     return false
+  //   }
+  //   let height = ui.size.height
+  //   if (height < C.MINIMUM_ITEM_HEIGHT) {
+  //     height = C.MINIMUM_ITEM_HEIGHT
+  //   }
+  //   this.setState({
+  //     height: height,
+  //     style: {
+  //       // height: height + 'px',
+  //       // width: C.TEXT_ITEM_ROW_WIDTH + 'px',
+  //       transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
+  //     },
+  //     wasDragged: this.state.wasDragged,
+  //     // width: C.TEXT_ITEM_ROW_WIDTH,
+  //     x: this.state.x,
+  //     y: this.state.y
+  //   })
   // }
+  // _handleResizeStop(event, ui) {
+  //   if (this._shouldAllowDragAndResize()) {
+  //     this.props.setItemSize(this.props.id, this.state.height, this.state.width)
+  //   }
+  // }
+  _handleWheel(event) {
+    event.stopPropagation()
+  }
   _shouldAllowDragAndResize() {
     return this.props.user.get('uid') === this.props.item.get('userId') &&
       !this.props.isShowingMetadata &&
       !this.state.editorIsFocused
+  }
+  _handleChange(ev) {
+    this.setState({
+      content: ev.target.value
+    })
   }
   componentDidUpdate(prevProps) {
     if (this.props.item.get('isFocused', false)) {
@@ -199,32 +207,33 @@ export default class TextItem extends React.Component {
     }
   }
   componentWillMount() {
-    if (this.props.item.get('rawState') !== undefined) {
-      const rawState = this.props.item.get('rawState').toJS()
-      if (rawState.entityMap === undefined) {
-        rawState.entityMap = {} // Thanks firebase
-      }
-      const contentState = convertFromRaw(rawState)
-      this.setState({
-        editorState: EditorState.createWithContent(contentState)
-      })
-    }
-    else {
-      this.setState({
-        editorState: EditorState.createEmpty()
-      })
-    }
+    // if (this.props.item.get('rawState') !== undefined) {
+      // const rawState = this.props.item.get('rawState').toJS()
+      // if (rawState.entityMap === undefined) {
+      //   rawState.entityMap = {} // Thanks firebase
+      // }
+      // const contentState = convertFromRaw(rawState)
+    this.setState({
+      content: this.props.item.get('content')
+    })
+    // }
+    // else {
+    //   this.setState({
+    //     // editorState: EditorState.createEmpty(),
+    //     content: '',
+    //   })
+    // }
     const x = this.props.item.get('x')
     const y = this.props.item.get('y')
     this.setState({
       height: this.props.item.get('height'),
       style: {
-        height: this.props.item.get('height') + 'px',
-        width: this.props.item.get('width') + 'px',
+        // height: this.props.item.get('height') + 'px',
+        // width: this.props.item.get('width') + 'px',
         transform: 'translate(' + x + 'px, ' + y + 'px)'
       },
       wasDragged: this.state.wasDragged,
-      width: this.props.item.get('width'),
+      // width: this.props.item.get('width'),
       x: x,
       y: y
     })
@@ -237,55 +246,69 @@ export default class TextItem extends React.Component {
         rawState.entityMap = {} // Thanks firebase
       }
       const contentState = convertFromRaw(rawState)
-      const dangerousInnerHtml = {
-        __html: stateToHTML(contentState)
-      }
-      content = <div className='dangerous'
-        dangerouslySetInnerHTML={dangerousInnerHtml} />
+      // const dangerousInnerHtml = {
+      //   __html: stateToHTML(contentState)
+      // }
+      // content = <div className='dangerous'
+      //   dangerouslySetInnerHTML={dangerousInnerHtml} />
+      content = <MultipleColumnText value={this.state.content} />
     }
-    if (!this.props.user.isEmpty()) {
-      if (this.props.item.get('userId') === this.props.user.get('uid')) {
-        content = <Editor editorState={this.state.editorState}
+    if (!this.props.user.isEmpty() && this.props.item.get('userId') === this.props.user.get('uid')) {
+      const editor =
+        <Editor
+          value={this.state.content}
+          onChange={this._handleChange}
+          onWheel={this._handleWheel}
           onBlur={this._handleEditorBlur}
-          onChange={this._handleEditorChange}
-          onFocus={this._handleEditorFocus}
-          ref='editor' />
-      }
+        />
+      const textView =
+        <MultipleColumnText
+          value={this.state.content}
+          onClick={this._handleEditorFocus}
+        />
+
+      // content = <Editor editorState={this.state.editorState}
+      //   onBlur={this._handleEditorBlur}
+      //   onChange={this._handleEditorChange}
+      //   onFocus={this._handleEditorFocus}
+      //   ref='editor' />
+      content = this.state.editorIsFocused ? editor : textView;
     }
 
     let linkStills = null;
     if (!this.state.editorIsFocused) linkStills = <LinkStills item={this.props.item} />
-    
+
     return (
       <DraggableCore cancel='.react-resizable-handle'
         onDrag={this._handleDrag}
         onStop={this._handleDragStop}
         onMouseDown={this._handleMouseDown}>
-        <Resizable height={this.state.height}
+        {/* <Resizable height={this.state.height}
           onClick={this._handleClick}
           onResize={this._handleResize}
           onResizeStop={this._handleResizeStop}
-          width={this.state.width}>
-          <div className={this._getClassName()}
-            ref='textItem'
-            style={this.state.style}>
-            <div className='text-item-content'
-              ref='textItemContent'>
-              {content}
-            </div>
-            <Metadata baseUrl={this.props.baseUrl}
-              deleteItem={this.props.deleteItem}
-              featuredItemId={this.props.featuredItemId}
-              hideMetadata={this.props.hideMetadata}
-              isShowingMetadata={this.props.isShowingMetadata}
-              item={this.props.item}
-              setFeaturedItemId={this.props.setFeaturedItemId}
-              setItemMetadata={this.props.setItemMetadata}
-              user={this.props.user} />
-            <Unlink itemId={this.props.item.get('id')} />
-            {linkStills}
+          width={this.state.width}> */}
+        <div className={this._getClassName()}
+          ref='textItem'
+          style={this.state.style}
+        >
+          <div className='text-item-content'
+            ref='textItemContent'>
+            {content}
           </div>
-        </Resizable>
+          <Metadata baseUrl={this.props.baseUrl}
+            deleteItem={this.props.deleteItem}
+            featuredItemId={this.props.featuredItemId}
+            hideMetadata={this.props.hideMetadata}
+            isShowingMetadata={this.props.isShowingMetadata}
+            item={this.props.item}
+            setFeaturedItemId={this.props.setFeaturedItemId}
+            setItemMetadata={this.props.setItemMetadata}
+            user={this.props.user} />
+          <Unlink itemId={this.props.item.get('id')} />
+          {linkStills}
+        </div>
+        {/* </Resizable> */}
       </DraggableCore>
     )
   }

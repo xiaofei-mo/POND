@@ -136,7 +136,7 @@ class Page extends React.Component {
             setFeaturedItemId={this.props.setFeaturedItemId}
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
-            setTextItemRawState={this.props.setTextItemRawState}
+            setTextItemContent={this.props.setTextItemContent}
             setItemMetadata={this.props.setItemMetadata}
             navigationSource={this.props.navigationSource}
             navigationDestination={this.props.navigationDestination}
@@ -270,7 +270,7 @@ function mapDispatchToProps(dispatch) {
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
-    setTextItemRawState: bindActionCreators(actions.setTextItemRawState,
+    setTextItemContent: bindActionCreators(actions.setTextItemContent,
       dispatch)
   }
 }

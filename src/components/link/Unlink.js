@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // import actions from '../../actions';
 
 const propTypes = {
-  itemId: PropTypes.string.isRequired,
+  itemId: PropTypes.string,
 };
 
 class Unlink extends React.PureComponent {

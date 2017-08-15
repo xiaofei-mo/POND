@@ -117,7 +117,7 @@ class FilterPage extends React.Component {
                            itemClicked={this.props.itemClicked}
                            key={key} 
                            setFeaturedItemId={this.props.setFeaturedItemId}
-                           setTextItemRawState={this.props.setTextItemRawState} 
+                           setTextItemContent={this.props.setTextItemContent} 
                            setItemMetadata={this.props.setItemMetadata}
                            user={this.props.user} />
         case 'video':
@@ -188,7 +188,7 @@ function mapDispatchToProps (dispatch) {
     pageClicked: bindActionCreators(actions.pageClicked, dispatch),
     setFeaturedItemId: bindActionCreators(actions.setFeaturedItemId, dispatch),
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
-    setTextItemRawState: bindActionCreators(actions.setTextItemRawState, dispatch)
+    setTextItemContent: bindActionCreators(actions.setTextItemContent, dispatch)
   }
 }
 

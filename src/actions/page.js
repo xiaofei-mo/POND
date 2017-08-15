@@ -17,7 +17,7 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { A } from '../constants'
+import { A, C } from '../constants'
 import firebase from '../utils/firebase'
 import Immutable from 'immutable'
 import getSecondsFromString from '../utils/getSecondsFromString'
@@ -38,14 +38,14 @@ export default {
         const timing = lastTimingTransactionRef.snapshot.val()
         const itemsRef = ref.child('items')
         const itemRef = itemsRef.push({
-          contentState: '',
+          content: '',
           height: 300,
           isFeatured: false,
           pageId: pageId,
           timing: timing,
           type: 'text',
           userId: user.get('uid'),
-          width: 400,
+          width: C.TEXT_ITEM_ROW_WIDTH,
           x: x,
           y: y
         })
@@ -176,10 +176,10 @@ export default {
     }
   },
 
-  setTextItemRawState: (id, rawState) => {
+  setTextItemContent: (id, content) => {
     return (dispatch, getState) => {
       firebase.database().ref().child('items').child(id).update({
-        rawState: rawState
+        content
       })
     }
   },
