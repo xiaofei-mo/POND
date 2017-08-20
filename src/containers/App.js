@@ -82,8 +82,13 @@ class App extends React.Component {
     }
     // We need to use `getElementById` here because the Dropzone component makes
     // it difficult to access its underlying <div> directly.
-    let scroller = document.getElementById('scroller')
-    scroller.scrollLeft = scroller.scrollLeft + event.deltaY
+    const scroller = document.getElementById('scroller')
+
+    const scrollRange = scroller.scrollWidth - window.innerWidth
+    let scrollTo = (scroller.scrollLeft + event.deltaY) % scrollRange
+    if (scrollTo < 0) scrollTo += scrollRange
+
+    scroller.scrollLeft = scrollTo
   }
   componentWillMount() {
     this.props.listenToAuth()
