@@ -124,6 +124,7 @@ app.get('*', (req, res, next) => {
     <html>
       <head>
         <meta charset="utf-8" />
+        <script language="javascript" type="text/javascript" src="/static/p5.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/style.css" />
         <script>
           var config=${JSON.stringify(config)}
@@ -131,6 +132,10 @@ app.get('*', (req, res, next) => {
         <title>mysteriousobjectsatnoon</title>
       </head>
       <body>
+        <div id="rays">
+          <script language="javascript" type="text/javascript" src="/static/sketch.js"></script>
+        </div>
+
         <div id="mount"></div>
         <img alt="" class="hidden" src="/static/haumea_uploading.gif" />
       </body>
