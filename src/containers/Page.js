@@ -140,7 +140,9 @@ class Page extends React.Component {
             setItemMetadata={this.props.setItemMetadata}
             navigationSource={this.props.navigationSource}
             navigationDestination={this.props.navigationDestination}
-            user={this.props.user} />
+            user={this.props.user}
+            halfway={this.props.halfway}
+            paddingLeft={this.props.paddingLeft} />
         case 'video':
           return <VideoItem baseUrl={this.props.baseUrl}
             deleteItem={this.props.deleteItem}
@@ -223,7 +225,7 @@ class Page extends React.Component {
         ref='page'
         style={this._getStyle()}
       >
-          {items}
+        {items}
         <Uploads />
       </div>
     )

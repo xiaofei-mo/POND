@@ -23,6 +23,7 @@ import { DraggableCore } from 'react-draggable'
 import fadeIn from '../../utils/fadeIn'
 import fadeOut from '../../utils/fadeOut'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
+import setHashBySeconds from '../../utils/setHashBySeconds'
 import Metadata from '../metadata/Metadata'
 import PosterImage from './PosterImage'
 import React from 'react'
@@ -207,6 +208,10 @@ export default class VideoItem extends React.Component {
     const zoneRightIsInViewport = zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport
     return zoneLeftIsInViewport || zoneRightIsInViewport
   }
+  _setHash() {
+    const timing = this.props.item.get('timing')
+    setHashBySeconds(timing)
+  }
   componentDidMount() {
     this._setVolume(0)
     this._load()
@@ -290,6 +295,7 @@ export default class VideoItem extends React.Component {
         }
       }
       else if (!this._shouldBeMuted(nextProps)) {
+        this._setHash()
         if (!this.isFadingIn) {
           fadeIn((v) => {
             this.isFadingIn = true

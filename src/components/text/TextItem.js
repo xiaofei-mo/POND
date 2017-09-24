@@ -29,6 +29,7 @@ import Unlink from '../link/Unlink'
 import LinkStills from '../link/LinkStills'
 import MultipleColumnText from './MultipleColumnText'
 import Editor from './Editor'
+import setHashBySeconds from '../../utils/setHashBySeconds'
 
 export default class TextItem extends React.Component {
   constructor() {
@@ -158,32 +159,6 @@ export default class TextItem extends React.Component {
     state['wasDragged'] = false
     this.setState(state)
   }
-  // _handleResize(event, ui) {
-  //   if (!this._shouldAllowDragAndResize()) {
-  //     return false
-  //   }
-  //   let height = ui.size.height
-  //   if (height < C.MINIMUM_ITEM_HEIGHT) {
-  //     height = C.MINIMUM_ITEM_HEIGHT
-  //   }
-  //   this.setState({
-  //     height: height,
-  //     style: {
-  //       // height: height + 'px',
-  //       // width: C.TEXT_ITEM_ROW_WIDTH + 'px',
-  //       transform: 'translate(' + this.state.x + 'px, ' + this.state.y + 'px)'
-  //     },
-  //     wasDragged: this.state.wasDragged,
-  //     // width: C.TEXT_ITEM_ROW_WIDTH,
-  //     x: this.state.x,
-  //     y: this.state.y
-  //   })
-  // }
-  // _handleResizeStop(event, ui) {
-  //   if (this._shouldAllowDragAndResize()) {
-  //     this.props.setItemSize(this.props.id, this.state.height, this.state.width)
-  //   }
-  // }
   _handleWheel(event) {
     event.stopPropagation()
   }
@@ -197,6 +172,25 @@ export default class TextItem extends React.Component {
       content: ev.target.value
     })
   }
+  _shouldSetHash(props) {
+    const zoneLeft = props.item.get('x') + props.paddingLeft
+    const zoneRight = props.item.get('x') +
+      (props.item.get('width') || C.TEXT_ITEM_ROW_WIDTH) +
+      props.paddingLeft
+    if (props.halfway > zoneLeft && props.halfway < zoneRight) {
+      return true
+    }
+    return false
+  }
+  _setHash() {
+    const timing = this.props.item.get('timing')
+    setHashBySeconds(timing)
+  }
+  componentWillReceiveProps(nextProps) {
+    if (!this._shouldSetHash(this.props) && this._shouldSetHash(nextProps)) {
+      this._setHash()
+    }
+  }
   componentDidUpdate(prevProps) {
     if (this.props.item.get('isFocused', false)) {
       if (!prevProps.item.get('isFocused', false)) {
@@ -207,22 +201,9 @@ export default class TextItem extends React.Component {
     }
   }
   componentWillMount() {
-    // if (this.props.item.get('rawState') !== undefined) {
-      // const rawState = this.props.item.get('rawState').toJS()
-      // if (rawState.entityMap === undefined) {
-      //   rawState.entityMap = {} // Thanks firebase
-      // }
-      // const contentState = convertFromRaw(rawState)
     this.setState({
       content: this.props.item.get('content')
     })
-    // }
-    // else {
-    //   this.setState({
-    //     // editorState: EditorState.createEmpty(),
-    //     content: '',
-    //   })
-    // }
     const x = this.props.item.get('x')
     const y = this.props.item.get('y')
     this.setState({

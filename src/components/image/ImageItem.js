@@ -1,6 +1,7 @@
 import { C } from '../../constants'
 import { DraggableCore } from 'react-draggable'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
+import setHashBySeconds from '../../utils/setHashBySeconds'
 import Metadata from '../metadata/Metadata'
 import React from 'react'
 import { Resizable } from 'react-resizable'
@@ -155,6 +156,18 @@ export default class ImageItem extends React.Component {
     const zoneRightIsInViewport = zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport
     return zoneLeftIsInViewport || zoneRightIsInViewport
   }
+  _shouldSetHash(props) {
+    const zoneLeft = props.item.get('x') + props.paddingLeft
+    const zoneRight = props.item.get('x') + props.item.get('width') + props.paddingLeft
+    if (props.halfway > zoneLeft && props.halfway < zoneRight) {
+      return true
+    }
+    return false
+  }
+  _setHash() {
+    const timing = this.props.item.get('timing')
+    setHashBySeconds(timing)
+  }
   componentWillMount() {
     const x = this.props.item.get('x')
     const y = this.props.item.get('y')
@@ -190,6 +203,10 @@ export default class ImageItem extends React.Component {
     this.setState({
       shouldBeRendered: shouldBeRendered
     })
+
+    if (!this._shouldSetHash(this.props) && this._shouldSetHash(nextProps)) {
+      this._setHash()
+    }
   }
   render() {
     let image = null
