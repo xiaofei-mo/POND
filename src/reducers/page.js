@@ -17,14 +17,14 @@
  * along with mysteriousobjectsatnoon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { A } from '../constants'
+import { A, C } from '../constants'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
   baseUrl: '',
   destinationItem: Immutable.Map(),
   featuredItemId: null,
-  height: 0,
+  height: C.VIEWPORT_HEIGHT,
   items: Immutable.Map(),
   pageId: null,
   scrollLeft: 0,
@@ -84,7 +84,7 @@ export default function pageReducer(state = initialState, action) {
 
     case A.WINDOW_CHANGED_SIZE:
       return state.merge({
-        height: action.payload.get('height'),
+        // height: action.payload.get('height'),
         width: action.payload.get('width')
       })
 

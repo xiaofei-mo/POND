@@ -33,6 +33,7 @@ import ReactDOM from 'react-dom'
 import reducer from './reducers';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import thunk from 'redux-thunk'
+import { C } from './constants'
 
 // for redux-devtools extension
 const composeEnhancers =
@@ -67,6 +68,11 @@ ReactDOM.render(
 store.dispatch(actions.setBaseUrl(window.location.href))
 
 window.addEventListener('resize', () => {
+  // Scale to a constant height
+  const body = document.getElementsByTagName('body')[0]
+  const zoomRate = window.innerHeight / C.VIEWPORT_HEIGHT
+  body.style.zoom = zoomRate > 0.5 ? zoomRate : 0.5
+
   store.dispatch(actions.setWindowSize(window.innerWidth, window.innerHeight))
 })
 window.dispatchEvent(new Event('resize'))
