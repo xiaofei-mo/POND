@@ -7,9 +7,9 @@
     z-index: 4;
   }
 
-  &.should-show-placeholder {
-    background-color: $placeholder-purple-gray;
-  }
+  // &.should-show-placeholder {
+  //   background-color: $placeholder-purple-gray;
+  // }
 
   &.is-showing-metadata {
     background-color: transparent;
@@ -75,6 +75,9 @@
     transition: opacity 3s 4s;
     opacity: 1;
   }
+  .image-item.navigation-source {
+    opacity: .5;
+  }
 }
 
 .is-in-linking-transition.stage-2 {
@@ -90,5 +93,10 @@
     // Except the destination item -- fade it out to invisibility.
     transition: opacity 3s;
     opacity: 0;
+  }
+
+  .image-item.navigation-destination {
+    transition: opacity 1s;
+    opacity: 1;
   }
 }

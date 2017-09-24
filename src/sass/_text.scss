@@ -52,7 +52,7 @@
 
   .text-item-content,
   .public-DraftEditor-content {
-    overflow-y: hidden;
+    overflow-y: visible;
     padding-right: 15px;
   }
 
@@ -61,4 +61,74 @@
       margin: 0
     }
   }
+}
+
+.is-in-linking-transition {
+
+  .text-item {
+    // Once destination item is clicked, all unrelated text items fade away.
+    transition: opacity 3s;
+    opacity: 0;
+  }
+
+  .text-item.is-destination-item {
+    // Except the destination item. We're going to dim it via its obstructor's 
+    // opacity in the component code.
+    opacity: 1;
+  }
+
+  .text-item.is-source-item {
+    // Delay fading the source item back in by 4s. But at the 4s mark, fade it 
+    // back in over 3s.
+    transition: opacity 3s 4s;
+    opacity: 1;
+  }
+
+  .text-item.navigation-source {
+    opacity: .5;
+  }
+}
+
+.is-in-linking-transition.stage-2 {
+  // In linking transition stage 2 (after 4s),
+
+  .text-item {
+    // fade all text items back in.
+    transition: opacity 3s;
+    opacity: 1;
+  }
+
+  .text-item.is-destination-item {
+    // Except the destination item -- fade it out to invisibility.
+    transition: opacity 3s;
+    opacity: 0;
+  }
+
+  .text-item.navigation-destination {
+    transition: opacity 1s;
+    opacity: 1;
+  }
+}
+
+.multiple-column-text {
+  &.placeholder {
+    opacity: .6;
+    font-size: 80%;
+  }
+
+  white-space: pre-wrap;
+  column-width: 350px;
+  width: 350px;
+  overflow: visible;
+  height: 40vh;
+}
+
+.text-item-editor {
+  height: 40vh;
+  border: none;
+  padding: 0;
+  color: #fff;
+  background: transparent;
+  width: 350px;
+  resize: none;
 }

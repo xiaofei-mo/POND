@@ -136,9 +136,13 @@ class Page extends React.Component {
             setFeaturedItemId={this.props.setFeaturedItemId}
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
-            setTextItemRawState={this.props.setTextItemRawState}
+            setTextItemContent={this.props.setTextItemContent}
             setItemMetadata={this.props.setItemMetadata}
-            user={this.props.user} />
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
+            user={this.props.user}
+            halfway={this.props.halfway}
+            paddingLeft={this.props.paddingLeft} />
         case 'video':
           return <VideoItem baseUrl={this.props.baseUrl}
             deleteItem={this.props.deleteItem}
@@ -159,6 +163,8 @@ class Page extends React.Component {
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
             setItemMetadata={this.props.setItemMetadata}
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
 
         case 'audio':
@@ -181,6 +187,8 @@ class Page extends React.Component {
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
             setItemMetadata={this.props.setItemMetadata}
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
 
         case 'image':
@@ -203,6 +211,8 @@ class Page extends React.Component {
             setItemPosition={this.props.setItemPosition}
             setItemSize={this.props.setItemSize}
             setItemMetadata={this.props.setItemMetadata}
+            navigationSource={this.props.navigationSource}
+            navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
         default:
           return null
@@ -215,7 +225,7 @@ class Page extends React.Component {
         ref='page'
         style={this._getStyle()}
       >
-          {items}
+        {items}
         <Uploads />
       </div>
     )
@@ -235,6 +245,8 @@ function mapStateToProps(state) {
     leftEdgeOfViewport: getLeftEdgeOfViewport(state),
     linkDestinationItem: state.getIn(['link', 'destination', 'item']),
     linkSourceItem: state.getIn(['link', 'source', 'item']),
+    navigationSource: state.getIn(['link', 'navigationSource']),
+    navigationDestination: state.getIn(['link', 'navigationDestination']),
     paddingLeft: getPaddingLeft(state),
     paddingRight: getPaddingRight(state),
     pageId: state.getIn(['page', 'pageId']),
@@ -260,7 +272,7 @@ function mapDispatchToProps(dispatch) {
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
-    setTextItemRawState: bindActionCreators(actions.setTextItemRawState,
+    setTextItemContent: bindActionCreators(actions.setTextItemContent,
       dispatch)
   }
 }

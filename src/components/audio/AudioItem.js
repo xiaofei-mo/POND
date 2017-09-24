@@ -3,10 +3,13 @@ import { DraggableCore } from 'react-draggable';
 import fadeIn from '../../utils/fadeIn';
 import fadeOut from '../../utils/fadeOut';
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl';
+import setHashBySeconds from '../../utils/setHashBySeconds'
 import Metadata from '../metadata/Metadata';
 import Waveform from './Waveform';
 import React from 'react';
 import { Resizable } from 'react-resizable';
+import Unlink from '../link/Unlink';
+import LinkStills from '../link/LinkStills';
 
 export default class AudioItem extends React.Component {
   constructor() {
@@ -60,6 +63,12 @@ export default class AudioItem extends React.Component {
     }
     else if (this.audioRef && this.audioRef.readyState < 4) {
       className += ' should-show-placeholder'
+    }
+    if (this.props.navigationSource === this.props.item.get('id')) {
+      className += ' navigation-source'
+    }
+    if (this.props.navigationDestination === this.props.item.get('id')) {
+      className += ' navigation-destination'
     }
     return className
   }
@@ -177,6 +186,10 @@ export default class AudioItem extends React.Component {
     const zoneRightIsInViewport = zoneRight > props.leftEdgeOfViewport && zoneRight < props.rightEdgeOfViewport
     return zoneLeftIsInViewport || zoneRightIsInViewport
   }
+  _setHash() {
+    const timing = this.props.item.get('timing');
+    setHashBySeconds(timing);
+  }
   componentDidMount() {
     this._setVolume(0)
     this._load()
@@ -258,6 +271,7 @@ export default class AudioItem extends React.Component {
         }
       }
       else if (!this._shouldBeMuted(nextProps)) {
+        this._setHash()        
         if (!this.isFadingIn) {
           fadeIn((v) => {
             this.isFadingIn = true
@@ -321,6 +335,8 @@ export default class AudioItem extends React.Component {
               setFeaturedItemId={this.props.setFeaturedItemId}
               setItemMetadata={this.props.setItemMetadata}
               user={this.props.user} />
+            <Unlink itemId={this.props.item.get('id')} />
+            <LinkStills item={this.props.item} />
           </div>
         </Resizable>
       </DraggableCore>
