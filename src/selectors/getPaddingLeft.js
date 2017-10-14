@@ -26,6 +26,7 @@ export default createSelector(
   state => state.getIn(['page', 'width']),
   
   (isInFilterMode, items, filteredItems, width) => {
+    const padding = width / 2
     let leftmostItem = items.minBy(item => item.get('x'))
     if (isInFilterMode) {
       leftmostItem = filteredItems.minBy(item => item.get('x'))
@@ -35,8 +36,8 @@ export default createSelector(
     }
     const x = leftmostItem.get('x')
     if (x > 0) {
-      return width - x
+      return padding - x
     }
-    return Math.abs(x) + width
+    return Math.abs(x) + padding
   }
 )

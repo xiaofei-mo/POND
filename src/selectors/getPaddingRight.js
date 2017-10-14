@@ -26,6 +26,7 @@ export default createSelector(
   state => state.getIn(['page', 'width']),
 
   (isInFilterMode, items, filteredItems, width) => {
+    const padding = width / 2
     let rightmostItem = items.maxBy(item => (item.get('width') + item.get('x')))
     if (isInFilterMode) {
       rightmostItem = filteredItems.maxBy(item => (item.get('width') + item.get('x')))
@@ -33,6 +34,6 @@ export default createSelector(
     if (rightmostItem === undefined) {
       return 0
     }
-    return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + width)
+    return Math.abs(rightmostItem.get('x') + rightmostItem.get('width') + padding)
   }
 )
