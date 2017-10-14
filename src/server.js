@@ -129,7 +129,7 @@ app.get('*', (req, res, next) => {
         <script>
           var config=${JSON.stringify(config)}
         </script>
-        <title>mysteriousobjectsatnoon</title>
+        <title>Poetic Objects Never Decay</title>
       </head>
       <body>
         <div id="rays">
