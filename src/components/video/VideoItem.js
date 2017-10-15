@@ -32,6 +32,18 @@ import Video from 'react-html5video'
 import Unlink from '../link/Unlink'
 import LinkStills from '../link/LinkStills'
 
+const Placeholder = ({ item }) => {
+  const sslUrl = item.getIn(['results', 'posterImage', 'ssl_url'])
+  if (sslUrl === undefined) {
+    return null
+  }
+  const backgroundImage = 'url(' + getCloudFrontUrl(sslUrl) + ')'
+  const style = {
+    backgroundImage: backgroundImage
+  }
+  return <div className='video-placeholder' style={style}></div>
+}
+
 export default class VideoItem extends React.Component {
   constructor() {
     super()
@@ -349,6 +361,7 @@ export default class VideoItem extends React.Component {
             style={this.state.style}>
             {video}
             <div className='obstructor'></div>
+            <Placeholder item={this.props.item} />
             <PosterImage item={this.props.item} />
             <Metadata baseUrl={this.props.baseUrl}
               deleteItem={this.props.deleteItem}

@@ -33,7 +33,10 @@ video {
   }
 
   &.should-show-placeholder {
-    background-color: $placeholder-purple-gray;
+    .video-placeholder {
+      display: block;
+      z-index: 6;
+    }
   }
 
   &.is-showing-metadata {
@@ -70,6 +73,15 @@ video {
     background-size: cover;
     // We want the video to cover the poster image once it loads.
     z-index: 2;
+  }
+
+  .video-placeholder {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 
