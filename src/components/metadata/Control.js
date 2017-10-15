@@ -36,11 +36,14 @@ export default class Control extends React.Component {
   }
   _handleClick (event) {
     event.preventDefault()
-    if (!this.props.isShowingMetadata) {
-      this.props.showMetadata()
-    }
-    else {
-      this.props.hideMetadata()
+    // if (!this.props.isShowingMetadata) {
+    //   this.props.showMetadata()
+    // }
+    // else {
+    //   this.props.hideMetadata()
+    // }
+    if (this.props.userIsLoaded) {
+      this.props.navigateToUserPage(this.props.user.get('username'))
     }
   }
   _handleDragStart (event) {
@@ -67,11 +70,11 @@ export default class Control extends React.Component {
     }
     const defaultPosition = { x: 40, y: (this.props.windowHeight * 0.10) }
     let className = 'metadata-control app-control'
-    let img = <img src='/static/haumea.png' alt='Metadata' />
-    if (!this.props.uploads.isEmpty()) {
-      className += ' is-uploading'
-      img = <img src='/static/haumea_uploading.gif' alt='Uploading...' />
-    }
+    let img = <img src='/static/haumea_uploading.gif' alt='Metadata' />
+    // if (!this.props.uploads.isEmpty()) {
+    //   className += ' is-uploading'
+    //   img = <img src='/static/haumea_uploading.gif' alt='Uploading...' />
+    // }
     return (
       <Draggable bounds={bounds} defaultPosition={defaultPosition}>
         <a className={className}

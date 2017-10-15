@@ -162,5 +162,9 @@ export default {
     return {
       type: A.SHOW_METADATA
     }
+  },
+
+  navigateToUserPage: (username) => {
+    return push(`/${username}`)
   }
 }
