@@ -25,6 +25,7 @@ import fadeOut from '../../utils/fadeOut'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
 import setHashBySeconds from '../../utils/setHashBySeconds'
 import Metadata from '../metadata/Metadata'
+import ControlBar from '../metadata/ControlBar'
 import PosterImage from './PosterImage'
 import React from 'react'
 import { Resizable } from 'react-resizable'
@@ -363,11 +364,9 @@ export default class VideoItem extends React.Component {
             <div className='obstructor'></div>
             <Placeholder item={this.props.item} />
             <PosterImage item={this.props.item} />
-            <Metadata baseUrl={this.props.baseUrl}
+            <ControlBar baseUrl={this.props.baseUrl}
               deleteItem={this.props.deleteItem}
               featuredItemId={this.props.featuredItemId}
-              hideMetadata={this.props.hideMetadata}
-              isShowingMetadata={this.props.isShowingMetadata}
               item={this.props.item}
               setFeaturedItemId={this.props.setFeaturedItemId}
               setItemMetadata={this.props.setItemMetadata}

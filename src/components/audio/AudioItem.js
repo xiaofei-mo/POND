@@ -4,7 +4,7 @@ import fadeIn from '../../utils/fadeIn';
 import fadeOut from '../../utils/fadeOut';
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl';
 import setHashBySeconds from '../../utils/setHashBySeconds'
-import Metadata from '../metadata/Metadata';
+import ControlBar from '../metadata/ControlBar';
 import Waveform from './Waveform';
 import React from 'react';
 import { Resizable } from 'react-resizable';
@@ -326,7 +326,7 @@ export default class AudioItem extends React.Component {
             {audio}
             <div className='obstructor'></div>
             <Waveform item={this.props.item} />
-            <Metadata baseUrl={this.props.baseUrl}
+            <ControlBar baseUrl={this.props.baseUrl}
               deleteItem={this.props.deleteItem}
               featuredItemId={this.props.featuredItemId}
               hideMetadata={this.props.hideMetadata}

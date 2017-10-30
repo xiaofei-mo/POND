@@ -126,3 +126,68 @@
     }
   }
 }
+
+.control-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 48px;
+  width: 100%;
+  z-index: 10;
+  padding: 8px;
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .delete-btn,
+  .featured,
+  .copy-url-btn {
+    margin: 0 16px;
+    float: right;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  .delete-btn {
+    background-image: url("/static/x.svg");
+    width: 24px;
+    height: 24px;
+    margin: 4px;
+  }
+  .featured {
+    background-image: url("/static/check_off.svg");
+
+    &.checked {
+      background-image: url("/static/check_on.svg");    
+    }
+  }
+  .copy-url-btn {
+    background-image: url("/static/copyurl.svg");
+    position: relative;
+    
+    .target {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0;
+    }
+
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+  }
+}

@@ -33,7 +33,7 @@ class Unlink extends React.PureComponent {
       <div
         className="unlink"
       >
-        <div style={{ backgroundImage: 'url("/static/unlink.png")' }}></div>
+        <div style={{ backgroundImage: 'url("/static/breaklink.svg")' }}></div>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import { C } from '../../constants'
 import { DraggableCore } from 'react-draggable'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
 import setHashBySeconds from '../../utils/setHashBySeconds'
-import Metadata from '../metadata/Metadata'
+import ControlBar from '../metadata/ControlBar'
 import React from 'react'
 import { Resizable } from 'react-resizable'
 import Unlink from '../link/Unlink'
@@ -234,7 +234,7 @@ export default class ImageItem extends React.Component {
             style={this.state.style}>
             {image}
             <div className='obstructor'></div>
-            <Metadata baseUrl={this.props.baseUrl}
+            <ControlBar baseUrl={this.props.baseUrl}
               deleteItem={this.props.deleteItem}
               featuredItemId={this.props.featuredItemId}
               hideMetadata={this.props.hideMetadata}
