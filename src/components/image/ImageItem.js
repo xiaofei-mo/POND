@@ -206,8 +206,17 @@ export default class ImageItem extends React.Component {
 
     if (!this._shouldSetHash(this.props) && this._shouldSetHash(nextProps)) {
       this._setHash()
+      this._requestPoetry()
     }
   }
+  _requestPoetry() {
+    console.log('item-----------',this.props.item);
+    this.props.getPoetry(
+      this.props.item.getIn(['results', 'encode', 'ssl_url']),
+      this.props.item.getIn(['results', 'encode', 'mime']),
+    )
+  }
+
   render() {
     let image = null
     if (this.state.shouldBeRendered) {

@@ -225,6 +225,15 @@ export default class VideoItem extends React.Component {
     const timing = this.props.item.get('timing')
     setHashBySeconds(timing)
   }
+
+  // _requestPoetry() {
+  //   console.log('item-----------',this.props.item);
+  //   this.props.getPoetry(
+  //     this.props.item.getIn(['results', 'encode', 'ssl_url']),
+  //     this.props.item.getIn(['results', 'encode', 'mime']),
+  //   )
+  // }
+
   componentDidMount() {
     this._setVolume(0)
     this._load()
@@ -309,6 +318,8 @@ export default class VideoItem extends React.Component {
       }
       else if (!this._shouldBeMuted(nextProps)) {
         this._setHash()
+        // this._requestPoetry()
+
         if (!this.isFadingIn) {
           fadeIn((v) => {
             this.isFadingIn = true

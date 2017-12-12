@@ -24,6 +24,7 @@ import linkReducer from './link'
 import pageReducer from './page'
 import routerReducer from './router'
 import uploadReducer from './upload'
+import poetryReducer from './poetry'
 
 export default combineReducers({
   app: appReducer,
@@ -31,5 +32,6 @@ export default combineReducers({
   link: linkReducer,
   page: pageReducer,
   routing: routerReducer,
-  upload: uploadReducer
+  upload: uploadReducer,
+  poetry: poetryReducer,
 })

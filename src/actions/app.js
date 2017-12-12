@@ -110,6 +110,17 @@ export default {
   listenToAuth: () => {
     return (dispatch, getState) => {
       const auth = firebase.auth()
+      auth.onIdTokenChanged((user) => {
+        if (user) {
+          user.getIdToken().then((token) => {
+            dispatch({
+              type: A.RECEIVED_TOKEN,
+              payload: token
+            })
+          })
+        }
+      })
+
       auth.onAuthStateChanged((authData) => {
         if (authData === null) {
           dispatch({
