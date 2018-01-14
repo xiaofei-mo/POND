@@ -210,7 +210,6 @@ export default class ImageItem extends React.Component {
     }
   }
   _requestPoetry() {
-    console.log('item-----------',this.props.item);
     this.props.getPoetry(
       this.props.item.getIn(['results', 'encode', 'ssl_url']),
       this.props.item.getIn(['results', 'encode', 'mime']),

@@ -166,7 +166,7 @@ class Page extends React.Component {
             setItemMetadata={this.props.setItemMetadata}
             navigationSource={this.props.navigationSource}
             navigationDestination={this.props.navigationDestination}
-            getPoetry={this.props.getPoetry}
+            getPoetry={this.props.getCaption}
             user={this.props.user} />
 
         case 'audio':
@@ -278,6 +278,7 @@ function mapDispatchToProps(dispatch) {
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
     getPoetry: bindActionCreators(actions.getPoetry, dispatch),
+    getCaption: bindActionCreators(actions.getCaption, dispatch),
     setTextItemContent: bindActionCreators(actions.setTextItemContent,
       dispatch)
   }
