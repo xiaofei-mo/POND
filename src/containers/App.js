@@ -134,6 +134,9 @@ class App extends React.Component {
             uploads={this.props.uploads}
             windowHeight={this.props.windowHeight}
             windowWidth={this.props.windowWidth}
+            user={this.props.user}
+            userIsLoaded={this.props.userIsLoaded}
+            navigateToUserPage={this.props.navigateToUserPage}
           />
           <Filter />
           <Link />
@@ -185,6 +188,7 @@ function mapDispatchToProps(dispatch) {
     hideMetadata: bindActionCreators(actions.hideMetadata, dispatch),
     listenToAuth: bindActionCreators(actions.listenToAuth, dispatch),
     logout: bindActionCreators(actions.logout, dispatch),
+    navigateToUserPage: bindActionCreators(actions.navigateToUserPage, dispatch),
     showMetadata: bindActionCreators(actions.showMetadata, dispatch)
   }
 }

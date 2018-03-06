@@ -35,6 +35,7 @@ import VideoItem from '../components/video/VideoItem'
 import Uploads from './Uploads'
 import AudioItem from '../components/audio/AudioItem'
 import ImageItem from '../components/image/ImageItem'
+import Poetry from '../components/poetry/Poetry'
 
 class Page extends React.Component {
   constructor() {
@@ -165,6 +166,7 @@ class Page extends React.Component {
             setItemMetadata={this.props.setItemMetadata}
             navigationSource={this.props.navigationSource}
             navigationDestination={this.props.navigationDestination}
+            getPoetry={this.props.getCaption}
             user={this.props.user} />
 
         case 'audio':
@@ -212,6 +214,7 @@ class Page extends React.Component {
             setItemSize={this.props.setItemSize}
             setItemMetadata={this.props.setItemMetadata}
             navigationSource={this.props.navigationSource}
+            getPoetry={this.props.getPoetry}
             navigationDestination={this.props.navigationDestination}
             user={this.props.user} />
         default:
@@ -227,6 +230,7 @@ class Page extends React.Component {
       >
         {items}
         <Uploads />
+        <Poetry poetry={this.props.poetry} />
       </div>
     )
   }
@@ -254,6 +258,7 @@ function mapStateToProps(state) {
     scrollDestination: getScrollDestination(state),
     scrollLeft: state.getIn(['page', 'scrollLeft']),
     user: state.getIn(['app', 'user']),
+    poetry: state.getIn(['poetry', 'poetry']),
     width: state.getIn(['page', 'width'])
   }
 }
@@ -272,6 +277,8 @@ function mapDispatchToProps(dispatch) {
     setItemMetadata: bindActionCreators(actions.setItemMetadata, dispatch),
     setItemPosition: bindActionCreators(actions.setItemPosition, dispatch),
     setItemSize: bindActionCreators(actions.setItemSize, dispatch),
+    getPoetry: bindActionCreators(actions.getPoetry, dispatch),
+    getCaption: bindActionCreators(actions.getCaption, dispatch),
     setTextItemContent: bindActionCreators(actions.setTextItemContent,
       dispatch)
   }

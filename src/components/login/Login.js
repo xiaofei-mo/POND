@@ -274,21 +274,21 @@ export default class Login extends React.Component {
     if (!this.props.user.isEmpty()) {
       // Is the user on her own page?
       const username = this.props.user.get('username')
-      const timingOrUsername = this.props.params.timingOrUsername
-      if (username === timingOrUsername) {
-        // Yes -- display the logout prompt.
-        return (
-          <div className='login'>
-            <Logout onClick={this._handleLogoutClick} username={username} />
-          </div>
-        )
-      }
-      // No -- display a link to the user's page.
+      // const timingOrUsername = this.props.params.timingOrUsername
+      // if (username === timingOrUsername) {
+      // Yes -- display the logout prompt.
       return (
         <div className='login'>
-          <Link to={'/' + username}>{username}</Link>
+          <Logout onClick={this._handleLogoutClick} username={username} />
         </div>
       )
+      // }
+      // No -- display a link to the user's page.
+      // return (
+      //   <div className='login'>
+      //     <Link to={'/' + username}>{username}</Link>
+      //   </div>
+      // )
     }
     // User is not logged in.
     return (

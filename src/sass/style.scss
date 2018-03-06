@@ -175,7 +175,7 @@ a {
 
 .should-allow-drag-and-resize .react-resizable-handle {
   display: block;
-  background-color: $white;
+  background-color: transparent;
   width: 10px;
   height: 10px;
   position: absolute;
@@ -203,6 +203,22 @@ a {
   background-color: rgba(0,0,0,1);
 }
 
+.pond_text {
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	text-align: center;
+	font-size: 80px;
+	font-family:Arial, Helvetica, sans-serif;
+    color:#fff;
+    -webkit-text-fill-color: transparent;
+    background: -webkit-linear-gradient(transparent, transparent),
+    url('/static/grain.png') repeat;
+    background: -o-linear-gradient(transparent, transparent);
+	-webkit-background-clip: text;
+	background-size: cover; 
+}
+
 @import 'filter';
 @import 'link';
 @import 'login';
@@ -212,3 +228,4 @@ a {
 @import 'video';
 @import 'audio';
 @import 'image';
+@import 'poetry';

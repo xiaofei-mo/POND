@@ -32,11 +32,11 @@ const initialState = Immutable.Map({
   shouldSignUp: false,
   signedUp: false,
   signUpFailed: false,
+  token: null
 })
 
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
-
     case A.HIDE_METADATA:
     case A.METADATA_WAS_SET:
     case A.TOGGLE_LINKING_MODE:
@@ -52,6 +52,7 @@ export default function appReducer(state = initialState, action) {
           .set('shouldSignUp', false)
           .set('signedUp', false)
           .set('signUpFailed', false)
+          .set('idToken', null)
       })
 
     case A.LOGIN_ATTEMPTED:
@@ -114,6 +115,11 @@ export default function appReducer(state = initialState, action) {
         loginFailed: false,
         user: action.payload.get('user'),
         userIsLoaded: true
+      })
+
+    case A.RECEIVED_TOKEN:
+      return state.merge({
+        token: action.payload
       })
 
     case A.SHOW_METADATA:

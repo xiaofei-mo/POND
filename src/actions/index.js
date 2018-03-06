@@ -22,6 +22,7 @@ import filterActions from './filter'
 import linkActions from './link'
 import pageActions from './page'
 import uploadActions from './upload'
+import poetryActions from './poetry'
 
 export default Object.assign(
   {}, 
@@ -29,5 +30,6 @@ export default Object.assign(
   filterActions,
   linkActions,
   pageActions, 
-  uploadActions
+  uploadActions,
+  poetryActions
 )

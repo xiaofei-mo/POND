@@ -25,12 +25,25 @@ import fadeOut from '../../utils/fadeOut'
 import getCloudFrontUrl from '../../utils/getCloudFrontUrl'
 import setHashBySeconds from '../../utils/setHashBySeconds'
 import Metadata from '../metadata/Metadata'
+import ControlBar from '../metadata/ControlBar'
 import PosterImage from './PosterImage'
 import React from 'react'
 import { Resizable } from 'react-resizable'
 import Video from 'react-html5video'
 import Unlink from '../link/Unlink'
 import LinkStills from '../link/LinkStills'
+
+const Placeholder = ({ item }) => {
+  const sslUrl = item.getIn(['results', 'posterImage', 'ssl_url'])
+  if (sslUrl === undefined) {
+    return null
+  }
+  const backgroundImage = 'url(' + getCloudFrontUrl(sslUrl) + ')'
+  const style = {
+    backgroundImage: backgroundImage
+  }
+  return <div className='video-placeholder' style={style}></div>
+}
 
 export default class VideoItem extends React.Component {
   constructor() {
@@ -212,6 +225,15 @@ export default class VideoItem extends React.Component {
     const timing = this.props.item.get('timing')
     setHashBySeconds(timing)
   }
+  _requestPoetry() {
+    console.log('item-----------',this.props.item);
+    this.props.getPoetry(
+      this.props.item.getIn(['results', 'encode', 'ssl_url']),
+      this.props.item.getIn(['results', 'encode', 'mime']),
+      this.props.item.getIn(['results', 'encode', 'meta', 'duration']),
+    )
+  }
+
   componentDidMount() {
     this._setVolume(0)
     this._load()
@@ -296,6 +318,8 @@ export default class VideoItem extends React.Component {
       }
       else if (!this._shouldBeMuted(nextProps)) {
         this._setHash()
+        this._requestPoetry()
+
         if (!this.isFadingIn) {
           fadeIn((v) => {
             this.isFadingIn = true
@@ -349,12 +373,11 @@ export default class VideoItem extends React.Component {
             style={this.state.style}>
             {video}
             <div className='obstructor'></div>
+            <Placeholder item={this.props.item} />
             <PosterImage item={this.props.item} />
-            <Metadata baseUrl={this.props.baseUrl}
+            <ControlBar baseUrl={this.props.baseUrl}
               deleteItem={this.props.deleteItem}
               featuredItemId={this.props.featuredItemId}
-              hideMetadata={this.props.hideMetadata}
-              isShowingMetadata={this.props.isShowingMetadata}
               item={this.props.item}
               setFeaturedItemId={this.props.setFeaturedItemId}
               setItemMetadata={this.props.setItemMetadata}
