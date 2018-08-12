@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import { A } from '../constants';
 
 const request = axios.create({
-  baseURL: '//ec2-54-244-12-60.us-west-2.compute.amazonaws.com:5000'
+  baseURL: '//54.245.220.55:5000'
 });
 
 export default {
