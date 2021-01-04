@@ -21,7 +21,7 @@
     "webpack": "^3.0.0"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "babel-core": "^6.25.0",
     "body-parser": "^1.17.2",
     "clipboard": "^1.5.15",
